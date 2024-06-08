@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\milom\\source\\repos\\trie\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|C:\\Users\\milom\\source\\repos\\trie\\trie\\trie.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|solutionrelative:trie\\trie.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "trie.cpp",
+              "DocumentMoniker": "C:\\Users\\milom\\source\\repos\\trie\\trie\\trie.cpp",
+              "RelativeDocumentMoniker": "trie\\trie.cpp",
+              "ToolTip": "C:\\Users\\milom\\source\\repos\\trie\\trie\\trie.cpp",
+              "RelativeToolTip": "trie\\trie.cpp",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAADgAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-07T14:11:20.198Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
