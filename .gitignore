@@ -111,3 +111,4 @@ xcuserdata/
 weirdmultilingualdictionary.code-workspace
 .vscode/launch.json
 .vscode/tasks.json
+Makefile
