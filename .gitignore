@@ -108,3 +108,6 @@ xcuserdata/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+weirdmultilingualdictionary.code-workspace
+.vscode/launch.json
+.vscode/tasks.json
