@@ -40,3 +40,10 @@ trie/.vs/
 *.json
 *.ipch
 *.sln
+*.tlog
+*.pdb
+*.idb
+*.log
+*.user
+*.filters
+*.vcxproj
