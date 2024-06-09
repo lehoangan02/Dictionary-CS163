@@ -6,7 +6,7 @@ struct trieNode
 {
 	bool wordExisted;
 	trieNode** next;
-	std::vector<std::pair<std::string, std::string>> definintions;
+	std::vector<std::pair<std::string, std::string>> definitions;
 	trieNode(bool wordExisted)
 	{
 		this -> wordExisted = wordExisted;
