@@ -34,3 +34,9 @@
 # .vs files
 .vs/
 trie/.vs/
+.DS_Store
+*.vsidx
+*.db
+*.json
+*.ipch
+*.sln
