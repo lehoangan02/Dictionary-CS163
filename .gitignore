@@ -40,6 +40,13 @@ trie/.vs/
 *.json
 *.ipch
 *.sln
+*.tlog
+*.pdb
+*.idb
+*.log
+*.user
+*.filters
+*.vcxproj
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
