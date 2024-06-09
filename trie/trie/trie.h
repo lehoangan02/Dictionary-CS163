@@ -1,9 +1,14 @@
 #pragma once
+#include <string>
+#include <vector>
+
+using namespace std;
 
 struct trienode
 {
 	bool wordexisted;
 	trienode** next;
+	vector<pair<string, string>> definintions; //import all meanings to this vector, word form in first string, definition in second
 	trienode(bool here)
 	{
 		wordexisted = here;
@@ -11,6 +16,11 @@ struct trienode
 		for (int i = 0; i < 26; i++) next[i] = nullptr;
 	}
 };
+
+void load()
+{
+	//load a csv line to c++ whatever thing
+}
 
 void insert(trienode*& t, string word)
 {
@@ -36,4 +46,3 @@ bool find(trienode* t, string word)
 	if (word.length() == 0) return t->wordexisted;
 	else return find(t->next[word[0] - 97], word.erase(0, 1));
 }
-
