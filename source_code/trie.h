@@ -8,12 +8,12 @@ struct trienode
 {
 	bool wordexisted;
 	trienode** next;
-	vector<pair<string, string>> definintions; //import all meanings to this vector, word form in first string, definition in second
+	vector<pair<string, string>> definintions;
 	trienode(bool here)
 	{
 		wordexisted = here;
-		next = new trienode * [26];
-		for (int i = 0; i < 26; i++) next[i] = nullptr;
+		next = new trienode * [69]; // ASCII from 32 to 64 and from 91 to 126
+		for (int i = 0; i < 69; i++) next[i] = nullptr;
 	}
 };
 
