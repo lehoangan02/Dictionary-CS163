@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\",
+  "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\trie\\trie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\trie\\trie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|solutionrelative:trie\\trie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\trie\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\trie\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7516EA12-B781-47D2-B84C-89AF42A41AA1}|trie\\trie.vcxproj|solutionrelative:trie\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -28,11 +28,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "trie.h",
-              "DocumentMoniker": "D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\trie\\trie.h",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\trie\\trie.h",
               "RelativeDocumentMoniker": "trie\\trie.h",
-              "ToolTip": "D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\trie\\trie.h",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\trie\\trie.h",
               "RelativeToolTip": "trie\\trie.h",
-              "ViewState": "AQIAACcAAAAAAAAAAAAAAC8AAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-06-08T14:18:26.428Z",
               "EditorCaption": ""
@@ -41,14 +41,13 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "main.cpp",
-              "DocumentMoniker": "D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\trie\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\trie\\main.cpp",
               "RelativeDocumentMoniker": "trie\\main.cpp",
-              "ToolTip": "D:\\Code\\dictionary\\weirdmultilingualdictionary\\trie\\trie\\main.cpp",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\HCMUS\\III_23-24\\Data Structures\\GroupProject\\weirdmultilingualdictionary\\trie\\trie\\main.cpp",
               "RelativeToolTip": "trie\\main.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-07T14:11:20.198Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T14:11:20.198Z"
             }
           ]
         }
