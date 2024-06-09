@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-	trienode* trie = nullptr;
+	trieNode* trie = nullptr;
 	string word = "";
 	while (1)
 	{
