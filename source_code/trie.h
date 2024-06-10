@@ -10,8 +10,13 @@ struct trieNode
 	trieNode(bool wordExisted)
 	{
 		this -> wordExisted = wordExisted;
-		next = new trieNode* [69]; // ASCII from 32 to 64 and from 91 to 126
-		for (int i = 0; i < 69; i++) next[i] = nullptr;
+		next = new trieNode* [29]; 
+		// 0->25: letters
+		// 26: space (' ')
+		// 27: dash ('-')
+		// 28: apostrophe (')
+
+		for (int i = 0; i < 29; i++) next[i] = nullptr;
 	}
 };
 
