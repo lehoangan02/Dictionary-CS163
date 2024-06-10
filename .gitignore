@@ -113,3 +113,6 @@ weirdmultilingualdictionary.code-workspace
 .vscode/tasks.json
 Makefile
 *.json
+x64
+.vs
+
