@@ -18,8 +18,7 @@ int main()
 		}
 		insert(trie, word);
 	}
-	cout << find(trie, "hello");
+	
 	return 0;
 }
 
-//uihfjdshfiu
