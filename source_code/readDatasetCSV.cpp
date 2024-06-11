@@ -1,3 +1,4 @@
+#include "trie.h"
 #include "readDatasetCSV.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
 bool readDatasetCSV(std::string filename, trieNode*& pRoot)
