@@ -4,9 +4,9 @@ CXX_FLAGS := -Wall -Wextra -std=c++17 -g
 BIN		:= bin
 SRC		:= source_code
 INCLUDE	:= include
-LIB		:= lib2
+LIB		:= lib
 
-LIBRARIES	:=
+LIBRARIES	:= -lsfml-graphics -lsfml-window -lsfml-system
 EXECUTABLE	:= main
 
 all: $(BIN)/$(EXECUTABLE)
