@@ -140,6 +140,45 @@ void search(trieNode* pRoot, std::string word)
 	traverseToSearch(pRoot, word);
 }
 
+void remove(trieNode*& pRoot, std::string word)
+{
+	if (!pRoot)
+		return;
+	if (word.size() == 0)
+	{
+		if (pRoot->wordExisted)
+		{
+			if (!isLeaf(pRoot))
+			{
+				pRoot->wordExisted = false;
+				pRoot->definitions.clear();
+			}
+			else
+			{
+				delete pRoot;
+				pRoot = nullptr;
+			}
+		}
+		return;
+	}
+	char head = tolower(word[0]);
+	int indexNext = 0;
+	if (head >= 'a' && head <= 'z')
+		indexNext = head - 97;
+	else if (head == ' ')
+		indexNext = 26;
+	else if (head == '-')
+		indexNext = 27;
+	else
+		indexNext = 28;
+	remove(pRoot->next[indexNext], word.erase(0, 1));
+	if (isLeaf(pRoot) && !pRoot->wordExisted)
+	{
+		delete pRoot;
+		pRoot = nullptr;
+	}
+}
+
 void deleteTrie(trieNode*& pRoot)
 {
 	if (!pRoot)
@@ -148,6 +187,19 @@ void deleteTrie(trieNode*& pRoot)
 	{
 		deleteTrie(pRoot->next[i]);
 	}
+	delete [] pRoot->next;
 	delete pRoot;
 	pRoot = nullptr;
+}
+
+bool isLeaf(trieNode* pRoot)
+{
+	if (!pRoot)
+		return false;
+	for (int i = 0; i < 29 && isLeaf; ++i)
+	{
+		if (pRoot->next[i])
+			return false;
+	}
+	return true;
 }
