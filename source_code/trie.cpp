@@ -219,11 +219,10 @@ void deleteTrie(trieNode*& pRoot)
 {
 	if (!pRoot)
 		return;
-	for (int i = 0; i < 29; ++i)
+	for (int i = 0; i < ascii; ++i)
 	{
 		deleteTrie(pRoot->childNode[i]);
-	}
-	delete [] pRoot->childNode;
+	} //update
 	delete pRoot;
 	pRoot = nullptr;
 }
@@ -232,7 +231,7 @@ bool isLeaf(trieNode* pRoot)
 {
 	if (!pRoot)
 		return false;
-	for (int i = 0; i < 29 && isLeaf; ++i)
+	for (int i = 0; i < ascii && isLeaf; ++i)
 	{
 		if (pRoot->childNode[i])
 			return false;
