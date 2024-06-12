@@ -29,6 +29,7 @@ struct Node
 
 	Node(std::string key) : word(key), next(nullptr) {};
 };
+
 void Change2Lowercase(std::string& word);
 bool Checkingexistance(std::string s1, std::string s2);
 void insert(trieNode*& pCurrent, std::string word, std::vector<std::pair<std::string, std::string>> definitions);

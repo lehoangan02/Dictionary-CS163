@@ -170,10 +170,7 @@ void search(trieNode* pRoot, std::string word)
 	}
 
 	// convert all the letters to lowercase
-	for (int i = 0; i < (int)word.length(); i++)
-	{
-		word[i] = tolower(word[i]);
-	}
+	Change2Lowercase(word);
 
 	// traverse the trie to find the word
 	traverseToSearch(pRoot, word);
