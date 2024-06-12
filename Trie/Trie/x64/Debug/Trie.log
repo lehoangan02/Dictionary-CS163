@@ -1,2 +1,6 @@
 ﻿  trie.cpp
-  Trie.vcxproj -> C:\Users\DELL\Desktop\HCMUS\III_23-24\Data Structures\GroupProject\weirdmultilingualdictionary\Trie\x64\Debug\Trie.exe
+  LINK : C:\Users\DELL\Desktop\HCMUS\III_23-24\Data Structures\GroupProject\weirdmultilingualdictionary\Trie\x64\Debug\Trie.exe not found or not built by the last incremental link; performing full link
+trie.obj : error LNK2005: "bool __cdecl find(struct trienode *,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?find@@YA_NPEAUtrienode@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in main.obj
+trie.obj : error LNK2005: "void __cdecl insert(struct trienode * &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?insert@@YAXAEAPEAUtrienode@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in main.obj
+trie.obj : error LNK2005: "void __cdecl load(void)" (?load@@YAXXZ) already defined in main.obj
+C:\Users\DELL\Desktop\HCMUS\III_23-24\Data Structures\GroupProject\weirdmultilingualdictionary\Trie\x64\Debug\Trie.exe : fatal error LNK1169: one or more multiply defined symbols found

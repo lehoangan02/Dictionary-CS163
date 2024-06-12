@@ -8,7 +8,7 @@ struct trienode
 {
 	bool wordexisted;
 	trienode** next;
-	vector<pair<string, string>> definintions; //import all meanings to this vector, word form in first string, definition in second
+	vector<pair<string, string>> definitions; //import all meanings to this vector, word form in first string, definition in second
 	trienode(bool here)
 	{
 		wordexisted = here;
@@ -45,4 +45,16 @@ bool find(trienode* t, string word)
 	if (!t) return false;
 	if (word.length() == 0) return t->wordexisted;
 	else return find(t->next[word[0] - 97], word.erase(0, 1));
+}
+
+void deleteTrie(trienode*& pRoot)
+{
+	if (!pRoot)
+		return;
+	for (int i = 0; i < 29; ++i)
+	{
+		deleteTrie(pRoot->next[i]);
+	}
+	delete pRoot;
+	pRoot = nullptr;
 }
