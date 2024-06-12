@@ -2,11 +2,68 @@
 #include <vector>
 #include <string>
 #include <cctype>
+#include <algorithm>
 #include "trie.h"
 
-void insert(trieNode*& pCurrent, std::string word)
+void Change2Lowercase(std::string& word)
 {
-	
+	// Check if the string is empty before transforming
+	if (!word.empty()) {
+		std::transform(word.begin(), word.end(), word.begin(),
+			[](unsigned char c) { return std::tolower(c); });
+	}
+}
+
+bool Checkingexistance(std::string s1, std::string s2)
+{
+	if (s1.size() != s2.size()) return false;
+	for (int i = 0; i < s1.size(); ++i)
+	{
+		if (s1[i] != s2[i]) return false;
+	}
+	return true;
+}
+
+void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
+{
+	if (word.empty()) return;
+
+	if (!pRoot)
+	{
+		pRoot = new trieNode();
+	}
+	Change2Lowercase(word);
+	trieNode* cur = pRoot;
+	for (auto c : word)
+	{
+		if (!cur->childNode[int(c) - 32])
+		{
+			trieNode* newNode = new trieNode();
+			cur->childNode[int(c) - 32] = newNode;
+		}
+		cur = cur->childNode[int(c) - 32];
+	}
+	cur->wordExisted = true;
+
+	for (auto mean : definitions)
+	{
+		Change2Lowercase(mean.first);
+		Change2Lowercase(mean.second);
+		bool check = false;
+		for (auto x : cur->definitions)
+		{
+			//first checking whether they are the same parts of speech, and then the meaning.
+			if (Checkingexistance(x.first, mean.first) && Checkingexistance(x.second, mean.second))
+			{
+				check = true;
+				break;
+			}
+		}
+		if (!check)
+		{
+			cur->definitions.push_back(mean);
+		}
+	}
 }
 
 void traverseToSearch(trieNode* pRoot, std::string word)
