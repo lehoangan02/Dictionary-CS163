@@ -2,25 +2,33 @@
 #include <string>
 #include <vector>
 
+const int ascii = 96; //32-127
+
 struct trieNode
 {
-	bool wordExisted;
-	trieNode** next;
+	bool wordExisted = false;
+	trieNode* childNode[96];
 	std::vector<std::pair<std::string, std::string>> definitions;
-	trieNode(bool wordExisted)
+	trieNode()
 	{
-		this -> wordExisted = wordExisted;
-		next = new trieNode* [29]; 
 		// 0->25: letters
 		// 26: space (' ')
 		// 27: dash ('-')
 		// 28: apostrophe (')
 
-		for (int i = 0; i < 29; i++) next[i] = nullptr;
+		for (int i = 0; i < ascii; ++i) this->childNode[i] = nullptr;
+		this->definitions.resize(0);
 	}
 };
 
-void load();
+//for favorite list and searched words.
+struct Node
+{
+	std::string word;
+	Node* next;
+
+	Node(std::string key) : word(key), next(nullptr) {};
+};
 
 void insert(trieNode*& pCurrent, std::string word);
 

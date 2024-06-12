@@ -4,27 +4,9 @@
 #include <cctype>
 #include "trie.h"
 
-void load()
-{
-
-}
-
 void insert(trieNode*& pCurrent, std::string word)
 {
-	if (pCurrent == nullptr)
-	{
-		if (word.length() == 0) pCurrent = new trieNode(true);
-		else
-		{
-			pCurrent = new trieNode(false);
-			insert(pCurrent->next[word[0] - 97], word.erase(0, 1));
-		}
-	}
-	else
-	{
-		if (word.length() == 0) pCurrent->wordExisted = true;
-		else insert(pCurrent->next[word[0] - 97], word.erase(0, 1));
-	}
+	
 }
 
 void traverseToSearch(trieNode* pRoot, std::string word)
@@ -54,12 +36,12 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 	if (word[0] >= 'a' && word[0] <= 'z')
 	{
 
-		// if the next pointer of that letter is not null, continue traversing
-		if (pRoot->next[word[0] - 97])
+		// if the childNode pointer of that letter is not null, continue traversing
+		if (pRoot->childNode[word[0] - 97])
 		{
 
 			// erase the first letter
-			traverseToSearch(pRoot->next[word[0] - 97], word.erase(0, 1));
+			traverseToSearch(pRoot->childNode[word[0] - 97], word.erase(0, 1));
 		}
 		else
 		{
@@ -71,11 +53,11 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 	else if (word[0] == ' ')
 	{
 		// 26 is index for blank space
-		if (pRoot->next[26])
+		if (pRoot->childNode[26])
 		{
 
 			// erase the first letter
-			return traverseToSearch(pRoot->next[26], word.erase(0, 1));
+			return traverseToSearch(pRoot->childNode[26], word.erase(0, 1));
 		}
 		else
 		{
@@ -87,11 +69,11 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 	else if (word[0] == '-')
 	{
 		// 26 is index for blank space
-		if (pRoot->next[27])
+		if (pRoot->childNode[27])
 		{
 
 			// erase the first letter
-			return traverseToSearch(pRoot->next[27], word.erase(0, 1));
+			return traverseToSearch(pRoot->childNode[27], word.erase(0, 1));
 		}
 		else
 		{
@@ -103,11 +85,11 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 	else if (word[0] == '\'')
 	{
 		// 26 is index for blank space
-		if (pRoot->next[28])
+		if (pRoot->childNode[28])
 		{
 
 			// erase the first letter
-		    traverseToSearch(pRoot->next[28], word.erase(0, 1));
+		    traverseToSearch(pRoot->childNode[28], word.erase(0, 1));
 		}
 		else
 		{
@@ -171,7 +153,7 @@ void remove(trieNode*& pRoot, std::string word)
 		indexNext = 27;
 	else
 		indexNext = 28;
-	remove(pRoot->next[indexNext], word.erase(0, 1));
+	remove(pRoot->childNode[indexNext], word.erase(0, 1));
 	if (isLeaf(pRoot) && !pRoot->wordExisted)
 	{
 		delete pRoot;
@@ -185,9 +167,9 @@ void deleteTrie(trieNode*& pRoot)
 		return;
 	for (int i = 0; i < 29; ++i)
 	{
-		deleteTrie(pRoot->next[i]);
+		deleteTrie(pRoot->childNode[i]);
 	}
-	delete [] pRoot->next;
+	delete [] pRoot->childNode;
 	delete pRoot;
 	pRoot = nullptr;
 }
@@ -198,7 +180,7 @@ bool isLeaf(trieNode* pRoot)
 		return false;
 	for (int i = 0; i < 29 && isLeaf; ++i)
 	{
-		if (pRoot->next[i])
+		if (pRoot->childNode[i])
 			return false;
 	}
 	return true;

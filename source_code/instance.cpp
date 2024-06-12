@@ -1,5 +1,4 @@
 #include<SFML/Graphics.hpp>
-
 #include "instance.h"
 
 instance::instance() : windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close)

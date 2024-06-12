@@ -1,6 +1,7 @@
 #include "trie.h"
 #include "readDatasetCSV.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
+
 bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 {
     std::ifstream inputStream;
@@ -36,7 +37,10 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         // assuming the insert function will be 
         // insert(trieNode*& pRoot, std::string keyword, std::pair<std::string, std::string>> definition);
         // the function call will be
-        insert(pRoot, word, std::pair<std::string, std::string>{POS, description});
+
+
+        //insert(pRoot, word, std::pair<std::string, std::string>{POS, description});
+
         line = "";
     }
     return true;
