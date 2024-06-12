@@ -34,9 +34,9 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 
         // insert the word into trie
         // assuming the insert function will be 
-        // insertTrie(trieNode*& pRoot, std::string keyword, std::pair<std::string, std::string>> definition);
+        // insert(trieNode*& pRoot, std::string keyword, std::pair<std::string, std::string>> definition);
         // the function call will be
-        // insertTrie(pRoot, word, std::pair<std::string, std::string>{POS, description});
+        insert(pRoot, word, std::pair<std::string, std::string>{POS, description});
         line = "";
     }
     return true;
