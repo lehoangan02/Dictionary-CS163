@@ -27,3 +27,5 @@ void insert(trieNode*& pCurrent, std::string word);
 void traverseToSearch(trieNode* pRoot, std::string word);
 
 void search(trieNode* pRoot, std::string word);
+
+void deleteTrie(trieNode*& pRoot);

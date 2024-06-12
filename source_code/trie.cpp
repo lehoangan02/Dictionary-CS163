@@ -139,3 +139,15 @@ void search(trieNode* pRoot, std::string word)
 	// traverse the trie to find the word
 	traverseToSearch(pRoot, word);
 }
+
+void deleteTrie(trieNode*& pRoot)
+{
+	if (!pRoot)
+		return;
+	for (int i = 0; i < 29; ++i)
+	{
+		deleteTrie(pRoot->next[i]);
+	}
+	delete pRoot;
+	pRoot = nullptr;
+}
