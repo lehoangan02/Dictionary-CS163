@@ -105,9 +105,9 @@ class Button
         }
     }
     private:
-    void centerText()
+    virtual void centerText()
     {
-        buttonText.setPosition(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2,
-        buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2);
+        buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
+        (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2));
     }
 };
