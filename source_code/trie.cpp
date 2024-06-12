@@ -36,7 +36,7 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 		{
 			std::cout << "Here are the definitions of the word: \n";
 
-			for (int i = 0; i < pRoot->definitions.size(); i++)
+			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
 				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
 				std::cout << pRoot->definitions[i].second;
@@ -131,7 +131,7 @@ void search(trieNode* pRoot, std::string word)
 	}
 
 	// convert all the letters to lowercase
-	for (int i = 0; i < word.length(); i++)
+	for (int i = 0; i < (int)word.length(); i++)
 	{
 		word[i] = tolower(word[i]);
 	}
