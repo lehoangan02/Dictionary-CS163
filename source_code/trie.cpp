@@ -8,7 +8,8 @@
 void Change2Lowercase(std::string& word)
 {
 	// Check if the string is empty before transforming
-	if (!word.empty()) {
+	if (!word.empty()) 
+	{
 		std::transform(word.begin(), word.end(), word.begin(),
 			[](unsigned char c) { return std::tolower(c); });
 	}
@@ -66,7 +67,7 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 	}
 }
 
-void traverseToSearch(trieNode* pRoot, std::string word)
+std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
 {
 	// base case
 	if (word.length() == 0)
@@ -80,12 +81,12 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
 				std::cout << pRoot->definitions[i].second;
 			}
-			return;
+			return pRoot->definitions;
 		}
 		else
 		{
 			std::cout << "Word not found\n";
-			return;
+			return pRoot->definitions;
 		}
 	}
 
@@ -98,12 +99,12 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 		{
 
 			// erase the first letter
-			traverseToSearch(pRoot->childNode[word[0] - 97], word.erase(0, 1));
+			return traverseToSearch(pRoot->childNode[word[0] - 97], word.erase(0, 1));
 		}
 		else
 		{
 			std::cout << "Word not found\n";
-			return;
+			return pRoot->definitions;
 		}
 	}
 	// blank space case
@@ -119,7 +120,7 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 		else
 		{
 			std::cout << "Word not found\n";
-			return;
+			return pRoot->definitions;
 		}
 	}
 	// dash case
@@ -135,7 +136,7 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 		else
 		{
 			std::cout << "Word not found\n";
-			return;
+			return pRoot->definitions;
 		}
 	}
 	// apostrophe case
@@ -151,13 +152,13 @@ void traverseToSearch(trieNode* pRoot, std::string word)
 		else
 		{
 			std::cout << "Word not found\n";
-			return;
+			return pRoot->definitions;
 		}
 	}
 	else
 	{
 		std::cout << "Word not found\n";
-		return;
+		return pRoot->definitions;
 	}
 }
 
