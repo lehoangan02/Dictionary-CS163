@@ -38,8 +38,9 @@ void traverseToSearch(trieNode* pRoot, std::string word);
 
 void search(trieNode* pRoot, std::string word);
 
-void removeWord(trieNode*& pRoot, std::string word);
-
-void deleteTrie(trieNode*& pRoot);
-
 bool isLeaf(trieNode* pRoot);
+
+void RemoveAWord(trieNode*& pRoot, std::string word);
+
+void deleteWholeTrie(trieNode*& pRoot);
+

@@ -176,38 +176,42 @@ void search(trieNode* pRoot, std::string word)
 	traverseToSearch(pRoot, word);
 }
 
-void removeWord(trieNode*& pRoot, std::string word)
+//checking whether a trieNode a leaf node
+bool isLeaf(trieNode* pRoot)
 {
 	if (!pRoot)
-		return;
-	if (word.size() == 0)
+		return false;
+	for (int i = 0; i < ascii; ++i)
 	{
-		if (pRoot->wordExisted)
-		{
-			if (!isLeaf(pRoot))
-			{
-				pRoot->wordExisted = false;
-				pRoot->definitions.clear();
-			}
-			else
-			{
+		if (pRoot->childNode[i])
+			return false;
+	}
+	return true;
+}
+
+//7. Users can remove a word from the dictionary.
+void RemoveAWord(trieNode*& pRoot, std::string word)
+{
+	//base case
+	if (!pRoot)
+		return;
+	if (word.size() == 0)  {
+		if (pRoot->wordExisted) {
+			pRoot->wordExisted = false;
+			pRoot->definitions.clear();
+
+			//check whether it is the last node (delete) or prefix for other words.
+			if (!isLeaf(pRoot)) {
 				delete pRoot;
 				pRoot = nullptr;
 			}
 		}
 		return;
 	}
-	char head = tolower(word[0]);
-	int indexNext = 0;
-	if (head >= 'a' && head <= 'z')
-		indexNext = head - 97;
-	else if (head == ' ')
-		indexNext = 26;
-	else if (head == '-')
-		indexNext = 27;
-	else
-		indexNext = 28;
-	remove(pRoot->childNode[indexNext], word.erase(0, 1));
+
+	int indexNext = tolower(word[0]) - 32;
+	RemoveAWord(pRoot->childNode[indexNext], word.erase(0, 1));
+
 	if (isLeaf(pRoot) && !pRoot->wordExisted)
 	{
 		delete pRoot;
@@ -215,13 +219,14 @@ void removeWord(trieNode*& pRoot, std::string word)
 	}
 }
 
-void deleteTrie(trieNode*& pRoot)
+//delete the whole tree
+void deleteWholeTrie(trieNode*& pRoot)
 {
 	if (!pRoot)
 		return;
 	for (int i = 0; i < ascii; ++i)
 	{
-		deleteTrie(pRoot->childNode[i]);
+		deleteWholeTrie(pRoot->childNode[i]);
 	} //update
 	delete pRoot;
 	pRoot = nullptr;
@@ -231,7 +236,7 @@ bool isLeaf(trieNode* pRoot)
 {
 	if (!pRoot)
 		return false;
-	for (int i = 0; i < ascii; ++i)
+	for (int i = 0; i < ascii && isLeaf; ++i)
 	{
 		if (pRoot->childNode[i])
 			return false;
