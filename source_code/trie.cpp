@@ -232,15 +232,3 @@ void deleteWholeTrie(trieNode*& pRoot)
 	delete pRoot;
 	pRoot = nullptr;
 }
-
-bool isLeaf(trieNode* pRoot)
-{
-	if (!pRoot)
-		return false;
-	for (int i = 0; i < ascii && isLeaf; ++i)
-	{
-		if (pRoot->childNode[i])
-			return false;
-	}
-	return true;
-}
