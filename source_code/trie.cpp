@@ -176,7 +176,7 @@ void search(trieNode* pRoot, std::string word)
 	traverseToSearch(pRoot, word);
 }
 
-void remove(trieNode*& pRoot, std::string word)
+void removeWord(trieNode*& pRoot, std::string word)
 {
 	if (!pRoot)
 		return;
