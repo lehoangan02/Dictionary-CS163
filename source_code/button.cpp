@@ -1,9 +1,11 @@
 #include "button.hpp"
+// for non-text, non-hover buttons
 Button::Button(const sf::Texture& texture)
     {
         this -> textureDefault = texture;
         buttonSprite.setTexture(textureDefault);
     }
+// for non-hover, text button
 Button::Button(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize)
 {
     this -> textureDefault = texture;
@@ -15,6 +17,7 @@ Button::Button(const sf::Texture& texture, const sf::Font& font, std::string tex
     buttonText.setString(textString);
     centerText();
 }
+// for non-text, hover buttons
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover)
 {
     hover = true;
@@ -22,6 +25,7 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     buttonSprite.setTexture(textureDefault);
     this -> textureHover = textureHover;
 }
+// for text and hover buttons
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
 std::string textString, int characterSize)
 {
