@@ -31,7 +31,7 @@ struct Node
 };
 
 void Change2Lowercase(std::string& word);
-bool Checkingexistance(std::string s1, std::string s2);
+bool checkingExistance(std::string s1, std::string s2);
 void insert(trieNode*& pCurrent, std::string word, std::vector<std::pair<std::string, std::string>> definitions);
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word);
