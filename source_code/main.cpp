@@ -35,8 +35,10 @@ int main()
 				printf("please import the dataset first.\n");
 				break;
 			}
-
+			printf("search here: "); std::string searchObject; std::cin >> searchObject;
+			traverseToSearch(pRoot, searchObject);
 		}
+		break;
 		default:
 			break;
 		}

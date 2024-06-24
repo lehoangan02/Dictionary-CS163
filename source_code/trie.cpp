@@ -79,7 +79,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
 				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
-				std::cout << pRoot->definitions[i].second;
+				std::cout << pRoot->definitions[i].second << std::endl;
 			}
 			return pRoot->definitions;
 		}
