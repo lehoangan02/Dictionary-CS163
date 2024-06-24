@@ -91,15 +91,15 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	}
 
 	// letters case
-	if (word[0] >= 'a' && word[0] <= 'z')
+	if (word[0] >= 32 && word[0] <= 127)
 	{
 
 		// if the childNode pointer of that letter is not null, continue traversing
-		if (pRoot->childNode[word[0] - 97])
+		if (pRoot->childNode[word[0] - 32])
 		{
 
 			// erase the first letter
-			return traverseToSearch(pRoot->childNode[word[0] - 97], word.erase(0, 1));
+			return traverseToSearch(pRoot->childNode[word[0] - 32], word.erase(0, 1));
 		}
 		else
 		{
@@ -107,59 +107,8 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 			return pRoot->definitions;
 		}
 	}
-	// blank space case
-	else if (word[0] == ' ')
-	{
-		// 26 is index for blank space
-		if (pRoot->childNode[26])
-		{
-
-			// erase the first letter
-			return traverseToSearch(pRoot->childNode[26], word.erase(0, 1));
-		}
-		else
-		{
-			std::cout << "Word not found\n";
-			return pRoot->definitions;
-		}
-	}
-	// dash case
-	else if (word[0] == '-')
-	{
-		// 26 is index for blank space
-		if (pRoot->childNode[27])
-		{
-
-			// erase the first letter
-			return traverseToSearch(pRoot->childNode[27], word.erase(0, 1));
-		}
-		else
-		{
-			std::cout << "Word not found\n";
-			return pRoot->definitions;
-		}
-	}
-	// apostrophe case
-	else if (word[0] == '\'')
-	{
-		// 26 is index for blank space
-		if (pRoot->childNode[28])
-		{
-
-			// erase the first letter
-		    traverseToSearch(pRoot->childNode[28], word.erase(0, 1));
-		}
-		else
-		{
-			std::cout << "Word not found\n";
-			return pRoot->definitions;
-		}
-	}
-	else
-	{
-		std::cout << "Word not found\n";
-		return pRoot->definitions;
-	}
+	std::vector<std::pair<std::string, std::string>> blankVec;
+	return blankVec;
 }
 
 void search(trieNode* pRoot, std::string word)
