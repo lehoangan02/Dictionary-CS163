@@ -54,7 +54,7 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 		for (auto x : cur->definitions)
 		{
 			//first checking whether they are the same parts of speech, and then the meaning.
-			if (Checkingexistance(x.first, mean.first) && Checkingexistance(x.second, mean.second))
+			if (checkingExistance(x.first, mean.first) && checkingExistance(x.second, mean.second))
 			{
 				check = true;
 				break;
