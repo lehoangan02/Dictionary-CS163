@@ -21,25 +21,36 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         // read the keyword
         getline(tempStream, word, ',');
         Change2Lowercase(word);
+        std::cout << word << " ";
 
         // read the count (not used in our dictionary)
         getline(tempStream, tempString, ',');
-        count  = stoi(tempString);
 
         // read the position of speech
         getline(tempStream, POS, ',');
+        if (POS.length() >= 6)
         POS = POS.substr(3, POS.length() - 6);
+        std::cout << POS << " ";
 
         // read the description
         getline(tempStream, description, ',');
-        description = description.substr(3, description.length() - 6);
+        if (description.length() >= 6)
+            description = description.substr(3, description.length() - 6);
         removeQuotationMarkDuplicate(description);
+        std::cout << description << std::endl;
 
         // if word is the same, insert the word into vector
         // if word is new, then insert the vector (which contain the previous word)
-        if (word != previousWord)
+        if (word != previousWord && previousWord != "")
         {
+            std::cout << "[DEBUG] end of vec\n";
             insert(pRoot, previousWord, definitionVec);
+            for (int i = 0; i < definitionVec.size(); ++i)
+            {
+                // std::cout << previousWord << " ";
+                // std::cout << definitionVec[i].first << " ";
+                // std::cout << definitionVec[i].second << std::endl;
+            }
             definitionVec.clear();
         }
         else
@@ -52,12 +63,12 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
     // insert the last vector
     if (word != "")
     {
-        for (int i = 0; i < definitionVec.size(); ++i)
-        {
-            std::cout << word << " ";
-            std::cout << definitionVec[i].first << " ";
-            std::cout << definitionVec[i].second << std::endl;
-        }
+        // for (int i = 0; i < definitionVec.size(); ++i)
+        // {
+        //     std::cout << word << " ";
+        //     std::cout << definitionVec[i].first << " ";
+        //     std::cout << definitionVec[i].second << std::endl;
+        // }
         insert(pRoot, previousWord, definitionVec);
     }
     return true;

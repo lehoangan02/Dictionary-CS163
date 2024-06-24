@@ -35,7 +35,8 @@ int main()
 				printf("please import the dataset first.\n");
 				break;
 			}
-			printf("search here: "); std::string searchObject; std::cin >> searchObject;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			printf("search here: "); std::string searchObject; std::getline(std::cin, searchObject);
 			traverseToSearch(pRoot, searchObject);
 		}
 		break;

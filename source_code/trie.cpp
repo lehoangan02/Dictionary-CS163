@@ -75,7 +75,6 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		if (pRoot->wordExisted)
 		{
 			std::cout << "Here are the definitions of the word: \n";
-
 			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
 				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
