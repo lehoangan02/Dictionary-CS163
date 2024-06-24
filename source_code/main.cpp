@@ -3,26 +3,42 @@
 
 #include "trie.h"
 #include "instance.h"
+#include "readDatasetCSV.hpp"
 
 using namespace std;
 
 int main()
 {
-	instance mainInstance;
-	mainInstance.operate();
-}
-// insert code someone wrote
-// trieNode* trie = nullptr;
-// string word = "";
-// while (1)
-// {
-// 	getline(cin, word);
-// 	if (word.length() == 0) break;
-// 	for (int i = 0; i < word.length(); i++)
-// 	{
-// 		if (word[i] >= 65 && word[i] < 91) word[i] += 32;
-// 	}
-// 	insert(trie, word);
-// }
+	trieNode* pRoot = nullptr;
+	int mode = -1;
+	bool imported = false;
+	while (mode != 0)
+	{
+		printf("1 for importing the data\n");
+		printf("2 for searching the library\n");
+		std::cout << "mode: "<< std::endl;
+		std::cin >> mode;
+		switch (mode)
+		{
+		case 1:
+			{
+				std::string filepath; std::cout << "input filepath: "; std::cin >> filepath;
+				readDatasetCSV(filepath, pRoot);
+				printf("imported successfully\n");
+				imported = true;
+			}
+			break;
+		case 2:
+		{
+			if (!imported)
+			{
+				printf("please import the dataset first.\n");
+				break;
+			}
 
-// return 0;
+		}
+		default:
+			break;
+		}
+	}
+}

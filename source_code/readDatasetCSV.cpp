@@ -8,12 +8,13 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
     inputStream.open(filename);
     std::string line = "";
     getline(inputStream, line);
+    std::vector<std::pair<std::string, std::string>> definitionVec;
+    std::string word = ""; std::string previousWord = "";
+    std::string POS;
+    std::string description;
     while(getline(inputStream, line))
     {
-        std::string word;
         int count;
-        std::string POS;
-        std::string description;
         std::stringstream tempStream(line);
         std::string tempString = "";
         
@@ -34,15 +35,20 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         description = description.substr(3, description.length() - 6);
         removeQuotationMarkDuplicate(description);
 
-        // insert the word into trie
-        // assuming the insert function will be 
-        // insert(trieNode*& pRoot, std::string keyword, std::pair<std::string, std::string>> definition);
-        // the function call will be
-
-
-        //insert(pRoot, word, std::pair<std::string, std::string>{POS, description});
-
+        // if word is the same, insert the word into vector
+        // if word is new, then insert the vector (which contain the previous word)
+        if (word == previousWord)
+        {
+            insert(pRoot, previousWord, definitionVec);
+        }
+        else
+        {
+            definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
+        }
         line = "";
+        previousWord = word;
     }
+    // insert the last vector
+    definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
     return true;
 }
