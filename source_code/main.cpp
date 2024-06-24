@@ -16,7 +16,7 @@ int main()
 	{
 		printf("1 for importing the data\n");
 		printf("2 for searching the library\n");
-		std::cout << "mode: "<< std::endl;
+		std::cout << "mode: ";
 		std::cin >> mode;
 		switch (mode)
 		{

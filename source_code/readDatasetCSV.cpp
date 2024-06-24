@@ -37,9 +37,10 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 
         // if word is the same, insert the word into vector
         // if word is new, then insert the vector (which contain the previous word)
-        if (word == previousWord)
+        if (word != previousWord)
         {
             insert(pRoot, previousWord, definitionVec);
+            definitionVec.clear()
         }
         else
         {
@@ -49,6 +50,9 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         previousWord = word;
     }
     // insert the last vector
-    definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
+    if (word != "")
+    {
+        insert(pRoot, previousWord, definitionVec);
+    }
     return true;
 }
