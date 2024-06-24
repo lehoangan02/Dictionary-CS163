@@ -14,14 +14,13 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
     std::string description;
     while(getline(inputStream, line))
     {
-        int count;
         std::stringstream tempStream(line);
         std::string tempString = "";
         
         // read the keyword
         getline(tempStream, word, ',');
         Change2Lowercase(word);
-        std::cout << word << " ";
+        std::cout << "[DEBUG]" << word << " ";
 
         // read the count (not used in our dictionary)
         getline(tempStream, tempString, ',');
@@ -47,11 +46,12 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
             insert(pRoot, previousWord, definitionVec);
             for (int i = 0; i < definitionVec.size(); ++i)
             {
-                // std::cout << previousWord << " ";
+                // std::cout << "[DEBUG]" << previousWord << " ";
                 // std::cout << definitionVec[i].first << " ";
                 // std::cout << definitionVec[i].second << std::endl;
             }
             definitionVec.clear();
+            definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
         }
         else
         {
@@ -65,7 +65,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
     {
         // for (int i = 0; i < definitionVec.size(); ++i)
         // {
-        //     std::cout << word << " ";
+        //     std::cout << "[DEBUG]" << word << " ";
         //     std::cout << definitionVec[i].first << " ";
         //     std::cout << definitionVec[i].second << std::endl;
         // }
