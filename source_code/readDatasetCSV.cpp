@@ -40,7 +40,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         if (word != previousWord)
         {
             insert(pRoot, previousWord, definitionVec);
-            definitionVec.clear()
+            definitionVec.clear();
         }
         else
         {
@@ -52,6 +52,12 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
     // insert the last vector
     if (word != "")
     {
+        for (int i = 0; i < definitionVec.size(); ++i)
+        {
+            std::cout << word << " ";
+            std::cout << definitionVec[i].first << " ";
+            std::cout << definitionVec[i].second << std::endl;
+        }
         insert(pRoot, previousWord, definitionVec);
     }
     return true;
