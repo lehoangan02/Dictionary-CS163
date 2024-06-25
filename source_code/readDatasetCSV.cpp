@@ -8,41 +8,68 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
     inputStream.open(filename);
     std::string line = "";
     getline(inputStream, line);
+    std::vector<std::pair<std::string, std::string>> definitionVec;
+    std::string word = ""; std::string previousWord = "";
+    std::string POS;
+    std::string description;
     while(getline(inputStream, line))
     {
-        std::string word;
-        int count;
-        std::string POS;
-        std::string description;
         std::stringstream tempStream(line);
         std::string tempString = "";
         
         // read the keyword
         getline(tempStream, word, ',');
         Change2Lowercase(word);
+        std::cout << "[DEBUG]" << word << " ";
 
         // read the count (not used in our dictionary)
         getline(tempStream, tempString, ',');
-        count  = stoi(tempString);
 
         // read the position of speech
         getline(tempStream, POS, ',');
+        if (POS.length() >= 6)
         POS = POS.substr(3, POS.length() - 6);
+        std::cout << POS << " ";
 
         // read the description
         getline(tempStream, description, ',');
-        description = description.substr(3, description.length() - 6);
+        if (description.length() >= 6)
+            description = description.substr(3, description.length() - 6);
         removeQuotationMarkDuplicate(description);
+        std::cout << description << std::endl;
 
-        // insert the word into trie
-        // assuming the insert function will be 
-        // insert(trieNode*& pRoot, std::string keyword, std::pair<std::string, std::string>> definition);
-        // the function call will be
-
-
-        //insert(pRoot, word, std::pair<std::string, std::string>{POS, description});
-
+        // if word is the same, insert the word into vector
+        // if word is new, then insert the vector (which contain the previous word)
+        if (word != previousWord && previousWord != "")
+        {
+            std::cout << "[DEBUG] end of vec\n";
+            insert(pRoot, previousWord, definitionVec);
+            for (int i = 0; i < definitionVec.size(); ++i)
+            {
+                // std::cout << "[DEBUG]" << previousWord << " ";
+                // std::cout << definitionVec[i].first << " ";
+                // std::cout << definitionVec[i].second << std::endl;
+            }
+            definitionVec.clear();
+            definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
+        }
+        else
+        {
+            definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
+        }
         line = "";
+        previousWord = word;
+    }
+    // insert the last vector
+    if (word != "")
+    {
+        // for (int i = 0; i < definitionVec.size(); ++i)
+        // {
+        //     std::cout << "[DEBUG]" << word << " ";
+        //     std::cout << definitionVec[i].first << " ";
+        //     std::cout << definitionVec[i].second << std::endl;
+        // }
+        insert(pRoot, previousWord, definitionVec);
     }
     return true;
 }
