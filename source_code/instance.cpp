@@ -1,6 +1,6 @@
 #include "instance.h"
 
-
+#define SHADOW 4
 instance::instance() : 
 	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
 	modeTexDef(loadTexture("assets/images/ModeTexDef.png")),
@@ -19,18 +19,29 @@ instance::instance() :
 	searchTexDef(loadTexture("assets/images/SearchTexDef.png")),
 	searchTexHov(loadTexture("assets/images/SearchTexHov.png")),
 	searchTexClick(loadTexture("assets/images/SearchTexClick.png")),
-	searchButton(searchTexDef, searchTexHov, searchTexClick)
+	searchButton(searchTexDef, searchTexHov, searchTexClick),
+	importTexDef(loadTexture("assets/images/ImportTexDef.png")),
+	importTexHov(loadTexture("assets/images/ImportTexHov.png")),
+	importTexClick(loadTexture("assets/images/ImportTexClick.png")),
+	importButton(importTexDef, importTexHov, importTexClick)
+
 {
 	// Base layer
 	baseLayer.loadFromFile("assets/images/Base_Layer.png");
 	baseLayerSprite.setTexture(baseLayer);
 
 	// Set each button's position
-	modeButton.setPosition(sf::Vector2u(40, 40));
+	modeButton.setPosition(sf::Vector2u(40 - SHADOW, 40));
 	searchModeButton.setPosition(sf::Vector2u(40, 40 + 65));
 	importModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 2));
-	definitionModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 3));
-	searchButton.setPosition(sf::Vector2u(855, 40));
+	definitionModeButton.setPosition(sf::Vector2u(40 - SHADOW, 40 + 65 * 3));
+	searchButton.setPosition(sf::Vector2u(855 - SHADOW, 40));
+	importButton.setPosition(sf::Vector2u(715 - SHADOW, 125));
+
+	// Set up "import file" prompt
+	importPromptTexture.loadFromFile("assets/images/InputFilePath.png");
+	importPromptSprite.setTexture(importPromptTexture);
+	importPromptSprite.setPosition(322.0f, 40.0f);
 }
 void instance::operate()
 {
@@ -50,8 +61,36 @@ void instance::operate()
 			drawPage2();	
 		}
 		break;
+		case 3:
+		{
+
+		}
+		break;
 		default:
 			break;
+		}
+	}
+}
+void instance::switchPage()
+{
+	if (searchModeButton.isClicked(windowInstance))
+	{
+		if (page != 1)
+		{
+			printf("[DEBUG] at page 1\n");
+			page = 1;
+			active = false;
+			return;
+		}
+	}
+	if (importModeButton.isClicked(windowInstance))
+	{
+		if (page != 2)
+		{
+			printf("[DEBUG] at page 2\n");
+			page = 2;
+			active = false;
+			return;
 		}
 	}
 }
@@ -83,15 +122,10 @@ void instance::operatePage1()
 		importModeButton.hoverSwitchTexture(windowInstance);
 		definitionModeButton.hoverSwitchTexture(windowInstance);
 	}
-	if (importModeButton.isClicked(windowInstance))
-	{
-		page = 2;
-		active = false;
-		printf("going to page 2\n");
-		return;
-	}
+	
 	searchButton.hoverSwitchTexture(windowInstance);
 	searchButton.click(windowInstance);
+	switchPage();
 }
 void instance::drawPage1()
 {
@@ -134,13 +168,16 @@ void instance::operatePage2()
 		importModeButton.hoverSwitchTexture(windowInstance);
 		definitionModeButton.hoverSwitchTexture(windowInstance);
 	}
-	if (searchModeButton.isClicked(windowInstance))
+	if (importButton.isClicked(windowInstance))
 	{
-		page = 1;
-		active = false;
-		printf("going to page 1\n");
-		return;
+		importButton.select(true);
 	}
+	else
+	{
+		importButton.select(false);
+	}
+	importButton.hoverSwitchTexture(windowInstance);
+	switchPage();
 }
 void instance::drawPage2()
 {
@@ -152,5 +189,7 @@ void instance::drawPage2()
 		importModeButton.draw(windowInstance);
 		definitionModeButton.draw(windowInstance);
 	}
+	importButton.draw(windowInstance);
+	windowInstance.draw(importPromptSprite);
 	windowInstance.display();
 }
