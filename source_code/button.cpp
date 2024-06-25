@@ -25,6 +25,16 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     buttonSprite.setTexture(textureDefault);
     this -> textureHover = textureHover;
 }
+// for non-text, hover and persistent click button
+Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick)
+{
+    hover = true;
+    persistentClick = true;
+    this -> textureDefault = textureDefault;
+    buttonSprite.setTexture(textureDefault);
+    this -> textureHover = textureHover;
+    this -> textureClick = textureClick;
+}
 // for text and hover buttons
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
 std::string textString, int characterSize)
@@ -78,6 +88,7 @@ bool Button::isHovering(const sf::RenderWindow& window)
 void Button::hoverSwitchTexture(const sf::RenderWindow& window)
 {
     if (!hover) return;
+    if (selected) return;
     if (isHovering(window))
     {
         buttonSprite.setTexture(textureHover);
@@ -100,3 +111,23 @@ void Button::centerText()
         buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
         (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2));
     }
+void Button::select(bool mode)
+{
+    selected = mode;
+    if (selected)
+    {
+        buttonSprite.setTexture(textureClick);
+    }
+}
+void Button::click(sf::RenderWindow& window)
+{
+    if (isClicked(window))
+    {
+        select(true);
+    }
+    else
+    {
+        select(false);
+    }
+    return;
+}
