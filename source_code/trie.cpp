@@ -180,3 +180,67 @@ void deleteWholeTrie(trieNode*& pRoot)
 	delete pRoot;
 	pRoot = nullptr;
 }
+
+// serialization
+void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
+{
+	if (!pRoot)
+	{ 
+		fout << "-1\n";
+		std::cout << "[DEBUG] -1\n";
+		return;
+	}
+	fout << pRoot -> wordExisted << std::endl;
+	fout << "[DEBUG] " << word << std::endl;
+	fout << pRoot -> definitions.size() << std::endl;
+	for (int i = 0; i < (int)(pRoot -> definitions.size()); ++i)
+	{
+		fout << pRoot -> definitions[i].first << std::endl;
+		fout << pRoot -> definitions[i].second << std::endl;
+	}
+	for (int i = 0; i < 96; ++i)
+	{
+		int asciiVal = i + 32;
+		std::string newWord = word + (char)asciiVal;
+		std::cout << "[DEBUG] new word is " << newWord << std::endl;
+		serialize(pRoot -> childNode[i], fout, newWord);
+	}
+	return;
+}
+void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
+{
+	int temp = 0;
+	fin >> temp;
+	fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (temp == -1)
+	{
+		std::cout << "[DEBUG] empty node\n";
+		pRoot = nullptr;
+		return;
+	}
+	pRoot = new trieNode;
+	pRoot -> wordExisted = temp;
+	std::string tempString = "";
+	std::getline(fin, tempString);
+	std::cout << "[DEBUG] word is: " << tempString << std::endl;
+	int size = 0;
+	fin >> size;
+	fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::vector<std::pair<std::string, std::string>> definitionVec;
+	for (int i = 0; i < size; ++i)
+	{
+		std::string POS = "";
+		std::string description = "";
+		std::getline(fin, POS);
+		std::getline(fin, description);
+		definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
+		std::cout << "[DEBUG] POS: " << POS << " - definition: " << description << std::endl;
+	}
+	pRoot -> definitions = definitionVec;
+	for (int i = 0; i < 96; ++i)
+	{
+		std::string newWord = word + (char)(i + 32);
+		std::cout << "[DEBUG] probing " << newWord << std::endl;
+		deserialize(pRoot -> childNode[i], fin, newWord);
+	}
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <fstream>
 
 const int ascii = 96; //32-127
 
@@ -44,3 +45,6 @@ void RemoveAWord(trieNode*& pRoot, std::string word);
 
 void deleteWholeTrie(trieNode*& pRoot);
 
+void serialize(trieNode* pRoot, std::ofstream& fout, std::string word);
+
+void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word);
