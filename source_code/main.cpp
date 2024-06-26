@@ -9,6 +9,7 @@ using namespace std;
 
 int main()
 {
+	
 	instance mainInstance;
 	mainInstance.operate();
 }

@@ -1,6 +1,5 @@
 #include "instance.h"
 
-#define SHADOW 4
 instance::instance() : 
 	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
 	modeTexDef(loadTexture("assets/images/ModeTexDef.png")),
@@ -23,25 +22,32 @@ instance::instance() :
 	importTexDef(loadTexture("assets/images/ImportTexDef.png")),
 	importTexHov(loadTexture("assets/images/ImportTexHov.png")),
 	importTexClick(loadTexture("assets/images/ImportTexClick.png")),
-	importButton(importTexDef, importTexHov, importTexClick)
-
+	importButton(importTexDef, importTexHov, importTexClick),
+	searchBoxTexture(loadTexture("/Users/lehoangan/Documents/GitHub/weirdmultilingualdictionary/assets/images/SearchBox.png")),
+	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
+	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
+	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40))
 {
+	std::ifstream fin; fin.open("note.txt");
+	if (!fin.is_open()) printf("[DEBUG] no file found\n");
 	// Base layer
 	baseLayer.loadFromFile("assets/images/Base_Layer.png");
 	baseLayerSprite.setTexture(baseLayer);
 
 	// Set each button's position
-	modeButton.setPosition(sf::Vector2u(40 - SHADOW, 40));
+	modeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40));
 	searchModeButton.setPosition(sf::Vector2u(40, 40 + 65));
 	importModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 2));
-	definitionModeButton.setPosition(sf::Vector2u(40 - SHADOW, 40 + 65 * 3));
-	searchButton.setPosition(sf::Vector2u(855 - SHADOW, 40));
-	importButton.setPosition(sf::Vector2u(715 - SHADOW, 125));
+	definitionModeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40 + 65 * 3));
+	searchButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 40));
+	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 
 	// Set up "import file" prompt
 	importPromptTexture.loadFromFile("assets/images/InputFilePath.png");
 	importPromptSprite.setTexture(importPromptTexture);
 	importPromptSprite.setPosition(322.0f, 40.0f);
+
+	
 }
 void instance::operate()
 {
@@ -79,7 +85,7 @@ void instance::switchPage()
 		{
 			printf("[DEBUG] at page 1\n");
 			page = 1;
-			active = false;
+			modeButtonActive = false;
 			return;
 		}
 	}
@@ -89,7 +95,7 @@ void instance::switchPage()
 		{
 			printf("[DEBUG] at page 2\n");
 			page = 2;
-			active = false;
+			modeButtonActive = false;
 			return;
 		}
 	}
@@ -104,25 +110,40 @@ void instance::operatePage1()
 			{
 				windowInstance.close();
 			}
+			case sf::Event::MouseButtonPressed:
+			{
+				if (searchButton.isClicked(windowInstance)) // static function
+					{
+						std::cout << searchBox.getString() << std::endl;
+					}
+			}
+			case sf::Event::KeyPressed:
+			{
+				if (event.key.code == sf::Keyboard::Return)
+				{
+					printf("[DEBUG] enter pressed\n");
+					std::cout << searchBox.getString() << std::endl;
+				}
+			}
 			break;
 			default:
 			break;
 		}
+		searchBox.handleInputLogic(event, windowInstance);
 	}
 	if (modeButton.isClicked(windowInstance)) {
 		modeButton.select(true);
-		active = true; }
+		modeButtonActive = true; }
 	if (!modeButton.isHovering(windowInstance)
 	&& sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 		modeButton.select(false);
-		active = false; }
+		modeButtonActive = false; }
 	modeButton.hoverSwitchTexture(windowInstance);
-	if (active) {
+	if (modeButtonActive) {
 		searchModeButton.hoverSwitchTexture(windowInstance);
 		importModeButton.hoverSwitchTexture(windowInstance);
 		definitionModeButton.hoverSwitchTexture(windowInstance);
 	}
-	
 	searchButton.hoverSwitchTexture(windowInstance);
 	searchButton.click(windowInstance);
 	switchPage();
@@ -133,11 +154,12 @@ void instance::drawPage1()
 	windowInstance.draw(baseLayerSprite);
 	modeButton.draw(windowInstance);
 	searchButton.draw(windowInstance);
-	if (active) {
+	if (modeButtonActive) {
 		searchModeButton.draw(windowInstance);
 		importModeButton.draw(windowInstance);
 		definitionModeButton.draw(windowInstance);
 	}
+	searchBox.draw(windowInstance);
 	windowInstance.display();
 }
 void instance::operatePage2()
@@ -157,13 +179,13 @@ void instance::operatePage2()
 	}
 	if (modeButton.isClicked(windowInstance)) {
 		modeButton.select(true);
-		active = true; }
+		modeButtonActive = true; }
 	if (!modeButton.isHovering(windowInstance)
 	&& sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 		modeButton.select(false);
-		active = false; }
+		modeButtonActive = false; }
 	modeButton.hoverSwitchTexture(windowInstance);
-	if (active) {
+	if (modeButtonActive) {
 		searchModeButton.hoverSwitchTexture(windowInstance);
 		importModeButton.hoverSwitchTexture(windowInstance);
 		definitionModeButton.hoverSwitchTexture(windowInstance);
@@ -184,7 +206,7 @@ void instance::drawPage2()
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
 	modeButton.draw(windowInstance);
-	if (active) {
+	if (modeButtonActive) {
 		searchModeButton.draw(windowInstance);
 		importModeButton.draw(windowInstance);
 		definitionModeButton.draw(windowInstance);

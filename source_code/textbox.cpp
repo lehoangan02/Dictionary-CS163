@@ -1,49 +1,206 @@
 #include "textbox.hpp"
 
-textbox::textbox(sf::RenderWindow& w)
+textbox::textbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int limit, sf::Vector2u position)
 {
-    font.loadFromFile("assets/font/PlayfairDisplay-VariableFont_wght.ttf");
-    text.setFont(font);
-    thebox.setSize(sf::Vector2f(670, 65));
-    //position: 145, 40
-    text.setCharacterSize(24);
-    thebox.setPosition(145, 40);
-    text.setPosition(165, 60);
+    this -> textboxTexture = textboxTexture;
+    this -> textboxSprite.setTexture(textboxTexture);
+    displayText.setFont(font);
+    this -> characterSize = characterSize;
+    this -> displayText.setString(guideString);
+    textStream << guideString;
+    setPosition(position);
+    displayText.setStyle(sf::Text::Bold);
+    displayText.setFillColor(sf::Color(138, 138, 141));
+    setLimit(limit);
+    
 }
-
-void textbox::show(sf::RenderWindow &w)
+void textbox::setPosition(sf::Vector2u position)
 {
-    w.draw(thebox);
-    w.draw(text);
+    this -> textboxSprite.setPosition((float)position.x, (float)position.y);
+    sf::Vector2f displayTextPosition;
+    displayTextPosition.x = (float)(int)(textboxSprite.getPosition().x + 20);
+    // std::cout << (int)(textboxSprite.getGlobalBounds().height - SHADOWVER - (float)characterSize) / 2 << std::endl;
+    displayTextPosition.y = (float)(int)(textboxSprite.getPosition().y + (textboxSprite.getGlobalBounds().height - SHADOWVER - (float)characterSize) / 2 - SFMLTEXPADDING);
+    this -> displayText.setPosition(displayTextPosition);
 }
+void textbox::draw(sf::RenderWindow &window)
+{
+    window.draw(textboxSprite);
+    window.draw(displayText);
+}
+void textbox::handleInputLogic(const sf::Event event, sf::RenderWindow& window)
+{
+    if (active)
+    {
+        if (event.type == sf::Event::TextEntered && !full
+        && (int)event.text.unicode >= 32 && (int)event.text.unicode < 127)
+        {
+            // printf("[DEBUG] text pressed\n");
+            insertChar((char)event.text.unicode);
+        }
+        else if (event.type == sf::Event::KeyPressed)
+        {
+            if (event.key.code == sf::Keyboard::Backspace)
+            {
+                // printf("[DEBUG] backspace pressed\n");
+                deleteChar();
+            }
+            else if (event.key.code == sf::Keyboard::Escape)
+            {
+                printf("[DEBUG] escape pressed\n");
+                deselect();
+            }
+            else if (event.key.code == sf::Keyboard::Return)
+            {
+                printf("[DEBUG] enter pressed\n");
+            }
+        }
+    }
+    if (event.type == sf::Event::MouseButtonPressed)
+    {
+        // std::cout << "[DEBUG] Sprite position: " << textboxSprite.getPosition().y << " - "
+        // << textboxSprite.getPosition().y + textboxSprite.getGlobalBounds().height - SHADOWVER << " - "
+        // << textboxSprite.getPosition().x + SHADOWHOR << " - "
+        // << textboxSprite.getPosition().x + textboxSprite.getGlobalBounds().width - SHADOWHOR << std::endl;
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+        // std::cout << "[DEBUG] Mouse position: " << mousePosition.y << " - " << mousePosition.x << std::endl;
+        if (mousePosition.y > textboxSprite.getPosition().y
+        && mousePosition.y < textboxSprite.getPosition().y + textboxSprite.getGlobalBounds().height - SHADOWVER
+        && mousePosition.x > textboxSprite.getPosition().x + SHADOWHOR
+        && mousePosition.x < textboxSprite.getPosition().x + textboxSprite.getGlobalBounds().width - SHADOWHOR)
+        {
+            // std::cout << "[DEBUG] clicked in textbox\n";
+            select();
+        }
+        else
+        {
+            deselect();
+        }
+    }
 
-//either shows the cursor at the end of the textbox text if it is active, and don't if it isn't
-void textbox::checkstate()
+    handleColor();
+    // convert textStream to textString
+    textString = textStream.str();
+    displayText.setString(textString);
+}
+void textbox::handleColor()
 {
     if (!active)
     {
-        if (searchoption.length() != 0) text.setString(searchoption);
-        else text.setString(std::string("Type here"));
+        if (textStream.str() == "")
+        {
+            displayText.setFillColor(sf::Color(138, 138, 141));
+            textStream.str("");
+            textStream << guideString;
+        }
     }
-    else text.setString(searchoption + cursor);
-}
-
-//click out of the textbox and this function triggers
-void textbox::flipstate()
-{
-    active = active ^ false;
-    checkstate();
-}
-
-//when pollevent on the instance fetches a TextEntered as active is true, this function is triggered
-void textbox::reupdateword(sf::Event ev)
-{
-    if (ev.text.unicode < 128 && active)
+    else
     {
-        char c = static_cast<char>(ev.text.unicode);
-        if (c >= 32) searchoption += c;
-        else if (c == 8) searchoption = searchoption.substr(0, searchoption.length() - 1);
-        else if (c == 13) active = false;
-        checkstate();
+        displayText.setFillColor(sf::Color(0, 0, 0));
     }
+}
+void  textbox::select() 
+{
+    active = true;
+    if (!full) // insert cursor
+    {
+        if (textStream.str() == guideString)
+        {
+
+            textStream.str("");
+        }
+        textStream << textCursor;
+    }
+}
+void textbox::deselect()
+{
+    if (active)
+    {
+        active = false;
+        if (!full && textStream.str() != guideString) // remove cursor
+        {
+            std::string temp = textStream.str();
+            textStream.str("");
+            for (int i = 0; i < temp.length() - 1; ++i)
+            {
+                textStream << temp[i];
+            }
+        }
+    }
+}
+void textbox::insertChar(char newInput)
+{
+    if (full) return;
+    std::string temp = textStream.str();
+    textStream.str("");
+    for (int i = 0; i < temp.length() - 1; ++i)
+    {
+        textStream << temp[i];
+    }
+    textStream << newInput;
+    // handle full logic here
+    ++numChar;
+    manageFullness();
+    // std::cout << "[DEBUG]  after inserting it's "; 
+    if (!full)
+    {
+        textStream << textCursor;
+    }
+}
+void textbox::deleteChar()
+{
+    if (textStream.str() == textCursor) return;
+    std::string temp = textStream.str();
+    textStream.str("");
+    if (!full)
+    {
+        for (int i = 0; i < temp.length() - 2; ++i)
+        {
+            textStream << temp[i];
+        }
+    }
+    else
+    {
+        for (int i = 0; i < temp.length() - 1; ++i)
+        {
+            textStream << temp[i];
+        }
+    }
+    textStream << textCursor;
+    --numChar;
+    manageFullness();
+    
+}
+void textbox::manageFullness()
+{
+    if (numChar >= limit)
+    {
+        full = true;
+    }
+    else
+    {
+        full = false;
+    }
+//   if (displayText.getPosition().x + displayText.getGlobalBounds().width + characterSize * 2
+//   > textboxSprite.getPosition().x + textboxSprite.getGlobalBounds().width)
+//   {
+//     full = true;
+//   }
+//   else
+//   {
+//     full = false;
+//   }
+}
+void textbox::setLimit(int limit)
+{
+    this -> limit = limit;
+}
+std::string textbox::getString()
+{
+    if (textStream.str() == guideString)
+    {
+        return "";
+    }
+    deselect();
+    return textStream.str();
 }

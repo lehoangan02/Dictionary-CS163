@@ -1,7 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
+
 #include "button.hpp"
+#include "textbox.hpp"
+
+#define SHADOWHOR 4
+#define SHADOWVER 8
 class instance
 {
     public:
@@ -19,7 +25,7 @@ class instance
     sf::Texture modeTexHov; 
     sf::Texture modeTexClick; 
     Button modeButton;
-    bool active = false;
+    bool modeButtonActive = false;
     sf::Texture searchModeDef;
     sf::Texture searchModeHov;
     Button searchModeButton;
@@ -45,12 +51,26 @@ class instance
     // "import file path" text
     sf::Texture importPromptTexture;
     sf::Sprite importPromptSprite;
+
+    // fonts
+    sf::Font PlayfairDisplay;
+    sf::Font SourceSans3;
+    
+    // search box
+    sf::Texture searchBoxTexture;
+    textbox searchBox;
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {
         sf::Texture texture;
         texture.loadFromFile(filepath);
         return texture;
+    }
+    sf::Font loadFont(const std::string& filepath)
+    {
+        sf::Font font;
+        font.loadFromFile(filepath);
+        return font;
     }
     void switchPage();
     void operatePage1();
