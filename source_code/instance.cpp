@@ -89,7 +89,7 @@ void instance::switchPage()
 			printf("[DEBUG] at page 1\n");
 			page = 1;
 			modeButtonActive = false;
-			// pageChange = true;
+			pageChange = true;
 		}
 	}
 	else if (importModeButton.isClicked(windowInstance))
@@ -99,16 +99,16 @@ void instance::switchPage()
 			printf("[DEBUG] at page 2\n");
 			page = 2;
 			modeButtonActive = false;
-			// pageChange = true;
+			pageChange = true;
 		}
 	}
-	// if (pageChange)
-	// {
-	// 	printf("[DEBUG] page changed\n");
-	// 	// searchBox.clear(); std::cout << searchBox.getString() << std::endl;
-	// 	// importBox.clear();
-	// 	pageChange = false;
-	// }
+	if (pageChange)
+	{
+		printf("[DEBUG] page changed\n");
+		searchBox.clear(); std::cout << searchBox.getString() << std::endl;
+		importBox.clear();
+		pageChange = false;
+	}
 }
 void instance::operatePage1()
 {

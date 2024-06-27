@@ -207,8 +207,9 @@ std::string textbox::getString()
 void textbox::clear()
 {
     textStream.str("");
+    deselect();
+    handleColor();
     textStream.str(guideString);
     displayText.setString(textStream.str());
-    handleColor();
     return;
 }

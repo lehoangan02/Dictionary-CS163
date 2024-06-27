@@ -15,7 +15,7 @@ class instance
     void operate();
     private:
     sf::RenderWindow windowInstance;
-    int page = 1;
+    int page = 1; bool pageChange = false;
     sf::Event event;
     sf::Texture baseLayer; 
     sf::Sprite baseLayerSprite;
