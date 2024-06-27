@@ -23,9 +23,9 @@ instance::instance() :
 	importTexHov(loadTexture("assets/images/ImportTexHov.png")),
 	importTexClick(loadTexture("assets/images/ImportTexClick.png")),
 	importButton(importTexDef, importTexHov, importTexClick),
-	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
+	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
 	importBoxTexture(loadTexture("assets/images/ImportBox.png")),
 	importBox(importBoxTexture, SourceSans3, 24, 30, sf::Vector2u(145 - SHADOWVER, 125))
