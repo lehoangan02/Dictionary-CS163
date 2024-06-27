@@ -204,3 +204,11 @@ std::string textbox::getString()
     deselect();
     return textStream.str();
 }
+void textbox::clear()
+{
+    textStream.str("");
+    textStream.str(guideString);
+    displayText.setString(textStream.str());
+    handleColor();
+    return;
+}

@@ -59,6 +59,10 @@ class instance
     // search box
     sf::Texture searchBoxTexture;
     textbox searchBox;
+
+    // import box
+    sf::Texture importBoxTexture;
+    textbox importBox;
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {

@@ -25,7 +25,7 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     buttonSprite.setTexture(textureDefault);
     this -> textureHover = textureHover;
 }
-// for non-text, hover and persistent click button
+// for non-text, hover and persistent menu-click button
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick)
 {
     hover = true;

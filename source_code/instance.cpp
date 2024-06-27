@@ -23,10 +23,12 @@ instance::instance() :
 	importTexHov(loadTexture("assets/images/ImportTexHov.png")),
 	importTexClick(loadTexture("assets/images/ImportTexClick.png")),
 	importButton(importTexDef, importTexHov, importTexClick),
-	searchBoxTexture(loadTexture("/Users/lehoangan/Documents/GitHub/weirdmultilingualdictionary/assets/images/SearchBox.png")),
+	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
-	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40))
+	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
+	importBoxTexture(loadTexture("assets/images/ImportBox.png")),
+	importBox(importBoxTexture, SourceSans3, 24, 30, sf::Vector2u(145 - SHADOWVER, 125))
 {
 	std::ifstream fin; fin.open("note.txt");
 	if (!fin.is_open()) printf("[DEBUG] no file found\n");
@@ -36,9 +38,9 @@ instance::instance() :
 
 	// Set each button's position
 	modeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40));
-	searchModeButton.setPosition(sf::Vector2u(40, 40 + 65));
-	importModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 2));
-	definitionModeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40 + 65 * 3));
+	searchModeButton.setPosition(sf::Vector2u(40, 40 + 65 + SHADOWVER));
+	importModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 2 + SHADOWVER));
+	definitionModeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40 + 65 * 3 + SHADOWVER));
 	searchButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 40));
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 
@@ -79,6 +81,7 @@ void instance::operate()
 }
 void instance::switchPage()
 {
+	if (!modeButtonActive) return;
 	if (searchModeButton.isClicked(windowInstance))
 	{
 		if (page != 1)
@@ -86,19 +89,26 @@ void instance::switchPage()
 			printf("[DEBUG] at page 1\n");
 			page = 1;
 			modeButtonActive = false;
-			return;
+			// pageChange = true;
 		}
 	}
-	if (importModeButton.isClicked(windowInstance))
+	else if (importModeButton.isClicked(windowInstance))
 	{
 		if (page != 2)
 		{
 			printf("[DEBUG] at page 2\n");
 			page = 2;
 			modeButtonActive = false;
-			return;
+			// pageChange = true;
 		}
 	}
+	// if (pageChange)
+	// {
+	// 	printf("[DEBUG] page changed\n");
+	// 	// searchBox.clear(); std::cout << searchBox.getString() << std::endl;
+	// 	// importBox.clear();
+	// 	pageChange = false;
+	// }
 }
 void instance::operatePage1()
 {
@@ -131,6 +141,7 @@ void instance::operatePage1()
 		}
 		searchBox.handleInputLogic(event, windowInstance);
 	}
+	switchPage();
 	if (modeButton.isClicked(windowInstance)) {
 		modeButton.select(true);
 		modeButtonActive = true; }
@@ -146,7 +157,6 @@ void instance::operatePage1()
 	}
 	searchButton.hoverSwitchTexture(windowInstance);
 	searchButton.click(windowInstance);
-	switchPage();
 }
 void instance::drawPage1()
 {
@@ -173,10 +183,29 @@ void instance::operatePage2()
 				windowInstance.close();
 			}
 			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				if (importButton.isClicked(windowInstance))
+				{
+					std::cout << importBox.getString() << std::endl;
+				}
+			}
+			break;
+			case sf::Event::KeyPressed:
+			{
+				if (event.key.code == sf::Keyboard::Return)
+				{
+					printf("[DEBUG] enter pressed\n");
+					std::cout << importBox.getString() << std::endl;
+				}
+			}
+			break;
 			default:
 			break;
 		}
+		importBox.handleInputLogic(event, windowInstance);
 	}
+	switchPage();
 	if (modeButton.isClicked(windowInstance)) {
 		modeButton.select(true);
 		modeButtonActive = true; }
@@ -190,6 +219,8 @@ void instance::operatePage2()
 		importModeButton.hoverSwitchTexture(windowInstance);
 		definitionModeButton.hoverSwitchTexture(windowInstance);
 	}
+	searchButton.hoverSwitchTexture(windowInstance);
+	searchButton.click(windowInstance);
 	if (importButton.isClicked(windowInstance))
 	{
 		importButton.select(true);
@@ -199,7 +230,6 @@ void instance::operatePage2()
 		importButton.select(false);
 	}
 	importButton.hoverSwitchTexture(windowInstance);
-	switchPage();
 }
 void instance::drawPage2()
 {
@@ -213,5 +243,6 @@ void instance::drawPage2()
 	}
 	importButton.draw(windowInstance);
 	windowInstance.draw(importPromptSprite);
+	importBox.draw(windowInstance);
 	windowInstance.display();
 }

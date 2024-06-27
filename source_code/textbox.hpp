@@ -37,6 +37,7 @@ public:
     void handleInputLogic(const sf::Event envent, sf::RenderWindow& window);
     void draw(sf::RenderWindow &window);
     std::string getString();
+    void clear();
 private:
     void insertChar(char newInput);
     void deleteChar();
