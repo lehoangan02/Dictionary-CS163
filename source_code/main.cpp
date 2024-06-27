@@ -25,6 +25,7 @@ int main()
 		{
 		case 1:
 			{
+				deleteWholeTrie(pRoot);
 				pRoot = nullptr;
 				std::string filepath; std::cout << "input filepath: "; std::cin >> filepath;
 				readDatasetCSV(filepath, pRoot);
@@ -62,11 +63,15 @@ int main()
 				printf("please import or serialize the dataset first.\n");
 				break;
 			}
+			deleteWholeTrie(pRoot);
 			pRoot = nullptr;
 			std::ifstream fin; fin.open("serialized.txt");
 			deserialize(pRoot, fin, "");
 		}
 		default:
+		{
+			deleteWholeTrie(pRoot);
+		}
 			break;
 		}
 	}
