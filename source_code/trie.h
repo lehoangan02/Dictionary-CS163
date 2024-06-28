@@ -8,6 +8,7 @@ struct trieNode
 {
 	bool wordExisted = false;
 	trieNode* childNode[96];
+	int countchildren = 0;
 	std::vector<std::pair<std::string, std::string>> definitions;
 	trieNode()
 	{
@@ -18,6 +19,7 @@ struct trieNode
 
 		for (int i = 0; i < ascii; ++i) this->childNode[i] = nullptr;
 		this->definitions.resize(0);
+		
 	}
 };
 
@@ -44,3 +46,6 @@ void RemoveAWord(trieNode*& pRoot, std::string word);
 
 void deleteWholeTrie(trieNode*& pRoot);
 
+trieNode* pickarandomword(trieNode* pRoot);
+
+trieNode* findtheKthword(trieNode* pRoot, int k);
