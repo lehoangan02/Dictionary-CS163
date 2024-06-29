@@ -4,10 +4,12 @@ Button::Button(const sf::Texture& texture)
     {
         this -> textureDefault = texture;
         buttonSprite.setTexture(textureDefault);
+        clickToChange = false;
     }
 // for non-hover, text button
 Button::Button(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize)
 {
+    clickToChange = false;
     this -> textureDefault = texture;
     buttonSprite.setTexture(textureDefault);
     haveText = true;
@@ -24,12 +26,12 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     this -> textureDefault = textureDefault;
     buttonSprite.setTexture(textureDefault);
     this -> textureHover = textureHover;
+    clickToChange = false;
 }
-// for non-text, hover and persistent menu-click button
+// for non-text, hover and menu-click button
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick)
 {
     hover = true;
-    persistentClick = true;
     this -> textureDefault = textureDefault;
     buttonSprite.setTexture(textureDefault);
     this -> textureHover = textureHover;
@@ -39,6 +41,7 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
 std::string textString, int characterSize)
 {
+    clickToChange = false;
     haveText = true;
     hover = true;
     // set up the sprite
@@ -50,6 +53,7 @@ std::string textString, int characterSize)
     this -> characterSize = characterSize;
     buttonText.setCharacterSize (characterSize);
     buttonText.setString(textString);
+    buttonText.setStyle(sf::Text::Style::Bold);
     centerText();
 }
 void Button::setPosition(sf::Vector2u position)
@@ -94,7 +98,7 @@ void Button::hoverSwitchTexture(const sf::RenderWindow& window)
         buttonSprite.setTexture(textureHover, true);
         if (haveText)
         {
-            buttonText.setStyle(sf::Text::Style::Underlined);
+            buttonText.setStyle(sf::Text::Style::Underlined | sf::Text::Style::Bold);
         }
     }
     else
@@ -102,26 +106,31 @@ void Button::hoverSwitchTexture(const sf::RenderWindow& window)
         buttonSprite.setTexture(textureDefault, true);
         if (haveText)
         {
-            buttonText.setStyle(sf::Text::Style::Regular);
+            buttonText.setStyle(sf::Text::Style::Bold);
         }
     }
 }
 void Button::centerText()
     {
         buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
-        (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2));
+        (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - SHADOWVER - characterSize) / 2 - SFMLTEXPADDING));
     }
 void Button::select(bool mode)
 {
     selected = mode;
     if (selected)
     {
-        buttonSprite.setTexture(textureClick, true);
+        if (clickToChange)
+        {
+            buttonSprite.setTexture(textureClick, true);
+        }
     }
     else
     {
         if (!hover)
+        {
             buttonSprite.setTexture(textureDefault, true);
+        }
     }
 }
 // use this for stable ordinary button.
@@ -159,3 +168,71 @@ void DualChoiceButton::click(sf::RenderWindow& window)
         (*ButtonToLink).buttonSprite.move(offsetNeg);
     }
 }
+switchButton::switchButton(sf::Texture& textureDefault, const sf::Texture& textureClick) :
+    Button(textureDefault, textureDefault, textureClick)
+{
+    selected = true;
+}
+void switchButton::click(sf::RenderWindow& window, bool& mouseControl)
+{
+    if (isClicked(window) && mouseControl)
+    {
+        printf("[DEBUG] clicked\n");
+        selected = !selected;
+        select();
+        mouseControl = false;
+    }
+    return;
+}
+void switchButton::select()
+{
+    if (selected)
+    {
+        printf("[DEBUG] on\n");
+        buttonSprite.setTexture(textureDefault, true);
+    }
+    else
+    {
+        printf("[DEBUG] off\n");
+        buttonSprite.setTexture(textureClick, true);
+    }
+}
+bool switchButton::getMode()
+{
+    return selected;
+}
+spongyButton::spongyButton(sf::Texture& textureDefault, const sf::Texture& textureHov, const sf::Texture& textureClick) :
+    Button(textureDefault, textureHov, textureClick)
+    {
+    }
+void spongyButton::setOffset(float x, float y)
+{
+    offset.x = x;
+    offset.y = y;
+}
+void spongyButton::click(sf::RenderWindow& window)
+{
+    if (isClicked(window))
+    {
+        select(true);
+        if (offsetControl[0])
+        {
+            buttonSprite.move(offset);
+            offsetControl[0] = false;
+            offsetControl[1] = true;
+        }
+    }
+    else
+    {
+        select(false);
+        if (offsetControl[1] == true)
+        {
+            buttonSprite.move(-offset);
+            offsetControl[1] = false;
+            offsetControl[0] = true;
+        }
+    }
+    return;
+}
+
+

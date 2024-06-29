@@ -1,5 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
+
+#define SHADOWVER 8
+#define SFMLTEXPADDING 6
 
 class Button
 {
@@ -9,9 +13,9 @@ class Button
     sf::Vector2u buttonPosition;
     sf::Sprite buttonSprite;
     sf::Texture textureDefault, textureHover, textureClick;
+    bool clickToChange = true;
     bool haveText = false;
     bool hover = false;
-    bool persistentClick = false;
     bool selected = false;
     public:
     Button(const sf::Texture& texture);
@@ -25,7 +29,8 @@ class Button
     bool isClicked(sf::RenderWindow& window);
     bool isHovering(const sf::RenderWindow& window);
     void hoverSwitchTexture(const sf::RenderWindow& window);
-    void select(bool mode);
+    void setOffset(float x, float y);
+    virtual void select(bool mode);
     virtual void click(sf::RenderWindow& window);
     protected:
     void centerText();
@@ -39,4 +44,22 @@ class DualChoiceButton : public Button
     DualChoiceButton* ButtonToLink;
     sf::Vector2f offset = sf::Vector2f(8.0f, 4.0f);
     sf::Vector2f offsetNeg = sf::Vector2f(-8.0f, -4.0f);
+};
+class switchButton : public Button
+{
+    public:
+    switchButton(sf::Texture& textureDefault, const sf::Texture& textureClick);
+    void click(sf::RenderWindow& window, bool& mouseControl);
+    void select();
+    bool getMode();
+};
+class spongyButton : public Button
+{
+    public:
+    spongyButton(sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick);
+    sf::Vector2f offset = sf::Vector2f(0.0f, 0.0f);
+    void click(sf::RenderWindow& window);
+    void setOffset(float x, float y);
+    private:
+    bool offsetControl[2] = {true, false};
 };

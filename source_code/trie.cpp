@@ -93,7 +93,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		else
 		{
 			std::cout << "Word not found\n";
-			return pRoot->definitions;
+			return blankVec;
 		}
 	}
 
@@ -111,7 +111,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		else
 		{
 			std::cout << "Word not found\n";
-			return pRoot->definitions;
+			return blankVec;
 		}
 	}
 	return blankVec;
@@ -225,12 +225,13 @@ bool deserializeWrapper(trieNode*& pRoot)
 {
 	deleteWholeTrie(pRoot);
 	std::ifstream fin; fin.open("serialized.txt");
+    if (fin.is_open() == false)
+    {
+        std::cout << "[DEBUG] no file found to deserialize!\n";
+        return false;
+    }
 	deserialize(pRoot, fin, "");
-	if (fin.is_open() == false)
-	{
-		std::cout << "[DEBUG] no file found to deserialize!\n";
-		return false;
-	}
+    return true;
 }
 void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 {
@@ -284,6 +285,7 @@ trieNode* findtheKthword(trieNode* pRoot, int k)
 		if (S + c->countchildren + 1 < k) S += c->countchildren + 1;
 		else return findtheKthword(c, k - S - 1);
 	}
+    return nullptr;
 }
 
 trieNode* pickarandomword(trieNode* pRoot)

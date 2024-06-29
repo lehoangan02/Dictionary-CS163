@@ -5,6 +5,8 @@
 
 #include "button.hpp"
 #include "textbox.hpp"
+#include "trie.h"
+#include "readDatasetCSV.hpp"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -14,8 +16,16 @@ class instance
     instance();
     void operate();
     private:
+    trieNode* pRoot = nullptr;
+    bool autoSave = true;
+    int definitionNum = 0;
+    std::vector<std::pair<std::string, std::string>> searchResult;
+
+    // SFML
     sf::RenderWindow windowInstance;
     int page = 1; bool pageChange = false;
+    bool mouseControl = true;
+    bool loadedSave = false;
     sf::Event event;
     sf::Texture baseLayer; 
     sf::Sprite baseLayerSprite;
@@ -97,8 +107,45 @@ class instance
     Button serializeModeButton;
 
     // Definition elements
+    std::string headWordString = "";
+    std::string POSString = "";
+    std::string descriptionString = "";
+    bool displayDef = false; // control boolean
+    int numberOfResult = 0;
     sf::Texture definitionBackground;
     sf::Sprite definitionBackgroundSprite;
+    sf::Text headword;
+    sf::Text POS;
+    sf::Text description;
+    sf::Texture nextPageDef;
+    sf::Texture nextPageHov;
+    sf::Texture nextPageClick;
+    spongyButton nextPageButton;
+    sf::Texture prevPageDef;
+    sf::Texture prevPageHov;
+    sf::Texture prevPageClick;
+    spongyButton prevPageButton;
+
+
+    // serialize button
+    std::string serializeString = "Serialize";
+    sf::Texture serializeTexture;
+    Button serializeButton;
+
+    // switch button
+    sf::Texture onSwitch;
+    sf::Texture offSwitch;
+    switchButton autoSaveButton;
+    
+    // prompts in save mode
+    sf::Texture toSaveCurrentTexture;
+    sf::Sprite toSaveCurrentSprite;
+    sf::Texture autoSaveTexture;
+    sf::Sprite autoSaveSprite;
+
+    // loading page
+    sf::Texture loadingTexture;
+    sf::Sprite loadingSprite;
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {
@@ -116,11 +163,17 @@ class instance
     void operatePage1();
     void operatePage2();
     void operatePage3();
+    void operatePage7();
     void drawPage1();
     void drawPage2();
     void drawPage3();
+    void drawPage7();
     void drawSubModes();
     void hoverSubModes();
     void drawSwitchMode();
     void handleSwitchModeLogic();
+    void drawDefinition();
+    void saveAutoSaveSetting();
+    void resetSearchResult();
+    void drawLoadingPage();
 };

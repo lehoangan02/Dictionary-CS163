@@ -101,6 +101,7 @@ void textbox::handleColor()
 }
 void  textbox::select() 
 {
+    if (active) return;
     active = true;
     if (!full) // insert cursor
     {

@@ -6,6 +6,11 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 {
     std::ifstream inputStream;
     inputStream.open(filename);
+    if (!inputStream.is_open())
+    {
+        printf("[DEBUG] - file not found!\n");
+        return false;
+    }
     std::string line = "";
     getline(inputStream, line);
     std::vector<std::pair<std::string, std::string>> definitionVec;
