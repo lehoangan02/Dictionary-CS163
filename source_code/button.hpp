@@ -3,18 +3,21 @@
 
 class Button
 {
-    private:
+    protected:
     sf::Text buttonText;
     int characterSize;
     sf::Vector2u buttonPosition;
     sf::Sprite buttonSprite;
-    sf::Texture textureDefault, textureHover;
+    sf::Texture textureDefault, textureHover, textureClick;
     bool haveText = false;
     bool hover = false;
+    bool persistentClick = false;
+    bool selected = false;
     public:
     Button(const sf::Texture& texture);
     Button(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize);
     Button(const sf::Texture& textureDefault, const sf::Texture& textureHover);
+    Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick);
     Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
     std::string textString, int characterSize);
     void setPosition(sf::Vector2u position);
@@ -22,6 +25,18 @@ class Button
     bool isClicked(sf::RenderWindow& window);
     bool isHovering(const sf::RenderWindow& window);
     void hoverSwitchTexture(const sf::RenderWindow& window);
+    void select(bool mode);
+    virtual void click(sf::RenderWindow& window);
+    protected:
+    void centerText();
+};
+class DualChoiceButton : public Button
+{
+    public:
+    DualChoiceButton(sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick, DualChoiceButton* ButtonToLink);
+    void click(sf::RenderWindow& window) override;
     private:
-    virtual void centerText();
+    DualChoiceButton* ButtonToLink;
+    sf::Vector2f offset = sf::Vector2f(8.0f, 4.0f);
+    sf::Vector2f offsetNeg = sf::Vector2f(-8.0f, -4.0f);
 };
