@@ -71,6 +71,12 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
 {
+	std::vector<std::pair<std::string, std::string>> blankVec;
+	if (!pRoot) 
+	{
+		std::cout << "Word not found\n";
+		return blankVec;
+	}
 	// base case
 	if (word.length() == 0)
 	{
@@ -108,7 +114,6 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 			return pRoot->definitions;
 		}
 	}
-	std::vector<std::pair<std::string, std::string>> blankVec;
 	return blankVec;
 }
 
@@ -183,7 +188,12 @@ void deleteWholeTrie(trieNode*& pRoot)
 	pRoot = nullptr;
 }
 
-// serialization
+// serialization of the existing trie
+void serializeWrapper(trieNode* pRoot)
+{
+	std::ofstream fout; fout.open("serialized.txt");
+	serialize(pRoot, fout, "");
+}
 void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
 {
 	if (!pRoot)
@@ -208,6 +218,19 @@ void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
 		serialize(pRoot -> childNode[i], fout, newWord);
 	}
 	return;
+}
+
+// deserialization of the saved trie
+bool deserializeWrapper(trieNode*& pRoot)
+{
+	deleteWholeTrie(pRoot);
+	std::ifstream fin; fin.open("serialized.txt");
+	deserialize(pRoot, fin, "");
+	if (fin.is_open() == false)
+	{
+		std::cout << "[DEBUG] no file found to deserialize!\n";
+		return false;
+	}
 }
 void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 {

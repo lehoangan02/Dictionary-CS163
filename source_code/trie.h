@@ -47,8 +47,10 @@ void RemoveAWord(trieNode*& pRoot, std::string word);
 
 void deleteWholeTrie(trieNode*& pRoot);
 
+void serializeWrapper(trieNode* pRoot);
 void serialize(trieNode* pRoot, std::ofstream& fout, std::string word);
 
+bool deserializeWrapper(trieNode*& pRoot);
 void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word);
 trieNode* pickarandomword(trieNode* pRoot);
 

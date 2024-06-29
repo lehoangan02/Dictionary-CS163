@@ -141,3 +141,4 @@ bin/Dictionary
 bin/Dictionary.dSYM/Contents/Info.plist
 bin/Dictionary.dSYM/Contents/Resources/DWARF/Dictionary
 bin/Dictionary.dSYM/Contents/Resources/Relocations/aarch64/Dictionary.yml
+/dict
