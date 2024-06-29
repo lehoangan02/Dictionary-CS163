@@ -74,7 +74,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	std::vector<std::pair<std::string, std::string>> blankVec;
 	if (!pRoot) 
 	{
-		std::cout << "Word not found\n";
+		std::cout << "Word not found1\n";
 		return blankVec;
 	}
 	// base case
@@ -104,7 +104,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		// if the childNode pointer of that letter is not null, continue traversing
 		if (pRoot->childNode[word[0] - 32])
 		{
-
+			std::cout << "[DEBUG] going into " << word[0] << std::endl;
 			// erase the first letter
 			return traverseToSearch(pRoot->childNode[word[0] - 32], word.erase(0, 1));
 		}
@@ -268,6 +268,84 @@ void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 		std::string newWord = word + (char)(i + 32);
 		std::cout << "[DEBUG] probing " << newWord << std::endl;
 		deserialize(pRoot -> childNode[i], fin, newWord);
+	}
+}
+void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
+{
+	int temp = 0;
+	if (!pRoot)
+	{
+		temp = -1;
+		f.write((char*)&temp, sizeof(int));
+		return;
+	}
+	temp = 0;
+	f.write((char*)&temp, sizeof(int));
+	bool wordExisted = pRoot -> wordExisted;
+	f.write((char*)&wordExisted, sizeof(bool));
+	int size = (int)(pRoot -> definitions.size());
+	f.write((char*)&size, sizeof(int));
+	for (int i = 0; i < size; ++i)
+	{
+		int stringSize = pRoot -> definitions[i].first.size();
+		f.write((char*)&stringSize, sizeof(int));
+		f.write(pRoot -> definitions[i].first.c_str(), pRoot -> definitions[i].first.size());
+		// std::cout << pRoot -> definitions[i].first.c_str() << std::endl;
+		stringSize = pRoot -> definitions[i].second.size();
+		f.write((char*)&stringSize, sizeof(int));
+		f.write(pRoot -> definitions[i].second.c_str(), pRoot -> definitions[i].second.size());
+		// std::cout << pRoot -> definitions[i].second.c_str() << std::endl;
+	}
+	for (int i = 0; i < 96; ++i)
+	{
+		int asciiVal = i + 32;
+		std::string newWord = word + (char)asciiVal;
+		// std::cout << "[DEBUG] new word is " << newWord << std::endl;
+		serializeBinary(pRoot -> childNode[i], f, newWord);
+	}
+	return;
+}
+void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
+{
+	int temp = 0;
+	f.read((char*)&temp, sizeof(int));
+	if (temp == -1)
+	{
+		// std::cout << "[DEBUG] empty node\n";
+		pRoot = nullptr;
+		return;
+	}
+	pRoot = new trieNode;
+	bool wordExisted = false;
+	f.read((char*)&wordExisted, sizeof(bool));
+	pRoot -> wordExisted = wordExisted;
+	int sizeDef = 0;
+	f.read((char*)&sizeDef, sizeof(int));
+	int sizeString = 0;
+	std::vector<std::pair<std::string, std::string>> definitionVec;
+	for (int i = 0; i < sizeDef; ++i)
+	{
+		std::string POS = "";
+		std::string description = "";
+		f.read((char*)&sizeString, sizeof(int)); // read the size of POS
+		char* buffer = new char[sizeString]; // allocate a char array buffer
+		f.read(buffer, sizeString);
+		POS.assign(buffer, sizeString);
+		delete [] buffer;
+		f.read((char*)&sizeString, sizeof(int)); // read the size of description
+		buffer = new char[sizeString]; // allocate a char array buffer
+		f.read(buffer, sizeString);
+		description.assign(buffer, sizeString);
+		delete [] buffer;
+		definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
+		// std::cout << "[DEBUG] POS: " << POS << " - definition: " << description << std::endl;
+	}
+	pRoot -> definitions = definitionVec;
+	for (int i = 0; i < 96; ++i)
+	{
+		std::string newWord = word + (char)(i + 32);
+		// std::cout << "[DEBUG] probing " << newWord << std::endl;
+		deserializeBinary(pRoot -> childNode[i], f, newWord);
 	}
 }
 

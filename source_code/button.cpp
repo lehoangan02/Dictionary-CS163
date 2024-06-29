@@ -37,6 +37,16 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     this -> textureHover = textureHover;
     this -> textureClick = textureClick;
 }
+// for non-text, hover and persistent menu-click button
+Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick)
+{
+    hover = true;
+    persistentClick = true;
+    this -> textureDefault = textureDefault;
+    buttonSprite.setTexture(textureDefault);
+    this -> textureHover = textureHover;
+    this -> textureClick = textureClick;
+}
 // for text and hover buttons
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
 std::string textString, int characterSize)
