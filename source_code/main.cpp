@@ -11,8 +11,8 @@ int main()
 {
 	trieNode* pRoot = nullptr;
 	int mode = -1;
-	bool imported = false;
-	bool serialized = true;
+	// bool imported = false;
+	// bool serialized = true;
 	while (mode != 0)
 	{
 		printf("1 for importing the data\n");
@@ -30,43 +30,24 @@ int main()
 				std::string filepath; std::cout << "input filepath: "; std::cin >> filepath;
 				readDatasetCSV(filepath, pRoot);
 				printf("imported successfully\n");
-				imported = true;
 			}
 			break;
 		case 2:
 		{
-			if (!imported && !serialized)
-			{
-				printf("please import the dataset first.\n");
-				break;
-			}
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			printf("search here: "); std::string searchObject; std::getline(std::cin, searchObject);
+			searchObject = "";
 			traverseToSearch(pRoot, searchObject);
 		}
 		break;
 		case 3:
 		{
-			if (!imported && ! serialized)
-			{
-				printf("please import the dataset first.\n");
-				break;
-			}
-			std::ofstream fout; fout.open("serialized.txt");
-			serialize(pRoot, fout, "");
+			serializeWrapper(pRoot);
 		}
 		break;
 		case 4:
 		{
-			if (!serialized)
-			{
-				printf("please import or serialize the dataset first.\n");
-				break;
-			}
-			deleteWholeTrie(pRoot);
-			pRoot = nullptr;
-			std::ifstream fin; fin.open("serialized.txt");
-			deserialize(pRoot, fin, "");
+			deserializeWrapper(pRoot);
 		}
 		default:
 		{
