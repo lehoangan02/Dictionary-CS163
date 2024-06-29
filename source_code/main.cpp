@@ -26,34 +26,44 @@ int main()
 		case 1:
 			{
 				deleteWholeTrie(pRoot);
-				pRoot = nullptr;
 				std::string filepath; std::cout << "input filepath: "; std::cin >> filepath;
 				readDatasetCSV(filepath, pRoot);
 				printf("imported successfully\n");
+				std::cout << "[DEBUG] " << pRoot << std::endl;
 			}
 			break;
 		case 2:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			printf("search here: "); std::string searchObject; std::getline(std::cin, searchObject);
-			searchObject = "";
+			std::cout << "searching: " << searchObject << std::endl;
+			std::cout << "[DEBUG] " << pRoot << std::endl;
 			traverseToSearch(pRoot, searchObject);
 		}
 		break;
 		case 3:
 		{
-			serializeWrapper(pRoot);
+			std::fstream f; f.open("serialized.bin", std::ios::out | std::ios::trunc | std::ios::binary);
+			serializeBinary(pRoot, f, "");
+			f.close();
 		}
 		break;
 		case 4:
 		{
-			deserializeWrapper(pRoot);
-		}
-		default:
-		{
 			deleteWholeTrie(pRoot);
-		}
+			std::fstream f; f.open("serialized.bin", std::ios::in | std::ios::binary);
+			if (f.is_open() == false)
+			{
+				std::cout << "[DEBUG] no file found to deserialize!\n";
+				return false;
+			}
+			deserializeBinary(pRoot, f, "");
+			std::cout << "[DEBUG] " << pRoot << std::endl;
 			break;
+		}
+		break;
+		default:
+		break;
 		}
 	}
 }
