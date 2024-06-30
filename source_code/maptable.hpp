@@ -16,12 +16,12 @@ struct HashTable
     HashTable();
     HashTable(int x);
     ~HashTable();
-    int hash(std::string key); // May be adjusted
     void insert(std::string key);
     TableBlock* find(std::string key);
     void remove(std::string key);
 
     // Helper(s)
+    int hash(std::string key); // May be adjusted
     void deleteLL(TableBlock*& pHead);
 };
 
@@ -41,12 +41,12 @@ struct HashMap
     HashMap();
     HashMap(int x);
     ~HashMap();
-    int hash(std::string key); // May be adjusted
     void insert(std::string key, HashTable data);
     MapBlock* find(std::string key);
     HashTable& access(std::string key); // Use this for fast access to existing or non-existing elements
     void remove(std::string key);
 
     // Helper(s)
+    int hash(std::string key); // May be adjusted
     void deleteLL(MapBlock*& pHead);
 };
