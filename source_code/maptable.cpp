@@ -199,9 +199,15 @@ std::vector<std::string> tokenize(std::string line)
         else
         {
             if (head != tail)
+            {
                 res.push_back(line.substr(head, tail - head));
-            ++tail;
-            head = tail;
+                head = tail;
+            }
+            else
+            {
+                ++tail;
+                ++head;
+            }
         }
     }
     if (head != tail)
