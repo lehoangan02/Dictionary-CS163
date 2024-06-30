@@ -34,6 +34,7 @@ struct MapBlock
     std::string key; // Should contain alphabetic letters only
     HashTable data;
     MapBlock* pNext = nullptr;
+    // May need constructor
 };
 
 struct HashMap
