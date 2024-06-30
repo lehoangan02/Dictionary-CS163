@@ -1,9 +1,11 @@
 #pragma once
+
 #include <string>
+#include "trie.h"
 
 struct TableBlock
 {
-    std::string data; // Should contain alphabet letters only
+    std::string data; 
     TableBlock* pNext = nullptr;
 };
 
@@ -20,16 +22,19 @@ struct HashTable
     TableBlock* find(std::string key);
     void remove(std::string key);
 
-    // Helper(s)
+    // Hashing
     int hash(std::string key); // May be adjusted
+
+    // Helper(s)
     void deleteLL(TableBlock*& pHead);
 };
 
 struct MapBlock
 {
-    std::string key;
+    std::string key; // Should contain alphabetic letters only
     HashTable data;
     MapBlock* pNext = nullptr;
+    // May need constructor
 };
 
 struct HashMap
@@ -46,7 +51,19 @@ struct HashMap
     HashTable& access(std::string key); // Use this for fast access to existing or non-existing elements
     void remove(std::string key);
 
-    // Helper(s)
+    // Hashing
     int hash(std::string key); // May be adjusted
+
+    // Helper(s)
     void deleteLL(MapBlock*& pHead);
 };
+
+// Utility functions
+bool isAlphabetic(char c);
+std::vector<std::string> tokenize(std::string line);
+
+// Invert Index the Trie
+void invertIndexTrie(trieNode* pRoot, HashMap& map);
+
+//Helper(s)
+void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord);
