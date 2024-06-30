@@ -24,7 +24,7 @@ int HashTable::hash(std::string key) // May be adjusted
 {
     int sum = 0;
     for (int i = 0; i < key.length(); ++i)
-        sum += int(tolower(key[i])) - 97;
+        sum += int(key[i]) - 32;
     return sum % size;
 }
 
@@ -180,4 +180,57 @@ void HashMap::deleteLL(MapBlock*& pHead)
         delete pHead;
         pHead = pTemp;
     }
+}
+
+bool isAlphabetic(char c)
+{
+    return ((c > 64 && c < 91) || (c > 96 && c < 123));
+}
+
+std::vector<std::string> tokenize(std::string line)
+{
+    std::vector<std::string> res;
+    int head = 0, tail = 0;
+    int l = line.length();
+    while (tail < l)
+    {
+        if (isAlphabetic(line[tail]))
+            ++tail;
+        else
+        {
+            if (head != tail)
+                res.push_back(line.substr(head, tail - head));
+            ++tail;
+            head = tail;
+        }
+    }
+    if (head != tail)
+        res.push_back(line.substr(head, l - head));
+    return res;
+}
+
+void invertIndexTrie(trieNode* pRoot, HashMap& map)
+{
+    std::string curWord;
+    invertIndexTrieHelper(pRoot, map, curWord);
+}
+
+void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord)
+{
+    if (!pRoot)
+        return;
+    if (pRoot->wordExisted)
+    {
+        for (auto s : pRoot->definitions)
+        {
+            std::vector<std::string> token = tokenize(s.second);
+            for (auto t : token)
+            {
+                // May need to change t to lowercase
+                map.access(t).insert(curWord);
+            }
+        }
+    }
+    for (int i = 0; i < ascii; ++i)
+        invertIndexTrieHelper(pRoot->childNode[i], map, curWord + char(i + 32));
 }
