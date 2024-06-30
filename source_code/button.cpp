@@ -6,7 +6,8 @@ Button::Button(const sf::Texture& texture)
         buttonSprite.setTexture(textureDefault);
         clickToChange = false;
     }
-// for non-hover, text button
+    
+/// for non-hover, text button
 Button::Button(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize)
 {
     clickToChange = false;
@@ -19,7 +20,8 @@ Button::Button(const sf::Texture& texture, const sf::Font& font, std::string tex
     buttonText.setString(textString);
     centerText();
 }
-// for non-text, hover buttons
+
+/// for non-text, hover buttons
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover)
 {
     hover = true;
@@ -28,7 +30,8 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     this -> textureHover = textureHover;
     clickToChange = false;
 }
-// for non-text, hover and menu-click button
+
+/// for non-text, hover and menu-click button
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick)
 {
     hover = true;
@@ -37,17 +40,8 @@ Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHove
     this -> textureHover = textureHover;
     this -> textureClick = textureClick;
 }
-// for non-text, hover and persistent menu-click button
-Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick)
-{
-    hover = true;
-    persistentClick = true;
-    this -> textureDefault = textureDefault;
-    buttonSprite.setTexture(textureDefault);
-    this -> textureHover = textureHover;
-    this -> textureClick = textureClick;
-}
-// for text and hover buttons
+
+/// for text and hover buttons
 Button::Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
 std::string textString, int characterSize)
 {
@@ -143,9 +137,9 @@ void Button::select(bool mode)
         }
     }
 }
-// use this for stable ordinary button.
-// stable meaning it does not disapplear when interacting in the same page.
-// ordinary meaning it does not have persistent characteristic.
+/// use this for stable ordinary button.
+/// stable meaning it does not disapplear when interacting in the same page.
+/// ordinary meaning it does not have persistent characteristic.
 void Button::click(sf::RenderWindow& window)
 {
     if (isClicked(window))
@@ -214,6 +208,7 @@ bool switchButton::getMode()
 spongyButton::spongyButton(sf::Texture& textureDefault, const sf::Texture& textureHov, const sf::Texture& textureClick) :
     Button(textureDefault, textureHov, textureClick)
     {
+        return;
     }
 void spongyButton::setOffset(float x, float y)
 {

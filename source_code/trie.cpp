@@ -188,7 +188,7 @@ void deleteWholeTrie(trieNode*& pRoot)
 	pRoot = nullptr;
 }
 
-// serialization of the existing trie
+// serialization of the existing trie (compatibility mode)
 void serializeWrapper(trieNode* pRoot)
 {
 	std::ofstream fout; fout.open("serialized.txt");
@@ -220,7 +220,7 @@ void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
 	return;
 }
 
-// deserialization of the saved trie
+// deserialization of the saved trie (compatibility mode)
 bool deserializeWrapper(trieNode*& pRoot)
 {
 	deleteWholeTrie(pRoot);
@@ -270,7 +270,14 @@ void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 		deserialize(pRoot -> childNode[i], fin, newWord);
 	}
 }
-void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
+
+// serialization of the existing trie (compatibility mode)
+void serializeBinaryWrapper(trieNode* pRoot)
+{
+	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::out | std::ios::trunc);
+	serializeBinary(pRoot, f, "");
+}
+void serializeBinary(trieNode* pRoot, std::fstream& f, std::string word)
 {
 	int temp = 0;
 	if (!pRoot)
@@ -304,6 +311,19 @@ void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 		serializeBinary(pRoot -> childNode[i], f, newWord);
 	}
 	return;
+}
+
+// deserialization of the saved trie (compatibility mode)
+bool deserializeBinaryWrapper(trieNode*& pRoot)
+{
+	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::in);
+	if (!f.is_open())
+	{
+		std::cout << "[DEBUG] no file found to deserialize!\n";
+		return false;
+	}
+	deserializeBinary(pRoot, f, "");
+	return true;
 }
 void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 {

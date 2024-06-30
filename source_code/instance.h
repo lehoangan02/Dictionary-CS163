@@ -20,6 +20,14 @@ class instance
     bool autoSave = true;
     int definitionNum = 0;
     std::vector<std::pair<std::string, std::string>> searchResult;
+    /*
+    0 is not initialized
+    1 is no file found
+    2 is successful
+    4 is other (format not selected)
+    */
+    int errorMode = 0;
+
 
     // SFML
     sf::RenderWindow windowInstance;
@@ -65,6 +73,7 @@ class instance
     // fonts
     sf::Font PlayfairDisplay;
     sf::Font SourceSans3;
+    sf::Font PatuaOne;
     
     // search box
     sf::Texture searchBoxTexture;
@@ -86,6 +95,10 @@ class instance
     sf::Texture formatPromptTexture;
     sf::Sprite formatPromptSprite;
 
+    // import status message
+    sf::Text importStatus;
+    bool displayStatus = false;
+
     // Sub-mode buttons in setting (setting is import mode)
     sf::Texture importModeDef;
     sf::Texture importModeHov;
@@ -102,9 +115,9 @@ class instance
     sf::Texture saveModeDef;
     sf::Texture saveModeHov;
     Button saveModeButton;
-    sf::Texture serializeModeDef;
-    sf::Texture serializeModeHov;
-    Button serializeModeButton;
+    sf::Texture deserializeModeDef;
+    sf::Texture deserializeModeHov;
+    Button deserializeModeButton;
 
     // Definition elements
     std::string headWordString = "";
@@ -146,6 +159,15 @@ class instance
     // loading page
     sf::Texture loadingTexture;
     sf::Sprite loadingSprite;
+
+    // deserialize button
+    sf::Texture deserializeTexture;
+    Button deserializeButton;
+
+    // prompt in deserialize mode
+    sf::Texture toLoadLastSaveTexture;
+    sf::Sprite toLoadLastSaveSprite;
+
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {
@@ -159,15 +181,29 @@ class instance
         font.loadFromFile(filepath);
         return font;
     }
-    void switchPage();
+    
+    /*
+    Page 1 (main) searching
+    Page 2 import
+    Page 3 definition searching
+    Page 4 words addition
+    Page 5 words deletion
+    Page 6 words editing
+    Page 7 save (serialize)
+    Page 8 load (deserialize)
+    */
     void operatePage1();
     void operatePage2();
     void operatePage3();
     void operatePage7();
+    void operatePage8();
     void drawPage1();
     void drawPage2();
     void drawPage3();
     void drawPage7();
+    void drawPage8();
+
+    void switchPage();
     void drawSubModes();
     void hoverSubModes();
     void drawSwitchMode();
@@ -176,4 +212,5 @@ class instance
     void saveAutoSaveSetting();
     void resetSearchResult();
     void drawLoadingPage();
+    void handleSearchSignal();
 };
