@@ -13,10 +13,6 @@ struct trieNode
 	std::vector<std::pair<std::string, std::string>> definitions;
 	trieNode()
 	{
-		// 0->25: letters
-		// 26: space (' ')
-		// 27: dash ('-')
-		// 28: apostrophe (')
 
 		for (int i = 0; i < ascii; ++i) this->childNode[i] = nullptr;
 		this->definitions.resize(0);

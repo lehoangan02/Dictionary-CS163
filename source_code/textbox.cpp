@@ -40,7 +40,7 @@ void textbox::handleInputLogic(const sf::Event event, sf::RenderWindow& window)
         }
         else if (event.type == sf::Event::KeyPressed)
         {
-            if (event.key.code == sf::Keyboard::Backspace)
+            if (event.key.code == sf::Keyboard::BackSpace)
             {
                 // printf("[DEBUG] backspace pressed\n");
                 deleteChar();
