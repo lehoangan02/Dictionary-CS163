@@ -127,7 +127,8 @@ dict/dict.xcodeproj/project.xcworkspace/contents.xcworkspacedata
 dict/dict.xcodeproj/project.pbxproj
 
 Project1/include/SFML/
-
+Project1/Project1/dataset
+Project1/Project1/assets
 
 
 main
