@@ -33,13 +33,13 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         // read the position of speech
         getline(tempStream, POS, ',');
         if (POS.length() >= 6)
-        POS = POS.substr(3, POS.length() - 6);
+            POS = POS.substr(3, POS.length() - 6);
         std::cout << POS << " ";
 
         // read the description
         getline(tempStream, description, ',');
         if (description.length() >= 6)
-            description = description.substr(3, description.length() - 6);
+            description = description.substr(3, description.length() - 7);
         removeQuotationMarkDuplicate(description);
         std::cout << description << std::endl;
 

@@ -29,6 +29,7 @@ instance::instance() :
 	// fonts
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
+	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
@@ -58,9 +59,9 @@ instance::instance() :
 	saveModeDef(loadTexture("assets/images/SaveDef.png")),
 	saveModeHov(loadTexture("assets/images/SaveHov.png")),
 	saveModeButton(saveModeDef, saveModeHov),
-	serializeModeDef(loadTexture("assets/images/SerializeDef.png")),
-	serializeModeHov(loadTexture("assets/images/SerializeHov.png")),
-	serializeModeButton(serializeModeDef, serializeModeHov),
+	deserializeModeDef(loadTexture("assets/images/SerializeDef.png")),
+	deserializeModeHov(loadTexture("assets/images/SerializeHov.png")),
+	deserializeModeButton(deserializeModeDef, deserializeModeHov),
 	// definition background
 	definitionBackground(loadTexture("assets/images/DefinitionBackground.png")),
 	// searilize button
@@ -70,7 +71,7 @@ instance::instance() :
 	onSwitch(loadTexture("assets/images/onSwitch.png")),
 	offSwitch(loadTexture("assets/images/offSwitch.png")),
 	autoSaveButton(onSwitch, offSwitch),
-	// next/prev page
+	// next/prev page buttons
 	nextPageDef(loadTexture("assets/images/NextPageDef.png")),
 	nextPageHov(loadTexture("assets/images/NextPageHov.png")),
 	nextPageClick(loadTexture("assets/images/NextPageClick.png")),
@@ -78,7 +79,10 @@ instance::instance() :
 	prevPageDef(loadTexture("assets/images/PrevPageDef.png")),
 	prevPageHov(loadTexture("assets/images/PrevPageHov.png")),
 	prevPageClick(loadTexture("assets/images/PrevPageClick.png")),
-	prevPageButton(prevPageDef, prevPageHov, prevPageClick)
+	prevPageButton(prevPageDef, prevPageHov, prevPageClick),
+	// deserialize button
+	deserializeTexture(loadTexture("assets/images/DeserializeTexTure.png")),
+	deserializeButton(deserializeTexture, deserializeTexture, SourceSans3, "Deserialize", 36)
 {
 	std::ifstream fin; fin.open("note.txt");
 	if (!fin.is_open()) printf("[DEBUG] no file found\n");
@@ -112,13 +116,21 @@ instance::instance() :
 	formatPromptSprite.setTexture(formatPromptTexture);
 	formatPromptSprite.setPosition(145.0f, 282.0f);
 
+	// Set up import status message
+	importStatus.setFont(SourceSans3);
+	importStatus.setCharacterSize(32);
+	importStatus.setPosition(145, 207);
+	importStatus.setOutlineColor(sf::Color::Black);
+	importStatus.setOutlineThickness(1);
+	importStatus.setStyle(sf::Text::Style::Bold);
+
 	// Set up sub-mode button in setting
 	importModeButton.setPosition(sf::Vector2u(0, 620));
 	addModeButton.setPosition(sf::Vector2u(160, 620));
 	deleteModeButton.setPosition(sf::Vector2u(160 * 2, 620));
 	editModeButton.setPosition(sf::Vector2u(160 * 3, 620));
 	saveModeButton.setPosition(sf::Vector2u(160 * 4, 620));
-	serializeModeButton.setPosition(sf::Vector2u(160 * 5, 620));
+	deserializeModeButton.setPosition(sf::Vector2u(160 * 5, 620));
 
 	// Set up definition elements
 	definitionBackgroundSprite.setTexture(definitionBackground);
@@ -158,6 +170,11 @@ instance::instance() :
 	loadingSprite.setTexture(loadingTexture);
 	loadingSprite.setPosition(0.0f, 0.0f);
 
+	// Deserialize button and prompt
+	deserializeButton.setPosition(sf::Vector2u(550 - SHADOWHOR, 125));
+	toLoadLastSaveTexture.loadFromFile("assets/images/ToLoadLastSave.png");
+	toLoadLastSaveSprite.setTexture(toLoadLastSaveTexture);
+	toLoadLastSaveSprite.setPosition(105.0f, 125.0f);
 }
 void instance::operate()
 {
@@ -169,12 +186,14 @@ void instance::operate()
 		{
 			operatePage1();
 			drawPage1();
+			break;
 		}
 		break;
 		case 2:
 		{
 			operatePage2();
 			drawPage2();	
+			break;
 		}
 		break;
 		case 3:
@@ -186,6 +205,14 @@ void instance::operate()
 		{
 			operatePage7();
 			drawPage7();
+			break;
+		}
+		break;
+		case 8:
+		{
+			operatePage8();
+			drawPage8();
+			break;
 		}
 		break;
 		default:
@@ -197,7 +224,9 @@ void instance::operatePage1()
 {
 	if (!loadedSave)
 	{
-		deserializeWrapper(pRoot);
+		deleteWholeTrie(pRoot);
+		drawLoadingPage();
+		deserializeBinaryWrapper(pRoot);
 		loadedSave = true;
 	}
 	while (windowInstance.pollEvent(event))
@@ -210,25 +239,12 @@ void instance::operatePage1()
 			}
 			case sf::Event::MouseButtonPressed:
 			{
+				// printf("[DEBUG] mouse button pressed\n");
 				mouseControl = true;
 				if (searchButton.isClicked(windowInstance)) // static function
-					{
-						resetSearchResult();
-						std::string temp = searchBox.getString();
-						Change2Lowercase(headWordString);
-						std::cout << temp << std::endl;
-						searchResult = traverseToSearch(pRoot, temp);
-						numberOfResult = (int)searchResult.size();
-						if (numberOfResult > 0)
-                        {
-                            headWordString = temp;
-                            std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
-                            POSString = searchResult[definitionNum].first;
-                            descriptionString = searchResult[definitionNum].second;
-                            displayDef = true;
-                        }
-						else	displayDef = false;
-					}
+				{
+					handleSearchSignal();
+				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
 					if (definitionNum < searchResult.size() - 1)
@@ -253,10 +269,22 @@ void instance::operatePage1()
 				if (event.key.code == sf::Keyboard::Return)
 				{
 					printf("[DEBUG] enter pressed\n");
-					std::cout << searchBox.getString() << std::endl;
+					handleSearchSignal();
 				}
 			}
 			break;
+            case sf::Event::LostFocus:
+            {
+                std::cout << "[DEBUG] lost focus" << std::endl;
+                
+            }
+            break;
+            case sf::Event::GainedFocus:
+            {
+                std::cout << "[DEBUG] gained focus" << std::endl;
+                
+            }
+            break;
 			default:
 			break;
 		}
@@ -293,19 +321,29 @@ void instance::operatePage2()
 			break;
 			case sf::Event::MouseButtonPressed:
 			{
+				mouseControl = true;
+				printf("[DEBUG] mouse button pressed\n");
 				if (importButton.isClicked(windowInstance))
 				{
+					displayStatus = true;
 					std::string filepath = importBox.getString();
 					std::cout << filepath << std::endl;
 					deleteWholeTrie(pRoot);
+					drawLoadingPage();
 					if (readDatasetCSV(filepath, pRoot))
 					{
 						std::cout << "[DEBUG] import successful\n";
+						importStatus.setFillColor(sf::Color(128, 255, 0));
+						importStatus.setString("Import Successful\n");
 					}
 					else
+					{
 						std::cout << "[DEBUG] import failed\n";
+						importStatus.setFillColor(sf::Color(255, 153, 0));
+						importStatus.setString("Import Failed\n");
+					}
 				}
-				mouseControl = true;
+				break;
 			}
 			break;
 			case sf::Event::KeyPressed:
@@ -340,6 +378,7 @@ void instance::drawPage2()
 	windowInstance.draw(importPromptSprite);
 	importBox.draw(windowInstance);
 	windowInstance.draw(formatPromptSprite);
+	if (displayStatus) windowInstance.draw(importStatus);
 	CSVButton.draw(windowInstance);
 	TXTButton.draw(windowInstance);
 	drawSubModes();
@@ -362,7 +401,8 @@ void instance::operatePage7()
 			if (serializeButton.isClicked(windowInstance))
 			{
 				drawLoadingPage();
-				serializeWrapper(pRoot);
+				mouseControl = false;
+				serializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -390,6 +430,50 @@ void instance::drawPage7()
 	windowInstance.draw(autoSaveSprite);
 	windowInstance.display();
 }
+void instance::operatePage8()
+{
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+		case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+		case sf::Event::MouseButtonPressed:
+		{
+			mouseControl = true;
+			if (deserializeButton.isClicked(windowInstance))
+			{
+				mouseControl = false;
+				drawLoadingPage();
+				deleteWholeTrie(pRoot);
+				deserializeBinaryWrapper(pRoot);
+			}
+		}
+		break;
+		default:
+			break;
+		}
+	}
+	handleSwitchModeLogic();
+	hoverSubModes();
+	deserializeButton.hoverSwitchTexture(windowInstance);
+	switchPage();
+}
+void instance::drawPage8()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	drawSwitchMode();
+	drawSubModes();
+	deserializeButton.draw(windowInstance);
+	windowInstance.draw(toLoadLastSaveSprite);
+	windowInstance.display();
+}
+
+/// draw the sub-mode buttons from page 2 and 4 - 7
 void instance::drawSubModes()
 {
 	importModeButton.draw(windowInstance);
@@ -397,8 +481,10 @@ void instance::drawSubModes()
 	deleteModeButton.draw(windowInstance);
 	editModeButton.draw(windowInstance);
 	saveModeButton.draw(windowInstance);
-	serializeModeButton.draw(windowInstance);
+deserializeModeButton.draw(windowInstance);
 }
+
+/// handle the hover effect of the sub-mode buttons from page 2 and 4 - 7
 void instance::hoverSubModes()
 {
 	importModeButton.hoverSwitchTexture(windowInstance);
@@ -406,8 +492,10 @@ void instance::hoverSubModes()
 	deleteModeButton.hoverSwitchTexture(windowInstance);
 	editModeButton.hoverSwitchTexture(windowInstance);
 	saveModeButton.hoverSwitchTexture(windowInstance);
-	serializeModeButton.hoverSwitchTexture(windowInstance);
+deserializeModeButton.hoverSwitchTexture(windowInstance);
 }
+
+/// adjust and reset variables when switching pages
 void instance::switchPage()
 {
 	if (modeButtonActive)
@@ -439,10 +527,10 @@ void instance::switchPage()
 	{
 		if (saveModeButton.isClicked(windowInstance) && mouseControl)
 		{
+			printf("[DEBUG] pressing page 7\n");
 			if (page == 2 || (page >= 4 && page <= 6) || page == 8)
 			{
-				printf("[DEBUG] pressing page 7\n");
-				printf("[DEBUG] at page 7\n");
+				printf("[DEBUG] changing to page 7\n");
 				page = 7;
 				pageChange = true;
 			}
@@ -450,25 +538,39 @@ void instance::switchPage()
 		}
 		else if (importModeButton.isClicked(windowInstance) && mouseControl)
 		{
-			if ((page >= 4 && page <= 7))
+			printf("[DEBUG] pressing page 2\n");
+			if ((page >= 4 && page <= 8))
 			{
-				printf("[DEBUG] pressing page 2\n");
-				printf("[DEBUG] at page 2\n");
+				printf("[DEBUG] changing to page 2\n");
 				page = 2;
 				pageChange = true;
+			}
+			mouseControl = false;
+		}
+		else if (deserializeModeButton.isClicked(windowInstance) && mouseControl)
+		{
+			printf("[DEBUG] pressing page 8\n");
+			if (page == 2 || (page >= 4 && page <= 8 && page != 8))
+			{
+				printf("[DEBUG] changing to page 8\n");
+				page = 8;
+				pageChange =true;
 			}
 			mouseControl = false;
 		}
 	}
 	if (pageChange)
 	{
-		printf("[DEBUG] page changed\n");
+		// printf("[DEBUG] page changed\n");
+		mouseControl = false;
 		searchBox.clear();
 		importBox.clear();
 		pageChange = false;
 		definitionNum = 0;
 	}
 }
+
+/// draw the main mode switching buttons (top left)
 void instance::drawSwitchMode()
 {
 	modeButton.draw(windowInstance);
@@ -478,6 +580,8 @@ void instance::drawSwitchMode()
 		definitionModeButton.draw(windowInstance);
 	}
 }
+
+/// handle activation of the main mode switching button
 void instance::handleSwitchModeLogic()
 {
 	switchPage();
@@ -495,6 +599,8 @@ void instance::handleSwitchModeLogic()
 		definitionModeButton.hoverSwitchTexture(windowInstance);
 	}
 }
+
+/// draw the definition of the searched word
 void instance::drawDefinition()
 {
 	if (!displayDef) return;
@@ -508,6 +614,7 @@ void instance::drawDefinition()
 	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
 	if (definitionNum < searchResult.size() - 1)	nextPageButton.draw(windowInstance);
 }
+
 void instance::saveAutoSaveSetting()
 {
 	bool temp = autoSaveButton.getMode();
@@ -529,6 +636,8 @@ void instance::resetSearchResult()
 	POSString = "";
 	descriptionString = "";
 }
+
+/// use this before potential heavy loading functions
 void instance::drawLoadingPage()
 {
 	windowInstance.clear();
@@ -536,3 +645,21 @@ void instance::drawLoadingPage()
 	windowInstance.display();
 }
 
+void instance::handleSearchSignal()
+{
+	resetSearchResult();
+	std::string temp = searchBox.getString();
+	Change2Lowercase(headWordString);
+	std::cout << temp << std::endl;
+	searchResult = traverseToSearch(pRoot, temp);
+	numberOfResult = (int)searchResult.size();
+	if (numberOfResult > 0)
+	{
+		headWordString = temp;
+		std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
+		POSString = searchResult[definitionNum].first;
+		descriptionString = searchResult[definitionNum].second;
+		displayDef = true;
+	}
+	else	displayDef = false;
+}

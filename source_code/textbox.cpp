@@ -102,12 +102,13 @@ void textbox::handleColor()
 void  textbox::select() 
 {
     if (active) return;
+    // printf("[DEBUG] %d\n", limit);
     active = true;
     if (!full) // insert cursor
     {
         if (textStream.str() == guideString)
         {
-
+            // printf("[DEBUG] resetting\n");
             textStream.str("");
         }
         textStream << textCursor;
@@ -122,7 +123,9 @@ void textbox::deselect()
         {
             std::string temp = textStream.str();
             textStream.str("");
-            for (int i = 0; i < temp.length() - 1; ++i)
+//            std::cout << "[DEBUG] " << (temp.empty()) << std::endl;
+//            std::cout << "[DEBUG] " << temp.length() << std::endl;
+            for (int i = 0; i < (int)temp.length() - 1; ++i)
             {
                 textStream << temp[i];
             }
@@ -211,6 +214,8 @@ void textbox::clear()
     deselect();
     handleColor();
     textStream.str(guideString);
+    numChar = 0;
+    manageFullness();
     displayText.setString(textStream.str());
     return;
 }
