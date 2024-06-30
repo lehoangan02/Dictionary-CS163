@@ -196,9 +196,10 @@ void readfile4(trieNode*& pRoot, std::string readfilename, std::ifstream& fin)
 	{
 		std::stringstream split(line);
 		std::string word, def;
-		getline(split, word , '|');
+		getline(split, word , '`');
 		getline(split, def);
-		insert2(pRoot, word, def);
+		std::string posdef = "emoji.|" + def;
+		insert2(pRoot, word, posdef);
 	}
 	std::cout << "Reading file successfully!" << std::endl;
 	fin.close();
