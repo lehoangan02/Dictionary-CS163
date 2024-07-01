@@ -2,9 +2,7 @@
 #include "readDatasetCSV.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
 
-//rewrite the read function as data format has been changed.
-
-bool readDataset(std::string filename, trieNode*& pRoot)
+bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 {
     std::ifstream inputStream;
     inputStream.open(filename);
