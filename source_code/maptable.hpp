@@ -41,7 +41,7 @@ struct HashTable // Designed after unordered_set<string>
 struct MapBlock // Used for chaining in HashMap
 {
     std::string key; // Should contain alphabetic letters only
-    HashTable data; // Store words containing key in its definition
+    HashTable data; // Store words containing key in their definition
     MapBlock* pNext = nullptr;
     // May need constructor
 };
@@ -49,7 +49,7 @@ struct MapBlock // Used for chaining in HashMap
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** map = nullptr;
-    int size = 127; // May be adjusted
+    int size = 127; // May need improvements
 
     // Ctor
 
@@ -69,10 +69,10 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
     // Hashing
 
-    int hash(std::string key); // May be adjusted
+    int hash(std::string key); // May need improvements
 
     // Helper(s)
-    
+
     void deleteLL(MapBlock*& pHead);
 };
 
@@ -85,6 +85,6 @@ std::vector<std::string> tokenize(std::string line);
 
 void invertIndexTrie(trieNode* pRoot, HashMap& map);
 
-//Helper(s)
+// Helper(s)
 
 void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord);
