@@ -5,6 +5,8 @@
 
 #include "button.hpp"
 #include "textbox.hpp"
+#include "animation.hpp"
+
 #include "trie.h"
 #include "readDatasetCSV.hpp"
 
@@ -168,6 +170,25 @@ class instance
     sf::Texture toLoadLastSaveTexture;
     sf::Sprite toLoadLastSaveSprite;
 
+    // Game mode
+    sf::Texture gameModeDef;
+    sf::Texture gameModeHov;
+    Button gameModeButton;
+    sf::Texture penguinTexture;
+    Animation penguinAnimation;
+    sf::Texture rainbowStarTexture;
+    Animation rainbowStarAnimation;
+    sf::Texture scenery;
+    Animation sceneryAnimation;
+    sf::Texture knightTexture;
+    Animation knightAnimation;
+    float deltaTime = 0;
+    sf::Clock clock;
+    float knightTotalTime = 0;
+    bool correctAnswer = false;
+    sf::Texture congratulationsTexture;
+    AnimationVertical congratulationsAnimation;
+
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {
@@ -191,17 +212,20 @@ class instance
     Page 6 words editing
     Page 7 save (serialize)
     Page 8 load (deserialize)
+    Page 9 game mode
     */
     void operatePage1();
     void operatePage2();
     void operatePage3();
     void operatePage7();
     void operatePage8();
+    void operatePage9();
     void drawPage1();
     void drawPage2();
     void drawPage3();
     void drawPage7();
     void drawPage8();
+    void drawPage9();
 
     void switchPage();
     void drawSubModes();
