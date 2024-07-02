@@ -137,7 +137,7 @@ void textbox::insertChar(char newInput)
     if (full) return;
     std::string temp = textStream.str();
     textStream.str("");
-    for (int i = 0; i < temp.length() - 1; ++i)
+    for (int i = 0; i < (int)temp.length() - 1; ++i)
     {
         textStream << temp[i];
     }
@@ -158,14 +158,14 @@ void textbox::deleteChar()
     textStream.str("");
     if (!full)
     {
-        for (int i = 0; i < temp.length() - 2; ++i)
+        for (int i = 0; i < (int)temp.length() - 2; ++i)
         {
             textStream << temp[i];
         }
     }
     else
     {
-        for (int i = 0; i < temp.length() - 1; ++i)
+        for (int i = 0; i < (int)temp.length() - 1; ++i)
         {
             textStream << temp[i];
         }

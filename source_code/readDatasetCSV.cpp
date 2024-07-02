@@ -49,7 +49,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         {
             std::cout << "[DEBUG] end of vec\n";
             insert(pRoot, previousWord, definitionVec);
-            for (int i = 0; i < definitionVec.size(); ++i)
+            for (int i = 0; i < (int)definitionVec.size(); ++i)
             {
                 // std::cout << "[DEBUG]" << previousWord << " ";
                 // std::cout << definitionVec[i].first << " ";

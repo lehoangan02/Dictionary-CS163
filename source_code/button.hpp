@@ -30,7 +30,7 @@ class Button
     bool isHovering(const sf::RenderWindow& window);
     void hoverSwitchTexture(const sf::RenderWindow& window);
     void setOffset(float x, float y);
-    virtual void select(bool mode);
+    void select(bool mode);
     virtual void click(sf::RenderWindow& window);
     protected:
     void centerText();
