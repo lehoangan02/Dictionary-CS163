@@ -14,7 +14,7 @@ HashTable::~HashTable()
 {
     for (int i = 0; i < size; ++i)
     {
-        deleteLL(set[i]);
+        this->deleteLL(set[i]);
     }
     delete[] set;
     set = nullptr;
@@ -30,9 +30,9 @@ int HashTable::hash(std::string key) // May be adjusted
 
 void HashTable::insert(std::string key)
 {
-    if (find(key))
+    if (this->find(key))
         return;
-    int pos = hash(key);
+    int pos = this->hash(key);
     TableBlock* pNew = new TableBlock;
     pNew->data = key;
     pNew->pNext = set[pos];
@@ -41,7 +41,7 @@ void HashTable::insert(std::string key)
 
 TableBlock* HashTable::find(std::string key)
 {
-    int pos = hash(key);
+    int pos = this->hash(key);
     TableBlock* pCur = set[pos];
     while (pCur && pCur->data != key)
         pCur = pCur->pNext;
@@ -50,7 +50,7 @@ TableBlock* HashTable::find(std::string key)
 
 void HashTable::remove(std::string key)
 {
-    int pos = hash(key);
+    int pos = this->hash(key);
     TableBlock* pDummy = new TableBlock;
     pDummy->pNext = set[pos];
     TableBlock* pCur = pDummy;
@@ -93,7 +93,7 @@ HashMap::~HashMap()
 {
     for (int i = 0; i < size; ++i)
     {
-        deleteLL(map[i]);
+        this->deleteLL(map[i]);
     }
     delete[] map;
     map = nullptr;
@@ -109,9 +109,9 @@ int HashMap::hash(std::string key) // May be adjusted
 
 void HashMap::insert(std::string key, HashTable data)
 {
-    if (find(key))
+    if (this->find(key))
         return;
-    int pos = hash(key);
+    int pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
     for (int i = 0; i < data.size; ++i)
@@ -129,7 +129,7 @@ void HashMap::insert(std::string key, HashTable data)
 
 MapBlock* HashMap::find(std::string key)
 {
-    int pos = hash(key);
+    int pos = this->hash(key);
     MapBlock* pCur = map[pos];
     while (pCur && pCur->key != key)
         pCur = pCur->pNext;
@@ -138,12 +138,12 @@ MapBlock* HashMap::find(std::string key)
 
 HashTable& HashMap::access(std::string key) // Use this for fast access to existing or non-existing elements
 {
-    MapBlock* pFind = find(key);
+    MapBlock* pFind = this->find(key);
     if (pFind)
         return pFind->data;
     
     // If key doesnt exist, create entry of key with empty data
-    int pos = hash(key);
+    int pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
     pNew->pNext = map[pos];
@@ -153,7 +153,7 @@ HashTable& HashMap::access(std::string key) // Use this for fast access to exist
 
 void HashMap::remove(std::string key)
 {
-    int pos = hash(key);
+    int pos = this->hash(key);
     MapBlock* pDummy = new MapBlock;
     pDummy->pNext = map[pos];
     MapBlock* pCur = pDummy;
