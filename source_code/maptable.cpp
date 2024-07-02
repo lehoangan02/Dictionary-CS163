@@ -1,10 +1,12 @@
 #include "maptable.hpp"
 
+// Initialize empty HashTable, default size
 HashTable::HashTable()
 {
     set = new TableBlock*[size] {nullptr};
 }
 
+// Initialize empty HashTable, arbitary size
 HashTable::HashTable(int x) : size(x)
 {
     set = new TableBlock*[size] {nullptr};
@@ -20,7 +22,8 @@ HashTable::~HashTable()
     set = nullptr;
 }
 
-int HashTable::hash(std::string key) // May be adjusted
+// Hash
+int HashTable::hash(std::string key) 
 {
     int sum = 0;
     for (int i = 0; i < key.length(); ++i)
@@ -28,6 +31,7 @@ int HashTable::hash(std::string key) // May be adjusted
     return sum % size;
 }
 
+// Insert an element, do NOT store duplicates
 void HashTable::insert(std::string key)
 {
     if (this->find(key))
@@ -39,6 +43,8 @@ void HashTable::insert(std::string key)
     set[pos] = pNew; 
 }
 
+// Return pointer to TableBlock containing an element
+// Return nullptr if not found
 TableBlock* HashTable::find(std::string key)
 {
     int pos = this->hash(key);
@@ -48,6 +54,7 @@ TableBlock* HashTable::find(std::string key)
     return pCur;
 }
 
+// Remove an element, do nothing if not found
 void HashTable::remove(std::string key)
 {
     int pos = this->hash(key);
@@ -69,6 +76,7 @@ void HashTable::remove(std::string key)
     delete pDummy;
 }
 
+// Deallocate a bucket (linked list) in table
 void HashTable::deleteLL(TableBlock*& pHead)
 {
     while (pHead)
@@ -79,11 +87,13 @@ void HashTable::deleteLL(TableBlock*& pHead)
     }
 }
 
+// Initialize empty HashMap, default size
 HashMap::HashMap()
 {
     map = new MapBlock*[size] {nullptr};
 }
 
+// Initialize empty HashMap, arbitary size
 HashMap::HashMap(int x) : size(x)
 {
     map = new MapBlock*[size] {nullptr};
@@ -107,6 +117,7 @@ int HashMap::hash(std::string key) // May be adjusted
     return sum % size;
 }
 
+// Maps a HashTable based on associating key, do NOT store duplicate keys
 void HashMap::insert(std::string key, HashTable data)
 {
     if (this->find(key))
@@ -127,6 +138,8 @@ void HashMap::insert(std::string key, HashTable data)
     map[pos] = pNew; 
 }
 
+// Return pointer to MapBlock of given key
+// Return nullptr if not found
 MapBlock* HashMap::find(std::string key)
 {
     int pos = this->hash(key);
@@ -136,7 +149,9 @@ MapBlock* HashMap::find(std::string key)
     return pCur;
 }
 
-HashTable& HashMap::access(std::string key) // Use this for fast access to existing or non-existing elements
+// Direct access to both existing and non-existing data of given key
+// If key not found, create entry of said key with empty data
+HashTable& HashMap::access(std::string key)
 {
     MapBlock* pFind = this->find(key);
     if (pFind)
@@ -151,6 +166,8 @@ HashTable& HashMap::access(std::string key) // Use this for fast access to exist
     return map[pos]->data;
 }
 
+// Remove a key and associated data
+// Do nothing if not found
 void HashMap::remove(std::string key)
 {
     int pos = this->hash(key);
@@ -172,6 +189,7 @@ void HashMap::remove(std::string key)
     delete pDummy;
 }
 
+// Deallocate a bucket (linked list) in map
 void HashMap::deleteLL(MapBlock*& pHead)
 {
     while (pHead)
@@ -229,8 +247,8 @@ void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord)
     {
         for (auto s : pRoot->definitions)
         {
-            std::vector<std::string> token = tokenize(s.second);
-            for (auto t : token)
+            std::vector<std::string> tokens = tokenize(s.second);
+            for (auto t : tokens)
             {
                 // May need to change t to lowercase
                 map.access(t).insert(curWord);

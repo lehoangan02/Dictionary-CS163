@@ -3,7 +3,7 @@
 #include <string>
 #include "trie.h"
 
-struct TableBlock
+struct TableBlock // Used for chaining in HashTable
 {
     std::string data; 
     TableBlock* pNext = nullptr;
@@ -12,27 +12,36 @@ struct TableBlock
 struct HashTable // Designed after unordered_set<string>
 {
     TableBlock** set = nullptr;
-    int size = 127; // May be adjusted
+    int size = 127; // May need improvements
 
-    // Use these
+    // Ctor
+
     HashTable();
     HashTable(int x);
+
+    // Dtor
+
     ~HashTable();
+
+    // Basic methods
+
     void insert(std::string key);
     TableBlock* find(std::string key);
     void remove(std::string key);
 
     // Hashing
-    int hash(std::string key); // May be adjusted
+
+    int hash(std::string key); // May need improvements
 
     // Helper(s)
+
     void deleteLL(TableBlock*& pHead);
 };
 
-struct MapBlock
+struct MapBlock // Used for chaining in HashMap
 {
     std::string key; // Should contain alphabetic letters only
-    HashTable data;
+    HashTable data; // Store words containing key in its definition
     MapBlock* pNext = nullptr;
     // May need constructor
 };
@@ -42,28 +51,40 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
     MapBlock** map = nullptr;
     int size = 127; // May be adjusted
 
-    // Use these
+    // Ctor
+
     HashMap();
     HashMap(int x);
+
+    // Dtor
+
     ~HashMap();
+
+    // Basic methods
+
     void insert(std::string key, HashTable data);
     MapBlock* find(std::string key);
     HashTable& access(std::string key); // Use this for fast access to existing or non-existing elements
     void remove(std::string key);
 
     // Hashing
+
     int hash(std::string key); // May be adjusted
 
     // Helper(s)
+    
     void deleteLL(MapBlock*& pHead);
 };
 
 // Utility functions
+
 bool isAlphabetic(char c);
 std::vector<std::string> tokenize(std::string line);
 
 // Invert Index the Trie
+
 void invertIndexTrie(trieNode* pRoot, HashMap& map);
 
 //Helper(s)
+
 void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord);
