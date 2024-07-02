@@ -9,7 +9,7 @@ struct TableBlock
     TableBlock* pNext = nullptr;
 };
 
-struct HashTable
+struct HashTable // Designed after unordered_set<string>
 {
     TableBlock** set = nullptr;
     int size = 127; // May be adjusted
@@ -37,7 +37,7 @@ struct MapBlock
     // May need constructor
 };
 
-struct HashMap
+struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** map = nullptr;
     int size = 127; // May be adjusted
