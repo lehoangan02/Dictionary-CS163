@@ -12,7 +12,7 @@ struct TableBlock // Used for chaining in HashTable
 struct HashTable // Designed after unordered_set<string>
 {
     TableBlock** set = nullptr;
-    int size = 127; // May need improvements
+    int numBucket = 127; // May need improvements
 
     // Ctor
 
@@ -56,7 +56,7 @@ struct MapBlock // Used for chaining in HashMap
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** map = nullptr;
-    int size = 127; // May need improvements
+    int numBucket = 127; // May need improvements
 
     // Ctor
 

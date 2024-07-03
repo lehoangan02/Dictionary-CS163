@@ -1,15 +1,15 @@
 #include "maptable.hpp"
 
-// Initialize empty HashTable, default size
+// Initialize empty HashTable, default number of buckets (linked list)
 HashTable::HashTable()
 {
-    set = new TableBlock*[this->size] {nullptr};
+    set = new TableBlock*[this->numBucket] {nullptr};
 }
 
-// Initialize empty HashTable, arbitary size
-HashTable::HashTable(int x) : size(x)
+// Initialize empty HashTable, arbitary number of buckets (linked list)
+HashTable::HashTable(int x) : numBucket(x)
 {
-    set = new TableBlock*[this->size] {nullptr};
+    set = new TableBlock*[this->numBucket] {nullptr};
 }
 
 // Copy constructor
@@ -20,7 +20,7 @@ HashTable::HashTable(const HashTable& source)
 
 HashTable::~HashTable()
 {
-    for (int i = 0; i < this->size; ++i)
+    for (int i = 0; i < this->numBucket; ++i)
     {
         this->deleteLL(set[i]);
     }
@@ -46,7 +46,7 @@ int HashTable::hash(std::string& key)
     int sum = 0;
     for (int i = 0; i < key.length(); ++i)
         sum += int(key[i]) - 32;
-    return sum % this->size;
+    return sum % this->numBucket;
 }
 
 // Insert an element, do NOT store duplicates
@@ -97,9 +97,9 @@ void HashTable::remove(std::string& key)
 // Copy content of another HashTable
 void HashTable::copy(const HashTable& source)
 {
-    size = source.size;
-    set = new TableBlock*[source.size] {nullptr};
-    for (int i = 0; i < source.size; ++i)
+    numBucket = source.numBucket;
+    set = new TableBlock*[source.numBucket] {nullptr};
+    for (int i = 0; i < source.numBucket; ++i)
     {
         if (source.set[i])
         {
@@ -121,7 +121,7 @@ void HashTable::copy(const HashTable& source)
 // Empty HashTable
 void HashTable::clear()
 {
-    for (int i = 0; i < this->size; ++i)
+    for (int i = 0; i < this->numBucket; ++i)
         this->deleteLL(set[i]);
 }
 
@@ -136,21 +136,21 @@ void HashTable::deleteLL(TableBlock*& pHead)
     }
 }
 
-// Initialize empty HashMap, default size
+// Initialize empty HashMap, default number of buckets (linked list)
 HashMap::HashMap()
 {
-    map = new MapBlock*[this->size] {nullptr};
+    map = new MapBlock*[this->numBucket] {nullptr};
 }
 
-// Initialize empty HashMap, arbitary size
-HashMap::HashMap(int x) : size(x)
+// Initialize empty HashMap, arbitary number of buckets (linked list)
+HashMap::HashMap(int x) : numBucket(x)
 {
-    map = new MapBlock*[this->size] {nullptr};
+    map = new MapBlock*[this->numBucket] {nullptr};
 }
 
 HashMap::~HashMap()
 {
-    for (int i = 0; i < this->size; ++i)
+    for (int i = 0; i < this->numBucket; ++i)
     {
         this->deleteLL(map[i]);
     }
@@ -163,7 +163,7 @@ int HashMap::hash(std::string& key) // May be adjusted
     int sum = 0;
     for (int i = 0; i < key.length(); ++i)
         sum += int(tolower(key[i])) - 97;
-    return sum % this->size;
+    return sum % this->numBucket;
 }
 
 // Maps a HashTable based on associating key, do NOT store duplicate keys
