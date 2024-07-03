@@ -3,18 +3,24 @@
 // Initialize empty HashTable, default size
 HashTable::HashTable()
 {
-    set = new TableBlock*[size] {nullptr};
+    set = new TableBlock*[this->size] {nullptr};
 }
 
 // Initialize empty HashTable, arbitary size
 HashTable::HashTable(int x) : size(x)
 {
-    set = new TableBlock*[size] {nullptr};
+    set = new TableBlock*[this->size] {nullptr};
+}
+
+// Copy constructor
+HashTable::HashTable(const HashTable& source)
+{
+    this->copy(source);
 }
 
 HashTable::~HashTable()
 {
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < this->size; ++i)
     {
         this->deleteLL(set[i]);
     }
@@ -22,17 +28,29 @@ HashTable::~HashTable()
     set = nullptr;
 }
 
+// Assign content from source HashTable
+HashTable& HashTable::operator=(const HashTable& source)
+{
+    if (set)
+    {
+        this->clear();
+        delete[] set;
+    }
+    this->copy(source);
+    return *this;
+}
+
 // Hash
-int HashTable::hash(std::string key) 
+int HashTable::hash(std::string& key) 
 {
     int sum = 0;
     for (int i = 0; i < key.length(); ++i)
         sum += int(key[i]) - 32;
-    return sum % size;
+    return sum % this->size;
 }
 
 // Insert an element, do NOT store duplicates
-void HashTable::insert(std::string key)
+void HashTable::insert(std::string& key)
 {
     if (this->find(key))
         return;
@@ -45,7 +63,7 @@ void HashTable::insert(std::string key)
 
 // Return pointer to TableBlock containing an element
 // Return nullptr if not found
-TableBlock* HashTable::find(std::string key)
+TableBlock* HashTable::find(std::string& key)
 {
     int pos = this->hash(key);
     TableBlock* pCur = set[pos];
@@ -55,7 +73,7 @@ TableBlock* HashTable::find(std::string key)
 }
 
 // Remove an element, do nothing if not found
-void HashTable::remove(std::string key)
+void HashTable::remove(std::string& key)
 {
     int pos = this->hash(key);
     TableBlock* pDummy = new TableBlock;
@@ -76,6 +94,37 @@ void HashTable::remove(std::string key)
     delete pDummy;
 }
 
+// Copy content of another HashTable
+void HashTable::copy(const HashTable& source)
+{
+    size = source.size;
+    set = new TableBlock*[source.size] {nullptr};
+    for (int i = 0; i < source.size; ++i)
+    {
+        if (source.set[i])
+        {
+            set[i] = new TableBlock;
+            set[i]->data = source.set[i]->data;
+            TableBlock* pCur = set[i];
+            TableBlock* pSource = source.set[i];
+            while (pSource->pNext)
+            {
+                pCur->pNext = new TableBlock;
+                pCur->pNext->data = pSource->pNext->data;
+                pCur = pCur->pNext;
+                pSource = pSource->pNext;
+            }
+        }
+    }
+}
+
+// Empty HashTable
+void HashTable::clear()
+{
+    for (int i = 0; i < this->size; ++i)
+        this->deleteLL(set[i]);
+}
+
 // Deallocate a bucket (linked list) in table
 void HashTable::deleteLL(TableBlock*& pHead)
 {
@@ -90,18 +139,18 @@ void HashTable::deleteLL(TableBlock*& pHead)
 // Initialize empty HashMap, default size
 HashMap::HashMap()
 {
-    map = new MapBlock*[size] {nullptr};
+    map = new MapBlock*[this->size] {nullptr};
 }
 
 // Initialize empty HashMap, arbitary size
 HashMap::HashMap(int x) : size(x)
 {
-    map = new MapBlock*[size] {nullptr};
+    map = new MapBlock*[this->size] {nullptr};
 }
 
 HashMap::~HashMap()
 {
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < this->size; ++i)
     {
         this->deleteLL(map[i]);
     }
@@ -109,38 +158,30 @@ HashMap::~HashMap()
     map = nullptr;
 }
 
-int HashMap::hash(std::string key) // May be adjusted
+int HashMap::hash(std::string& key) // May be adjusted
 {
     int sum = 0;
     for (int i = 0; i < key.length(); ++i)
         sum += int(tolower(key[i])) - 97;
-    return sum % size;
+    return sum % this->size;
 }
 
 // Maps a HashTable based on associating key, do NOT store duplicate keys
-void HashMap::insert(std::string key, HashTable data)
+void HashMap::insert(std::string& key, HashTable& data)
 {
     if (this->find(key))
         return;
     int pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
-    for (int i = 0; i < data.size; ++i)
-    {
-        TableBlock* pCur = data.set[i];
-        while (pCur)
-        {
-            pNew->data.insert(pCur->data);
-            pCur = pCur->pNext;
-        }
-    }
+    pNew->data = data;
     pNew->pNext = map[pos];
     map[pos] = pNew; 
 }
 
 // Return pointer to MapBlock of given key
 // Return nullptr if not found
-MapBlock* HashMap::find(std::string key)
+MapBlock* HashMap::find(std::string& key)
 {
     int pos = this->hash(key);
     MapBlock* pCur = map[pos];
@@ -151,7 +192,7 @@ MapBlock* HashMap::find(std::string key)
 
 // Direct access to both existing and non-existing data of given key
 // If key not found, create entry of said key with empty data
-HashTable& HashMap::access(std::string key)
+HashTable& HashMap::access(std::string& key)
 {
     MapBlock* pFind = this->find(key);
     if (pFind)
@@ -168,7 +209,7 @@ HashTable& HashMap::access(std::string key)
 
 // Remove a key and associated data
 // Do nothing if not found
-void HashMap::remove(std::string key)
+void HashMap::remove(std::string& key)
 {
     int pos = this->hash(key);
     MapBlock* pDummy = new MapBlock;
@@ -205,7 +246,7 @@ bool isAlphabetic(char c)
     return ((c > 64 && c < 91) || (c > 96 && c < 123));
 }
 
-std::vector<std::string> tokenize(std::string line)
+std::vector<std::string> tokenize(std::string& line)
 {
     std::vector<std::string> res;
     int head = 0, tail = 0;

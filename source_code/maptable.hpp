@@ -18,23 +18,30 @@ struct HashTable // Designed after unordered_set<string>
 
     HashTable();
     HashTable(int x);
+    HashTable(const HashTable& source);
 
     // Dtor
 
     ~HashTable();
 
+    // Operators
+
+    HashTable& operator=(const HashTable& source);
+
     // Basic methods
 
-    void insert(std::string key);
-    TableBlock* find(std::string key);
-    void remove(std::string key);
+    void insert(std::string& key);
+    TableBlock* find(std::string& key);
+    void remove(std::string& key);
 
     // Hashing
 
-    int hash(std::string key); // May need improvements
+    int hash(std::string& key); // May need improvements
 
     // Helper(s)
 
+    void HashTable::copy(const HashTable& source);
+    void HashTable::clear();
     void deleteLL(TableBlock*& pHead);
 };
 
@@ -62,14 +69,14 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
     // Basic methods
 
-    void insert(std::string key, HashTable data);
-    MapBlock* find(std::string key);
-    HashTable& access(std::string key); // Use this for fast access to existing or non-existing elements
-    void remove(std::string key);
+    void insert(std::string& key, HashTable& data);
+    MapBlock* find(std::string& key);
+    HashTable& access(std::string& key); // Use this for fast access to existing or non-existing elements
+    void remove(std::string& key);
 
     // Hashing
 
-    int hash(std::string key); // May need improvements
+    int hash(std::string& key); // May need improvements
 
     // Helper(s)
 
@@ -79,7 +86,7 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 // Utility functions
 
 bool isAlphabetic(char c);
-std::vector<std::string> tokenize(std::string line);
+std::vector<std::string> tokenize(std::string& line);
 
 // Invert Index the Trie
 
