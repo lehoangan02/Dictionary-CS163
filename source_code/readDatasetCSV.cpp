@@ -2,6 +2,8 @@
 #include "readDatasetCSV.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
 
+//rewrite the reading and insertion function 
+
 bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 {
     std::ifstream inputStream;
