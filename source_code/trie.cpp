@@ -26,16 +26,15 @@ bool checkingExistance(std::string s1, std::string s2)
 	return true;
 }
 
-void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
+void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def)
 {
 	if (word.empty()) return;
 	if (!pRoot)
 	{
 		pRoot = new trieNode();
 	}
-	Change2Lowercase(word);
 	trieNode* cur = pRoot;
-	cur->countchildren++;
+	cur->countchildren++; //for counting the number of words on the path
 	for (auto c : word)
 	{
 		if (!cur->childNode[int(c) - 32])
@@ -48,26 +47,19 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 	}
 	cur->wordExisted = true;
 
-	for (auto mean : definitions)
+	bool checkexist = false;
+	for (auto& means : cur->definitions)
 	{
-		Change2Lowercase(mean.first);
-		Change2Lowercase(mean.second);
-		bool check = false;
-		for (auto x : cur->definitions)
+		if (means.first == pos || means.second == def)
 		{
-			//first checking whether they are the same parts of speech, and then the meaning.
-			if (checkingExistance(x.first, mean.first) && checkingExistance(x.second, mean.second))
-			{
-				check = true;
-				break;
-			}
-		}
-		if (!check)
-		{
-			cur->definitions.push_back(mean);
+			checkexist = false;
+			break;
 		}
 	}
+
+	if (!checkexist) cur->definitions.push_back({ pos, def });
 }
+
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
 {
@@ -106,7 +98,8 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		{
 			std::cout << "[DEBUG] going into " << word[0] << std::endl;
 			// erase the first letter
-			return traverseToSearch(pRoot->childNode[word[0] - 32], word.erase(0, 1));
+			pRoot = pRoot->childNode[word[0] - 32];
+			return traverseToSearch(pRoot, word.erase(0, 1));
 		}
 		else
 		{

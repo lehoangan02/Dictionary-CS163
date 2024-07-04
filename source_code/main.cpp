@@ -26,19 +26,24 @@ int main()
 		case 1:
 			{
 				deleteWholeTrie(pRoot);
-				std::string filepath; std::cout << "input filepath: "; std::cin >> filepath;
-				readDatasetCSV(filepath, pRoot);
-				printf("imported successfully\n");
+				std::string filename; 
+				std::cout << "input filename: ";
+				std::cin.ignore();
+				std::getline(std::cin,filename);
+				readDatasetTXT(filename, pRoot);
+				//printf("imported successfully\n");
 				std::cout << "[DEBUG] " << pRoot << std::endl;
 			}
 			break;
 		case 2:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			printf("search here: "); std::string searchObject; std::getline(std::cin, searchObject);
+			std::cout << "search here: ";
+			std::string searchObject; 
+			std::getline(std::cin, searchObject); 
 			std::cout << "searching: " << searchObject << std::endl;
 			std::cout << "[DEBUG] " << pRoot << std::endl;
-			traverseToSearch(pRoot, searchObject);
+			search(pRoot, searchObject);
 		}
 		break;
 		case 3:
