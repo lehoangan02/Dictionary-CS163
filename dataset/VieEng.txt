@@ -403,8 +403,7 @@ Da To|noun|composed of words: Da & To
 Da-mat|proper noun|Place: Damascus (a capital city Syria)
 Dac Lac|proper noun|composed of words: Dac & Lac|Alternate spelling of Dak Lak.
 Dac Nong|proper noun|composed of words: Dac & Nong|Alternate spelling of Dak Nong.
-Dac khu Columbia|proper noun|composed of words: Dac & khu & Columbia| the District of Columbia|:This term is used to set the District of Columbia apart from other subdivisions named Columbia, such as Columbia County in the U.S. state of Washington.
-Dac khu Columbia|Synonyms:* Quan Columbia|
+Dac khu Columbia|proper noun|composed of words: Dac & khu & Columbia| the District of Columbia|:This term is used to set the District of Columbia apart from other subdivisions named Columbia, such as Columbia County in the U.S. state of Washington|Synonyms:* Quan Columbia.
 Dai|prefix| Great ==> example: '''Dai''' Viet ==> meaning: '''Great''' Viet ==> example: '''Dai''' Anh ==> meaning: '''Great''' Britain ==> example: '''Dai''' Minh ==> meaning: '''Great''' Ming ==> example: '''Dai''' Hoc ==> meaning: '''Great''' Learning, one of the Four Books ('Four Books and Five Classics') of Confucianism
 Dai Bac|proper noun|composed of words: Dai & Bac|Place: Taipei (a capital city Taiwan)
 Dai Co Viet|proper noun| Dai Co Viet, the official name for the Vietnamese nation between the rule of Dinh Bo Linh (r. 968-979) and the rule of Ly Thanh Tong (r. 1054-1072)
@@ -3731,10 +3730,10 @@ chuc|chuc trung|ten eggs}} may be used as a unit when concerning purchases of eg
 chuc anh ngu ngon|phrase, idiom or proverb|composed of words: chuc & anh & ngu & ngon| good night (younger to older man, wife to husband)
 chuc ca nha ngu ngon|phrase, idiom or proverb|composed of words: chuc & ca & nha & ngu & ngon| (colloquial) good night (to a group of people)
 chuc em ngu ngon|phrase, idiom or proverb|composed of words: chuc & em & ngu & ngon| good night (older to younger, husband to wife)
-chuc may man|phrase, idiom or proverb| wish you well|Wish you well.| good luck|Good luck.| God bless you.
+chuc may man|phrase, idiom or proverb| Wish you well.| Good luck.| God bless you.
 chuc mung|verb| to congratulate (on); to wish well ==> example: '''chuc mung''' thang loi ==> meaning: to '''congratulate''' on the success
-chuc mung nam moi|phrase, idiom or proverb|composed of words: Chuc & mung & nam & moi!| Happy New Year!idioms
-chuc mung sinh nhat|phrase, idiom or proverb|composed of words: Chuc & mung & sinh & nhat!| happy birthday!idioms
+chuc mung nam moi|phrase, idiom or proverb|composed of words: Chuc & mung & nam & moi!| Happy New Year! (idioms)
+chuc mung sinh nhat|phrase, idiom or proverb|composed of words: Chuc & mung & sinh & nhat!| Happy birthday! (idioms)
 chuc nang|noun| function, role
 chuc nang|adjective| functional
 chuc nghiep|noun|composed of words: chuc & nghiep| career, profession

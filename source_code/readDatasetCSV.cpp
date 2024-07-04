@@ -99,5 +99,6 @@ bool readDatasetTXT(const std::string& filename, trieNode*& pRoot)
     }
     std::cout << "File imported successfully!" << std::endl;
     fin.close();
+    return true;
 }
 

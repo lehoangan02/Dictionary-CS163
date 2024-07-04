@@ -20,6 +20,7 @@ int main()
 		printf("3 for serialization\n");
 		printf("4 for deserialization\n");
 		printf("5 for suggesting words\n");
+		printf("6 for viewing a random word and its definitions\n");
 		std::cout << "mode: ";
 		std::cin >> mode;
 		switch (mode)
@@ -78,6 +79,15 @@ int main()
 			if (!SuggestingWords(prefix, pRoot))
 			{
 				std::cout << "Trying another!" << std::endl;
+			}
+			break;
+		}
+		case 6:
+		{
+			std::cout << "The random word is: "; cin.ignore();
+			if (!PickRandomWord(pRoot))
+			{
+				std::cout << "Can't find a random word" << std::endl;
 			}
 			break;
 		}
