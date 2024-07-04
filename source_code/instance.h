@@ -32,11 +32,13 @@ class instance
     4 is other (format not selected)
     */
     int errorMode = 0;
+
+    // history and favourite
     std::vector<std::string> history;
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
-    
+    bool displayFavourite = false;
 
     // SFML
     sf::RenderWindow windowInstance;
@@ -91,7 +93,7 @@ class instance
     // fonts
     sf::Font PlayfairDisplay;
     sf::Font SourceSans3;
-    sf::Font PatuaOne;
+    sf::Font micross;
     
     // search box
     sf::Texture searchBoxTexture;
@@ -166,6 +168,7 @@ class instance
     sf::Texture pageDownHov;
     sf::Texture pageDownClick;
     spongyButton pageDownButton;
+    sf::Text wordNotInThisDataSet;
 
     // serialize button
     std::string serializeString = "Serialize";
@@ -236,6 +239,8 @@ class instance
     Page 8 load (deserialize)
     Page 9 game mode
     */
+
+   // main operating functions
     void operatePage1();
     void operatePage2();
     void operatePage3();
@@ -249,6 +254,7 @@ class instance
     void drawPage8();
     void drawPage9();
 
+    // supporting functions
     void switchPage();
     void drawSubModes();
     void hoverSubModes();
@@ -260,4 +266,6 @@ class instance
     void drawLoadingPage();
     void handleSearchSignal(std::string input);
     void handleHistory();
+    void initiateSearch();
+    void setUpErrorText();
 };

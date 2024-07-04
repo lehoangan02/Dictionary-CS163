@@ -16,6 +16,6 @@ void writeHistory(std::string newHistory)
     std::ofstream fout;
     fout.open("settings/history.txt", std::ios::app);
     printf("[DEBUG] writing %s\n", newHistory.c_str());
-    fout << newHistory << std::endl;
+    fout << std::endl << newHistory;
     fout.close();
 }

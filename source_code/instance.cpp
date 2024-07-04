@@ -37,7 +37,7 @@ instance::instance() :
 	// fonts
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
-	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
+	micross(loadFont("assets/font/micross.ttf")),
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
@@ -300,12 +300,7 @@ void instance::operatePage1()
 				mouseControl = true;
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
-					displayHistory = false;
-					historyIndex = 0;
-					std::string temp = searchBox.getString();
-					history.push_back(temp);
-					writeHistory(temp);
-					handleSearchSignal(temp);
+					initiateSearch();
 				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
@@ -330,6 +325,7 @@ void instance::operatePage1()
                     if (!loadHistory)
                     {
                         readHistory(history);
+						setUpErrorText();
                         loadHistory = true;
                     }
 					displayHistory = true;
@@ -355,12 +351,7 @@ void instance::operatePage1()
 				if (event.key.code == sf::Keyboard::Return)
 				{
 					printf("[DEBUG] enter pressed\n");
-					displayHistory = false;
-					historyIndex = 0;
-					std::string temp = searchBox.getString();
-					history.push_back(temp);
-					writeHistory(temp);
-					handleSearchSignal(temp);
+					initiateSearch();
 				}
 			}
 			break;
@@ -397,11 +388,11 @@ void instance::drawPage1()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
-	drawSwitchMode();
 	searchButton.draw(windowInstance);
 	historyButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
 	drawDefinition();
+	drawSwitchMode();
 	windowInstance.display();
 }
 void instance::operatePage2()
@@ -478,6 +469,27 @@ void instance::drawPage2()
 	CSVButton.draw(windowInstance);
 	TXTButton.draw(windowInstance);
 	drawSubModes();
+	windowInstance.display();
+}
+void instance::operatePage3()
+{
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+		case sf::Event::Closed:
+			windowInstance.close();
+			break;
+		
+		default:
+			break;
+		}
+	}
+}
+void instance::drawPage3()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
 	windowInstance.display();
 }
 void instance::operatePage7()
@@ -785,6 +797,12 @@ void instance::drawDefinition()
 		{
 			pageDownButton.draw(windowInstance);
 		}
+		if (numberOfResult == 0)
+		{
+			// printf("[DEBUG] drawing error message\n");
+			
+			windowInstance.draw(wordNotInThisDataSet);
+		}
 	}
 }
 
@@ -833,7 +851,17 @@ void instance::handleSearchSignal(std::string input)
 		descriptionString = searchResult[definitionNum].second;
 		displayDef = true;
 	}
+	else if (displayHistory == true)
+	{
+		headWordString = input;
+		displayDef = true;
+	}
 	else	displayDef = false;
+	if (!displayHistory && !displayFavourite && numberOfResult > 0)
+	{
+		history.push_back(input);
+		writeHistory(input);
+	}
 }
 
 void instance::handleHistory()
@@ -846,3 +874,24 @@ void instance::handleHistory()
 		handleSearchSignal(temp);
 	}
 }
+
+void instance::initiateSearch()
+{
+	displayHistory = false;
+	displayFavourite = false;
+	historyIndex = 0;
+	std::string temp = searchBox.getString();
+	handleSearchSignal(temp);
+}
+
+void instance::setUpErrorText()
+{
+	wordNotInThisDataSet.setFont(micross);
+	wordNotInThisDataSet.setFillColor(sf::Color(247, 41, 6));
+	wordNotInThisDataSet.setCharacterSize(20);
+	wordNotInThisDataSet.setStyle(sf::Text::Style::Bold);
+	wordNotInThisDataSet.setString("Error: this word is not in the current dataset\n");
+	wordNotInThisDataSet.setPosition(73.0f, 455.0f);
+}
+
+
