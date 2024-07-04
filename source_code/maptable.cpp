@@ -15,15 +15,14 @@ HashTable::HashTable(int x) : numBucket(x)
 // Copy constructor
 HashTable::HashTable(const HashTable& source)
 {
-    this->copy(source);
+    if (this != &source)
+        this->copy(source);
 }
 
 HashTable::~HashTable()
 {
     for (int i = 0; i < this->numBucket; ++i)
-    {
         this->deleteLL(set[i]);
-    }
     delete[] set;
     set = nullptr;
 }
@@ -31,12 +30,12 @@ HashTable::~HashTable()
 // Assign content from source HashTable
 HashTable& HashTable::operator=(const HashTable& source)
 {
-    if (set)
+    if (this != &source)
     {
         this->clear();
         delete[] set;
+        this->copy(source);
     }
-    this->copy(source);
     return *this;
 }
 
