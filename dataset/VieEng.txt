@@ -3415,7 +3415,7 @@ cheo cheo|noun|noun classifiers: con| chevrotain; mouse deer|Synonyms:* cheo|{{C
 cheo thuyen|noun| rowing
 chep|verb| to copy| to record
 chet|verb| to choke, to strangle| to run over (a person)
-chet|adjective|phonemic reduplicative: chen chet)| close-fitting
+chet|adjective|phonemic reduplicative: chen chet| close-fitting
 chet cha|interjection| (informal) doh; oops; whoops ==> example: '''Chet cha'''! Tao quen lam bai tap roi! ==> meaning: Doh! I forgot to do my homework!
 chet choc|verb|composed of words: chet & choc| to die ''en masse'' (generally speaking) ==> example: co '''chet choc''' gi dau ==> meaning: to have no '''harm'''
 chet duoi|verb| to drowntopic-death

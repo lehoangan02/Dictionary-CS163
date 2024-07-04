@@ -55,7 +55,7 @@ void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, c
 	if (!checkexist) cur->definitions.push_back({ pos, def });
 }
 
-std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
+std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word, int& k)
 {
 	std::vector<std::pair<std::string, std::string>> blankVec;
 	if (!pRoot) 
@@ -68,11 +68,11 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	{
 		if (pRoot->wordExisted)
 		{
-			std::cout << "Here are the definitions of the word: \n";
 			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
-				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") : ";
+				std::cout << k + 1 << " (" << pRoot->definitions[i].first << ") : ";
 				std::cout << pRoot->definitions[i].second << std::endl;
+				k++;
 			}
 			return pRoot->definitions;
 		}
@@ -90,10 +90,10 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		// if the childNode pointer of that letter is not null, continue traversing
 		if (pRoot->childNode[word[0] - 32])
 		{
-			std::cout << "[DEBUG] going into " << word[0] << std::endl;
+			//std::cout << "[DEBUG] going into " << word[0] << std::endl;
 			// erase the first letter
 			pRoot = pRoot->childNode[word[0] - 32];
-			return traverseToSearch(pRoot, word.erase(0, 1));
+			return traverseToSearch(pRoot, word.erase(0, 1), k);
 		}
 		else
 		{
@@ -112,14 +112,19 @@ void search(trieNode* pRoot, std::string word)
 		return;
 	}
 
-	// traverse the trie to find the word (the first letter in Capital form)
-	traverseToSearch(pRoot, word);
+	std::cout << "Here are the definitions of the word: \n";
+	int i = 0;
+
+	if (word[0] >= 'A' && word[0] <= 'Z') {
+		// traverse the trie to find the word (the first letter in Capital form)
+		traverseToSearch(pRoot, word, i);
+	}
 
 	// convert all the letters to lowercase
 	Change2Lowercase(word);
 
 	// traverse the trie to find the word (the first letter in Lowercase)
-	traverseToSearch(pRoot, word);
+	traverseToSearch(pRoot, word, i);
 }
 
 //checking whether a trieNode a leaf node
@@ -184,6 +189,7 @@ void serializeWrapper(trieNode* pRoot)
 	std::ofstream fout; fout.open("serialized.txt");
 	serialize(pRoot, fout, "");
 }
+
 void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
 {
 	if (!pRoot)
@@ -223,6 +229,7 @@ bool deserializeWrapper(trieNode*& pRoot)
 	deserialize(pRoot, fin, "");
     return true;
 }
+
 void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 {
 	int temp = 0;
@@ -260,6 +267,7 @@ void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 		deserialize(pRoot -> childNode[i], fin, newWord);
 	}
 }
+
 void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 {
 	int temp = 0;
@@ -295,6 +303,7 @@ void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 	}
 	return;
 }
+
 void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 {
 	int temp = 0;
