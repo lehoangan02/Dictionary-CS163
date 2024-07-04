@@ -40,8 +40,8 @@ struct HashTable // Designed after unordered_set<string>
 
     // Helper(s)
 
-    void HashTable::copy(const HashTable& source);
-    void HashTable::clear();
+    void copy(const HashTable& source);
+    void clear();
     void deleteLL(TableBlock*& pHead);
 };
 
