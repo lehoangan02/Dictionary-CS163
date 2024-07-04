@@ -93,8 +93,8 @@ bool readDatasetTXT(const std::string& filename, trieNode*& pRoot)
         getline(split, word, '|');
         getline(split, pos, '|');
         getline(split, def);
-        std::cout << word << " (" << pos << ") " << std::endl;
-        std::cout << "- " << def << std::endl;
+        /*std::cout << word << " (" << pos << ") " << std::endl;
+        std::cout << "- " << def << std::endl;*/
         insert(pRoot, word, pos, def);
     }
     std::cout << "File imported successfully!" << std::endl;

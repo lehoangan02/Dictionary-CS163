@@ -56,3 +56,5 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word);
 trieNode* pickarandomword(trieNode* pRoot);
 
 trieNode* findtheKthword(trieNode* pRoot, int k);
+bool SuggestingWords(std::string word, trieNode* pRoot);
+void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);

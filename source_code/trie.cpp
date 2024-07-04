@@ -77,7 +77,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 			std::cout << "Here are the definitions of the word: \n";
 			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
-				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
+				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") : ";
 				std::cout << pRoot->definitions[i].second << std::endl;
 			}
 			return pRoot->definitions;
@@ -118,10 +118,13 @@ void search(trieNode* pRoot, std::string word)
 		return;
 	}
 
+	// traverse the trie to find the word (the first letter in Capital form)
+	traverseToSearch(pRoot, word);
+
 	// convert all the letters to lowercase
 	Change2Lowercase(word);
 
-	// traverse the trie to find the word
+	// traverse the trie to find the word (the first letter in Lowercase)
 	traverseToSearch(pRoot, word);
 }
 
@@ -364,4 +367,44 @@ trieNode* pickarandomword(trieNode* pRoot)
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(1,pRoot->countchildren);
 	return findtheKthword(pRoot, int(dist(rng)));
+}
+
+//Utility function for suggesting some existing words based on some first given characters.
+bool SuggestingWords(std::string word, trieNode* pRoot)
+{
+	if (word.empty()) return false;
+	
+	trieNode* cur = pRoot;
+	for (auto& c : word) {
+		if (!cur->childNode[c - 32]) {
+			std::cout << "Word is not exist!" << std::endl;
+			return false;
+		}
+		cur = cur->childNode[c - 32];
+	}
+
+	//Displaying max 10 words whose prefixes are the same with given word
+	int count = 0;
+	std::vector<std::string> collection;
+	SuggestHelper(word, cur, count, collection);
+	for (auto& x : collection) {
+		std::cout << x << std::endl;
+	}
+	return true;
+}
+
+void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection)
+{
+	if (!pRoot || count == 10) return;
+	if (pRoot->wordExisted) {
+		collection.push_back(prefix);
+		count++;
+	}
+	for (int i = 0; i < 96; i++) {
+		if (pRoot->childNode[i]) {
+			prefix += static_cast<char>(i + 32);
+			SuggestHelper(prefix, pRoot->childNode[i], count, collection);
+			prefix.pop_back();
+		}
+	}
 }

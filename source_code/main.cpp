@@ -19,6 +19,7 @@ int main()
 		printf("2 for searching the library\n");
 		printf("3 for serialization\n");
 		printf("4 for deserialization\n");
+		printf("5 for suggesting words\n");
 		std::cout << "mode: ";
 		std::cin >> mode;
 		switch (mode)
@@ -67,6 +68,19 @@ int main()
 			break;
 		}
 		break;
+		case 5:
+		{
+			std::cout << "Please input: "; cin.ignore();
+			std::string prefix;
+			getline(cin, prefix);
+			std::cout << prefix << std::endl;
+			std::cout << "Here are some suggestions: " << std::endl;
+			if (!SuggestingWords(prefix, pRoot))
+			{
+				std::cout << "Trying another!" << std::endl;
+			}
+			break;
+		}
 		default:
 		break;
 		}
