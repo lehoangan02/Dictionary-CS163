@@ -77,7 +77,7 @@ Ane|proper noun| (Roman Catholicism) Agnes
 Ang-go-la|proper noun|Place: Angola (a country a country in Africa)
 Ang-go-la|adjective| Angolantopic-angola
 Ang-le hoa|verb| (obsolete) to anglicize| > Synonyms: Anh hoa
-Anh|proper noun| a male|or=female given name from Chinese|anagrams:Alternate forms:* Han; nha|
+Anh|proper noun| a male or female given name from Chinese|anagrams:Alternate forms:* Han; nha|
 Anh Cat Loi|proper noun|composed of words: Anh & Cat & Loi | (obsolete) Englandtopic-countries-in-europe topic-united-kingdom
 Anh Quoc|proper noun|composed of words: Anh & Quoc | Synonym of Anh (United Kingdom)|Alternate forms:* Anh quoc|topic-united-kingdom topic-countries-in-europe
 Anh ngu|noun| English language (often as a subject of study)| > Synonyms: tieng Anh
@@ -1377,7 +1377,7 @@ Thai Lan|adjective| Thai|Synonyms:* Thai|{{C|vi|Thailand|Countries in Asia|Exony
 Thai Nguyen|proper noun|composed of words: Thai & Nguyen |Place: Thai Nguyen (a province of Vietnam)|Place: Thai Nguyen (a city in Vietnam)|Place: Taiyuan (a in northern Shanxi, China)
 Thai Son|proper noun|Place: Mount Tai (a mountain Shandong, China)| Vietnamese folk poem (''ca dao ('vi:ca dao Viet Nam')'') ==> example: Cong cha nhu nui '''Thai Son''',<br>Nghia me nhu nuoc trong nguon chay ra.<br>Mot long tho me, kinh cha,<br>Cho tron chu hieu moi la dao con. ==> meaning: A father’s sacrifice is as strong as the '''Tai Mountain''',<br>A mother’s love is like water flowing from the source.<br>With all my heart I respect and honour my parents,<br>To uphold the filial piety is my duty as a son/daughter.
 Tham Quyen|proper noun|composed of words: Tham & Quyen| Synonym of Tham Quyen (Shenzhen)
-Than|proper noun|composed of words: Than | a surname (derived from Sino-Vietnamese)| a male|or=female given name from Chinese| the ninth earthly branch represented by the w:Monkey (zodiac)|Monkey
+Than|proper noun|composed of words: Than | a surname (derived from Sino-Vietnamese)| a male or female given name from Chinese| the ninth earthly branch represented by the w:Monkey (zodiac)|Monkey
 Than Da|proper noun|composed of words: Than & Da | (geology, dated) Synonym of Cac-bon (Carboniferous)
 Than Nong|proper noun|composed of words: Than & Nong | (Chinese mythology) Shennong| (astrology) Synonym of Thien Yet (Scorpio)| (astronomy) Synonym of Thien Yet (Scorpius)topic-gods topic-constellations-in-the-zodiac
 Than dao|proper noun|composed of words: Than & dao| Shintoismtopic-shinto
@@ -1536,7 +1536,7 @@ Trung Quoc|adjective| Chinese
 Trung Quoc dai luc|proper noun|composed of words: Trung & Quoc & dai & luc| mainland Chinatopic-china
 Trung Quoc hoa|noun|composed of words: Trung & Quoc & hoa|Alternate spelling of Trung Quoc hoa.
 Trung thu|proper noun|composed of words: Trung & thu| Mid-Autumn Festival
-Truong|proper noun|composed of words: Truong | a male|or=female given name from Chinese|xlit=Truong
+Truong|proper noun|composed of words: Truong | a male or female given name from Chinese|xlit=Truong
 Truong Son|proper noun|composed of words: Truong & Son | Annamite Range; Annamite Mountains (longest mountain range in Vietnam, running from north to south)
 Tu|proper noun| a unisex given name from Chinese
 Tu Xuyen|proper noun|composed of words: Tu & Xuyen | Sichuantopic-provinces-of-china topic-four
@@ -11200,8 +11200,7 @@ tam phao|adjective|composed of words: tam & phao| (colloquial) futile
 tam quan trong|noun|composed of words: tam & quan & trong| importance
 tam su|noun| secrets of one's heart; intimate thoughts and feelings
 tam su|verb| to confide in (somebody)
-tam suat|noun| short for: quy tac tam suat ("mathematic rule of three")topic-three
-tam suc|noun| > Synonyms: tam luc
+tam suat|noun| short for: quy tac tam suat ("mathematic rule of three") topic-three
 tam than|noun| mental; mind; spirit| short for: benh tam than ("mental illness")
 tam that|noun| (anatomy, cardiology) a ventricle ==> example: tam that phai/trai ==> meaning: the right/left ventricle
 tam the|noun| mindset
@@ -11440,7 +11439,7 @@ tham thia|verb| to be piercing; to be penetrating; to be poignant; to be sincere
 tham thiet|adjective| close; intimate
 tham tu|noun| detective| spy
 tham vong|noun| ambition; aspiration
-than|noun|noun classifiers: qua, trai| (anatomy) a kidney ==> example: chay '''than''' nhan tao ==> meaning: to run anartificial kidney"; to go/be on dialysis ==> example: 心, 肝, 脾, 肺, '''腎''' ==> meaning: heart, liver, spleen, lung, kidney
+than|noun|noun classifiers: qua, trai| (anatomy) a kidney ==> example: chay '''than''' nhan tao ==> meaning: to run anartificial kidney"; to go/be on dialysis
 than ai|adjective| affectionate; dear
 than bi|adjective| mysterious; mystical
 than binh|noun|composed of words: than & binh| partisans
