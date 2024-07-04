@@ -177,6 +177,10 @@ switchButton::switchButton(sf::Texture& textureDefault, const sf::Texture& textu
 {
     selected = true;
 }
+
+/// @brief use is button for clicking logic, instead of the default base class's function with the same name
+/// @param window 
+/// @param mouseControl 
 void switchButton::click(sf::RenderWindow& window, bool& mouseControl)
 {
     if (isClicked(window) && mouseControl)

@@ -16,11 +16,19 @@ instance::instance() :
 	definitionModeDef(loadTexture("assets/images/DefinitionModeDef.png")),
 	definitionModeHov(loadTexture("assets/images/DefinitionModeHov.png")),
 	definitionModeButton(definitionModeDef, definitionModeHov),
+	gameModeDef(loadTexture("assets/images/GameTextDef.png")),
+	gameModeHov(loadTexture("assets/images/GameTextHov.png")),
+	gameModeButton(gameModeDef, gameModeHov),
 	// search button
 	searchTexDef(loadTexture("assets/images/SearchTexDef.png")),
 	searchTexHov(loadTexture("assets/images/SearchTexHov.png")),
 	searchTexClick(loadTexture("assets/images/SearchTexClick.png")),
 	searchButton(searchTexDef, searchTexHov, searchTexClick),
+	// history button
+	historyTexDef(loadTexture("assets/images/HistoryTexDef.png")),
+	historyTexHov(loadTexture("assets/images/HistoryTexHov.png")),
+	historyTexClick(loadTexture("assets/images/HistoryTexClick.png")),
+	historyButton(historyTexDef, historyTexHov, historyTexClick),
 	// import button
 	importTexDef(loadTexture("assets/images/ImportTexDef.png")),
 	importTexHov(loadTexture("assets/images/ImportTexHov.png")),
@@ -80,13 +88,20 @@ instance::instance() :
 	prevPageHov(loadTexture("assets/images/PrevPageHov.png")),
 	prevPageClick(loadTexture("assets/images/PrevPageClick.png")),
 	prevPageButton(prevPageDef, prevPageHov, prevPageClick),
+	// pageUp/pageDown buttons
+	pageUpDef(loadTexture("assets/images/PageUpDef.png")),
+	pageUpHov(loadTexture("assets/images/PageUpHov.png")),
+	pageUpClick(loadTexture("assets/images/PageUpClick.png")),
+	pageUpButton(pageUpDef, pageUpHov, pageUpClick),
+	pageDownDef(loadTexture("assets/images/PageDownDef.png")),
+	pageDownHov(loadTexture("assets/images/PageDownHov.png")),
+	pageDownClick(loadTexture("assets/images/PageDownClick.png")),
+	pageDownButton(pageDownDef, pageDownHov, pageDownClick),
+
 	// deserialize button
 	deserializeTexture(loadTexture("assets/images/DeserializeTexTure.png")),
 	deserializeButton(deserializeTexture, deserializeTexture, SourceSans3, "Deserialize", 36),
 	// Game animation
-	gameModeDef(loadTexture("assets/images/GameTextDef.png")),
-	gameModeHov(loadTexture("assets/images/GameTextHov.png")),
-	gameModeButton(gameModeDef, gameModeHov),
 	penguinTexture(loadTexture("assets/images/sprPenguinP.png")),
 	penguinAnimation(penguinTexture, sf::Vector2u(8, 3), 0.23f),
 	rainbowStarTexture(loadTexture("assets/images/Magicalrainbowstar.png")),
@@ -111,9 +126,11 @@ instance::instance() :
 	modeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40));
 	searchModeButton.setPosition(sf::Vector2u(40, 40 + 65 + SHADOWVER));
 	settingModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 2 + SHADOWVER));
-	definitionModeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40 + 65 * 3 + SHADOWVER));
+	definitionModeButton.setPosition(sf::Vector2u(40, 40 + 65 * 3 + SHADOWVER));
+	gameModeButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 40 + 65 * 4 + SHADOWVER));
 	searchButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 40));
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
+	historyButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 125));
 
 	// Set up fonts
 	SourceSans3.setSmooth(false);
@@ -177,10 +194,16 @@ instance::instance() :
 	autoSaveTexture.loadFromFile("assets/images/Auto-save.png");
 	autoSaveSprite.setTexture(autoSaveTexture);
 	autoSaveSprite.setPosition(105.0f, 216.0f);
+
+	// Definition's page control buttons
 	nextPageButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 635));
 	nextPageButton.setOffset(4.0f, 8.0f);
 	prevPageButton.setPosition(sf::Vector2u(40 - SHADOWHOR, 635));
 	prevPageButton.setOffset(4.0f, 8.0f);
+	pageUpButton.setPosition(sf::Vector2u(405 - SHADOWHOR, 635));
+	pageUpButton.setOffset(4.0f, 8.0f);
+	pageDownButton.setPosition(sf::Vector2u(490 - SHADOWHOR, 635));
+	pageDownButton.setOffset(4.0f, 8.0f);
 
 	// Set up loading page
 	loadingTexture.loadFromFile("assets/images/sandclock.png");
@@ -194,7 +217,6 @@ instance::instance() :
 	toLoadLastSaveSprite.setPosition(105.0f, 125.0f);
 
 	// Game mode
-	gameModeButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 210));
 	penguinAnimation.animationSprite.setScale(3, 3);
 	penguinAnimation.setPosition(sf::Vector2u(0, 360 - (penguinAnimation.animationSprite.getGlobalBounds().height) / penguinAnimation.imageCount.y));
 	rainbowStarAnimation.animationSprite.setScale(3, 3);
@@ -260,9 +282,6 @@ void instance::operatePage1()
 {
 	if (!loadedSave)
 	{
-		windowInstance.clear(sf::Color::Red);
-		drawLoadingPage();
-		windowInstance.display();
 		deleteWholeTrie(pRoot);
 		deserializeBinaryWrapper(pRoot);
 		loadedSave = true;
@@ -281,11 +300,16 @@ void instance::operatePage1()
 				mouseControl = true;
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
-					handleSearchSignal();
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
 				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
-					if (definitionNum < searchResult.size() - 1)
+					if (definitionNum < (int)searchResult.size() - 1)
 					{
 						++definitionNum;
 						POSString = searchResult[definitionNum].first;
@@ -301,26 +325,53 @@ void instance::operatePage1()
                         descriptionString = searchResult[definitionNum].second;
 					}
 				}
+				else if (historyButton.isClicked(windowInstance))
+				{
+                    if (!loadHistory)
+                    {
+                        readHistory(history);
+                        loadHistory = true;
+                    }
+					displayHistory = true;
+					handleHistory();
+				}
+				else if (displayHistory && displayDef)
+				{
+					if (pageUpButton.isClicked(windowInstance))
+					{
+						if (historyIndex > 0)
+							--historyIndex;
+					}
+					else if (pageDownButton.isClicked(windowInstance))
+					{
+						if (historyIndex < (int)history.size() - 1)
+							++historyIndex;
+					}
+					handleHistory();
+				}
 			}
 			case sf::Event::KeyPressed:
 			{
 				if (event.key.code == sf::Keyboard::Return)
 				{
 					printf("[DEBUG] enter pressed\n");
-					handleSearchSignal();
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
 				}
 			}
 			break;
             case sf::Event::LostFocus:
             {
                 std::cout << "[DEBUG] lost focus" << std::endl;
-                
             }
             break;
             case sf::Event::GainedFocus:
             {
                 std::cout << "[DEBUG] gained focus" << std::endl;
-                
             }
             break;
 			default:
@@ -331,12 +382,16 @@ void instance::operatePage1()
 	handleSwitchModeLogic();
 	searchButton.hoverSwitchTexture(windowInstance);
 	searchButton.click(windowInstance);
-	gameModeButton.hoverSwitchTexture(windowInstance);
-	gameModeButton.click(windowInstance);
+	historyButton.hoverSwitchTexture(windowInstance);
+	historyButton.click(windowInstance);
 	nextPageButton.hoverSwitchTexture(windowInstance);
 	prevPageButton.hoverSwitchTexture(windowInstance);
+	pageUpButton.hoverSwitchTexture(windowInstance);
+	pageDownButton.hoverSwitchTexture(windowInstance);
 	nextPageButton.click(windowInstance);
 	prevPageButton.click(windowInstance);
+	pageUpButton.click(windowInstance);
+	pageDownButton.click(windowInstance);
 }
 void instance::drawPage1()
 {
@@ -344,7 +399,7 @@ void instance::drawPage1()
 	windowInstance.draw(baseLayerSprite);
 	drawSwitchMode();
 	searchButton.draw(windowInstance);
-	gameModeButton.draw(windowInstance);
+	historyButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
 	drawDefinition();
 	windowInstance.display();
@@ -602,6 +657,7 @@ void instance::switchPage()
 				pageChange = true;
 				numberOfResult = 0;
 				displayDef = false;
+				displayHistory = false;
 			}
 		}
 		else if (settingModeButton.isClicked(windowInstance))
@@ -614,12 +670,22 @@ void instance::switchPage()
 				pageChange = true;
 			}
 		}
+		else if (gameModeButton.isClicked(windowInstance))
+		{
+			// printf("[DEBUG] pressing page 9\n");
+			if (page == 1)
+			{
+				printf("[DEBUG] going to page 9\n");
+				page = 9;
+				pageChange = true;
+			}
+		}
 	}
 	else
 	{
 		if (saveModeButton.isClicked(windowInstance) && mouseControl)
 		{
-			printf("[DEBUG] pressing page 7\n");
+			// printf("[DEBUG] pressing page 7\n");
 			if (page == 2 || (page >= 4 && page <= 6) || page == 8)
 			{
 				printf("[DEBUG] changing to page 7\n");
@@ -629,7 +695,7 @@ void instance::switchPage()
 		}
 		else if (importModeButton.isClicked(windowInstance) && mouseControl)
 		{
-			printf("[DEBUG] pressing page 2\n");
+			// printf("[DEBUG] pressing page 2\n");
 			if ((page >= 4 && page <= 8))
 			{
 				printf("[DEBUG] changing to page 2\n");
@@ -639,22 +705,12 @@ void instance::switchPage()
 		}
 		else if (deserializeModeButton.isClicked(windowInstance) && mouseControl)
 		{
-			printf("[DEBUG] pressing page 8\n");
+			// printf("[DEBUG] pressing page 8\n");
 			if (page == 2 || (page >= 4 && page <= 8 && page != 8))
 			{
 				printf("[DEBUG] changing to page 8\n");
 				page = 8;
 				pageChange =true;
-			}
-		}
-		else if (gameModeButton.isClicked(windowInstance) && mouseControl)
-		{
-			printf("[DEBUG] pressing page 9\n");
-			if (page == 1)
-			{
-				printf("[DEBUG] going to page 9\n");
-				page = 9;
-				pageChange = true;
 			}
 		}
 	}
@@ -666,6 +722,7 @@ void instance::switchPage()
 		importBox.clear();
 		pageChange = false;
 		definitionNum = 0;
+		historyIndex = 0;
 	}
 }
 
@@ -677,6 +734,7 @@ void instance::drawSwitchMode()
 		searchModeButton.draw(windowInstance);
 		settingModeButton.draw(windowInstance);
 		definitionModeButton.draw(windowInstance);
+		gameModeButton.draw(windowInstance);
 	}
 }
 
@@ -692,10 +750,15 @@ void instance::handleSwitchModeLogic()
 		modeButton.select(false);
 		modeButtonActive = false; }
 	modeButton.hoverSwitchTexture(windowInstance);
+	if (!modeButton.isHovering(windowInstance)
+	&& sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+		modeButton.select(false);
+		modeButtonActive = false; }
 	if (modeButtonActive) {
 		searchModeButton.hoverSwitchTexture(windowInstance);
 		settingModeButton.hoverSwitchTexture(windowInstance);
 		definitionModeButton.hoverSwitchTexture(windowInstance);
+		gameModeButton.hoverSwitchTexture(windowInstance);
 	}
 }
 
@@ -711,7 +774,18 @@ void instance::drawDefinition()
 	windowInstance.draw(POS);
 	windowInstance.draw(description);
 	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
-	if (definitionNum < searchResult.size() - 1)	nextPageButton.draw(windowInstance);
+	if (definitionNum < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
+	if (displayHistory)
+	{
+		if (historyIndex > 0)
+		{
+			pageUpButton.draw(windowInstance);
+		}
+		if (historyIndex < (int)history.size() - 1)
+		{
+			pageDownButton.draw(windowInstance);
+		}
+	}
 }
 
 void instance::saveAutoSaveSetting()
@@ -744,21 +818,31 @@ void instance::drawLoadingPage()
 	windowInstance.display();
 }
 
-void instance::handleSearchSignal()
+void instance::handleSearchSignal(std::string input)
 {
 	resetSearchResult();
-	std::string temp = searchBox.getString();
-	Change2Lowercase(temp);
-	std::cout << temp << std::endl;
-	searchResult = traverseToSearch(pRoot, temp);
+	Change2Lowercase(input);
+	std::cout << input << std::endl;
+	searchResult = traverseToSearch(pRoot, input);
 	numberOfResult = (int)searchResult.size();
 	if (numberOfResult > 0)
 	{
-		headWordString = temp;
+		headWordString = input;
 		std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
 		POSString = searchResult[definitionNum].first;
 		descriptionString = searchResult[definitionNum].second;
 		displayDef = true;
 	}
 	else	displayDef = false;
+}
+
+void instance::handleHistory()
+{
+	resetSearchResult();
+	if (history.size() > 0)
+	{
+		std::string temp = history[history.size() - historyIndex - 1];
+		printf("[DEBUG] current history word is: %s\n", temp.c_str());
+		handleSearchSignal(temp);
+	}
 }
