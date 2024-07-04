@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <vector>
 
 #include "button.hpp"
 #include "textbox.hpp"
@@ -9,6 +10,7 @@
 
 #include "trie.h"
 #include "readDatasetCSV.hpp"
+#include "history.hpp"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -22,14 +24,19 @@ class instance
     bool autoSave = true;
     int definitionNum = 0;
     std::vector<std::pair<std::string, std::string>> searchResult;
-    /*
+    
+    /* import mode error code
     0 is not initialized
     1 is no file found
     2 is successful
     4 is other (format not selected)
     */
     int errorMode = 0;
-
+    std::vector<std::string> history;
+    bool loadHistory = false;
+    long historyIndex = 0;
+    bool displayHistory = false;
+    
 
     // SFML
     sf::RenderWindow windowInstance;
@@ -55,12 +62,21 @@ class instance
     sf::Texture definitionModeDef; 
     sf::Texture definitionModeHov; 
     Button definitionModeButton;
+    sf::Texture gameModeDef;
+    sf::Texture gameModeHov;
+    Button gameModeButton;
 
     // search button
     sf::Texture searchTexDef; 
     sf::Texture searchTexHov; 
     sf::Texture searchTexClick;
     Button searchButton;
+
+    // history button
+    sf::Texture historyTexDef;
+    sf::Texture historyTexHov;
+    sf::Texture historyTexClick;
+    Button historyButton;
 
     // import button
     sf::Texture importTexDef;
@@ -141,6 +157,15 @@ class instance
     sf::Texture prevPageClick;
     spongyButton prevPageButton;
 
+    // history and favourite
+    sf::Texture pageUpDef;
+    sf::Texture pageUpHov;
+    sf::Texture pageUpClick;
+    spongyButton pageUpButton;
+    sf::Texture pageDownDef;
+    sf::Texture pageDownHov;
+    sf::Texture pageDownClick;
+    spongyButton pageDownButton;
 
     // serialize button
     std::string serializeString = "Serialize";
@@ -171,9 +196,6 @@ class instance
     sf::Sprite toLoadLastSaveSprite;
 
     // Game mode
-    sf::Texture gameModeDef;
-    sf::Texture gameModeHov;
-    Button gameModeButton;
     sf::Texture penguinTexture;
     Animation penguinAnimation;
     sf::Texture rainbowStarTexture;
@@ -236,5 +258,6 @@ class instance
     void saveAutoSaveSetting();
     void resetSearchResult();
     void drawLoadingPage();
-    void handleSearchSignal();
+    void handleSearchSignal(std::string input);
+    void handleHistory();
 };
