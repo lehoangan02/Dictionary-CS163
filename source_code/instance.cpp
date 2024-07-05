@@ -344,9 +344,18 @@ void instance::operatePage1()
 				}
 				else if (favouriteButton.isClicked(windowInstance))
 				{
-					if (pCurrentFavourite) displayFavourite = true;
+					printf("[DEBUG] trying to display favourite\n");
+					if (pCurrentFavourite) 
+					{
+						displayFavourite = true;
+						handleFavourite();
+					}
+					else	
+					{
+						displayFavourite = false;
+						displayDef = false;
+					}
 					displayHistory = false;
-					handleFavourite();
 				}
 				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
 				{
