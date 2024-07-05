@@ -144,3 +144,6 @@ bin/Dictionary.dSYM/Contents/Resources/DWARF/Dictionary
 bin/Dictionary.dSYM/Contents/Resources/Relocations/aarch64/Dictionary.yml
 /dict
 serialized.bin
+/.vscode
+.vscode/c_cpp_properties.json
+.vscode/settings.json
