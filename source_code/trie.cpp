@@ -351,7 +351,7 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k)
 {
 	if (!pRoot) return std::pair<trieNode*, std::string>(nullptr, "");
-	if (k == 0 && pRoot->wordExisted) return std::pair<trieNode*, std::string>(pRoot, ""); //is this place 0 or 1???
+	if (k == 0 && pRoot->wordExisted) return std::pair<trieNode*, std::string>(pRoot, ""); //is this place 0 or 1, I thought if we hit a node when we count 1 then we just... take it???
 	std::pair<trieNode*, std::string> here;
 	int S = 0, t = 0;
 	for (int i = 0; i < 96; i++)
