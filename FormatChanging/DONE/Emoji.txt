@@ -1,0 +1,1520 @@
+%-)|emoji.|user has been staring at a green screen for 15 hours straight
+(-:|emoji.|user is left handed
+(8-o|emoji.|it's mr. bill!
+(:i|emoji.|user is an egghead
+*:o)|emoji.|and bozo the clown!
+*<:-)|emoji.|user is wearing a santa claus hat
++-:-)|emoji.|user is the pope or holds some other religious office
+,-)|emoji.|ditto...but he's winking
+,:-)|emoji.|same thing...other side
+-6%|emoji.|user is braindead
+-:-(|emoji.|real punk rockers don't smile
+-:-)|emoji.|user is a punk rocker
+-=*:-)|emoji.|user is a tex wizard
+.-)|emoji.|user only has one eye
+3:[|emoji.|mean pet smiley
+3:]|emoji.|pet smiley
+8-)|emoji.|user is wearing sunglasses
+8:-)|emoji.|user is a little girl
+:'-(|emoji.|user is crying
+:'-)|emoji.|user is so happy, s/he is crying
+:(|emoji.|sad
+:)|emoji.|happy
+:*|emoji.|kisses
+:*)|emoji.|user is drunk
+:+1:|emoji.|thumbs up sign
+:,(|emoji.|crying
+:-|emoji.|`user spitting out its chewing tobacco.dwew  wew ewewewewe wewewe we weweweweweweweweweewweweewewwe
+:-#|emoji.|user wears braces
+:-&|emoji.|user is tongue tied
+:-(|emoji.|boo hoo
+:-)|emoji.|user shaved one of his eyebrows off this morning|ha ha
+:-)-8|emoji.|user is a big girl
+:-)~|emoji.|user drools
+:-*|emoji.|user just ate something sour
+:-/|emoji.|user is skeptical
+:-0|emoji.|no yelling!(quiet lab)
+:-1:|emoji.|thumbs down sign
+:-7|emoji.|user juust made a wry statement
+:-9|emoji.|user is licking his/her lips
+:-:|emoji.|mutant smiley; the invisible smiley
+:->|emoji.|hey hey
+:-?|emoji.|user smokes a pipe
+:-@|emoji.|user is screaming
+:-[|emoji.|user is a vampire
+:-c|emoji.|user is really bummed
+:-d|emoji.|user is laughing (at you!)
+:-e|emoji.|bucktoothed vampire
+:-f|emoji.|bucktoothed vampire with one tooth missing
+:-i|emoji.|hmmm
+:-o|emoji.|oops|uh oh!
+:-p|emoji.|nyahhhh!
+:-q|emoji.|user is a smoker
+:-s|emoji.|user just made an incoherent statement
+:-x|emoji.|user's lips are sealed
+:-{)|emoji.|user has a mustache
+:-{}|emoji.|user wears lipstick
+:-~)|emoji.|user has a cold
+:100:|emoji.|hundred points symbol
+:1234:|emoji.|input symbol for numbers
+:1st_place_medal:|emoji.|first place medal
+:2nd_place_medal:|emoji.|second place medal
+:3rd_place_medal:|emoji.|third place medal
+:8ball:|emoji.|billiards
+::-)|emoji.|user wears normal glasses
+:<|emoji.|what?
+:<)|emoji.|user is from an ivy league school
+:=)|emoji.|user has two noses
+:>|emoji.|what?
+:@|emoji.|what?
+:[|emoji.|real downer
+:]|emoji.|gleep...a friendly midget smiley who will gladly be your friend
+:^)|emoji.|user has a broken nose
+:_)|emoji.|user's nose is sliding off of his face
+:a:|emoji.|negative squared latin capital letter a, variation selector-16
+:ab:|emoji.|negative squared ab
+:abc:|emoji.|input symbol for latin letters
+:abcd:|emoji.|input symbol for latin small letters
+:accept:|emoji.|circled ideograph accept
+:aerial_tramway:|emoji.|aerial tramway
+:afghanistan:|emoji.|regional indicator symbol letter a, regional indicator symbol letter f
+:airplane:|emoji.|airplane, variation selector-16
+:aland_islands:|emoji.|regional indicator symbol letter a, regional indicator symbol letter x
+:alarm_clock:|emoji.|alarm clock
+:albania:|emoji.|regional indicator symbol letter a, regional indicator symbol letter l
+:alembic:|emoji.|alembic, variation selector-16
+:algeria:|emoji.|regional indicator symbol letter d, regional indicator symbol letter z
+:alien:|emoji.|extraterrestrial alien
+:ambulance:|emoji.|ambulance
+:american_samoa:|emoji.|regional indicator symbol letter a, regional indicator symbol letter s
+:amphora:|emoji.|amphora
+:anchor:|emoji.|anchor, variation selector-16
+:andorra:|emoji.|regional indicator symbol letter a, regional indicator symbol letter d
+:angel:|emoji.|baby angel
+:anger:|emoji.|anger symbol
+:angola:|emoji.|regional indicator symbol letter a, regional indicator symbol letter o
+:angry:|emoji.|angry face
+:anguilla:|emoji.|regional indicator symbol letter a, regional indicator symbol letter i
+:anguished:|emoji.|anguished face
+:ant:|emoji.|ant
+:antarctica:|emoji.|regional indicator symbol letter a, regional indicator symbol letter q
+:antigua_barbuda:|emoji.|regional indicator symbol letter a, regional indicator symbol letter g
+:apple:|emoji.|red apple
+:aquarius:|emoji.|aquarius, variation selector-16
+:argentina:|emoji.|regional indicator symbol letter a, regional indicator symbol letter r
+:aries:|emoji.|aries, variation selector-16
+:armenia:|emoji.|regional indicator symbol letter a, regional indicator symbol letter m
+:arrow_backward:|emoji.|black left-pointing triangle, variation selector-16
+:arrow_double_down:|emoji.|black down-pointing double triangle
+:arrow_double_up:|emoji.|black up-pointing double triangle
+:arrow_down:|emoji.|downwards black arrow, variation selector-16
+:arrow_down_small:|emoji.|down-pointing small red triangle
+:arrow_forward:|emoji.|black right-pointing triangle, variation selector-16
+:arrow_heading_down:|emoji.|arrow pointing rightwards then curving downwards, variation selector-16
+:arrow_heading_up:|emoji.|arrow pointing rightwards then curving upwards, variation selector-16
+:arrow_left:|emoji.|leftwards black arrow, variation selector-16
+:arrow_lower_left:|emoji.|south west arrow, variation selector-16
+:arrow_lower_right:|emoji.|south east arrow, variation selector-16
+:arrow_right:|emoji.|black rightwards arrow, variation selector-16
+:arrow_right_hook:|emoji.|rightwards arrow with hook, variation selector-16
+:arrow_up:|emoji.|upwards black arrow, variation selector-16
+:arrow_up_down:|emoji.|up down arrow, variation selector-16
+:arrow_up_small:|emoji.|up-pointing small red triangle
+:arrow_upper_left:|emoji.|north west arrow, variation selector-16
+:arrow_upper_right:|emoji.|north east arrow, variation selector-16
+:arrows_clockwise:|emoji.|clockwise downwards and upwards open circle arrows
+:arrows_counterclockwise:|emoji.|anticlockwise downwards and upwards open circle arrows
+:art:|emoji.|artist palette
+:articulated_lorry:|emoji.|articulated lorry
+:artificial_satellite:|emoji.|satellite
+:aruba:|emoji.|regional indicator symbol letter a, regional indicator symbol letter w
+:asterisk:|emoji.|*, variation selector-16, combining enclosing keycap
+:astonished:|emoji.|astonished face
+:athletic_shoe:|emoji.|athletic shoe
+:atm:|emoji.|automated teller machine
+:atom_symbol:|emoji.|atom symbol, variation selector-16
+:australia:|emoji.|regional indicator symbol letter a, regional indicator symbol letter u
+:austria:|emoji.|regional indicator symbol letter a, regional indicator symbol letter t
+:avocado:|emoji.|avocado
+:azerbaijan:|emoji.|regional indicator symbol letter a, regional indicator symbol letter z
+:b:|emoji.|negative squared latin capital letter b, variation selector-16
+:baby:|emoji.|baby
+:baby_bottle:|emoji.|baby bottle
+:baby_chick:|emoji.|baby chick
+:baby_symbol:|emoji.|baby symbol
+:back:|emoji.|back with leftwards arrow above
+:bacon:|emoji.|bacon
+:badminton:|emoji.|badminton racquet and shuttlecock
+:baggage_claim:|emoji.|baggage claim
+:baguette_bread:|emoji.|baguette bread
+:bahamas:|emoji.|regional indicator symbol letter b, regional indicator symbol letter s
+:bahrain:|emoji.|regional indicator symbol letter b, regional indicator symbol letter h
+:balance_scale:|emoji.|scales, variation selector-16
+:balloon:|emoji.|balloon
+:ballot_box:|emoji.|ballot box with ballot
+:ballot_box_with_check:|emoji.|ballot box with check, variation selector-16
+:bamboo:|emoji.|pine decoration
+:banana:|emoji.|banana
+:bangbang:|emoji.|double exclamation mark, variation selector-16
+:bangladesh:|emoji.|regional indicator symbol letter b, regional indicator symbol letter d
+:bank:|emoji.|bank
+:bar_chart:|emoji.|bar chart
+:barbados:|emoji.|regional indicator symbol letter b, regional indicator symbol letter b
+:barber:|emoji.|barber pole
+:baseball:|emoji.|baseball, variation selector-16
+:basketball:|emoji.|basketball and hoop
+:basketball_man:|emoji.|person with ball, variation selector-16
+:basketball_woman:|emoji.|person with ball, variation selector-16, zero width joiner, female sign, variation selector-16
+:bat:|emoji.|bat
+:bath:|emoji.|bath
+:bathtub:|emoji.|bathtub
+:battery:|emoji.|battery
+:beach_umbrella:|emoji.|beach with umbrella
+:bear:|emoji.|bear face
+:bed:|emoji.|bed
+:bee:|emoji.|honeybee
+:beer:|emoji.|beer mug
+:beers:|emoji.|clinking beer mugs
+:beetle:|emoji.|lady beetle
+:beginner:|emoji.|japanese symbol for beginner
+:belarus:|emoji.|regional indicator symbol letter b, regional indicator symbol letter y
+:belgium:|emoji.|regional indicator symbol letter b, regional indicator symbol letter e
+:belize:|emoji.|regional indicator symbol letter b, regional indicator symbol letter z
+:bell:|emoji.|bell
+:bellhop_bell:|emoji.|bellhop bell
+:benin:|emoji.|regional indicator symbol letter b, regional indicator symbol letter j
+:bento:|emoji.|bento box
+:bermuda:|emoji.|regional indicator symbol letter b, regional indicator symbol letter m
+:bhutan:|emoji.|regional indicator symbol letter b, regional indicator symbol letter t
+:bike:|emoji.|bicycle
+:biking_man:|emoji.|bicyclist
+:biking_woman:|emoji.|bicyclist, zero width joiner, female sign, variation selector-16
+:bikini:|emoji.|bikini
+:biohazard:|emoji.|biohazard sign, variation selector-16
+:bird:|emoji.|bird
+:birthday:|emoji.|birthday cake
+:black_circle:|emoji.|medium black circle, variation selector-16
+:black_flag:|emoji.|waving black flag
+:black_heart:|emoji.|black heart
+:black_joker:|emoji.|playing card black joker
+:black_large_square:|emoji.|black large square, variation selector-16
+:black_medium_small_square:|emoji.|black medium small square, variation selector-16
+:black_medium_square:|emoji.|black medium square, variation selector-16
+:black_nib:|emoji.|black nib, variation selector-16
+:black_small_square:|emoji.|black small square, variation selector-16
+:black_square_button:|emoji.|black square button
+:blonde_man:|emoji.|person with blond hair
+:blonde_woman:|emoji.|person with blond hair, zero width joiner, female sign, variation selector-16
+:blossom:|emoji.|blossom
+:blowfish:|emoji.|blowfish
+:blue_book:|emoji.|blue book
+:blue_car:|emoji.|recreational vehicle
+:blue_heart:|emoji.|blue heart
+:blush:|emoji.|smiling face with smiling eyes
+:boar:|emoji.|boar
+:boat:|emoji.|sailboat, variation selector-16
+:bolivia:|emoji.|regional indicator symbol letter b, regional indicator symbol letter o
+:bomb:|emoji.|bomb
+:book:|emoji.|open book
+:bookmark:|emoji.|bookmark
+:bookmark_tabs:|emoji.|bookmark tabs
+:books:|emoji.|books
+:boom:|emoji.|collision symbol
+:boot:|emoji.|womans boots
+:bosnia_herzegovina:|emoji.|regional indicator symbol letter b, regional indicator symbol letter a
+:botswana:|emoji.|regional indicator symbol letter b, regional indicator symbol letter w
+:bouquet:|emoji.|bouquet
+:bow_and_arrow:|emoji.|bow and arrow
+:bowing_man:|emoji.|person bowing deeply
+:bowing_woman:|emoji.|person bowing deeply, zero width joiner, female sign, variation selector-16
+:bowling:|emoji.|bowling
+:boxing_glove:|emoji.|boxing glove
+:boy:|emoji.|boy
+:brazil:|emoji.|regional indicator symbol letter b, regional indicator symbol letter r
+:bread:|emoji.|bread
+:bride_with_veil:|emoji.|bride with veil
+:bridge_at_night:|emoji.|bridge at night
+:briefcase:|emoji.|briefcase
+:british_indian_ocean_territory:|emoji.|regional indicator symbol letter i, regional indicator symbol letter o
+:british_virgin_islands:|emoji.|regional indicator symbol letter v, regional indicator symbol letter g
+:broken_heart:|emoji.|broken heart
+:brunei:|emoji.|regional indicator symbol letter b, regional indicator symbol letter n
+:bug:|emoji.|bug
+:building_construction:|emoji.|building construction
+:bulb:|emoji.|electric light bulb
+:bulgaria:|emoji.|regional indicator symbol letter b, regional indicator symbol letter g
+:bullettrain_front:|emoji.|high-speed train with bullet nose
+:bullettrain_side:|emoji.|high-speed train
+:burkina_faso:|emoji.|regional indicator symbol letter b, regional indicator symbol letter f
+:burrito:|emoji.|burrito
+:burundi:|emoji.|regional indicator symbol letter b, regional indicator symbol letter i
+:bus:|emoji.|bus
+:business_suit_levitating:|emoji.|man in business suit levitating
+:busstop:|emoji.|bus stop
+:bust_in_silhouette:|emoji.|bust in silhouette
+:busts_in_silhouette:|emoji.|busts in silhouette
+:butterfly:|emoji.|butterfly
+:c|emoji.|what?
+:cactus:|emoji.|cactus
+:cake:|emoji.|shortcake
+:calendar:|emoji.|tear-off calendar
+:call_me_hand:|emoji.|call me hand
+:calling:|emoji.|mobile phone with rightwards arrow at left
+:cambodia:|emoji.|regional indicator symbol letter k, regional indicator symbol letter h
+:camel:|emoji.|bactrian camel
+:camera:|emoji.|camera
+:camera_flash:|emoji.|camera with flash
+:cameroon:|emoji.|regional indicator symbol letter c, regional indicator symbol letter m
+:camping:|emoji.|camping
+:canada:|emoji.|regional indicator symbol letter c, regional indicator symbol letter a
+:canary_islands:|emoji.|regional indicator symbol letter i, regional indicator symbol letter c
+:cancer:|emoji.|cancer, variation selector-16
+:candle:|emoji.|candle
+:candy:|emoji.|candy
+:canoe:|emoji.|canoe
+:cape_verde:|emoji.|regional indicator symbol letter c, regional indicator symbol letter v
+:capital_abcd:|emoji.|input symbol for latin capital letters
+:capricorn:|emoji.|capricorn, variation selector-16
+:car:|emoji.|automobile
+:card_file_box:|emoji.|card file box
+:card_index:|emoji.|card index
+:card_index_dividers:|emoji.|card index dividers
+:caribbean_netherlands:|emoji.|regional indicator symbol letter b, regional indicator symbol letter q
+:carousel_horse:|emoji.|carousel horse
+:carrot:|emoji.|carrot
+:cat2:|emoji.|cat
+:cat:|emoji.|cat face
+:cayman_islands:|emoji.|regional indicator symbol letter k, regional indicator symbol letter y
+:cd:|emoji.|optical disc
+:central_african_republic:|emoji.|regional indicator symbol letter c, regional indicator symbol letter f
+:chad:|emoji.|regional indicator symbol letter t, regional indicator symbol letter d
+:chains:|emoji.|chains
+:champagne:|emoji.|bottle with popping cork
+:chart:|emoji.|chart with upwards trend and yen sign
+:chart_with_downwards_trend:|emoji.|chart with downwards trend
+:chart_with_upwards_trend:|emoji.|chart with upwards trend
+:checkered_flag:|emoji.|chequered flag
+:cheese:|emoji.|cheese wedge
+:cherries:|emoji.|cherries
+:cherry_blossom:|emoji.|cherry blossom
+:chestnut:|emoji.|chestnut
+:chicken:|emoji.|chicken
+:children_crossing:|emoji.|children crossing
+:chile:|emoji.|regional indicator symbol letter c, regional indicator symbol letter l
+:chipmunk:|emoji.|chipmunk
+:chocolate_bar:|emoji.|chocolate bar
+:christmas_island:|emoji.|regional indicator symbol letter c, regional indicator symbol letter x
+:christmas_tree:|emoji.|christmas tree
+:church:|emoji.|church, variation selector-16
+:cinema:|emoji.|cinema
+:circus_tent:|emoji.|circus tent
+:city_sunrise:|emoji.|sunset over buildings
+:city_sunset:|emoji.|cityscape at dusk
+:cityscape:|emoji.|cityscape
+:cl:|emoji.|squared cl
+:clamp:|emoji.|compression
+:clap:|emoji.|clapping hands sign
+:clapper:|emoji.|clapper board
+:classical_building:|emoji.|classical building
+:clinking_glasses:|emoji.|clinking glasses
+:clipboard:|emoji.|clipboard
+:clock1030:|emoji.|clock face ten-thirty
+:clock10:|emoji.|clock face ten oclock
+:clock1130:|emoji.|clock face eleven-thirty
+:clock11:|emoji.|clock face eleven oclock
+:clock1230:|emoji.|clock face twelve-thirty
+:clock12:|emoji.|clock face twelve oclock
+:clock130:|emoji.|clock face one-thirty
+:clock1:|emoji.|clock face one oclock
+:clock230:|emoji.|clock face two-thirty
+:clock2:|emoji.|clock face two oclock
+:clock330:|emoji.|clock face three-thirty
+:clock3:|emoji.|clock face three oclock
+:clock430:|emoji.|clock face four-thirty
+:clock4:|emoji.|clock face four oclock
+:clock530:|emoji.|clock face five-thirty
+:clock5:|emoji.|clock face five oclock
+:clock630:|emoji.|clock face six-thirty
+:clock6:|emoji.|clock face six oclock
+:clock730:|emoji.|clock face seven-thirty
+:clock7:|emoji.|clock face seven oclock
+:clock830:|emoji.|clock face eight-thirty
+:clock8:|emoji.|clock face eight oclock
+:clock930:|emoji.|clock face nine-thirty
+:clock9:|emoji.|clock face nine oclock
+:closed_book:|emoji.|closed book
+:closed_lock_with_key:|emoji.|closed lock with key
+:closed_umbrella:|emoji.|closed umbrella
+:cloud:|emoji.|cloud, variation selector-16
+:cloud_with_lightning:|emoji.|cloud with lightning
+:cloud_with_lightning_and_rain:|emoji.|thunder cloud and rain
+:cloud_with_rain:|emoji.|cloud with rain
+:cloud_with_snow:|emoji.|cloud with snow
+:clown_face:|emoji.|clown face
+:clubs:|emoji.|black club suit, variation selector-16
+:cn:|emoji.|regional indicator symbol letter c, regional indicator symbol letter n
+:cocktail:|emoji.|cocktail glass
+:cocos_islands:|emoji.|regional indicator symbol letter c, regional indicator symbol letter c
+:coffee:|emoji.|hot beverage, variation selector-16
+:coffin:|emoji.|coffin, variation selector-16
+:cold_sweat:|emoji.|face with open mouth and cold sweat
+:colombia:|emoji.|regional indicator symbol letter c, regional indicator symbol letter o
+:comet:|emoji.|comet, variation selector-16
+:comoros:|emoji.|regional indicator symbol letter k, regional indicator symbol letter m
+:computer:|emoji.|personal computer
+:computer_mouse:|emoji.|three button mouse
+:confetti_ball:|emoji.|confetti ball
+:confounded:|emoji.|confounded face
+:confused:|emoji.|confused face
+:congo_brazzaville:|emoji.|regional indicator symbol letter c, regional indicator symbol letter g
+:congo_kinshasa:|emoji.|regional indicator symbol letter c, regional indicator symbol letter d
+:congratulations:|emoji.|circled ideograph congratulation, variation selector-16
+:construction:|emoji.|construction sign
+:construction_worker_man:|emoji.|construction worker
+:construction_worker_woman:|emoji.|construction worker, zero width joiner, female sign, variation selector-16
+:control_knobs:|emoji.|control knobs
+:convenience_store:|emoji.|convenience store
+:cook_islands:|emoji.|regional indicator symbol letter c, regional indicator symbol letter k
+:cookie:|emoji.|cookie
+:cool:|emoji.|squared cool
+:copyright:|emoji.|copyright sign, variation selector-16
+:corn:|emoji.|ear of maize
+:costa_rica:|emoji.|regional indicator symbol letter c, regional indicator symbol letter r
+:cote_divoire:|emoji.|regional indicator symbol letter c, regional indicator symbol letter i
+:couch_and_lamp:|emoji.|couch and lamp
+:couple:|emoji.|man and woman holding hands
+:couple_with_heart_man_man:|emoji.|man, zero width joiner, heavy black heart, variation selector-16, zero width joiner, man
+:couple_with_heart_woman_man:|emoji.|couple with heart
+:couple_with_heart_woman_woman:|emoji.|woman, zero width joiner, heavy black heart, variation selector-16, zero width joiner, woman
+:couplekiss_man_man:|emoji.|man, zero width joiner, heavy black heart, variation selector-16, zero width joiner, kiss mark, zero width joiner, man
+:couplekiss_man_woman:|emoji.|kiss
+:couplekiss_woman_woman:|emoji.|woman, zero width joiner, heavy black heart, variation selector-16, zero width joiner, kiss mark, zero width joiner, woman
+:cow2:|emoji.|cow
+:cow:|emoji.|cow face
+:cowboy_hat_face:|emoji.|face with cowboy hat
+:crab:|emoji.|crab
+:crayon:|emoji.|lower left crayon
+:credit_card:|emoji.|credit card
+:crescent_moon:|emoji.|crescent moon
+:cricket:|emoji.|cricket bat and ball
+:croatia:|emoji.|regional indicator symbol letter h, regional indicator symbol letter r
+:crocodile:|emoji.|crocodile
+:croissant:|emoji.|croissant
+:crossed_fingers:|emoji.|hand with index and middle fingers crossed
+:crossed_flags:|emoji.|crossed flags
+:crossed_swords:|emoji.|crossed swords, variation selector-16
+:crown:|emoji.|crown
+:cry:|emoji.|crying face
+:crying_cat_face:|emoji.|crying cat face
+:crystal_ball:|emoji.|crystal ball
+:cuba:|emoji.|regional indicator symbol letter c, regional indicator symbol letter u
+:cucumber:|emoji.|cucumber
+:cupid:|emoji.|heart with arrow
+:curacao:|emoji.|regional indicator symbol letter c, regional indicator symbol letter w
+:curly_loop:|emoji.|curly loop
+:currency_exchange:|emoji.|currency exchange
+:curry:|emoji.|curry and rice
+:custard:|emoji.|custard
+:customs:|emoji.|customs
+:cyclone:|emoji.|cyclone
+:cyprus:|emoji.|regional indicator symbol letter c, regional indicator symbol letter y
+:czech_republic:|emoji.|regional indicator symbol letter c, regional indicator symbol letter z
+:d|emoji.|laughter
+:dagger:|emoji.|dagger knife
+:dancer:|emoji.|dancer
+:dancing_men:|emoji.|woman with bunny ears, zero width joiner, male sign, variation selector-16
+:dancing_women:|emoji.|woman with bunny ears
+:dango:|emoji.|dango
+:dark_sunglasses:|emoji.|dark sunglasses
+:dart:|emoji.|direct hit
+:dash:|emoji.|dash symbol
+:date:|emoji.|calendar
+:de:|emoji.|regional indicator symbol letter d, regional indicator symbol letter e
+:deciduous_tree:|emoji.|deciduous tree
+:deer:|emoji.|deer
+:denmark:|emoji.|regional indicator symbol letter d, regional indicator symbol letter k
+:department_store:|emoji.|department store
+:derelict_house:|emoji.|derelict house building
+:desert:|emoji.|desert
+:desert_island:|emoji.|desert island
+:desktop_computer:|emoji.|desktop computer
+:diamond_shape_with_a_dot_inside:|emoji.|diamond shape with a dot inside
+:diamonds:|emoji.|black diamond suit, variation selector-16
+:disappointed:|emoji.|disappointed face
+:disappointed_relieved:|emoji.|disappointed but relieved face
+:dizzy:|emoji.|dizzy symbol
+:dizzy_face:|emoji.|dizzy face
+:djibouti:|emoji.|regional indicator symbol letter d, regional indicator symbol letter j
+:do_not_litter:|emoji.|do not litter symbol
+:dog2:|emoji.|dog
+:dog:|emoji.|dog face
+:dollar:|emoji.|banknote with dollar sign
+:dolls:|emoji.|japanese dolls
+:dolphin:|emoji.|dolphin
+:dominica:|emoji.|regional indicator symbol letter d, regional indicator symbol letter m
+:dominican_republic:|emoji.|regional indicator symbol letter d, regional indicator symbol letter o
+:door:|emoji.|door
+:doughnut:|emoji.|doughnut
+:dove:|emoji.|dove of peace
+:dragon:|emoji.|dragon
+:dragon_face:|emoji.|dragon face
+:dress:|emoji.|dress
+:dromedary_camel:|emoji.|dromedary camel
+:drooling_face:|emoji.|drooling face
+:droplet:|emoji.|droplet
+:drum:|emoji.|drum with drumsticks
+:duck:|emoji.|duck
+:dvd:|emoji.|dvd
+:e-mail:|emoji.|e-mail symbol
+:eagle:|emoji.|eagle
+:ear:|emoji.|ear
+:ear_of_rice:|emoji.|ear of rice
+:earth_africa:|emoji.|earth globe europe-africa
+:earth_americas:|emoji.|earth globe americas
+:earth_asia:|emoji.|earth globe asia-australia
+:ecuador:|emoji.|regional indicator symbol letter e, regional indicator symbol letter c
+:egg:|emoji.|egg
+:eggplant:|emoji.|aubergine
+:egypt:|emoji.|regional indicator symbol letter e, regional indicator symbol letter g
+:eight:|emoji.|8, variation selector-16, combining enclosing keycap
+:eight_pointed_black_star:|emoji.|eight pointed black star, variation selector-16
+:eight_spoked_asterisk:|emoji.|eight spoked asterisk, variation selector-16
+:el_salvador:|emoji.|regional indicator symbol letter s, regional indicator symbol letter v
+:electric_plug:|emoji.|electric plug
+:elephant:|emoji.|elephant
+:email:|emoji.|envelope, variation selector-16
+:end:|emoji.|end with leftwards arrow above
+:envelope_with_arrow:|emoji.|envelope with downwards arrow above
+:equatorial_guinea:|emoji.|regional indicator symbol letter g, regional indicator symbol letter q
+:eritrea:|emoji.|regional indicator symbol letter e, regional indicator symbol letter r
+:es:|emoji.|regional indicator symbol letter e, regional indicator symbol letter s
+:estonia:|emoji.|regional indicator symbol letter e, regional indicator symbol letter e
+:ethiopia:|emoji.|regional indicator symbol letter e, regional indicator symbol letter t
+:eu:|emoji.|regional indicator symbol letter e, regional indicator symbol letter u
+:euro:|emoji.|banknote with euro sign
+:european_castle:|emoji.|european castle
+:european_post_office:|emoji.|european post office
+:evergreen_tree:|emoji.|evergreen tree
+:exclamation:|emoji.|heavy exclamation mark symbol, variation selector-16
+:expressionless:|emoji.|expressionless face
+:eye:|emoji.|eye
+:eye_speech_bubble:|emoji.|eye, zero width joiner, left speech bubble
+:eyeglasses:|emoji.|eyeglasses
+:eyes:|emoji.|eyes
+:face_with_head_bandage:|emoji.|face with head-bandage
+:face_with_thermometer:|emoji.|face with thermometer
+:factory:|emoji.|factory
+:falkland_islands:|emoji.|regional indicator symbol letter f, regional indicator symbol letter k
+:fallen_leaf:|emoji.|fallen leaf
+:family_man_boy:|emoji.|man, zero width joiner, boy
+:family_man_boy_boy:|emoji.|man, zero width joiner, boy, zero width joiner, boy
+:family_man_girl:|emoji.|man, zero width joiner, girl
+:family_man_girl_boy:|emoji.|man, zero width joiner, girl, zero width joiner, boy
+:family_man_girl_girl:|emoji.|man, zero width joiner, girl, zero width joiner, girl
+:family_man_man_boy:|emoji.|man, zero width joiner, man, zero width joiner, boy
+:family_man_man_boy_boy:|emoji.|man, zero width joiner, man, zero width joiner, boy, zero width joiner, boy
+:family_man_man_girl:|emoji.|man, zero width joiner, man, zero width joiner, girl
+:family_man_man_girl_boy:|emoji.|man, zero width joiner, man, zero width joiner, girl, zero width joiner, boy
+:family_man_man_girl_girl:|emoji.|man, zero width joiner, man, zero width joiner, girl, zero width joiner, girl
+:family_man_woman_boy:|emoji.|family
+:family_man_woman_boy_boy:|emoji.|man, zero width joiner, woman, zero width joiner, boy, zero width joiner, boy
+:family_man_woman_girl:|emoji.|man, zero width joiner, woman, zero width joiner, girl
+:family_man_woman_girl_boy:|emoji.|man, zero width joiner, woman, zero width joiner, girl, zero width joiner, boy
+:family_man_woman_girl_girl:|emoji.|man, zero width joiner, woman, zero width joiner, girl, zero width joiner, girl
+:family_woman_boy:|emoji.|woman, zero width joiner, boy
+:family_woman_boy_boy:|emoji.|woman, zero width joiner, boy, zero width joiner, boy
+:family_woman_girl:|emoji.|woman, zero width joiner, girl
+:family_woman_girl_boy:|emoji.|woman, zero width joiner, girl, zero width joiner, boy
+:family_woman_girl_girl:|emoji.|woman, zero width joiner, girl, zero width joiner, girl
+:family_woman_woman_boy:|emoji.|woman, zero width joiner, woman, zero width joiner, boy
+:family_woman_woman_boy_boy:|emoji.|woman, zero width joiner, woman, zero width joiner, boy, zero width joiner, boy
+:family_woman_woman_girl:|emoji.|woman, zero width joiner, woman, zero width joiner, girl
+:family_woman_woman_girl_boy:|emoji.|woman, zero width joiner, woman, zero width joiner, girl, zero width joiner, boy
+:family_woman_woman_girl_girl:|emoji.|woman, zero width joiner, woman, zero width joiner, girl, zero width joiner, girl
+:faroe_islands:|emoji.|regional indicator symbol letter f, regional indicator symbol letter o
+:fast_forward:|emoji.|black right-pointing double triangle
+:fax:|emoji.|fax machine
+:fearful:|emoji.|fearful face
+:feet:|emoji.|paw prints
+:female_detective:|emoji.|sleuth or spy, variation selector-16, zero width joiner, female sign, variation selector-16
+:ferris_wheel:|emoji.|ferris wheel
+:ferry:|emoji.|ferry
+:field_hockey:|emoji.|field hockey stick and ball
+:fiji:|emoji.|regional indicator symbol letter f, regional indicator symbol letter j
+:file_cabinet:|emoji.|file cabinet
+:file_folder:|emoji.|file folder
+:film_projector:|emoji.|film projector
+:film_strip:|emoji.|film frames
+:finland:|emoji.|regional indicator symbol letter f, regional indicator symbol letter i
+:fire:|emoji.|fire
+:fire_engine:|emoji.|fire engine
+:fireworks:|emoji.|fireworks
+:first_quarter_moon:|emoji.|first quarter moon symbol
+:first_quarter_moon_with_face:|emoji.|first quarter moon with face
+:fish:|emoji.|fish
+:fish_cake:|emoji.|fish cake with swirl design
+:fishing_pole_and_fish:|emoji.|fishing pole and fish
+:fist_left:|emoji.|left-facing fist
+:fist_oncoming:|emoji.|fisted hand sign
+:fist_raised:|emoji.|raised fist
+:fist_right:|emoji.|right-facing fist
+:five:|emoji.|5, variation selector-16, combining enclosing keycap
+:flags:|emoji.|carp streamer
+:flashlight:|emoji.|electric torch
+:fleur_de_lis:|emoji.|fleur-de-lis, variation selector-16
+:flight_arrival:|emoji.|airplane arriving
+:flight_departure:|emoji.|airplane departure
+:floppy_disk:|emoji.|floppy disk
+:flower_playing_cards:|emoji.|flower playing cards
+:flushed:|emoji.|flushed face
+:fog:|emoji.|fog
+:foggy:|emoji.|foggy
+:football:|emoji.|american football
+:footprints:|emoji.|footprints
+:fork_and_knife:|emoji.|fork and knife
+:fountain:|emoji.|fountain, variation selector-16
+:fountain_pen:|emoji.|lower left fountain pen
+:four:|emoji.|4, variation selector-16, combining enclosing keycap
+:four_leaf_clover:|emoji.|four leaf clover
+:fox_face:|emoji.|fox face
+:fr:|emoji.|regional indicator symbol letter f, regional indicator symbol letter r
+:framed_picture:|emoji.|frame with picture
+:free:|emoji.|squared free
+:french_guiana:|emoji.|regional indicator symbol letter g, regional indicator symbol letter f
+:french_polynesia:|emoji.|regional indicator symbol letter p, regional indicator symbol letter f
+:french_southern_territories:|emoji.|regional indicator symbol letter t, regional indicator symbol letter f
+:fried_egg:|emoji.|cooking
+:fried_shrimp:|emoji.|fried shrimp
+:fries:|emoji.|french fries
+:frog:|emoji.|frog face
+:frowning:|emoji.|frowning face with open mouth
+:frowning_face:|emoji.|white frowning face, variation selector-16
+:frowning_man:|emoji.|person frowning, zero width joiner, male sign, variation selector-16
+:frowning_woman:|emoji.|person frowning
+:fuelpump:|emoji.|fuel pump, variation selector-16
+:full_moon:|emoji.|full moon symbol
+:full_moon_with_face:|emoji.|full moon with face
+:funeral_urn:|emoji.|funeral urn, variation selector-16
+:gabon:|emoji.|regional indicator symbol letter g, regional indicator symbol letter a
+:gambia:|emoji.|regional indicator symbol letter g, regional indicator symbol letter m
+:game_die:|emoji.|game die
+:gb:|emoji.|regional indicator symbol letter g, regional indicator symbol letter b
+:gear:|emoji.|gear, variation selector-16
+:gem:|emoji.|gem stone
+:gemini:|emoji.|gemini, variation selector-16
+:georgia:|emoji.|regional indicator symbol letter g, regional indicator symbol letter e
+:ghana:|emoji.|regional indicator symbol letter g, regional indicator symbol letter h
+:ghost:|emoji.|ghost
+:gibraltar:|emoji.|regional indicator symbol letter g, regional indicator symbol letter i
+:gift:|emoji.|wrapped present
+:gift_heart:|emoji.|heart with ribbon
+:girl:|emoji.|girl
+:globe_with_meridians:|emoji.|globe with meridians
+:goal_net:|emoji.|goal net
+:goat:|emoji.|goat
+:golf:|emoji.|flag in hole, variation selector-16
+:golfing_man:|emoji.|golfer, variation selector-16
+:golfing_woman:|emoji.|golfer, variation selector-16, zero width joiner, female sign, variation selector-16
+:gorilla:|emoji.|gorilla
+:grapes:|emoji.|grapes
+:greece:|emoji.|regional indicator symbol letter g, regional indicator symbol letter r
+:green_apple:|emoji.|green apple
+:green_book:|emoji.|green book
+:green_heart:|emoji.|green heart
+:green_salad:|emoji.|green salad
+:greenland:|emoji.|regional indicator symbol letter g, regional indicator symbol letter l
+:grenada:|emoji.|regional indicator symbol letter g, regional indicator symbol letter d
+:grey_exclamation:|emoji.|white exclamation mark ornament
+:grey_question:|emoji.|white question mark ornament
+:grimacing:|emoji.|grimacing face
+:grin:|emoji.|grinning face with smiling eyes
+:grinning:|emoji.|grinning face
+:guadeloupe:|emoji.|regional indicator symbol letter g, regional indicator symbol letter p
+:guam:|emoji.|regional indicator symbol letter g, regional indicator symbol letter u
+:guardsman:|emoji.|guardsman
+:guardswoman:|emoji.|guardsman, zero width joiner, female sign, variation selector-16
+:guatemala:|emoji.|regional indicator symbol letter g, regional indicator symbol letter t
+:guernsey:|emoji.|regional indicator symbol letter g, regional indicator symbol letter g
+:guinea:|emoji.|regional indicator symbol letter g, regional indicator symbol letter n
+:guinea_bissau:|emoji.|regional indicator symbol letter g, regional indicator symbol letter w
+:guitar:|emoji.|guitar
+:gun:|emoji.|pistol
+:guyana:|emoji.|regional indicator symbol letter g, regional indicator symbol letter y
+:haircut_man:|emoji.|haircut, zero width joiner, male sign, variation selector-16
+:haircut_woman:|emoji.|haircut
+:haiti:|emoji.|regional indicator symbol letter h, regional indicator symbol letter t
+:hamburger:|emoji.|hamburger
+:hammer:|emoji.|hammer
+:hammer_and_pick:|emoji.|hammer and pick
+:hammer_and_wrench:|emoji.|hammer and wrench
+:hamster:|emoji.|hamster face
+:hand:|emoji.|raised hand
+:handbag:|emoji.|handbag
+:handshake:|emoji.|handshake
+:hankey:|emoji.|pile of poo
+:hash:|emoji.|#, variation selector-16, combining enclosing keycap
+:hatched_chick:|emoji.|front-facing baby chick
+:hatching_chick:|emoji.|hatching chick
+:headphones:|emoji.|headphone
+:hear_no_evil:|emoji.|hear-no-evil monkey
+:heart:|emoji.|heavy black heart, variation selector-16
+:heart_decoration:|emoji.|heart decoration
+:heart_eyes:|emoji.|smiling face with heart-shaped eyes
+:heart_eyes_cat:|emoji.|smiling cat face with heart-shaped eyes
+:heartbeat:|emoji.|beating heart
+:heartpulse:|emoji.|growing heart
+:hearts:|emoji.|black heart suit, variation selector-16
+:heavy_check_mark:|emoji.|heavy check mark, variation selector-16
+:heavy_division_sign:|emoji.|heavy division sign
+:heavy_dollar_sign:|emoji.|heavy dollar sign
+:heavy_heart_exclamation:|emoji.|heavy heart exclamation mark ornament, variation selector-16
+:heavy_minus_sign:|emoji.|heavy minus sign
+:heavy_multiplication_x:|emoji.|heavy multiplication x, variation selector-16
+:heavy_plus_sign:|emoji.|heavy plus sign
+:helicopter:|emoji.|helicopter
+:herb:|emoji.|herb
+:hibiscus:|emoji.|hibiscus
+:high_brightness:|emoji.|high brightness symbol
+:high_heel:|emoji.|high-heeled shoe
+:hocho:|emoji.|hocho
+:hole:|emoji.|hole
+:honduras:|emoji.|regional indicator symbol letter h, regional indicator symbol letter n
+:honey_pot:|emoji.|honey pot
+:hong_kong:|emoji.|regional indicator symbol letter h, regional indicator symbol letter k
+:horse:|emoji.|horse face
+:horse_racing:|emoji.|horse racing
+:hospital:|emoji.|hospital
+:hot_pepper:|emoji.|hot pepper
+:hotdog:|emoji.|hot dog
+:hotel:|emoji.|hotel
+:hotsprings:|emoji.|hot springs, variation selector-16
+:hourglass:|emoji.|hourglass, variation selector-16
+:hourglass_flowing_sand:|emoji.|hourglass with flowing sand
+:house:|emoji.|house building
+:house_with_garden:|emoji.|house with garden
+:houses:|emoji.|house buildings
+:hugs:|emoji.|hugging face
+:hungary:|emoji.|regional indicator symbol letter h, regional indicator symbol letter u
+:hushed:|emoji.|hushed face
+:i|emoji.|hmmm
+:ice_cream:|emoji.|ice cream
+:ice_hockey:|emoji.|ice hockey stick and puck
+:ice_skate:|emoji.|ice skate
+:icecream:|emoji.|soft ice cream
+:iceland:|emoji.|regional indicator symbol letter i, regional indicator symbol letter s
+:id:|emoji.|squared id
+:ideograph_advantage:|emoji.|circled ideograph advantage
+:imp:|emoji.|imp
+:inbox_tray:|emoji.|inbox tray
+:incoming_envelope:|emoji.|incoming envelope
+:india:|emoji.|regional indicator symbol letter i, regional indicator symbol letter n
+:indonesia:|emoji.|regional indicator symbol letter i, regional indicator symbol letter d
+:information_source:|emoji.|information source, variation selector-16
+:innocent:|emoji.|smiling face with halo
+:interrobang:|emoji.|exclamation question mark, variation selector-16
+:iphone:|emoji.|mobile phone
+:iran:|emoji.|regional indicator symbol letter i, regional indicator symbol letter r
+:iraq:|emoji.|regional indicator symbol letter i, regional indicator symbol letter q
+:ireland:|emoji.|regional indicator symbol letter i, regional indicator symbol letter e
+:isle_of_man:|emoji.|regional indicator symbol letter i, regional indicator symbol letter m
+:israel:|emoji.|regional indicator symbol letter i, regional indicator symbol letter l
+:it:|emoji.|regional indicator symbol letter i, regional indicator symbol letter t
+:izakaya_lantern:|emoji.|izakaya lantern
+:jack_o_lantern:|emoji.|jack-o-lantern
+:jamaica:|emoji.|regional indicator symbol letter j, regional indicator symbol letter m
+:japan:|emoji.|silhouette of japan
+:japanese_castle:|emoji.|japanese castle
+:japanese_goblin:|emoji.|japanese goblin
+:japanese_ogre:|emoji.|japanese ogre
+:jeans:|emoji.|jeans
+:jersey:|emoji.|regional indicator symbol letter j, regional indicator symbol letter e
+:jordan:|emoji.|regional indicator symbol letter j, regional indicator symbol letter o
+:joy:|emoji.|face with tears of joy
+:joy_cat:|emoji.|cat face with tears of joy
+:joystick:|emoji.|joystick
+:jp:|emoji.|regional indicator symbol letter j, regional indicator symbol letter p
+:kaaba:|emoji.|kaaba
+:kazakhstan:|emoji.|regional indicator symbol letter k, regional indicator symbol letter z
+:kenya:|emoji.|regional indicator symbol letter k, regional indicator symbol letter e
+:key:|emoji.|key
+:keyboard:|emoji.|keyboard, variation selector-16
+:keycap_ten:|emoji.|keycap ten
+:kick_scooter:|emoji.|scooter
+:kimono:|emoji.|kimono
+:kiribati:|emoji.|regional indicator symbol letter k, regional indicator symbol letter i
+:kiss:|emoji.|kiss mark
+:kissing:|emoji.|kissing face
+:kissing_cat:|emoji.|kissing cat face with closed eyes
+:kissing_closed_eyes:|emoji.|kissing face with closed eyes
+:kissing_heart:|emoji.|face throwing a kiss
+:kissing_smiling_eyes:|emoji.|kissing face with smiling eyes
+:kiwi_fruit:|emoji.|kiwifruit
+:koala:|emoji.|koala
+:koko:|emoji.|squared katakana koko
+:kosovo:|emoji.|regional indicator symbol letter x, regional indicator symbol letter k
+:kr:|emoji.|regional indicator symbol letter k, regional indicator symbol letter r
+:kuwait:|emoji.|regional indicator symbol letter k, regional indicator symbol letter w
+:kyrgyzstan:|emoji.|regional indicator symbol letter k, regional indicator symbol letter g
+:label:|emoji.|label
+:laos:|emoji.|regional indicator symbol letter l, regional indicator symbol letter a
+:large_blue_circle:|emoji.|large blue circle
+:large_blue_diamond:|emoji.|large blue diamond
+:large_orange_diamond:|emoji.|large orange diamond
+:last_quarter_moon:|emoji.|last quarter moon symbol
+:last_quarter_moon_with_face:|emoji.|last quarter moon with face
+:latin_cross:|emoji.|latin cross, variation selector-16
+:latvia:|emoji.|regional indicator symbol letter l, regional indicator symbol letter v
+:laughing:|emoji.|smiling face with open mouth and tightly-closed eyes
+:leaves:|emoji.|leaf fluttering in wind
+:lebanon:|emoji.|regional indicator symbol letter l, regional indicator symbol letter b
+:ledger:|emoji.|ledger
+:left_luggage:|emoji.|left luggage
+:left_right_arrow:|emoji.|left right arrow, variation selector-16
+:leftwards_arrow_with_hook:|emoji.|leftwards arrow with hook, variation selector-16
+:lemon:|emoji.|lemon
+:leo:|emoji.|leo, variation selector-16
+:leopard:|emoji.|leopard
+:lesotho:|emoji.|regional indicator symbol letter l, regional indicator symbol letter s
+:level_slider:|emoji.|level slider
+:liberia:|emoji.|regional indicator symbol letter l, regional indicator symbol letter r
+:libra:|emoji.|libra, variation selector-16
+:libya:|emoji.|regional indicator symbol letter l, regional indicator symbol letter y
+:liechtenstein:|emoji.|regional indicator symbol letter l, regional indicator symbol letter i
+:light_rail:|emoji.|light rail
+:link:|emoji.|link symbol
+:lion:|emoji.|lion face
+:lips:|emoji.|mouth
+:lipstick:|emoji.|lipstick
+:lithuania:|emoji.|regional indicator symbol letter l, regional indicator symbol letter t
+:lizard:|emoji.|lizard
+:lock:|emoji.|lock
+:lock_with_ink_pen:|emoji.|lock with ink pen
+:lollipop:|emoji.|lollipop
+:loop:|emoji.|double curly loop
+:loud_sound:|emoji.|speaker with three sound waves
+:loudspeaker:|emoji.|public address loudspeaker
+:love_hotel:|emoji.|love hotel
+:love_letter:|emoji.|love letter
+:low_brightness:|emoji.|low brightness symbol
+:luxembourg:|emoji.|regional indicator symbol letter l, regional indicator symbol letter u
+:lying_face:|emoji.|lying face
+:m:|emoji.|circled latin capital letter m, variation selector-16
+:macau:|emoji.|regional indicator symbol letter m, regional indicator symbol letter o
+:macedonia:|emoji.|regional indicator symbol letter m, regional indicator symbol letter k
+:madagascar:|emoji.|regional indicator symbol letter m, regional indicator symbol letter g
+:mag:|emoji.|left-pointing magnifying glass
+:mag_right:|emoji.|right-pointing magnifying glass
+:mahjong:|emoji.|mahjong tile red dragon, variation selector-16
+:mailbox:|emoji.|closed mailbox with raised flag
+:mailbox_closed:|emoji.|closed mailbox with lowered flag
+:mailbox_with_mail:|emoji.|open mailbox with raised flag
+:mailbox_with_no_mail:|emoji.|open mailbox with lowered flag
+:malawi:|emoji.|regional indicator symbol letter m, regional indicator symbol letter w
+:malaysia:|emoji.|regional indicator symbol letter m, regional indicator symbol letter y
+:maldives:|emoji.|regional indicator symbol letter m, regional indicator symbol letter v
+:male_detective:|emoji.|sleuth or spy, variation selector-16
+:mali:|emoji.|regional indicator symbol letter m, regional indicator symbol letter l
+:malta:|emoji.|regional indicator symbol letter m, regional indicator symbol letter t
+:man:|emoji.|man
+:man_artist:|emoji.|man, zero width joiner, artist palette
+:man_astronaut:|emoji.|man, zero width joiner, rocket
+:man_cartwheeling:|emoji.|person doing cartwheel, zero width joiner, male sign, variation selector-16
+:man_cook:|emoji.|man, zero width joiner, cooking
+:man_dancing:|emoji.|man dancing
+:man_facepalming:|emoji.|face palm, zero width joiner, male sign, variation selector-16
+:man_factory_worker:|emoji.|man, zero width joiner, factory
+:man_farmer:|emoji.|man, zero width joiner, ear of rice
+:man_firefighter:|emoji.|man, zero width joiner, fire engine
+:man_health_worker:|emoji.|man, zero width joiner, staff of aesculapius, variation selector-16
+:man_in_tuxedo:|emoji.|man in tuxedo
+:man_judge:|emoji.|man, zero width joiner, scales, variation selector-16
+:man_juggling:|emoji.|juggling, zero width joiner, male sign, variation selector-16
+:man_mechanic:|emoji.|man, zero width joiner, wrench
+:man_office_worker:|emoji.|man, zero width joiner, briefcase
+:man_pilot:|emoji.|man, zero width joiner, airplane, variation selector-16
+:man_playing_handball:|emoji.|handball, zero width joiner, male sign, variation selector-16
+:man_playing_water_polo:|emoji.|water polo, zero width joiner, male sign, variation selector-16
+:man_scientist:|emoji.|man, zero width joiner, microscope
+:man_shrugging:|emoji.|shrug, zero width joiner, male sign, variation selector-16
+:man_singer:|emoji.|man, zero width joiner, microphone
+:man_student:|emoji.|man, zero width joiner, graduation cap
+:man_teacher:|emoji.|man, zero width joiner, school
+:man_technologist:|emoji.|man, zero width joiner, personal computer
+:man_with_gua_pi_mao:|emoji.|man with gua pi mao
+:man_with_turban:|emoji.|man with turban
+:mans_shoe:|emoji.|mans shoe
+:mantelpiece_clock:|emoji.|mantelpiece clock
+:maple_leaf:|emoji.|maple leaf
+:marshall_islands:|emoji.|regional indicator symbol letter m, regional indicator symbol letter h
+:martial_arts_uniform:|emoji.|martial arts uniform
+:martinique:|emoji.|regional indicator symbol letter m, regional indicator symbol letter q
+:mask:|emoji.|face with medical mask
+:massage_man:|emoji.|face massage, zero width joiner, male sign, variation selector-16
+:massage_woman:|emoji.|face massage
+:mauritania:|emoji.|regional indicator symbol letter m, regional indicator symbol letter r
+:mauritius:|emoji.|regional indicator symbol letter m, regional indicator symbol letter u
+:mayotte:|emoji.|regional indicator symbol letter y, regional indicator symbol letter t
+:meat_on_bone:|emoji.|meat on bone
+:medal_military:|emoji.|military medal
+:medal_sports:|emoji.|sports medal
+:mega:|emoji.|cheering megaphone
+:melon:|emoji.|melon
+:memo:|emoji.|memo
+:men_wrestling:|emoji.|wrestlers, zero width joiner, male sign, variation selector-16
+:menorah:|emoji.|menorah with nine branches
+:mens:|emoji.|mens symbol
+:metal:|emoji.|sign of the horns
+:metro:|emoji.|metro
+:mexico:|emoji.|regional indicator symbol letter m, regional indicator symbol letter x
+:micronesia:|emoji.|regional indicator symbol letter f, regional indicator symbol letter m
+:microphone:|emoji.|microphone
+:microscope:|emoji.|microscope
+:middle_finger:|emoji.|reversed hand with middle finger extended
+:milk_glass:|emoji.|glass of milk
+:milky_way:|emoji.|milky way
+:minibus:|emoji.|minibus
+:minidisc:|emoji.|minidisc
+:mobile_phone_off:|emoji.|mobile phone off
+:moldova:|emoji.|regional indicator symbol letter m, regional indicator symbol letter d
+:monaco:|emoji.|regional indicator symbol letter m, regional indicator symbol letter c
+:money_mouth_face:|emoji.|money-mouth face
+:money_with_wings:|emoji.|money with wings
+:moneybag:|emoji.|money bag
+:mongolia:|emoji.|regional indicator symbol letter m, regional indicator symbol letter n
+:monkey:|emoji.|monkey
+:monkey_face:|emoji.|monkey face
+:monorail:|emoji.|monorail
+:montenegro:|emoji.|regional indicator symbol letter m, regional indicator symbol letter e
+:montserrat:|emoji.|regional indicator symbol letter m, regional indicator symbol letter s
+:moon:|emoji.|waxing gibbous moon symbol
+:morocco:|emoji.|regional indicator symbol letter m, regional indicator symbol letter a
+:mortar_board:|emoji.|graduation cap
+:mosque:|emoji.|mosque
+:motor_boat:|emoji.|motor boat
+:motor_scooter:|emoji.|motor scooter
+:motorcycle:|emoji.|racing motorcycle
+:motorway:|emoji.|motorway
+:mount_fuji:|emoji.|mount fuji
+:mountain:|emoji.|mountain
+:mountain_biking_man:|emoji.|mountain bicyclist
+:mountain_biking_woman:|emoji.|mountain bicyclist, zero width joiner, female sign, variation selector-16
+:mountain_cableway:|emoji.|mountain cableway
+:mountain_railway:|emoji.|mountain railway
+:mountain_snow:|emoji.|snow capped mountain
+:mouse2:|emoji.|mouse
+:mouse:|emoji.|mouse face
+:movie_camera:|emoji.|movie camera
+:moyai:|emoji.|moyai
+:mozambique:|emoji.|regional indicator symbol letter m, regional indicator symbol letter z
+:mrs_claus:|emoji.|mother christmas
+:muscle:|emoji.|flexed biceps
+:mushroom:|emoji.|mushroom
+:musical_keyboard:|emoji.|musical keyboard
+:musical_note:|emoji.|musical note
+:musical_score:|emoji.|musical score
+:mute:|emoji.|speaker with cancellation stroke
+:myanmar:|emoji.|regional indicator symbol letter m, regional indicator symbol letter m
+:nail_care:|emoji.|nail polish
+:name_badge:|emoji.|name badge
+:namibia:|emoji.|regional indicator symbol letter n, regional indicator symbol letter a
+:national_park:|emoji.|national park
+:nauru:|emoji.|regional indicator symbol letter n, regional indicator symbol letter r
+:nauseated_face:|emoji.|nauseated face
+:necktie:|emoji.|necktie
+:negative_squared_cross_mark:|emoji.|negative squared cross mark
+:nepal:|emoji.|regional indicator symbol letter n, regional indicator symbol letter p
+:nerd_face:|emoji.|nerd face
+:netherlands:|emoji.|regional indicator symbol letter n, regional indicator symbol letter l
+:neutral_face:|emoji.|neutral face
+:new:|emoji.|squared new
+:new_caledonia:|emoji.|regional indicator symbol letter n, regional indicator symbol letter c
+:new_moon:|emoji.|new moon symbol
+:new_moon_with_face:|emoji.|new moon with face
+:new_zealand:|emoji.|regional indicator symbol letter n, regional indicator symbol letter z
+:newspaper:|emoji.|newspaper
+:newspaper_roll:|emoji.|rolled-up newspaper
+:next_track_button:|emoji.|black right-pointing double triangle with vertical bar
+:ng:|emoji.|squared ng
+:nicaragua:|emoji.|regional indicator symbol letter n, regional indicator symbol letter i
+:niger:|emoji.|regional indicator symbol letter n, regional indicator symbol letter e
+:nigeria:|emoji.|regional indicator symbol letter n, regional indicator symbol letter g
+:night_with_stars:|emoji.|night with stars
+:nine:|emoji.|9, variation selector-16, combining enclosing keycap
+:niue:|emoji.|regional indicator symbol letter n, regional indicator symbol letter u
+:no_bell:|emoji.|bell with cancellation stroke
+:no_bicycles:|emoji.|no bicycles
+:no_entry:|emoji.|no entry, variation selector-16
+:no_entry_sign:|emoji.|no entry sign
+:no_good_man:|emoji.|face with no good gesture, zero width joiner, male sign, variation selector-16
+:no_good_woman:|emoji.|face with no good gesture
+:no_mobile_phones:|emoji.|no mobile phones
+:no_mouth:|emoji.|face without mouth
+:no_pedestrians:|emoji.|no pedestrians
+:no_smoking:|emoji.|no smoking symbol
+:non-potable_water:|emoji.|non-potable water symbol
+:norfolk_island:|emoji.|regional indicator symbol letter n, regional indicator symbol letter f
+:north_korea:|emoji.|regional indicator symbol letter k, regional indicator symbol letter p
+:northern_mariana_islands:|emoji.|regional indicator symbol letter m, regional indicator symbol letter p
+:norway:|emoji.|regional indicator symbol letter n, regional indicator symbol letter o
+:nose:|emoji.|nose
+:notebook:|emoji.|notebook
+:notebook_with_decorative_cover:|emoji.|notebook with decorative cover
+:notes:|emoji.|multiple musical notes
+:nut_and_bolt:|emoji.|nut and bolt
+:o|emoji.|yelling
+:o2:|emoji.|negative squared latin capital letter o, variation selector-16
+:o:|emoji.|heavy large circle, variation selector-16
+:ocean:|emoji.|water wave
+:octopus:|emoji.|octopus
+:oden:|emoji.|oden
+:office:|emoji.|office building
+:oil_drum:|emoji.|oil drum
+:ok:|emoji.|squared ok
+:ok_hand:|emoji.|ok hand sign
+:ok_man:|emoji.|face with ok gesture, zero width joiner, male sign, variation selector-16
+:ok_woman:|emoji.|face with ok gesture
+:old_key:|emoji.|old key
+:older_man:|emoji.|older man
+:older_woman:|emoji.|older woman
+:om:|emoji.|om symbol
+:oman:|emoji.|regional indicator symbol letter o, regional indicator symbol letter m
+:on:|emoji.|on with exclamation mark with left right arrow above
+:oncoming_automobile:|emoji.|oncoming automobile
+:oncoming_bus:|emoji.|oncoming bus
+:oncoming_police_car:|emoji.|oncoming police car
+:oncoming_taxi:|emoji.|oncoming taxi
+:one:|emoji.|1, variation selector-16, combining enclosing keycap
+:open_file_folder:|emoji.|open file folder
+:open_hands:|emoji.|open hands sign
+:open_mouth:|emoji.|face with open mouth
+:open_umbrella:|emoji.|umbrella, variation selector-16
+:ophiuchus:|emoji.|ophiuchus
+:orange_book:|emoji.|orange book
+:orthodox_cross:|emoji.|orthodox cross, variation selector-16
+:outbox_tray:|emoji.|outbox tray
+:owl:|emoji.|owl
+:ox:|emoji.|ox
+:package:|emoji.|package
+:page_facing_up:|emoji.|page facing up
+:page_with_curl:|emoji.|page with curl
+:pager:|emoji.|pager
+:paintbrush:|emoji.|lower left paintbrush
+:pakistan:|emoji.|regional indicator symbol letter p, regional indicator symbol letter k
+:palau:|emoji.|regional indicator symbol letter p, regional indicator symbol letter w
+:palestinian_territories:|emoji.|regional indicator symbol letter p, regional indicator symbol letter s
+:palm_tree:|emoji.|palm tree
+:panama:|emoji.|regional indicator symbol letter p, regional indicator symbol letter a
+:pancakes:|emoji.|pancakes
+:panda_face:|emoji.|panda face
+:paperclip:|emoji.|paperclip
+:paperclips:|emoji.|linked paperclips
+:papua_new_guinea:|emoji.|regional indicator symbol letter p, regional indicator symbol letter g
+:paraguay:|emoji.|regional indicator symbol letter p, regional indicator symbol letter y
+:parasol_on_ground:|emoji.|umbrella on ground
+:parking:|emoji.|negative squared latin capital letter p, variation selector-16
+:part_alternation_mark:|emoji.|part alternation mark, variation selector-16
+:partly_sunny:|emoji.|sun behind cloud, variation selector-16
+:passenger_ship:|emoji.|passenger ship
+:passport_control:|emoji.|passport control
+:pause_button:|emoji.|double vertical bar
+:peace_symbol:|emoji.|peace symbol, variation selector-16
+:peach:|emoji.|peach
+:peanuts:|emoji.|peanuts
+:pear:|emoji.|pear
+:pen:|emoji.|lower left ballpoint pen
+:pencil2:|emoji.|pencil, variation selector-16
+:penguin:|emoji.|penguin
+:pensive:|emoji.|pensive face
+:performing_arts:|emoji.|performing arts
+:persevere:|emoji.|persevering face
+:person_fencing:|emoji.|fencer
+:peru:|emoji.|regional indicator symbol letter p, regional indicator symbol letter e
+:philippines:|emoji.|regional indicator symbol letter p, regional indicator symbol letter h
+:phone:|emoji.|black telephone, variation selector-16
+:pick:|emoji.|pick
+:pig2:|emoji.|pig
+:pig:|emoji.|pig face
+:pig_nose:|emoji.|pig nose
+:pill:|emoji.|pill
+:pineapple:|emoji.|pineapple
+:ping_pong:|emoji.|table tennis paddle and ball
+:pisces:|emoji.|pisces, variation selector-16
+:pitcairn_islands:|emoji.|regional indicator symbol letter p, regional indicator symbol letter n
+:pizza:|emoji.|slice of pizza
+:place_of_worship:|emoji.|place of worship
+:plate_with_cutlery:|emoji.|fork and knife with plate
+:play_or_pause_button:|emoji.|black right-pointing triangle with double vertical bar
+:point_down:|emoji.|white down pointing backhand index
+:point_left:|emoji.|white left pointing backhand index
+:point_right:|emoji.|white right pointing backhand index
+:point_up:|emoji.|white up pointing index, variation selector-16
+:point_up_2:|emoji.|white up pointing backhand index
+:poland:|emoji.|regional indicator symbol letter p, regional indicator symbol letter l
+:police_car:|emoji.|police car
+:policeman:|emoji.|police officer
+:policewoman:|emoji.|police officer, zero width joiner, female sign, variation selector-16
+:poodle:|emoji.|poodle
+:popcorn:|emoji.|popcorn
+:portugal:|emoji.|regional indicator symbol letter p, regional indicator symbol letter t
+:post_office:|emoji.|japanese post office
+:postal_horn:|emoji.|postal horn
+:postbox:|emoji.|postbox
+:potable_water:|emoji.|potable water symbol
+:potato:|emoji.|potato
+:pouch:|emoji.|pouch
+:poultry_leg:|emoji.|poultry leg
+:pound:|emoji.|banknote with pound sign
+:pouting_cat:|emoji.|pouting cat face
+:pouting_man:|emoji.|person with pouting face, zero width joiner, male sign, variation selector-16
+:pouting_woman:|emoji.|person with pouting face
+:pray:|emoji.|person with folded hands
+:prayer_beads:|emoji.|prayer beads
+:pregnant_woman:|emoji.|pregnant woman
+:previous_track_button:|emoji.|black left-pointing double triangle with vertical bar
+:prince:|emoji.|prince
+:princess:|emoji.|princess
+:printer:|emoji.|printer
+:puerto_rico:|emoji.|regional indicator symbol letter p, regional indicator symbol letter r
+:purple_heart:|emoji.|purple heart
+:purse:|emoji.|purse
+:pushpin:|emoji.|pushpin
+:put_litter_in_its_place:|emoji.|put litter in its place symbol
+:q|emoji.|what?
+:qatar:|emoji.|regional indicator symbol letter q, regional indicator symbol letter a
+:question:|emoji.|black question mark ornament
+:rabbit2:|emoji.|rabbit
+:rabbit:|emoji.|rabbit face
+:racehorse:|emoji.|horse
+:racing_car:|emoji.|racing car
+:radio:|emoji.|radio
+:radio_button:|emoji.|radio button
+:radioactive:|emoji.|radioactive sign, variation selector-16
+:rage:|emoji.|pouting face
+:railway_car:|emoji.|railway car
+:railway_track:|emoji.|railway track
+:rainbow:|emoji.|rainbow
+:rainbow_flag:|emoji.|waving white flag, variation selector-16, zero width joiner, rainbow
+:raised_back_of_hand:|emoji.|raised back of hand
+:raised_hand_with_fingers_splayed:|emoji.|raised hand with fingers splayed
+:raised_hands:|emoji.|person raising both hands in celebration
+:raising_hand_man:|emoji.|happy person raising one hand, zero width joiner, male sign, variation selector-16
+:raising_hand_woman:|emoji.|happy person raising one hand
+:ram:|emoji.|ram
+:ramen:|emoji.|steaming bowl
+:rat:|emoji.|rat
+:record_button:|emoji.|black circle for record
+:recycle:|emoji.|black universal recycling symbol, variation selector-16
+:red_circle:|emoji.|large red circle
+:registered:|emoji.|registered sign, variation selector-16
+:relaxed:|emoji.|white smiling face, variation selector-16
+:relieved:|emoji.|relieved face
+:reminder_ribbon:|emoji.|reminder ribbon
+:repeat:|emoji.|clockwise rightwards and leftwards open circle arrows
+:repeat_one:|emoji.|clockwise rightwards and leftwards open circle arrows with circled one overlay
+:rescue_worker_helmet:|emoji.|helmet with white cross
+:restroom:|emoji.|restroom
+:reunion:|emoji.|regional indicator symbol letter r, regional indicator symbol letter e
+:revolving_hearts:|emoji.|revolving hearts
+:rewind:|emoji.|black left-pointing double triangle
+:rhinoceros:|emoji.|rhinoceros
+:ribbon:|emoji.|ribbon
+:rice:|emoji.|cooked rice
+:rice_ball:|emoji.|rice ball
+:rice_cracker:|emoji.|rice cracker
+:rice_scene:|emoji.|moon viewing ceremony
+:right_anger_bubble:|emoji.|right anger bubble
+:ring:|emoji.|ring
+:robot:|emoji.|robot face
+:rocket:|emoji.|rocket
+:rofl:|emoji.|rolling on the floor laughing
+:roll_eyes:|emoji.|face with rolling eyes
+:roller_coaster:|emoji.|roller coaster
+:romania:|emoji.|regional indicator symbol letter r, regional indicator symbol letter o
+:rooster:|emoji.|rooster
+:rose:|emoji.|rose
+:rosette:|emoji.|rosette
+:rotating_light:|emoji.|police cars revolving light
+:round_pushpin:|emoji.|round pushpin
+:rowing_man:|emoji.|rowboat
+:rowing_woman:|emoji.|rowboat, zero width joiner, female sign, variation selector-16
+:ru:|emoji.|regional indicator symbol letter r, regional indicator symbol letter u
+:rugby_football:|emoji.|rugby football
+:running_man:|emoji.|runner
+:running_shirt_with_sash:|emoji.|running shirt with sash
+:running_woman:|emoji.|runner, zero width joiner, female sign, variation selector-16
+:rwanda:|emoji.|regional indicator symbol letter r, regional indicator symbol letter w
+:sa:|emoji.|squared katakana sa, variation selector-16
+:sagittarius:|emoji.|sagittarius, variation selector-16
+:sake:|emoji.|sake bottle and cup
+:samoa:|emoji.|regional indicator symbol letter w, regional indicator symbol letter s
+:san_marino:|emoji.|regional indicator symbol letter s, regional indicator symbol letter m
+:sandal:|emoji.|womans sandal
+:santa:|emoji.|father christmas
+:sao_tome_principe:|emoji.|regional indicator symbol letter s, regional indicator symbol letter t
+:satellite:|emoji.|satellite antenna
+:saudi_arabia:|emoji.|regional indicator symbol letter s, regional indicator symbol letter a
+:saxophone:|emoji.|saxophone
+:school:|emoji.|school
+:school_satchel:|emoji.|school satchel
+:scissors:|emoji.|black scissors, variation selector-16
+:scorpion:|emoji.|scorpion
+:scorpius:|emoji.|scorpius, variation selector-16
+:scream:|emoji.|face screaming in fear
+:scream_cat:|emoji.|weary cat face
+:scroll:|emoji.|scroll
+:seat:|emoji.|seat
+:secret:|emoji.|circled ideograph secret, variation selector-16
+:see_no_evil:|emoji.|see-no-evil monkey
+:seedling:|emoji.|seedling
+:selfie:|emoji.|selfie
+:senegal:|emoji.|regional indicator symbol letter s, regional indicator symbol letter n
+:serbia:|emoji.|regional indicator symbol letter r, regional indicator symbol letter s
+:seven:|emoji.|7, variation selector-16, combining enclosing keycap
+:seychelles:|emoji.|regional indicator symbol letter s, regional indicator symbol letter c
+:shallow_pan_of_food:|emoji.|shallow pan of food
+:shamrock:|emoji.|shamrock, variation selector-16
+:shark:|emoji.|shark
+:shaved_ice:|emoji.|shaved ice
+:sheep:|emoji.|sheep
+:shell:|emoji.|spiral shell
+:shield:|emoji.|shield
+:shinto_shrine:|emoji.|shinto shrine
+:ship:|emoji.|ship
+:shirt:|emoji.|t-shirt
+:shopping:|emoji.|shopping bags
+:shopping_cart:|emoji.|shopping trolley
+:shower:|emoji.|shower
+:shrimp:|emoji.|shrimp
+:sierra_leone:|emoji.|regional indicator symbol letter s, regional indicator symbol letter l
+:signal_strength:|emoji.|antenna with bars
+:singapore:|emoji.|regional indicator symbol letter s, regional indicator symbol letter g
+:sint_maarten:|emoji.|regional indicator symbol letter s, regional indicator symbol letter x
+:six:|emoji.|6, variation selector-16, combining enclosing keycap
+:six_pointed_star:|emoji.|six pointed star with middle dot
+:ski:|emoji.|ski and ski boot
+:skier:|emoji.|skier
+:skull:|emoji.|skull
+:skull_and_crossbones:|emoji.|skull and crossbones, variation selector-16
+:sleeping:|emoji.|sleeping face
+:sleeping_bed:|emoji.|sleeping accommodation
+:sleepy:|emoji.|sleepy face
+:slightly_frowning_face:|emoji.|slightly frowning face
+:slightly_smiling_face:|emoji.|slightly smiling face
+:slot_machine:|emoji.|slot machine
+:slovakia:|emoji.|regional indicator symbol letter s, regional indicator symbol letter k
+:slovenia:|emoji.|regional indicator symbol letter s, regional indicator symbol letter i
+:small_airplane:|emoji.|small airplane
+:small_blue_diamond:|emoji.|small blue diamond
+:small_orange_diamond:|emoji.|small orange diamond
+:small_red_triangle:|emoji.|up-pointing red triangle
+:small_red_triangle_down:|emoji.|down-pointing red triangle
+:smile:|emoji.|smiling face with open mouth and smiling eyes
+:smile_cat:|emoji.|grinning cat face with smiling eyes
+:smiley:|emoji.|smiling face with open mouth
+:smiley_cat:|emoji.|smiling cat face with open mouth
+:smiling_imp:|emoji.|smiling face with horns
+:smirk:|emoji.|smirking face
+:smirk_cat:|emoji.|cat face with wry smile
+:smoking:|emoji.|smoking symbol
+:snail:|emoji.|snail
+:snake:|emoji.|snake
+:sneezing_face:|emoji.|sneezing face
+:snowboarder:|emoji.|snowboarder
+:snowflake:|emoji.|snowflake, variation selector-16
+:snowman:|emoji.|snowman without snow, variation selector-16
+:snowman_with_snow:|emoji.|snowman, variation selector-16
+:sob:|emoji.|loudly crying face
+:soccer:|emoji.|soccer ball, variation selector-16
+:solomon_islands:|emoji.|regional indicator symbol letter s, regional indicator symbol letter b
+:somalia:|emoji.|regional indicator symbol letter s, regional indicator symbol letter o
+:soon:|emoji.|soon with rightwards arrow above
+:sos:|emoji.|squared sos
+:sound:|emoji.|speaker with one sound wave
+:south_africa:|emoji.|regional indicator symbol letter z, regional indicator symbol letter a
+:south_georgia_south_sandwich_islands:|emoji.|regional indicator symbol letter g, regional indicator symbol letter s
+:south_sudan:|emoji.|regional indicator symbol letter s, regional indicator symbol letter s
+:space_invader:|emoji.|alien monster
+:spades:|emoji.|black spade suit, variation selector-16
+:spaghetti:|emoji.|spaghetti
+:sparkle:|emoji.|sparkle, variation selector-16
+:sparkler:|emoji.|firework sparkler
+:sparkles:|emoji.|sparkles
+:sparkling_heart:|emoji.|sparkling heart
+:speak_no_evil:|emoji.|speak-no-evil monkey
+:speaker:|emoji.|speaker
+:speaking_head:|emoji.|speaking head in silhouette
+:speech_balloon:|emoji.|speech balloon
+:speedboat:|emoji.|speedboat
+:spider:|emoji.|spider
+:spider_web:|emoji.|spider web
+:spiral_calendar:|emoji.|spiral calendar pad
+:spiral_notepad:|emoji.|spiral note pad
+:spoon:|emoji.|spoon
+:squid:|emoji.|squid
+:sri_lanka:|emoji.|regional indicator symbol letter l, regional indicator symbol letter k
+:st_barthelemy:|emoji.|regional indicator symbol letter b, regional indicator symbol letter l
+:st_helena:|emoji.|regional indicator symbol letter s, regional indicator symbol letter h
+:st_kitts_nevis:|emoji.|regional indicator symbol letter k, regional indicator symbol letter n
+:st_lucia:|emoji.|regional indicator symbol letter l, regional indicator symbol letter c
+:st_pierre_miquelon:|emoji.|regional indicator symbol letter p, regional indicator symbol letter m
+:st_vincent_grenadines:|emoji.|regional indicator symbol letter v, regional indicator symbol letter c
+:stadium:|emoji.|stadium
+:star2:|emoji.|glowing star
+:star:|emoji.|white medium star, variation selector-16
+:star_and_crescent:|emoji.|star and crescent, variation selector-16
+:star_of_david:|emoji.|star of david, variation selector-16
+:stars:|emoji.|shooting star
+:station:|emoji.|station
+:statue_of_liberty:|emoji.|statue of liberty
+:steam_locomotive:|emoji.|steam locomotive
+:stew:|emoji.|pot of food
+:stop_button:|emoji.|black square for stop
+:stop_sign:|emoji.|octagonal sign
+:stopwatch:|emoji.|stopwatch
+:straight_ruler:|emoji.|straight ruler
+:strawberry:|emoji.|strawberry
+:stuck_out_tongue:|emoji.|face with stuck-out tongue
+:stuck_out_tongue_closed_eyes:|emoji.|face with stuck-out tongue and tightly-closed eyes
+:stuck_out_tongue_winking_eye:|emoji.|face with stuck-out tongue and winking eye
+:studio_microphone:|emoji.|studio microphone
+:stuffed_flatbread:|emoji.|stuffed flatbread
+:sudan:|emoji.|regional indicator symbol letter s, regional indicator symbol letter d
+:sun_behind_large_cloud:|emoji.|white sun behind cloud
+:sun_behind_rain_cloud:|emoji.|white sun behind cloud with rain
+:sun_behind_small_cloud:|emoji.|white sun with small cloud
+:sun_with_face:|emoji.|sun with face
+:sunflower:|emoji.|sunflower
+:sunglasses:|emoji.|smiling face with sunglasses
+:sunny:|emoji.|black sun with rays, variation selector-16
+:sunrise:|emoji.|sunrise
+:sunrise_over_mountains:|emoji.|sunrise over mountains
+:surfing_man:|emoji.|surfer
+:surfing_woman:|emoji.|surfer, zero width joiner, female sign, variation selector-16
+:suriname:|emoji.|regional indicator symbol letter s, regional indicator symbol letter r
+:sushi:|emoji.|sushi
+:suspension_railway:|emoji.|suspension railway
+:swaziland:|emoji.|regional indicator symbol letter s, regional indicator symbol letter z
+:sweat:|emoji.|face with cold sweat
+:sweat_drops:|emoji.|splashing sweat symbol
+:sweat_smile:|emoji.|smiling face with open mouth and cold sweat
+:sweden:|emoji.|regional indicator symbol letter s, regional indicator symbol letter e
+:sweet_potato:|emoji.|roasted sweet potato
+:swimming_man:|emoji.|swimmer
+:swimming_woman:|emoji.|swimmer, zero width joiner, female sign, variation selector-16
+:switzerland:|emoji.|regional indicator symbol letter c, regional indicator symbol letter h
+:symbols:|emoji.|input symbol for symbols
+:synagogue:|emoji.|synagogue
+:syria:|emoji.|regional indicator symbol letter s, regional indicator symbol letter y
+:syringe:|emoji.|syringe
+:taco:|emoji.|taco
+:tada:|emoji.|party popper
+:taiwan:|emoji.|regional indicator symbol letter t, regional indicator symbol letter w
+:tajikistan:|emoji.|regional indicator symbol letter t, regional indicator symbol letter j
+:tanabata_tree:|emoji.|tanabata tree
+:tangerine:|emoji.|tangerine
+:tanzania:|emoji.|regional indicator symbol letter t, regional indicator symbol letter z
+:taurus:|emoji.|taurus, variation selector-16
+:taxi:|emoji.|taxi
+:tea:|emoji.|teacup without handle
+:telephone_receiver:|emoji.|telephone receiver
+:telescope:|emoji.|telescope
+:tennis:|emoji.|tennis racquet and ball
+:tent:|emoji.|tent, variation selector-16
+:thailand:|emoji.|regional indicator symbol letter t, regional indicator symbol letter h
+:thermometer:|emoji.|thermometer
+:thinking:|emoji.|thinking face
+:thought_balloon:|emoji.|thought balloon
+:three:|emoji.|3, variation selector-16, combining enclosing keycap
+:ticket:|emoji.|ticket
+:tickets:|emoji.|admission tickets
+:tiger2:|emoji.|tiger
+:tiger:|emoji.|tiger face
+:timer_clock:|emoji.|timer clock
+:timor_leste:|emoji.|regional indicator symbol letter t, regional indicator symbol letter l
+:tipping_hand_man:|emoji.|information desk person, zero width joiner, male sign, variation selector-16
+:tipping_hand_woman:|emoji.|information desk person
+:tired_face:|emoji.|tired face
+:tm:|emoji.|trade mark sign, variation selector-16
+:togo:|emoji.|regional indicator symbol letter t, regional indicator symbol letter g
+:toilet:|emoji.|toilet
+:tokelau:|emoji.|regional indicator symbol letter t, regional indicator symbol letter k
+:tokyo_tower:|emoji.|tokyo tower
+:tomato:|emoji.|tomato
+:tonga:|emoji.|regional indicator symbol letter t, regional indicator symbol letter o
+:tongue:|emoji.|tongue
+:top:|emoji.|top with upwards arrow above
+:tophat:|emoji.|top hat
+:tornado:|emoji.|cloud with tornado
+:tr:|emoji.|regional indicator symbol letter t, regional indicator symbol letter r
+:trackball:|emoji.|trackball
+:tractor:|emoji.|tractor
+:traffic_light:|emoji.|horizontal traffic light
+:train2:|emoji.|train
+:train:|emoji.|tram car
+:tram:|emoji.|tram
+:triangular_flag_on_post:|emoji.|triangular flag on post
+:triangular_ruler:|emoji.|triangular ruler
+:trident:|emoji.|trident emblem
+:trinidad_tobago:|emoji.|regional indicator symbol letter t, regional indicator symbol letter t
+:triumph:|emoji.|face with look of triumph
+:trolleybus:|emoji.|trolleybus
+:trophy:|emoji.|trophy
+:tropical_drink:|emoji.|tropical drink
+:tropical_fish:|emoji.|tropical fish
+:truck:|emoji.|delivery truck
+:trumpet:|emoji.|trumpet
+:tulip:|emoji.|tulip
+:tumbler_glass:|emoji.|tumbler glass
+:tunisia:|emoji.|regional indicator symbol letter t, regional indicator symbol letter n
+:turkey:|emoji.|turkey
+:turkmenistan:|emoji.|regional indicator symbol letter t, regional indicator symbol letter m
+:turks_caicos_islands:|emoji.|regional indicator symbol letter t, regional indicator symbol letter c
+:turtle:|emoji.|turtle
+:tuvalu:|emoji.|regional indicator symbol letter t, regional indicator symbol letter v
+:tv:|emoji.|television
+:twisted_rightwards_arrows:|emoji.|twisted rightwards arrows
+:two:|emoji.|2, variation selector-16, combining enclosing keycap
+:two_hearts:|emoji.|two hearts
+:two_men_holding_hands:|emoji.|two men holding hands
+:two_women_holding_hands:|emoji.|two women holding hands
+:u5272:|emoji.|squared cjk unified ideograph-5272
+:u5408:|emoji.|squared cjk unified ideograph-5408
+:u55b6:|emoji.|squared cjk unified ideograph-55b6
+:u6307:|emoji.|squared cjk unified ideograph-6307, variation selector-16
+:u6708:|emoji.|squared cjk unified ideograph-6708, variation selector-16
+:u6709:|emoji.|squared cjk unified ideograph-6709
+:u6e80:|emoji.|squared cjk unified ideograph-6e80
+:u7121:|emoji.|squared cjk unified ideograph-7121, variation selector-16
+:u7533:|emoji.|squared cjk unified ideograph-7533
+:u7981:|emoji.|squared cjk unified ideograph-7981
+:u7a7a:|emoji.|squared cjk unified ideograph-7a7a
+:uganda:|emoji.|regional indicator symbol letter u, regional indicator symbol letter g
+:ukraine:|emoji.|regional indicator symbol letter u, regional indicator symbol letter a
+:umbrella:|emoji.|umbrella with rain drops, variation selector-16
+:unamused:|emoji.|unamused face
+:underage:|emoji.|no one under eighteen symbol
+:unicorn:|emoji.|unicorn face
+:united_arab_emirates:|emoji.|regional indicator symbol letter a, regional indicator symbol letter e
+:unlock:|emoji.|open lock
+:up:|emoji.|squared up with exclamation mark
+:upside_down_face:|emoji.|upside-down face
+:uruguay:|emoji.|regional indicator symbol letter u, regional indicator symbol letter y
+:us:|emoji.|regional indicator symbol letter u, regional indicator symbol letter s
+:us_virgin_islands:|emoji.|regional indicator symbol letter v, regional indicator symbol letter i
+:uzbekistan:|emoji.|regional indicator symbol letter u, regional indicator symbol letter z
+:v)|emoji.|user has a broken nose, but it's the other way
+:v:|emoji.|victory hand, variation selector-16
+:vanuatu:|emoji.|regional indicator symbol letter v, regional indicator symbol letter u
+:vatican_city:|emoji.|regional indicator symbol letter v, regional indicator symbol letter a
+:venezuela:|emoji.|regional indicator symbol letter v, regional indicator symbol letter e
+:vertical_traffic_light:|emoji.|vertical traffic light
+:vhs:|emoji.|videocassette
+:vibration_mode:|emoji.|vibration mode
+:video_camera:|emoji.|video camera
+:video_game:|emoji.|video game
+:vietnam:|emoji.|regional indicator symbol letter v, regional indicator symbol letter n
+:violin:|emoji.|violin
+:virgo:|emoji.|virgo, variation selector-16
+:volcano:|emoji.|volcano
+:volleyball:|emoji.|volleyball
+:vs:|emoji.|squared vs
+:vulcan_salute:|emoji.|raised hand with part between middle and ring fingers
+:walking_man:|emoji.|pedestrian
+:walking_woman:|emoji.|pedestrian, zero width joiner, female sign, variation selector-16
+:wallis_futuna:|emoji.|regional indicator symbol letter w, regional indicator symbol letter f
+:waning_crescent_moon:|emoji.|waning crescent moon symbol
+:waning_gibbous_moon:|emoji.|waning gibbous moon symbol
+:warning:|emoji.|warning sign, variation selector-16
+:wastebasket:|emoji.|wastebasket
+:watch:|emoji.|watch, variation selector-16
+:water_buffalo:|emoji.|water buffalo
+:watermelon:|emoji.|watermelon
+:wave:|emoji.|waving hand sign
+:wavy_dash:|emoji.|wavy dash, variation selector-16
+:waxing_crescent_moon:|emoji.|waxing crescent moon symbol
+:wc:|emoji.|water closet
+:weary:|emoji.|weary face
+:wedding:|emoji.|wedding
+:weight_lifting_man:|emoji.|weight lifter, variation selector-16
+:weight_lifting_woman:|emoji.|weight lifter, variation selector-16, zero width joiner, female sign, variation selector-16
+:western_sahara:|emoji.|regional indicator symbol letter e, regional indicator symbol letter h
+:whale2:|emoji.|whale
+:whale:|emoji.|spouting whale
+:wheel_of_dharma:|emoji.|wheel of dharma, variation selector-16
+:wheelchair:|emoji.|wheelchair symbol, variation selector-16
+:white_check_mark:|emoji.|white heavy check mark
+:white_circle:|emoji.|medium white circle, variation selector-16
+:white_flag:|emoji.|waving white flag, variation selector-16
+:white_flower:|emoji.|white flower
+:white_large_square:|emoji.|white large square, variation selector-16
+:white_medium_small_square:|emoji.|white medium small square, variation selector-16
+:white_medium_square:|emoji.|white medium square, variation selector-16
+:white_small_square:|emoji.|white small square, variation selector-16
+:white_square_button:|emoji.|white square button
+:wilted_flower:|emoji.|wilted flower
+:wind_chime:|emoji.|wind chime
+:wind_face:|emoji.|wind blowing face
+:wine_glass:|emoji.|wine glass
+:wink:|emoji.|winking face
+:wolf:|emoji.|wolf face
+:woman:|emoji.|woman
+:woman_artist:|emoji.|woman, zero width joiner, artist palette
+:woman_astronaut:|emoji.|woman, zero width joiner, rocket
+:woman_cartwheeling:|emoji.|person doing cartwheel, zero width joiner, female sign, variation selector-16
+:woman_cook:|emoji.|woman, zero width joiner, cooking
+:woman_facepalming:|emoji.|face palm, zero width joiner, female sign, variation selector-16
+:woman_factory_worker:|emoji.|woman, zero width joiner, factory
+:woman_farmer:|emoji.|woman, zero width joiner, ear of rice
+:woman_firefighter:|emoji.|woman, zero width joiner, fire engine
+:woman_health_worker:|emoji.|woman, zero width joiner, staff of aesculapius, variation selector-16
+:woman_judge:|emoji.|woman, zero width joiner, scales, variation selector-16
+:woman_juggling:|emoji.|juggling, zero width joiner, female sign, variation selector-16
+:woman_mechanic:|emoji.|woman, zero width joiner, wrench
+:woman_office_worker:|emoji.|woman, zero width joiner, briefcase
+:woman_pilot:|emoji.|woman, zero width joiner, airplane, variation selector-16
+:woman_playing_handball:|emoji.|handball, zero width joiner, female sign, variation selector-16
+:woman_playing_water_polo:|emoji.|water polo, zero width joiner, female sign, variation selector-16
+:woman_scientist:|emoji.|woman, zero width joiner, microscope
+:woman_shrugging:|emoji.|shrug, zero width joiner, female sign, variation selector-16
+:woman_singer:|emoji.|woman, zero width joiner, microphone
+:woman_student:|emoji.|woman, zero width joiner, graduation cap
+:woman_teacher:|emoji.|woman, zero width joiner, school
+:woman_technologist:|emoji.|woman, zero width joiner, personal computer
+:woman_with_turban:|emoji.|man with turban, zero width joiner, female sign, variation selector-16
+:womans_clothes:|emoji.|womans clothes
+:womans_hat:|emoji.|womans hat
+:women_wrestling:|emoji.|wrestlers, zero width joiner, female sign, variation selector-16
+:womens:|emoji.|womens symbol
+:world_map:|emoji.|world map
+:worried:|emoji.|worried face
+:wrench:|emoji.|wrench
+:writing_hand:|emoji.|writing hand, variation selector-16
+:x:|emoji.|cross mark
+:yellow_heart:|emoji.|yellow heart
+:yemen:|emoji.|regional indicator symbol letter y, regional indicator symbol letter e
+:yen:|emoji.|banknote with yen sign
+:yin_yang:|emoji.|yin yang, variation selector-16
+:yum:|emoji.|face savouring delicious food
+:zambia:|emoji.|regional indicator symbol letter z, regional indicator symbol letter m
+:zap:|emoji.|high voltage sign, variation selector-16
+:zero:|emoji.|0, variation selector-16, combining enclosing keycap
+:zimbabwe:|emoji.|regional indicator symbol letter z, regional indicator symbol letter w
+:zipper_mouth_face:|emoji.|zipper-mouth face
+:zzz:|emoji.|sleeping symbol
+:{|emoji.|what?
+:}|emoji.|what should we call these? (what?)
+;-)|emoji.|winky smiley. user just made a flirtatious and/or sarcastic remark.more of a "don't hit me for what i just said" smiley
+<:-i|emoji.|user is a dunce
+<|-(|emoji.|user is chinese and doesn't like these kind of jokes
+<|-)|emoji.|user is chinese
+=)|emoji.|variation on a theme
+=))|emoji.|full of laughing
+=:-)|emoji.|user is a hosehead
+=w=|emoji.|whatever
+>:->|emoji.|user just made a really devilish remark
+>;->|emoji.|winky and devil combined. a very lewd remark was just made
+>u|emoji.|screw you!
+?|emoji.|huh?
+?4u|emoji.|question for you
+@:-)|emoji.|user is wearing a turban
+@=|emoji.|user is pro-nuclear war
