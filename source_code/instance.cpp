@@ -1,4 +1,8 @@
 #include "instance.h"
+//line 286
+//line 501
+//line 548
+//Please identify the correct form of serialize and deserialize
 
 instance::instance() : 
 	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
@@ -283,7 +287,9 @@ void instance::operatePage1()
 	if (!loadedSave)
 	{
 		deleteWholeTrie(pRoot);
-		deserializeBinaryWrapper(pRoot);
+
+		//deserializeBinaryWrapper(pRoot);
+
 		loadedSave = true;
 	}
 	while (windowInstance.pollEvent(event))
@@ -498,7 +504,8 @@ void instance::operatePage7()
 			{
 				drawLoadingPage();
 				mouseControl = false;
-				serializeBinaryWrapper(pRoot);
+
+				//serializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -545,7 +552,8 @@ void instance::operatePage8()
 				mouseControl = false;
 				drawLoadingPage();
 				deleteWholeTrie(pRoot);
-				deserializeBinaryWrapper(pRoot);
+
+				//deserializeBinaryWrapper(pRoot);
 			}
 		}
 		break;

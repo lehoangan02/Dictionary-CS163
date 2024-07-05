@@ -3,7 +3,8 @@
 
 #include "trie.h"
 #include "instance.h"
-#include "readDatasetCSV.hpp"
+#include "readDataset.hpp"
+#include "SerializeDeserialize.h"
 
 using namespace std;
 
@@ -44,8 +45,8 @@ int main()
 			std::string searchObject; 
 			std::getline(std::cin, searchObject); 
 			std::cout << "searching: " << searchObject << std::endl;
-			std::cout << "[DEBUG] " << pRoot << std::endl;
-			search(pRoot, searchObject);
+			//std::cout << "[DEBUG] " << pRoot << std::endl;
+			Search(pRoot, searchObject);
 		}
 		break;
 		case 3:
@@ -85,9 +86,17 @@ int main()
 		case 6:
 		{
 			std::cout << "The random word is: "; cin.ignore();
-			if (!PickRandomWord(pRoot))
-			{
-				std::cout << "Can't find a random word" << std::endl;
+			std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
+			if (random.first) {
+				std::cout << random.second << std::endl;
+				int i = 0;
+				for (auto& x : random.first->definitions) {
+					std::cout << i + 1 << ". (" << x.first << ") " << x.second << std::endl;
+					i++;
+				}
+			}
+			else {
+				std::cout << "=> Can't find a random word !" << std::endl;
 			}
 			break;
 		}
@@ -95,4 +104,6 @@ int main()
 		break;
 		}
 	}
+	deleteWholeTrie(pRoot);
+	return 0;
 }

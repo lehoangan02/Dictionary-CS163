@@ -34,11 +34,14 @@ struct Node
 };
 
 void Change2Lowercase(std::string& word);
-bool checkingExistance(std::string s1, std::string s2);
-void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def);
-std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word, int& k);
 
-void search(trieNode* pRoot, std::string word);
+bool checkingExistance(std::string s1, std::string s2);
+
+void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def);
+
+std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word);
+
+void Search(trieNode* pRoot, std::string word);
 
 bool isLeaf(trieNode* pRoot);
 
@@ -46,15 +49,12 @@ void RemoveAWord(trieNode*& pRoot, std::string word);
 
 void deleteWholeTrie(trieNode*& pRoot);
 
-void serializeWrapper(trieNode* pRoot);
-void serialize(trieNode* pRoot, std::ofstream& fout, std::string word);
-void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word);
-
-bool deserializeWrapper(trieNode*& pRoot);
-void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word);
-void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word);
 std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot);
 
 std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k);
+
 bool SuggestingWords(std::string word, trieNode* pRoot);
+
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);
+
+
