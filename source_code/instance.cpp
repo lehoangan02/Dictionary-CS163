@@ -29,6 +29,11 @@ instance::instance() :
 	historyTexHov(loadTexture("assets/images/HistoryTexHov.png")),
 	historyTexClick(loadTexture("assets/images/HistoryTexClick.png")),
 	historyButton(historyTexDef, historyTexHov, historyTexClick),
+	// favourite button
+	favouriteTexDef(loadTexture("assets/images/FavouriteTexDef.png")),
+	favouriteTexHov(loadTexture("assets/images/FavouriteTexHov.png")),
+	favouriteTexClick(loadTexture("assets/images/FavouriteTexClick.png")),
+	favouriteButton(favouriteTexDef, favouriteTexHov, favouriteTexClick),
 	// import button
 	importTexDef(loadTexture("assets/images/ImportTexDef.png")),
 	importTexHov(loadTexture("assets/images/ImportTexHov.png")),
@@ -78,7 +83,7 @@ instance::instance() :
 	//switch button
 	onSwitch(loadTexture("assets/images/onSwitch.png")),
 	offSwitch(loadTexture("assets/images/offSwitch.png")),
-	autoSaveButton(onSwitch, offSwitch),
+	autoSaveButton(offSwitch, onSwitch),
 	// next/prev page buttons
 	nextPageDef(loadTexture("assets/images/NextPageDef.png")),
 	nextPageHov(loadTexture("assets/images/NextPageHov.png")),
@@ -111,9 +116,10 @@ instance::instance() :
 	knightTexture(loadTexture("assets/images/_Run.png")),
 	knightAnimation(knightTexture, sf::Vector2u(10, 1), 0.1),
 	congratulationsTexture(loadTexture("assets/images/Congratulations.png")),
-	congratulationsAnimation(congratulationsTexture, sf::Vector2u(1, 30), 0.1f)
-
-
+	congratulationsAnimation(congratulationsTexture, sf::Vector2u(1, 30), 0.1f),
+	bookmarkTextureDef(loadTexture("assets/images/BookmarkDef.png")),
+	bookmarkTextureClick(loadTexture("assets/images/BookmarkClick.png")),
+	bookmarkButton(bookmarkTextureDef, bookmarkTextureClick)
 
 {
 	std::ifstream fin; fin.open("note.txt");
@@ -131,6 +137,7 @@ instance::instance() :
 	searchButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 40));
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 	historyButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 125));
+	favouriteButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 210));
 
 	// Set up fonts
 	SourceSans3.setSmooth(false);
@@ -226,6 +233,7 @@ instance::instance() :
 	720 / sceneryAnimation.animationSprite.getGlobalBounds().height);
 	knightAnimation.animationSprite.setScale(-1.0f, 1.0f);
 	knightAnimation.setPosition(sf::Vector2u(1100, 630));
+	bookmarkButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 358));
 }
 void instance::operate()
 {
@@ -284,6 +292,8 @@ void instance::operatePage1()
 	{
 		deleteWholeTrie(pRoot);
 		deserializeBinaryWrapper(pRoot);
+		readFavourite(pRootFavourite);
+		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
 	}
 	while (windowInstance.pollEvent(event))
@@ -329,22 +339,95 @@ void instance::operatePage1()
                         loadHistory = true;
                     }
 					displayHistory = true;
+					displayFavourite = false;
 					handleHistory();
 				}
-				else if (displayHistory && displayDef)
+				else if (favouriteButton.isClicked(windowInstance))
 				{
-					if (pageUpButton.isClicked(windowInstance))
-					{
-						if (historyIndex > 0)
-							--historyIndex;
-					}
-					else if (pageDownButton.isClicked(windowInstance))
-					{
-						if (historyIndex < (int)history.size() - 1)
-							++historyIndex;
-					}
-					handleHistory();
+					if (pCurrentFavourite) displayFavourite = true;
+					displayHistory = false;
+					handleFavourite();
 				}
+				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
+				{
+					if (existInList(pRootFavourite, headWordString))
+					{
+						printf("turning off\n");
+						bookmarkButton.setMode(false);
+                        if (pCurrentFavourite && pCurrentFavourite -> pNext)
+						{
+                            printf("[DEBUG] moving to favourite down\n");
+							pCurrentFavourite = pCurrentFavourite -> pNext;
+						}
+						else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+						{
+							printf("[DEBUG] moving to favourite up\n");
+							pCurrentFavourite = pCurrentFavourite -> pPrev;
+						}
+						deleteLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						if (!pRootFavourite && displayFavourite)
+						{
+							printf("[DEBUG] end displaying favourite\n");
+							displayDef = false;
+							displayFavourite = false;
+						}
+						if (displayFavourite)	handleFavourite();
+					}
+					else
+					{
+						bookmarkButton.setMode(true);
+						printf("[DEBUG] new favourite\n");
+						insertLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						// handleFavourite();
+					}
+				}
+				else if ((displayHistory || displayFavourite) && displayDef)
+				{
+					if (displayHistory)
+					{
+						if (pageUpButton.isClicked(windowInstance))
+						{
+							if (historyIndex > 0)
+							{
+								--historyIndex;
+								handleHistory();
+							}
+						}
+						else if (pageDownButton.isClicked(windowInstance))
+						{
+							if (historyIndex < (int)history.size() - 1)
+							{
+								++historyIndex;
+								handleHistory();
+							}
+						}
+						
+					}
+					else if (displayFavourite)
+					{
+						if (pageUpButton.isClicked(windowInstance))
+						{
+							if (pCurrentFavourite -> pPrev)
+							{
+								pCurrentFavourite = pCurrentFavourite -> pPrev;
+								handleFavourite();
+							}
+						}
+						else if (pageDownButton.isClicked(windowInstance))
+						{
+							if (pCurrentFavourite -> pNext)
+							{
+								pCurrentFavourite = pCurrentFavourite -> pNext;
+								handleFavourite();
+							}
+						}
+					}
+				}
+				
 			}
 			case sf::Event::KeyPressed:
 			{
@@ -375,6 +458,8 @@ void instance::operatePage1()
 	searchButton.click(windowInstance);
 	historyButton.hoverSwitchTexture(windowInstance);
 	historyButton.click(windowInstance);
+	favouriteButton.hoverSwitchTexture(windowInstance);
+	favouriteButton.click(windowInstance);
 	nextPageButton.hoverSwitchTexture(windowInstance);
 	prevPageButton.hoverSwitchTexture(windowInstance);
 	pageUpButton.hoverSwitchTexture(windowInstance);
@@ -383,6 +468,16 @@ void instance::operatePage1()
 	prevPageButton.click(windowInstance);
 	pageUpButton.click(windowInstance);
 	pageDownButton.click(windowInstance);
+	if (existInList(pRootFavourite, headWordString))
+	{
+		// printf("[DEBUG] word is favourite\n");
+		bookmarkButton.setMode(true);
+	}
+	else
+	{
+		bookmarkButton.setMode(false);
+	}
+	bookmarkButton.click(windowInstance, mouseControl);
 }
 void instance::drawPage1()
 {
@@ -390,6 +485,7 @@ void instance::drawPage1()
 	windowInstance.draw(baseLayerSprite);
 	searchButton.draw(windowInstance);
 	historyButton.draw(windowInstance);
+	favouriteButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
 	drawDefinition();
 	drawSwitchMode();
@@ -494,6 +590,11 @@ void instance::drawPage3()
 }
 void instance::operatePage7()
 {
+	if (!loadAutoSave)
+	{
+		loadAutoSaveSetting();
+		loadAutoSave = true;
+	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -670,6 +771,7 @@ void instance::switchPage()
 				numberOfResult = 0;
 				displayDef = false;
 				displayHistory = false;
+				displayFavourite = false;
 			}
 		}
 		else if (settingModeButton.isClicked(windowInstance))
@@ -735,6 +837,8 @@ void instance::switchPage()
 		pageChange = false;
 		definitionNum = 0;
 		historyIndex = 0;
+		pCurrentFavourite = pRootFavourite;
+
 	}
 }
 
@@ -787,25 +891,56 @@ void instance::drawDefinition()
 	windowInstance.draw(description);
 	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
 	if (definitionNum < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
-	if (displayHistory)
+	if (displayDef)	bookmarkButton.draw(windowInstance);
+	// page up/page down and error message for history and favourite
+	if (displayHistory || displayFavourite)
 	{
-		if (historyIndex > 0)
+		if (displayHistory)
 		{
-			pageUpButton.draw(windowInstance);
+			if (historyIndex > 0)
+			{
+				pageUpButton.draw(windowInstance);
+			}
+			if (historyIndex < (int)history.size() - 1)
+			{
+				pageDownButton.draw(windowInstance);
+			}
+			if (numberOfResult == 0)
+			{
+				// printf("[DEBUG] drawing error message\n");
+				
+				windowInstance.draw(wordNotInThisDataSet);
+			}
 		}
-		if (historyIndex < (int)history.size() - 1)
+		if (displayFavourite)
 		{
-			pageDownButton.draw(windowInstance);
-		}
-		if (numberOfResult == 0)
-		{
-			// printf("[DEBUG] drawing error message\n");
-			
-			windowInstance.draw(wordNotInThisDataSet);
+			if (pCurrentFavourite -> pPrev)
+			{
+				pageUpButton.draw(windowInstance);
+			}
+			if (pCurrentFavourite -> pNext)
+			{
+				pageDownButton.draw(windowInstance);
+			}
+			if (numberOfResult == 0)
+			{
+				// printf("[DEBUG] drawing error message\n");
+				windowInstance.draw(wordNotInThisDataSet);
+			}
 		}
 	}
 }
 
+void instance::loadAutoSaveSetting()
+{
+	bool temp = false;
+	std::ifstream fin;
+	fin.open("settings/auto-save.txt");
+	fin >> temp;
+	fin.close();
+	autoSave = temp;
+	autoSaveButton.setMode(autoSave);
+}
 void instance::saveAutoSaveSetting()
 {
 	bool temp = autoSaveButton.getMode();
@@ -819,7 +954,6 @@ void instance::saveAutoSaveSetting()
 }
 void instance::resetSearchResult()
 {
-	displayDef = false;
 	searchResult.clear();
 	definitionNum = 0;
 	numberOfResult = 0;
@@ -840,18 +974,18 @@ void instance::handleSearchSignal(std::string input)
 {
 	resetSearchResult();
 	Change2Lowercase(input);
-	std::cout << input << std::endl;
+	// std::cout << input << std::endl;
 	searchResult = traverseToSearch(pRoot, input);
 	numberOfResult = (int)searchResult.size();
 	if (numberOfResult > 0)
 	{
 		headWordString = input;
-		std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
+		// std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
 		POSString = searchResult[definitionNum].first;
 		descriptionString = searchResult[definitionNum].second;
 		displayDef = true;
 	}
-	else if (displayHistory == true)
+	else if (displayHistory || displayFavourite)
 	{
 		headWordString = input;
 		displayDef = true;
@@ -875,11 +1009,32 @@ void instance::handleHistory()
 	}
 }
 
+void instance::handleFavourite()
+{
+	resetSearchResult();
+	if (displayFavourite)
+	{
+		if (pCurrentFavourite != nullptr)
+		{
+			std::string temp = pCurrentFavourite -> data;
+			printf("[DEBUG] current favourite word is: %s\n", temp.c_str());
+			handleSearchSignal(temp);
+		}
+		else
+		{
+			printf("[DEBUG] current is nullptr\n");
+			displayFavourite = false;
+			displayDef = false;
+		}
+	}
+}
+
 void instance::initiateSearch()
 {
 	displayHistory = false;
 	displayFavourite = false;
 	historyIndex = 0;
+	pCurrentFavourite = pRootFavourite;
 	std::string temp = searchBox.getString();
 	handleSearchSignal(temp);
 }

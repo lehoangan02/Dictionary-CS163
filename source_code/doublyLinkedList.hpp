@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 
 struct linkedListNode
 {
@@ -13,72 +14,22 @@ struct linkedListNode
 /// @param pRoot 
 /// @param input 
 /// @return 
-bool existInList(linkedListNode* pRoot, std::string input)
-{
-    if (!pRoot) return false;
-    while (pRoot)
-    {
-        if (pRoot -> data.compare(input) == 0) // two string are equal
-        {
-            return true;
-        }
-        pRoot = pRoot -> pNext;
-    }
-    return false;
-}
+bool existInList(linkedListNode* pRoot, std::string input);
 
 /// @brief insert a word into the linked list
 /// @param pRoot 
 /// @param input 
-void insertLinkedList(linkedListNode*& pRoot, std::string input)
-{
-    if (existInList(pRoot, input)) return;
-    linkedListNode* newPRoot = new linkedListNode;
-    newPRoot -> data = input;
-    if (pRoot == nullptr)
-    {
-        pRoot = newPRoot;
-        return;
-    }
-    pRoot -> pPrev = newPRoot;
-    newPRoot -> pNext = pRoot;
-    pRoot = newPRoot;
-}
-
+void insertLinkedList(linkedListNode*& pRoot, std::string input);
 
 /// @brief delete a word from a linked list
 /// @param pRoot 
 /// @param input 
-void deleteLinkedList(linkedListNode*& pRoot, std::string input)
-{
-    if (!existInList(pRoot, input)) return;
-    if (!pRoot) return;
-    linkedListNode* pCur = pRoot;
-    while (pCur)
-    {
-        if (pCur -> data.compare(input) == 0) // two string are equal
-        {
-            linkedListNode* pPrevTemp = pCur -> pPrev;
-            linkedListNode* pNextTemp = pCur -> pNext;
-            if (pNextTemp)
-            {
-                pNextTemp -> pPrev = pPrevTemp;
-            }
-            if (pPrevTemp)
-            {
-                pPrevTemp -> pNext = pNextTemp;
-            }
-            if (pCur == pRoot)
-            {
-                pRoot = pNextTemp;
-            }
-            delete pCur;
-            pCur = nullptr;
-            return;
-        }
-        else
-        {
-            pCur = pCur -> pNext;
-        }
-    }
-}
+void deleteLinkedList(linkedListNode*& pRoot, std::string input);
+
+/// @brief read previous favourite words
+/// @param pRoot 
+void readFavourite(linkedListNode*& pRoot);
+
+/// @brief write new favourite to saves
+/// @param pRoot 
+void writeFavourite(linkedListNode* pRoot);

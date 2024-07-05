@@ -185,7 +185,7 @@ void switchButton::click(sf::RenderWindow& window, bool& mouseControl)
 {
     if (isClicked(window) && mouseControl)
     {
-        printf("[DEBUG] clicked\n");
+        // printf("[DEBUG] clicked\n");
         selected = !selected;
         select();
         mouseControl = false;
@@ -196,19 +196,26 @@ void switchButton::select()
 {
     if (selected)
     {
-        printf("[DEBUG] on\n");
-        buttonSprite.setTexture(textureDefault, true);
+        // printf("[DEBUG] on\n");
+        buttonSprite.setTexture(textureClick, true);
     }
     else
     {
-        printf("[DEBUG] off\n");
-        buttonSprite.setTexture(textureClick, true);
+        // printf("[DEBUG] off\n");
+        buttonSprite.setTexture(textureDefault, true);
     }
 }
 bool switchButton::getMode()
 {
     return selected;
 }
+void switchButton::setMode(bool mode)
+{
+    selected = mode;
+    select();
+}
+
+
 spongyButton::spongyButton(sf::Texture& textureDefault, const sf::Texture& textureHov, const sf::Texture& textureClick) :
     Button(textureDefault, textureHov, textureClick)
     {

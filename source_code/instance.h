@@ -11,6 +11,7 @@
 #include "trie.h"
 #include "readDatasetCSV.hpp"
 #include "history.hpp"
+#include "doublyLinkedList.hpp"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -21,6 +22,7 @@ class instance
     void operate();
     private:
     trieNode* pRoot = nullptr;
+    bool loadAutoSave = false;
     bool autoSave = true;
     int definitionNum = 0;
     std::vector<std::pair<std::string, std::string>> searchResult;
@@ -35,6 +37,8 @@ class instance
 
     // history and favourite
     std::vector<std::string> history;
+    linkedListNode* pRootFavourite = nullptr;
+    linkedListNode* pCurrentFavourite = nullptr;
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
@@ -79,6 +83,12 @@ class instance
     sf::Texture historyTexHov;
     sf::Texture historyTexClick;
     Button historyButton;
+
+    // favourite button
+    sf::Texture favouriteTexDef;
+    sf::Texture favouriteTexHov;
+    sf::Texture favouriteTexClick;
+    Button favouriteButton;
 
     // import button
     sf::Texture importTexDef;
@@ -169,6 +179,9 @@ class instance
     sf::Texture pageDownClick;
     spongyButton pageDownButton;
     sf::Text wordNotInThisDataSet;
+    sf::Texture  bookmarkTextureDef;
+    sf::Texture  bookmarkTextureClick;
+    switchButton bookmarkButton;
 
     // serialize button
     std::string serializeString = "Serialize";
@@ -261,6 +274,7 @@ class instance
     void drawSwitchMode();
     void handleSwitchModeLogic();
     void drawDefinition();
+    void loadAutoSaveSetting();
     void saveAutoSaveSetting();
     void resetSearchResult();
     void drawLoadingPage();
@@ -268,4 +282,5 @@ class instance
     void handleHistory();
     void initiateSearch();
     void setUpErrorText();
+    void handleFavourite();
 };

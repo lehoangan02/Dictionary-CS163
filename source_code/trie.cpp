@@ -80,11 +80,11 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	{
 		if (pRoot->wordExisted)
 		{
-			std::cout << "Here are the definitions of the word: \n";
+			// std::cout << "Here are the definitions of the word: \n";
 			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
-				std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
-				std::cout << pRoot->definitions[i].second << std::endl;
+				// std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
+				// std::cout << pRoot->definitions[i].second << std::endl;
 			}
 			return pRoot->definitions;
 		}
@@ -102,7 +102,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		// if the childNode pointer of that letter is not null, continue traversing
 		if (pRoot->childNode[word[0] - 32])
 		{
-			std::cout << "[DEBUG] going into " << word[0] << std::endl;
+			// std::cout << "[DEBUG] going into " << word[0] << std::endl;
 			// erase the first letter
 			return traverseToSearch(pRoot->childNode[word[0] - 32], word.erase(0, 1));
 		}

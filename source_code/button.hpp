@@ -52,6 +52,7 @@ class switchButton : public Button
     void click(sf::RenderWindow& window, bool& mouseControl);
     void select();
     bool getMode();
+    void setMode(bool mode);
 };
 class spongyButton : public Button
 {
