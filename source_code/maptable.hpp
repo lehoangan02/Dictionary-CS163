@@ -12,29 +12,36 @@ struct TableBlock // Used for chaining in HashTable
 struct HashTable // Designed after unordered_set<string>
 {
     TableBlock** set = nullptr;
-    int size = 127; // May need improvements
+    int numBucket = 127; // May need improvements
 
     // Ctor
 
     HashTable();
     HashTable(int x);
+    HashTable(const HashTable& source);
 
     // Dtor
 
     ~HashTable();
 
+    // Operators
+
+    HashTable& operator=(const HashTable& source);
+
     // Basic methods
 
-    void insert(std::string key);
-    TableBlock* find(std::string key);
-    void remove(std::string key);
+    void insert(std::string& key);
+    TableBlock* find(std::string& key);
+    void remove(std::string& key);
 
     // Hashing
 
-    int hash(std::string key); // May need improvements
+    int hash(std::string& key); // May need improvements
 
     // Helper(s)
 
+    void copy(const HashTable& source);
+    void clear();
     void deleteLL(TableBlock*& pHead);
 };
 
@@ -49,7 +56,7 @@ struct MapBlock // Used for chaining in HashMap
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** map = nullptr;
-    int size = 127; // May need improvements
+    int numBucket = 127; // May need improvements
 
     // Ctor
 
@@ -62,14 +69,14 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
     // Basic methods
 
-    void insert(std::string key, HashTable data);
-    MapBlock* find(std::string key);
-    HashTable& access(std::string key); // Use this for fast access to existing or non-existing elements
-    void remove(std::string key);
+    void insert(std::string& key, HashTable& data);
+    MapBlock* find(std::string& key);
+    HashTable& access(std::string& key); // Use this for fast access to existing or non-existing elements
+    void remove(std::string& key);
 
     // Hashing
 
-    int hash(std::string key); // May need improvements
+    int hash(std::string& key); // May need improvements
 
     // Helper(s)
 
@@ -79,7 +86,9 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 // Utility functions
 
 bool isAlphabetic(char c);
-std::vector<std::string> tokenize(std::string line);
+std::vector<std::string> tokenize(std::string& input);
+HashTable getIntersection(HashTable& t1, HashTable& t2);
+HashTable searchByDef(std::string& userInput, HashMap& invertedIndex);
 
 // Invert Index the Trie
 
