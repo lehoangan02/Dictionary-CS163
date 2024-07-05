@@ -53,7 +53,8 @@ void serializeBinary(trieNode*& pRoot, std::fstream& f, std::string word);
 bool deserializeWrapper(trieNode*& pRoot);
 void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word);
 void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word);
-trieNode* FindKthWord(trieNode* pRoot, int k, std::string prefix);
-bool PickRandomWord(trieNode* pRoot);
+std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot);
+
+std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k);
 bool SuggestingWords(std::string word, trieNode* pRoot);
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);
