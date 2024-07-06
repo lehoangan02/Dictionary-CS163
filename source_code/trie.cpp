@@ -67,11 +67,12 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	{
 		if (pRoot->wordExisted)
 		{
+			/*
 			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
 			{
 				std::cout << " (" << pRoot->definitions[i].first << ") : ";
 				std::cout << pRoot->definitions[i].second << std::endl;
-			}
+			}*/
 			return pRoot->definitions;
 		}
 		else
@@ -102,26 +103,34 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	return blankVec;
 }
 
-void Search(trieNode* pRoot, std::string word)
-{
-	if (!pRoot || word.length() == 0)
-	{
+std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word) {
+	std::vector<std::pair<std::string, std::string>> collectionLast;
+	std::vector<std::pair<std::string, std::string>> collection1, collection2;
+
+	if (!pRoot || word.empty()) {
 		std::cout << "Word not found\n";
-		return;
+		return collectionLast;
 	}
 
 	std::cout << "Here are the definitions of the word: \n";
 
 	if (word[0] >= 'A' && word[0] <= 'Z') {
-		// traverse the trie to find the word (the first letter in Capital form)
-		traverseToSearch(pRoot, word);
+		// Traverse the trie to find the word (the first letter in capital form)
+		collection1 = traverseToSearch(pRoot, word);
 	}
 
-	// convert all the letters to lowercase
+	// Convert all the letters to lowercase
 	Change2Lowercase(word);
 
-	// traverse the trie to find the word (the first letter in Lowercase)
-	traverseToSearch(pRoot, word);
+	// Traverse the trie to find the word (the first letter in lowercase)
+	collection2 = traverseToSearch(pRoot, word);
+
+	// Merge the two collections
+	collectionLast.reserve(collection1.size() + collection2.size());  // Pre-allocate memory
+	collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
+	collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
+
+	return collectionLast;
 }
 
 //checking whether a trieNode a leaf node

@@ -41,7 +41,7 @@ void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, c
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word);
 
-void Search(trieNode* pRoot, std::string word);
+std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word);
 
 bool isLeaf(trieNode* pRoot);
 

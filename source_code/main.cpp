@@ -27,26 +27,31 @@ int main()
 		switch (mode)
 		{
 		case 1:
-			{
-				deleteWholeTrie(pRoot);
-				std::string filename; 
-				std::cout << "input filename: ";
-				std::cin.ignore();
-				std::getline(std::cin,filename);
-				readDatasetTXT(filename, pRoot);
-				//printf("imported successfully\n");
-				std::cout << "[DEBUG] " << pRoot << std::endl;
-			}
-			break;
+		{
+			deleteWholeTrie(pRoot);
+			std::string filename;
+			std::cout << "input filename: ";
+			std::cin.ignore();
+			std::getline(std::cin, filename);
+			readDatasetTXT(filename, pRoot);
+			//printf("imported successfully\n");
+			std::cout << "[DEBUG] " << pRoot << std::endl;
+		}
+		break;
 		case 2:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "search here: ";
-			std::string searchObject; 
-			std::getline(std::cin, searchObject); 
+			std::string searchObject;
+			std::getline(std::cin, searchObject);
 			std::cout << "searching: " << searchObject << std::endl;
 			//std::cout << "[DEBUG] " << pRoot << std::endl;
-			Search(pRoot, searchObject);
+			std::vector<std::pair<std::string, std::string>> test = Search(pRoot, searchObject);
+			for (auto& x : test)
+			{
+				std::cout << "-    (" << x.first << ") : ";
+				std::cout << x.second << std::endl;
+			}
 		}
 		break;
 		case 3:
@@ -101,7 +106,7 @@ int main()
 			break;
 		}
 		default:
-		break;
+			break;
 		}
 	}
 	deleteWholeTrie(pRoot);

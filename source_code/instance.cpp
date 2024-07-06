@@ -831,7 +831,9 @@ void instance::handleSearchSignal(std::string input)
 	resetSearchResult();
 	Change2Lowercase(input);
 	std::cout << input << std::endl;
-	searchResult = traverseToSearch(pRoot, input);
+
+	//searchResult = traverseToSearch(pRoot, input);
+
 	numberOfResult = (int)searchResult.size();
 	if (numberOfResult > 0)
 	{
