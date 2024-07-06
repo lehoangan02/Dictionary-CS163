@@ -34,13 +34,12 @@ void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, c
 	}
 
 	trieNode* cur = pRoot;
-	cur->countchildren++;
 	for (auto c : word) {
 		if (!cur->childNode[int(c) - 32]) {
 			cur->childNode[int(c) - 32] = new trieNode();
 		}
-		cur = cur->childNode[int(c) - 32];
 		cur->countchildren++;
+		cur = cur->childNode[int(c) - 32];
 	}
 	cur->wordExisted = true;
 
