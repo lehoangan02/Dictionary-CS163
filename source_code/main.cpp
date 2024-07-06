@@ -47,10 +47,15 @@ int main()
 			std::cout << "searching: " << searchObject << std::endl;
 			//std::cout << "[DEBUG] " << pRoot << std::endl;
 			std::vector<std::pair<std::string, std::string>> test = Search(pRoot, searchObject);
-			for (auto& x : test)
-			{
-				std::cout << "-    (" << x.first << ") : ";
-				std::cout << x.second << std::endl;
+			if (test.empty()) {
+				std::cout << "Word not found\n";
+			}
+			else {
+				for (auto& x : test)
+				{
+					std::cout << "-    (" << x.first << ") : ";
+					std::cout << x.second << std::endl;
+				}
 			}
 		}
 		break;

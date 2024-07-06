@@ -59,7 +59,6 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 	std::vector<std::pair<std::string, std::string>> blankVec;
 	if (!pRoot)
 	{
-		std::cout << "Word not found1\n";
 		return blankVec;
 	}
 	// base case
@@ -77,7 +76,6 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		}
 		else
 		{
-			std::cout << "Word not found2\n";
 			return pRoot->definitions;
 		}
 	}
@@ -96,7 +94,6 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		}
 		else
 		{
-			std::cout << "Word not found3\n";
 			return pRoot->definitions;
 		}
 	}
@@ -114,11 +111,15 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 
 	std::cout << "Here are the definitions of the word: \n";
 
-	if (word[0] >= 'A' && word[0] <= 'Z') {
-		// Traverse the trie to find the word (the first letter in capital form)
-		collection1 = traverseToSearch(pRoot, word);
+	int length = word.length();
+	for (int i = 0; i < length; ++i) {
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && word[i] >= 'a' && word[i] <= 'z') {
+			word[i] -= 32;
+		}
 	}
-
+	// Traverse the trie to find the word (the first letter in capital form)
+	collection1 = traverseToSearch(pRoot, word);
+	
 	// Convert all the letters to lowercase
 	Change2Lowercase(word);
 
