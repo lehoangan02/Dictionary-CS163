@@ -111,9 +111,10 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 
 	std::cout << "Here are the definitions of the word: \n";
 
+	//first, 
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
-		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && word[i] >= 'a' && word[i] <= 'z') {
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
 			word[i] -= 32;
 		}
 	}
@@ -232,20 +233,38 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 bool SuggestingWords(std::string word, trieNode* pRoot)
 {
 	if (word.empty()) return false;
-	
 	trieNode* cur = pRoot;
-	int length = word.length();
-	for (int i = 0; i < length; ++i) {
-		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && word[i] >= 'a' && word[i] <= 'z') {
-			word[i] -= 32;
+	bool found = false;
+	int wrongAttempts = 0;
+	while (!found) {
+		found = true;
+		cur = pRoot;
+		for (char ch : word) {
+			int index = ch - 32;
+			if (index >= 0 && index < 96 && cur->childNode[index]) {
+				cur = cur->childNode[index];
+			}
+			else {
+				found = false;
+				wrongAttempts++;
+				break;
+			}
 		}
-		if (cur->childNode[word[i] - 32]) {
-			cur = cur->childNode[word[i] - 32];
-		}
-		else {
+
+		if (wrongAttempts == 2) {
 			std::cout << "Word is not exist!" << std::endl;
 			return false;
 		}
+
+		if (!found) {
+			int length = word.length();
+			for (int i = 0; i < length; ++i) {
+				if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+					word[i] -= 32;
+				}
+			}
+		}
+		else break;
 	}
 
 	//Displaying max 10 words whose prefixes are the same with given word
