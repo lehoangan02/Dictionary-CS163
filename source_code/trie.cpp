@@ -226,8 +226,8 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 	trieNode* cur = pRoot;
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
-		if (i == 0 && word[0] >= 'a' && word[0] <= 'z') {
-			word[0] -= 32;
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && word[i] >= 'a' && word[i] <= 'z') {
+			word[i] -= 32;
 		}
 		if (cur->childNode[word[i] - 32]) {
 			cur = cur->childNode[word[i] - 32];
