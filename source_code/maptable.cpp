@@ -40,20 +40,30 @@ HashTable& HashTable::operator=(const HashTable& source)
 }
 
 // Hash
-int HashTable::hash(std::string& key) 
+size_t HashTable::hash(const std::string& key) 
 {
-    int sum = 0;
-    for (int i = 0; i < key.length(); ++i)
-        sum += int(key[i]) - 32;
-    return sum % this->numBucket;
+    return hashFNV_1a(key) % this->numBucket;
+}
+
+// FNV-1a hash
+size_t HashTable::hashFNV_1a(const std::string& s) 
+{
+    const size_t fnvPrime = 0x1000193;
+    size_t hash = 0x811C9DC5;
+
+    for (char c : s) {
+        hash ^= static_cast<size_t>(c);
+        hash *= fnvPrime;
+    }
+    return hash;
 }
 
 // Insert an element, do NOT store duplicates
-void HashTable::insert(std::string& key)
+void HashTable::insert(const std::string& key)
 {
     if (this->find(key))
         return;
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     TableBlock* pNew = new TableBlock;
     pNew->data = key;
     pNew->pNext = set[pos];
@@ -62,9 +72,9 @@ void HashTable::insert(std::string& key)
 
 // Return pointer to TableBlock containing an element
 // Return nullptr if not found
-TableBlock* HashTable::find(std::string& key)
+TableBlock* HashTable::find(const std::string& key)
 {
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     TableBlock* pCur = set[pos];
     while (pCur && pCur->data != key)
         pCur = pCur->pNext;
@@ -72,9 +82,9 @@ TableBlock* HashTable::find(std::string& key)
 }
 
 // Remove an element, do nothing if not found
-void HashTable::remove(std::string& key)
+void HashTable::remove(const std::string& key)
 {
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     TableBlock* pDummy = new TableBlock;
     pDummy->pNext = set[pos];
     TableBlock* pCur = pDummy;
@@ -157,20 +167,31 @@ HashMap::~HashMap()
     map = nullptr;
 }
 
-int HashMap::hash(std::string& key) // May be adjusted
+// Hash
+size_t HashMap::hash(const std::string& key) 
 {
-    int sum = 0;
-    for (int i = 0; i < key.length(); ++i)
-        sum += int(tolower(key[i])) - 97;
-    return sum % this->numBucket;
+    return hashFNV_1a(key) % this->numBucket;
+}
+
+// FNV-1a hash
+size_t HashMap::hashFNV_1a(const std::string& s) 
+{
+    const size_t fnvPrime = 0x1000193;
+    size_t hash = 0x811C9DC5;
+
+    for (char c : s) {
+        hash ^= static_cast<size_t>(c);
+        hash *= fnvPrime;
+    }
+    return hash;
 }
 
 // Maps a HashTable based on associating key, do NOT store duplicate keys
-void HashMap::insert(std::string& key, HashTable& data)
+void HashMap::insert(const std::string& key, const HashTable& data)
 {
     if (this->find(key))
         return;
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
     pNew->data = data;
@@ -180,9 +201,9 @@ void HashMap::insert(std::string& key, HashTable& data)
 
 // Return pointer to MapBlock of given key
 // Return nullptr if not found
-MapBlock* HashMap::find(std::string& key)
+MapBlock* HashMap::find(const std::string& key)
 {
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     MapBlock* pCur = map[pos];
     while (pCur && pCur->key != key)
         pCur = pCur->pNext;
@@ -191,14 +212,14 @@ MapBlock* HashMap::find(std::string& key)
 
 // Direct access to both existing and non-existing data of given key
 // If key not found, create entry of said key with empty data
-HashTable& HashMap::access(std::string& key)
+HashTable& HashMap::access(const std::string& key)
 {
     MapBlock* pFind = this->find(key);
     if (pFind)
         return pFind->data;
     
     // If key doesnt exist, create entry of key with empty data
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
     pNew->pNext = map[pos];
@@ -208,9 +229,9 @@ HashTable& HashMap::access(std::string& key)
 
 // Remove a key and associated data
 // Do nothing if not found
-void HashMap::remove(std::string& key)
+void HashMap::remove(const std::string& key)
 {
-    int pos = this->hash(key);
+    auto pos = this->hash(key);
     MapBlock* pDummy = new MapBlock;
     pDummy->pNext = map[pos];
     MapBlock* pCur = pDummy;
@@ -240,25 +261,27 @@ void HashMap::deleteLL(MapBlock*& pHead)
     }
 }
 
+// Check if character is alphabetic
 bool isAlphabetic(char c)
 {
     return ((c > 64 && c < 91) || (c > 96 && c < 123));
 }
 
-std::vector<std::string> tokenize(std::string& line)
+// Tokenize a long string (tokens are separated by non-alphabetic characters)
+std::vector<std::string> tokenize(std::string& input)
 {
     std::vector<std::string> res;
     int head = 0, tail = 0;
-    int l = line.length();
+    int l = input.length();
     while (tail < l)
     {
-        if (isAlphabetic(line[tail]))
+        if (isAlphabetic(input[tail]))
             ++tail;
         else
         {
             if (head != tail)
             {
-                res.push_back(line.substr(head, tail - head));
+                res.push_back(input.substr(head, tail - head));
                 head = tail;
             }
             else
@@ -269,7 +292,46 @@ std::vector<std::string> tokenize(std::string& line)
         }
     }
     if (head != tail)
-        res.push_back(line.substr(head, l - head));
+        res.push_back(input.substr(head, l - head));
+    return res;
+}
+
+// Returns the intersection of 2 HashTables (elements that are in both tables)
+HashTable getIntersection(HashTable& t1, HashTable& t2)
+{
+    HashTable res;
+    for (int i = 0; i < t1.numBucket; ++i)
+    {
+        TableBlock* pCur = t1.set[i];
+        while (pCur)
+        {
+            if (t2.find(pCur->data))
+                res.insert(pCur->data);
+            pCur = pCur->pNext;
+        }
+    }
+    return res;
+}
+
+// Search key words by definition
+HashTable searchByDef(std::string& userInput, HashMap& invertedIndex)
+{
+    // Tokenize user's input
+    std::vector<std::string> tokens = tokenize(userInput);
+
+    // Find all words containing tokens in their definition
+    HashTable res;
+    MapBlock* findInit = invertedIndex.find(tokens[0]);
+    if (findInit)
+        res = invertedIndex.find(tokens[0])->data;
+    for (int i = 1; i < tokens.size(); ++i)
+    {
+        MapBlock* found = invertedIndex.find(tokens[i]);
+        if (found)
+            res = getIntersection(res, found->data);
+        else
+            res.clear();
+    }
     return res;
 }
 
@@ -285,16 +347,16 @@ void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord)
         return;
     if (pRoot->wordExisted)
     {
-        for (auto s : pRoot->definitions)
+        for (auto& s : pRoot->definitions)
         {
             std::vector<std::string> tokens = tokenize(s.second);
-            for (auto t : tokens)
+            for (auto& t : tokens)
             {
-                // May need to change t to lowercase
+                Change2Lowercase(t);
                 map.access(t).insert(curWord);
             }
         }
     }
     for (int i = 0; i < ascii; ++i)
-        invertIndexTrieHelper(pRoot->childNode[i], map, curWord + char(i + 32));
+        invertIndexTrieHelper(pRoot->childNode[i], map, curWord + static_cast<char>(i + 32));
 }

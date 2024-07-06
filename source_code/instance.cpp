@@ -1,4 +1,8 @@
 #include "instance.h"
+//line 286
+//line 501
+//line 548
+//Please identify the correct form of serialize and deserialize
 
 instance::instance() : 
 	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
@@ -42,7 +46,7 @@ instance::instance() :
 	// fonts
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
-	micross(loadFont("assets/font/micross.ttf")),
+	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
@@ -310,7 +314,12 @@ void instance::operatePage1()
 				mouseControl = true;
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
-					initiateSearch();
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
 				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
@@ -335,7 +344,6 @@ void instance::operatePage1()
                     if (!loadHistory)
                     {
                         readHistory(history);
-						setUpErrorText();
                         loadHistory = true;
                     }
 					displayHistory = true;
@@ -443,7 +451,12 @@ void instance::operatePage1()
 				if (event.key.code == sf::Keyboard::Return)
 				{
 					printf("[DEBUG] enter pressed\n");
-					initiateSearch();
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
 				}
 			}
 			break;
@@ -492,12 +505,12 @@ void instance::drawPage1()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
+	drawSwitchMode();
 	searchButton.draw(windowInstance);
 	historyButton.draw(windowInstance);
 	favouriteButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
 	drawDefinition();
-	drawSwitchMode();
 	windowInstance.display();
 }
 void instance::operatePage2()
@@ -576,27 +589,6 @@ void instance::drawPage2()
 	drawSubModes();
 	windowInstance.display();
 }
-void instance::operatePage3()
-{
-	while (windowInstance.pollEvent(event))
-	{
-		switch (event.type)
-		{
-		case sf::Event::Closed:
-			windowInstance.close();
-			break;
-		
-		default:
-			break;
-		}
-	}
-}
-void instance::drawPage3()
-{
-	windowInstance.clear();
-	windowInstance.draw(baseLayerSprite);
-	windowInstance.display();
-}
 void instance::operatePage7()
 {
 	if (!loadAutoSave)
@@ -620,7 +612,8 @@ void instance::operatePage7()
 			{
 				drawLoadingPage();
 				mouseControl = false;
-				serializeBinaryWrapper(pRoot);
+
+				//serializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -667,7 +660,8 @@ void instance::operatePage8()
 				mouseControl = false;
 				drawLoadingPage();
 				deleteWholeTrie(pRoot);
-				deserializeBinaryWrapper(pRoot);
+
+				//deserializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -1000,11 +994,6 @@ void instance::handleSearchSignal(std::string input)
 		displayDef = true;
 	}
 	else	displayDef = false;
-	if (!displayHistory && !displayFavourite && numberOfResult > 0)
-	{
-		history.push_back(input);
-		writeHistory(input);
-	}
 }
 
 void instance::handleHistory()

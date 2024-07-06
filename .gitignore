@@ -124,3 +124,9 @@ build.bat
 /bin
 /dict
 serialized.bin
+/.vscode
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+.vscode/settings.json
+Makefile
+.vscode/.easycpp
