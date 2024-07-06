@@ -111,7 +111,7 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 
 	std::cout << "Here are the definitions of the word: \n";
 
-	//first, 
+	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
 		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
@@ -233,29 +233,33 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 bool SuggestingWords(std::string word, trieNode* pRoot)
 {
 	if (word.empty()) return false;
+
 	trieNode* cur = pRoot;
 	bool found = false;
 	int wrongAttempts = 0;
+
+	//Loop until reaching the last character of given prefix(word)
 	while (!found) {
 		found = true;
 		cur = pRoot;
+
 		for (char ch : word) {
 			int index = ch - 32;
 			if (index >= 0 && index < 96 && cur->childNode[index]) {
 				cur = cur->childNode[index];
 			}
-			else {
+			else { //if any character is not found => found = false
 				found = false;
 				wrongAttempts++;
 				break;
 			}
 		}
-
+		//After oprating two attemps (1 for all lowercase ans 2 for uppercase at first and after blankspace)
 		if (wrongAttempts == 2) {
 			std::cout << "Word is not exist!" << std::endl;
 			return false;
 		}
-
+		//Updating the given prefix with all lowercase character to uppercase at first and after blankspace)
 		if (!found) {
 			int length = word.length();
 			for (int i = 0; i < length; ++i) {
@@ -264,14 +268,14 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 				}
 			}
 		}
-		else break;
+		else break; //if found == true
 	}
 
 	//Displaying max 10 words whose prefixes are the same with given word
 	int count = 0;
 	std::vector<std::string> collection;
 	SuggestHelper(word, cur, count, collection);
-	for (auto& x : collection) {
+	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
 		std::cout << x << std::endl;
 	}
 	return true;
