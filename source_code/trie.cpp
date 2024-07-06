@@ -224,12 +224,18 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 	if (word.empty()) return false;
 	
 	trieNode* cur = pRoot;
-	for (auto& c : word) {
-		if (!cur->childNode[c - 32]) {
+	int length = word.length();
+	for (int i = 0; i < length; ++i) {
+		if (i == 0 && word[0] >= 'a' && word[0] <= 'z') {
+			word[0] -= 32;
+		}
+		if (cur->childNode[word[i] - 32]) {
+			cur = cur->childNode[word[i] - 32];
+		}
+		else {
 			std::cout << "Word is not exist!" << std::endl;
 			return false;
 		}
-		cur = cur->childNode[c - 32];
 	}
 
 	//Displaying max 10 words whose prefixes are the same with given word
