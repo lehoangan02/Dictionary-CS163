@@ -36,8 +36,8 @@ int main()
 			readDatasetTXT(filename, pRoot);
 			//printf("imported successfully\n");
 			std::cout << "[DEBUG] " << pRoot << std::endl;
+			break;
 		}
-		break;
 		case 2:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -57,15 +57,15 @@ int main()
 					std::cout << x.second << std::endl;
 				}
 			}
+			break;
 		}
-		break;
 		case 3:
 		{
 			std::fstream f; f.open("serialized.bin", std::ios::out | std::ios::trunc | std::ios::binary);
 			serializeBinary(pRoot, f, "");
 			f.close();
+			break;
 		}
-		break;
 		case 4:
 		{
 			deleteWholeTrie(pRoot);
@@ -79,7 +79,6 @@ int main()
 			std::cout << "[DEBUG] " << pRoot << std::endl;
 			break;
 		}
-		break;
 		case 5:
 		{
 			std::cout << "Please input: "; cin.ignore();
@@ -107,6 +106,24 @@ int main()
 			}
 			else {
 				std::cout << "=> Can't find a random word !" << std::endl;
+			}
+			break;
+		}
+		case 7:
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::string userInput;
+			std::cout << "Your input: ";
+			getline(cin, userInput);
+			HashTable res = searchByDef(userInput, invertedIndex);
+			for (int i = 0; i < res.numBucket; ++i)
+			{
+				TableBlock* pCur = res.set[i];
+				while (pCur)
+				{
+					std::cout << pCur->data << std::endl;
+					pCur = pCur->pNext;
+				}
 			}
 			break;
 		}

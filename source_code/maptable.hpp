@@ -12,7 +12,7 @@ struct TableBlock // Used for chaining in HashTable
 struct HashTable // Designed after unordered_set<string>
 {
     TableBlock** set = nullptr;
-    int numBucket = 127; // May need improvements
+    int numBucket = 251; // May need improvements
 
     // Ctor
 
@@ -30,13 +30,14 @@ struct HashTable // Designed after unordered_set<string>
 
     // Basic methods
 
-    void insert(std::string& key);
-    TableBlock* find(std::string& key);
-    void remove(std::string& key);
+    void insert(const std::string& key);
+    TableBlock* find(const std::string& key);
+    void remove(const std::string& key);
 
     // Hashing
 
-    int hash(std::string& key); // May need improvements
+    size_t hash(const std::string& key);
+    size_t hashFNV_1a(const std::string& s);
 
     // Helper(s)
 
@@ -50,13 +51,12 @@ struct MapBlock // Used for chaining in HashMap
     std::string key; // Should contain alphabetic letters only
     HashTable data; // Store words containing key in their definition
     MapBlock* pNext = nullptr;
-    // May need constructor
 };
 
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** map = nullptr;
-    int numBucket = 127; // May need improvements
+    int numBucket = 251; // May need improvements
 
     // Ctor
 
@@ -69,14 +69,15 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
     // Basic methods
 
-    void insert(std::string& key, HashTable& data);
-    MapBlock* find(std::string& key);
-    HashTable& access(std::string& key); // Use this for fast access to existing or non-existing elements
-    void remove(std::string& key);
+    void insert(const std::string& key, const HashTable& data);
+    MapBlock* find(const std::string& key);
+    HashTable& access(const std::string& key); // Use this for fast access to existing or non-existing elements
+    void remove(const std::string& key);
 
     // Hashing
 
-    int hash(std::string& key); // May need improvements
+    size_t hash(const std::string& key);
+    size_t hashFNV_1a(const std::string& s);
 
     // Helper(s)
 
