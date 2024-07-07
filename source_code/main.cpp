@@ -5,6 +5,7 @@
 #include "instance.h"
 #include "readDataset.hpp"
 #include "SerializeDeserialize.h"
+#include "maptable.hpp"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ int main()
 {
 	trieNode* pRoot = nullptr;
 	int mode = -1;
+	HashMap invertedIndex;
 	// bool imported = false;
 	// bool serialized = true;
 	while (mode != 0)
@@ -22,6 +24,7 @@ int main()
 		printf("4 for deserialization\n");
 		printf("5 for suggesting words\n");
 		printf("6 for viewing a random word and its definitions\n");
+		printf("7 for searching by definitions\n");
 		std::cout << "mode: ";
 		std::cin >> mode;
 		switch (mode)
@@ -34,10 +37,13 @@ int main()
 			std::cin.ignore();
 			std::getline(std::cin, filename);
 			readDatasetTXT(filename, pRoot);
+			std::cout << "Creating Inverted Index..." << std::endl;
+			invertIndexTrie(pRoot, invertedIndex);
+			std::cout << "Finished" << std::endl;
 			//printf("imported successfully\n");
 			std::cout << "[DEBUG] " << pRoot << std::endl;
+			break;
 		}
-		break;
 		case 2:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -57,15 +63,15 @@ int main()
 					std::cout << x.second << std::endl;
 				}
 			}
+			break;
 		}
-		break;
 		case 3:
 		{
 			std::fstream f; f.open("serialized.bin", std::ios::out | std::ios::trunc | std::ios::binary);
 			serializeBinary(pRoot, f, "");
 			f.close();
+			break;
 		}
-		break;
 		case 4:
 		{
 			deleteWholeTrie(pRoot);
@@ -79,7 +85,6 @@ int main()
 			std::cout << "[DEBUG] " << pRoot << std::endl;
 			break;
 		}
-		break;
 		case 5:
 		{
 			std::cout << "Please input: "; cin.ignore();
@@ -107,6 +112,24 @@ int main()
 			}
 			else {
 				std::cout << "=> Can't find a random word !" << std::endl;
+			}
+			break;
+		}
+		case 7:
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::string userInput;
+			std::cout << "Your input: ";
+			getline(cin, userInput);
+			HashTable res = searchByDef(userInput, invertedIndex); // May need to convert res to vector<string>
+			for (int i = 0; i < res.numBucket; ++i)
+			{
+				TableBlock* pCur = res.set[i];
+				while (pCur)
+				{
+					std::cout << pCur->data << std::endl;
+					pCur = pCur->pNext;
+				}
 			}
 			break;
 		}
