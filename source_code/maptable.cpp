@@ -21,8 +21,7 @@ HashTable::HashTable(const HashTable& source)
 
 HashTable::~HashTable()
 {
-    for (int i = 0; i < this->numBucket; ++i)
-        this->deleteLL(set[i]);
+    this->clear();
     delete[] set;
     set = nullptr;
 }
@@ -159,10 +158,7 @@ HashMap::HashMap(int x) : numBucket(x)
 
 HashMap::~HashMap()
 {
-    for (int i = 0; i < this->numBucket; ++i)
-    {
-        this->deleteLL(map[i]);
-    }
+    this->clear();
     delete[] map;
     map = nullptr;
 }
@@ -248,6 +244,13 @@ void HashMap::remove(const std::string& key)
     }
     map[pos] = pDummy->pNext;
     delete pDummy;
+}
+
+// Empty HashMap
+void HashMap::clear()
+{
+    for (int i = 0; i < this->numBucket; ++i)
+        this->deleteLL(map[i]);
 }
 
 // Deallocate a bucket (linked list) in map
