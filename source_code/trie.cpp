@@ -19,60 +19,46 @@ void Change2Lowercase(std::string& word)
 bool checkingExistance(std::string s1, std::string s2)
 {
 	if (s1.size() != s2.size()) return false;
-	for (int i = 0; i < (int)s1.size(); ++i)
+	for (int i = 0; i < s1.size(); ++i)
 	{
 		if (s1[i] != s2[i]) return false;
 	}
 	return true;
 }
 
-void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
+void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def)
 {
 	if (word.empty()) return;
-	if (!pRoot)
-	{
+	if (!pRoot) {
 		pRoot = new trieNode();
 	}
-	Change2Lowercase(word);
+
 	trieNode* cur = pRoot;
-	for (auto c : word)
-	{
-		if (!cur->childNode[int(c) - 32])
-		{
-			trieNode* newNode = new trieNode();
-			cur->childNode[int(c) - 32] = newNode;
+	for (auto c : word) {
+		if (!cur->childNode[int(c) - 32]) {
+			cur->childNode[int(c) - 32] = new trieNode();
 		}
 		cur->countchildren++;
 		cur = cur->childNode[int(c) - 32];
 	}
 	cur->wordExisted = true;
-	for (auto mean : definitions)
-	{
-		Change2Lowercase(mean.first);
-		Change2Lowercase(mean.second);
-		bool check = false;
-		for (auto x : cur->definitions)
-		{
-			//first checking whether they are the same parts of speech, and then the meaning.
-			if (checkingExistance(x.first, mean.first) && checkingExistance(x.second, mean.second))
-			{
-				check = true;
-				break;
-			}
-		}
-		if (!check)
-		{
-			cur->definitions.push_back(mean);
+
+	bool checkexist = false;
+	for (auto& means : cur->definitions) {
+		if (means.first == pos && means.second == def) {
+			checkexist = true;
+			break;
 		}
 	}
+
+	if (!checkexist) cur->definitions.push_back({ pos, def });
 }
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
 {
 	std::vector<std::pair<std::string, std::string>> blankVec;
-	if (!pRoot) 
+	if (!pRoot)
 	{
-		std::cout << "Word not found1\n";
 		return blankVec;
 	}
 	// base case
@@ -90,8 +76,7 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		}
 		else
 		{
-			std::cout << "Word not found\n";
-			return blankVec;
+			return pRoot->definitions;
 		}
 	}
 
@@ -104,30 +89,50 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		{
 			// std::cout << "[DEBUG] going into " << word[0] << std::endl;
 			// erase the first letter
-			return traverseToSearch(pRoot->childNode[word[0] - 32], word.erase(0, 1));
+			pRoot = pRoot->childNode[word[0] - 32];
+			return traverseToSearch(pRoot, word.erase(0, 1));
 		}
 		else
 		{
-			std::cout << "Word not found\n";
-			return blankVec;
+			return pRoot->definitions;
 		}
 	}
 	return blankVec;
 }
 
-void search(trieNode* pRoot, std::string word)
-{
-	if (!pRoot || word.length() == 0)
-	{
+std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word) {
+	std::vector<std::pair<std::string, std::string>> collectionLast;
+	std::vector<std::pair<std::string, std::string>> collection1, collection2;
+
+	if (!pRoot || word.empty()) {
 		std::cout << "Word not found\n";
-		return;
+		return collectionLast;
 	}
 
-	// convert all the letters to lowercase
+	std::cout << "Here are the definitions of the word: \n";
+
+	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
+	int length = word.length();
+	for (int i = 0; i < length; ++i) {
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+			word[i] -= 32;
+		}
+	}
+	// Traverse the trie to find the word (the first letter in capital form)
+	collection1 = traverseToSearch(pRoot, word);
+	
+	// Convert all the letters to lowercase
 	Change2Lowercase(word);
 
-	// traverse the trie to find the word
-	traverseToSearch(pRoot, word);
+	// Traverse the trie to find the word (the first letter in lowercase)
+	collection2 = traverseToSearch(pRoot, word);
+
+	// Merge the two collections
+	collectionLast.reserve(collection1.size() + collection2.size());  // Pre-allocate memory
+	collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
+	collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
+
+	return collectionLast;
 }
 
 //checking whether a trieNode a leaf node
@@ -186,211 +191,108 @@ void deleteWholeTrie(trieNode*& pRoot)
 	pRoot = nullptr;
 }
 
-// serialization of the existing trie (compatibility mode)
-void serializeWrapper(trieNode* pRoot)
+//9. Users can view a random and its definitions
+std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k)
 {
-	std::ofstream fout; fout.open("serialized.txt");
-	serialize(pRoot, fout, "");
-}
-void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
-{
-	if (!pRoot)
-	{ 
-		fout << "-1\n";
-		std::cout << "[DEBUG] -1\n";
-		return;
-	}
-	fout << pRoot -> wordExisted << std::endl;
-	fout << "[DEBUG] " << word << std::endl;
-	fout << pRoot -> definitions.size() << std::endl;
-	for (int i = 0; i < (int)(pRoot -> definitions.size()); ++i)
-	{
-		fout << pRoot -> definitions[i].first << std::endl;
-		fout << pRoot -> definitions[i].second << std::endl;
-	}
-	for (int i = 0; i < 96; ++i)
-	{
-		int asciiVal = i + 32;
-		std::string newWord = word + (char)asciiVal;
-		std::cout << "[DEBUG] new word is " << newWord << std::endl;
-		serialize(pRoot -> childNode[i], fout, newWord);
-	}
-	return;
-}
-
-// deserialization of the saved trie (compatibility mode)
-bool deserializeWrapper(trieNode*& pRoot)
-{
-	deleteWholeTrie(pRoot);
-	std::ifstream fin; fin.open("serialized.txt");
-    if (fin.is_open() == false)
-    {
-        std::cout << "[DEBUG] no file found to deserialize!\n";
-        return false;
-    }
-	deserialize(pRoot, fin, "");
-    return true;
-}
-void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
-{
-	int temp = 0;
-	fin >> temp;
-	fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	if (temp == -1)
-	{
-		std::cout << "[DEBUG] empty node\n";
-		pRoot = nullptr;
-		return;
-	}
-	pRoot = new trieNode;
-	pRoot -> wordExisted = temp;
-	std::string tempString = "";
-	std::getline(fin, tempString);
-	std::cout << "[DEBUG] word is: " << tempString << std::endl;
-	int size = 0;
-	fin >> size;
-	fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	std::vector<std::pair<std::string, std::string>> definitionVec;
-	for (int i = 0; i < size; ++i)
-	{
-		std::string POS = "";
-		std::string description = "";
-		std::getline(fin, POS);
-		std::getline(fin, description);
-		definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
-		std::cout << "[DEBUG] POS: " << POS << " - definition: " << description << std::endl;
-	}
-	pRoot -> definitions = definitionVec;
-	for (int i = 0; i < 96; ++i)
-	{
-		std::string newWord = word + (char)(i + 32);
-		std::cout << "[DEBUG] probing " << newWord << std::endl;
-		deserialize(pRoot -> childNode[i], fin, newWord);
-	}
-}
-
-// serialization of the existing trie (compatibility mode)
-void serializeBinaryWrapper(trieNode* pRoot)
-{
-	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::out | std::ios::trunc);
-	serializeBinary(pRoot, f, "");
-}
-void serializeBinary(trieNode* pRoot, std::fstream& f, std::string word)
-{
-	int temp = 0;
-	if (!pRoot)
-	{
-		temp = -1;
-		f.write((char*)&temp, sizeof(int));
-		return;
-	}
-	temp = 0;
-	f.write((char*)&temp, sizeof(int));
-	bool wordExisted = pRoot -> wordExisted;
-	f.write((char*)&wordExisted, sizeof(bool));
-	int size = (int)(pRoot -> definitions.size());
-	f.write((char*)&size, sizeof(int));
-	for (int i = 0; i < size; ++i)
-	{
-		int stringSize = pRoot -> definitions[i].first.size();
-		f.write((char*)&stringSize, sizeof(int));
-		f.write(pRoot -> definitions[i].first.c_str(), pRoot -> definitions[i].first.size());
-		// std::cout << pRoot -> definitions[i].first.c_str() << std::endl;
-		stringSize = pRoot -> definitions[i].second.size();
-		f.write((char*)&stringSize, sizeof(int));
-		f.write(pRoot -> definitions[i].second.c_str(), pRoot -> definitions[i].second.size());
-		// std::cout << pRoot -> definitions[i].second.c_str() << std::endl;
-	}
-	for (int i = 0; i < 96; ++i)
-	{
-		int asciiVal = i + 32;
-		std::string newWord = word + (char)asciiVal;
-		// std::cout << "[DEBUG] new word is " << newWord << std::endl;
-		serializeBinary(pRoot -> childNode[i], f, newWord);
-	}
-	return;
-}
-
-// deserialization of the saved trie (compatibility mode)
-bool deserializeBinaryWrapper(trieNode*& pRoot)
-{
-	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::in);
-	if (!f.is_open())
-	{
-		std::cout << "[DEBUG] no file found to deserialize!\n";
-		return false;
-	}
-	deserializeBinary(pRoot, f, "");
-	return true;
-}
-void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
-{
-	int temp = 0;
-	f.read((char*)&temp, sizeof(int));
-	if (temp == -1)
-	{
-		// std::cout << "[DEBUG] empty node\n";
-		pRoot = nullptr;
-		return;
-	}
-	pRoot = new trieNode;
-	bool wordExisted = false;
-	f.read((char*)&wordExisted, sizeof(bool));
-	pRoot -> wordExisted = wordExisted;
-	int sizeDef = 0;
-	f.read((char*)&sizeDef, sizeof(int));
-	int sizeString = 0;
-	std::vector<std::pair<std::string, std::string>> definitionVec;
-	for (int i = 0; i < sizeDef; ++i)
-	{
-		std::string POS = "";
-		std::string description = "";
-		f.read((char*)&sizeString, sizeof(int)); // read the size of POS
-		char* buffer = new char[sizeString]; // allocate a char array buffer
-		f.read(buffer, sizeString);
-		POS.assign(buffer, sizeString);
-		delete [] buffer;
-		f.read((char*)&sizeString, sizeof(int)); // read the size of description
-		buffer = new char[sizeString]; // allocate a char array buffer
-		f.read(buffer, sizeString);
-		description.assign(buffer, sizeString);
-		delete [] buffer;
-		definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
-		// std::cout << "[DEBUG] POS: " << POS << " - definition: " << description << std::endl;
-	}
-	pRoot -> definitions = definitionVec;
-	for (int i = 0; i < 96; ++i)
-	{
-		std::string newWord = word + (char)(i + 32);
-		// std::cout << "[DEBUG] probing " << newWord << std::endl;
-		deserializeBinary(pRoot -> childNode[i], f, newWord);
-	}
-}
-
-//9. Users can visit a randomly new word generated by us
-trieNode* findtheKthword(trieNode* pRoot, int k)
-{
-	if (!pRoot) return nullptr;
-	if (k == 1 && pRoot->wordExisted) return pRoot;
+	if (!pRoot) return std::pair<trieNode*, std::string>(nullptr, "");
+	if (k == 0 && pRoot->wordExisted) return std::pair<trieNode*, std::string>(pRoot, ""); //is this place 0 or 1, I thought if we hit a node when we count 1 then we just... take it???
+	std::pair<trieNode*, std::string> here;
 	int S = 0, t = 0;
 	for (int i = 0; i < 96; i++)
 	{
 		if (!pRoot->childNode[i]) continue;
 		if (pRoot->childNode[i]->wordExisted) t = 1;
-		if (k <= S + t + pRoot->childNode[i]->countchildren) return findtheKthword(pRoot->childNode[i], k - S);
+		if (k <= S + t + pRoot->childNode[i]->countchildren) 
+		{
+			std::cout << "[DEBUG]  at k = " << k << " S = " << S << " t = " << t << " children of child = " << pRoot->childNode[i]->countchildren << std::endl;
+			std::cout << "[DEBUG] going into node " << i << " k - S - t = " << k - S - t << std::endl;
+			here = std::pair<trieNode*, std::string>(findtheKthword(pRoot->childNode[i], k - S - t));
+			if (!here.first) here.second = "";
+			else here.second = char(i + 32) + here.second;
+			return here;
+		}
 		else
 		{
 			S += t + pRoot->childNode[i]->countchildren;
 			t = 0;
 		}
 	}
-	return nullptr;
+	return std::pair<trieNode*, std::string>(nullptr, "");
 }
 
-trieNode* pickarandomword(trieNode* pRoot)
+//9. Users can visit a randomly new word generated by us, return the node and the string
+std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 {
 	std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(1,pRoot->countchildren);
 	return findtheKthword(pRoot, int(dist(rng)));
+}
+
+//Utility function for suggesting some existing words based on some first given characters.
+bool SuggestingWords(std::string word, trieNode* pRoot)
+{
+	if (word.empty()) return false;
+
+	trieNode* cur = pRoot;
+	bool found = false;
+	int wrongAttempts = 0;
+
+	//Loop until reaching the last character of given prefix(word)
+	while (!found) {
+		found = true;
+		cur = pRoot;
+
+		for (char ch : word) {
+			int index = ch - 32;
+			if (index >= 0 && index < 96 && cur->childNode[index]) {
+				cur = cur->childNode[index];
+			}
+			else { //if any character is not found => found = false
+				found = false;
+				wrongAttempts++;
+				break;
+			}
+		}
+		//After oprating two attemps (1 for all lowercase ans 2 for uppercase at first and after blankspace)
+		if (wrongAttempts == 2) {
+			std::cout << "Word is not exist!" << std::endl;
+			return false;
+		}
+		//Updating the given prefix with all lowercase character to uppercase at first and after blankspace)
+		if (!found) {
+			int length = word.length();
+			for (int i = 0; i < length; ++i) {
+				if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+					word[i] -= 32;
+				}
+			}
+		}
+		else break; //if found == true
+	}
+
+	//Displaying max 10 words whose prefixes are the same with given word
+	int count = 0;
+	std::vector<std::string> collection;
+	SuggestHelper(word, cur, count, collection);
+	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
+		std::cout << x << std::endl;
+	}
+	return true;
+}
+
+void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection)
+{
+	if (!pRoot || count == 10) return;
+	if (pRoot->wordExisted) {
+		collection.push_back(prefix);
+		count++;
+	}
+	for (int i = 0; i < 96; i++) {
+		if (pRoot->childNode[i]) {
+			prefix += static_cast<char>(i + 32);
+			SuggestHelper(prefix, pRoot->childNode[i], count, collection);
+			prefix.pop_back();
+		}
+	}
 }

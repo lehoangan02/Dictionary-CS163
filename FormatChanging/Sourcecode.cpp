@@ -12,10 +12,8 @@ struct trieNode
 {
 	bool wordExisted = false;
 	trieNode* childNode[96];
-	//std::vector<std::pair<std::string, std::string>> definitions;
-	//std::string definitions; //def including part of speech
-	//std::pair<std::string, std::string> definitions;
-	std::vector<std::string> definitions;
+	//std::pair<std::string, std::vector<std::string>> definitions;
+	std::string def; //def including part of speech
 	trieNode()
 	{
 		for (int i = 0; i < ascii; ++i) this->childNode[i] = nullptr;
@@ -52,15 +50,15 @@ struct slangnode
 };
 
 std::string trim(const std::string& str);
-void insert(trieNode*& pRoot, std::string word, std::vector<std::string> def);
+//void insert(trieNode*& pRoot, std::string word, std::pair<std::string, std::vector<std::string>> definit);
 void readfile(trieNode*& pRoot, std::string readfilename, std::ifstream& fin);
 void readfile2(VEwordNode*& root, std::string readfilename, std::ifstream& fin);
 void write2file(trieNode*pRoot, const std::string writefilename, std::ofstream& fout, std::string& prefix);
-void readfile3(trieNode*& root, std::string readfilename, std::ifstream& fin);
+void readfile3(slangnode*& root, std::string readfilename, std::ifstream& fin);
 void deleteWholeTrie(trieNode*& pRoot); 
 void write(slangnode* root, std::ofstream& fout);
 void deallocate(slangnode*& root);
-//void insert2(trieNode*& pRoot, std::string word, std::string def);
+void insert2(trieNode*& pRoot, std::string word, std::string def);
 void readfile4(trieNode*& pRoot, std::string readfilename, std::ifstream& fin);
 void Change2Lowercase(std::string& word);
 
@@ -101,13 +99,13 @@ std::string trim(const std::string& str)
 	size_t end = str.length() - 1;
 
 	//Find the first non space character from the left hand side.
-	while (start <= end && (str[start] == ';' || str[start] == '"'))
+	while (start <= end && std::isspace(static_cast<unsigned char>(str[start])))
 	{
 		start++;
 	}
 
 	//Find the first non-space character from the the right hand side.
-	while (end >= start && (str[end] == ';' || str[end] == '"'))
+	while (end >= start && std::isspace(static_cast<unsigned char>(str[end])))
 	{
 		end--;
 	}
@@ -198,21 +196,9 @@ void readfile4(trieNode*& pRoot, std::string readfilename, std::ifstream& fin)
 	{
 		std::stringstream split(line);
 		std::string word, def;
-		std::vector<std::string> means;
 		getline(split, word , '|');
 		getline(split, def);
-		int start = 0;
-		int pos = def.find("||", start);
-		while (pos != std::string::npos)
-		{
-			std::string newdef = def.substr(start, pos - start);
-			means.push_back(newdef);
-			start = pos + 2;
-			pos = def.find("||", start);
-		}
-		std::string newdef = def.substr(start);
-		means.push_back(newdef);
-		insert(pRoot, word, means);
+		insert2(pRoot, word, def);
 	}
 	std::cout << "Reading file successfully!" << std::endl;
 	fin.close();
@@ -235,53 +221,36 @@ void write(slangnode* root, std::ofstream& fout)
 	fout.close();
 }
 
-void readfile3(trieNode*& root, std::string readfilename, std::ifstream& fin)
+void readfile3(slangnode*& root, std::string readfilename, std::ifstream& fin)
 {
 	std::cout << "- Please input filename: ";
 	getline(std::cin, readfilename);
-	fin.open(readfilename + ".txt");
+	fin.open(readfilename + ".csv");
 	if (!fin.is_open())
 	{
 		std::cerr << "Error: Unable to open file!" << std::endl;
 		return;
 	}
 	std::string line = "";
-	std::string word = "", pos = "", def = "";
+	slangnode* cur = root;
 	while (getline(fin, line))
 	{
-		if (line[0] == '@') {
-			if (!word.empty()) {
-				if (!def.empty()) {
-					def.pop_back();
-					def.pop_back();
-				}
-				//insert(root, word, pos, def);
-				pos.clear();
-				def.clear();
-			}
-			word = line.substr(1);
-			int posIndex = word.find('/');
-			if (posIndex != std::string::npos) {
-				word = word.substr(0, posIndex);
-			}
-		}
-		else if (line[0] == '*')
+		if (!root)
 		{
-			pos = line.substr(line.find_first_not_of("* "));
+			root = new slangnode();
+			cur = root;
 		}
 		else {
-			if (line[0] == '-') {
-				std::string newdef = line.substr(line.find_first_not_of("- "));
-				def += newdef + "; ";
-			}
-			else if (line[0] == '=') {
-				std::string example = line.substr(1);
-				def += "( " + example + " )" + "; ";
-			}
+			cur->next = new slangnode();
+			cur = cur->next;
 		}
-	}
-	if (!word.empty()) {
-		//insert(root, word, pos, def);
+		std::istringstream ss(line);
+		std::string add = "";
+		getline(ss, cur->word, ',');
+		getline(ss, add, ',');
+		cur->count = stoi(add);
+		getline(ss, cur->pos, ',');
+		getline(ss, cur->def);
 	}
 	std::cout << "Reading file successfully!" << std::endl;
 	fin.close();
@@ -298,28 +267,28 @@ void deallocate(slangnode*& root)
 	}
 }
 
-void insert(trieNode*& pRoot, std::string word, std::vector<std::string> def)
-{
-	if (word.empty()) return;
-
-	if (!pRoot)
-	{
-		pRoot = new trieNode();
-	}
-	trieNode* cur = pRoot;
-	for (auto c : word)
-	{
-		if (!cur->childNode[int(c) - 32])
-		{
-			trieNode* newNode = new trieNode();
-			cur->childNode[int(c) - 32] = newNode;
-		}
-		cur = cur->childNode[int(c) - 32];
-	}
-	cur->wordExisted = true;
-
-	cur->definitions = def;
-}
+//void insert(trieNode*& pRoot, std::string word, std::pair<std::string, std::vector<std::string>> definit)
+//{
+//	if (word.empty()) return;
+//
+//	if (!pRoot)
+//	{
+//		pRoot = new trieNode();
+//	}
+//	trieNode* cur = pRoot;
+//	for (auto c : word)
+//	{
+//		if (!cur->childNode[int(c) - 32])
+//		{
+//			trieNode* newNode = new trieNode();
+//			cur->childNode[int(c) - 32] = newNode;
+//		}
+//		cur = cur->childNode[int(c) - 32];
+//	}
+//	cur->wordExisted = true;
+//
+//	cur->definitions = definit;
+//}
 
 void Change2Lowercase(std::string& word)
 {
@@ -331,32 +300,32 @@ void Change2Lowercase(std::string& word)
 	}
 }
 
-//void insert2(trieNode*& pRoot, std::string word, std::string def)
-//{
-//	if (word.empty()) return;
-//	//Change2Lowercase(word);
-//	//Change2Lowercase(def);
-//	if (!pRoot)
-//	{
-//		pRoot = new trieNode();
-//	}
-//	trieNode* cur = pRoot;
-//	for (auto c : word)
-//	{
-//		if (c - 32 < 0 || c - 32 >= 96) {
-//			continue; // Skip characters outside the range
-//		}
-//		if (!cur->childNode[c - 32])
-//		{
-//			trieNode* newNode = new trieNode();
-//			cur->childNode[c - 32] = newNode;
-//		}
-//		cur = cur->childNode[c - 32];
-//	}
-//	cur->wordExisted = true;
-//
-//	cur->def = def;
-//}
+void insert2(trieNode*& pRoot, std::string word, std::string def)
+{
+	if (word.empty()) return;
+	//Change2Lowercase(word);
+	//Change2Lowercase(def);
+	if (!pRoot)
+	{
+		pRoot = new trieNode();
+	}
+	trieNode* cur = pRoot;
+	for (auto c : word)
+	{
+		if (c - 32 < 0 || c - 32 >= 96) {
+			continue; // Skip characters outside the range
+		}
+		if (!cur->childNode[c - 32])
+		{
+			trieNode* newNode = new trieNode();
+			cur->childNode[c - 32] = newNode;
+		}
+		cur = cur->childNode[c - 32];
+	}
+	cur->wordExisted = true;
+
+	cur->def = def;
+}
 
 void write2file(trieNode* pRoot, const std::string writefilename, std::ofstream& fout, std::string& prefix)
 {
@@ -368,10 +337,8 @@ void write2file(trieNode* pRoot, const std::string writefilename, std::ofstream&
 	if (!pRoot) return;
 	if (pRoot->wordExisted)
 	{
-		for (auto& x : pRoot->definitions)
-		{
-			fout << prefix << "|" << x << std::endl;
-		}
+		fout << prefix << "|";
+		fout << pRoot->def << std::endl;
 	}
 	for (int i = 0; i < ascii; ++i)
 	{

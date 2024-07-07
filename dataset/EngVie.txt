@@ -1,4 +1,3 @@
-Tauberian||(thuoc) Tobe.
 a b c|danh tu|bang chu cai; khai niem co so, co so (a_b_c of chemistry + khai niem co so ve hoa hoc, co so hoa hoc); (nganh duong sat) bang chi duong theo abc.
 a b c - book|danh tu|sach vo long, sach hoc van.
 a font|pho tu|thau triet, can ke, ro ngon nghanh.

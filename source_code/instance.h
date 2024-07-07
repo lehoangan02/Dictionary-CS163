@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <vector>
@@ -9,7 +10,7 @@
 #include "animation.hpp"
 
 #include "trie.h"
-#include "readDatasetCSV.hpp"
+#include "readDataset.hpp"
 #include "history.hpp"
 #include "doublyLinkedList.hpp"
 
@@ -34,15 +35,13 @@ class instance
     4 is other (format not selected)
     */
     int errorMode = 0;
-
-    // history and favourite
     std::vector<std::string> history;
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
-    bool displayFavourite = false;
+    
 
     // SFML
     sf::RenderWindow windowInstance;
@@ -271,8 +270,6 @@ class instance
     Page 8 load (deserialize)
     Page 9 game mode
     */
-
-   // main operating functions
     void operatePage1();
     void operatePage2();
     void operatePage3();
@@ -286,7 +283,6 @@ class instance
     void drawPage8();
     void drawPage9();
 
-    // supporting functions
     void switchPage();
     void drawSubModes();
     void hoverSubModes();
