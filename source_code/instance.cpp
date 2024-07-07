@@ -221,6 +221,9 @@ instance::instance() :
 
 	// bookmark button
 	bookmarkButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 358));
+
+	// Set up error text
+	setUpErrorText();
 }
 void instance::operate()
 {
@@ -488,12 +491,12 @@ void instance::drawPage1()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
-	drawSwitchMode();
 	searchButton.draw(windowInstance);
 	historyButton.draw(windowInstance);
 	favouriteButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
 	drawDefinition();
+	drawSwitchMode();
 	windowInstance.display();
 }
 void instance::operatePage2()
@@ -681,6 +684,51 @@ void instance::operatePage9()
 		case sf::Event::Closed:
 		windowInstance.close();
 		break;
+		case sf::Event::MouseButtonPressed:
+		{
+			if (gameMode1st.isClicked(windowInstance))
+			{
+				std::cout << pRoot << std::endl;
+				// std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
+				// std::cout << "The random word is: " << random.second << std::endl;
+				// handleSearchSignal(random.second);
+				// displayDef = true;
+				{
+					std::cout << "The random word is: ";
+					std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
+					if (random.first) {
+						std::cout << random.second << std::endl;
+						int i = 0;
+						for (auto& x : random.first->definitions) {
+							std::cout << i + 1 << ". (" << x.first << ") " << x.second << std::endl;
+							i++;
+						}
+					}
+					else {
+						std::cout << "=> Can't find a random word !" << std::endl;
+					}
+				}
+			}
+			else if (nextPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum < (int)searchResult.size() - 1)
+				{
+					++definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
+				}
+			}
+			else if (prevPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum > 0)
+				{
+					--definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
+				}
+			}
+		}
+		break;
 		case sf::Event::KeyPressed:
 		{
 			if (event.key.code == sf::Keyboard::Return)
@@ -710,6 +758,7 @@ void instance::operatePage9()
 void instance::drawPage9()
 {
 	windowInstance.clear(sf::Color(150, 150, 150));
+	drawDefinition();
 	sceneryAnimation.draw(windowInstance);
 	gameMode1st.draw(windowInstance);
 	gameMode2nd.draw(windowInstance);
@@ -906,7 +955,7 @@ void instance::drawDefinition()
 			}
 			if (numberOfResult == 0)
 			{
-				// printf("[DEBUG] drawing error message\n");
+				printf("[DEBUG] drawing error message\n");
 				
 				windowInstance.draw(wordNotInThisDataSet);
 			}
@@ -923,7 +972,7 @@ void instance::drawDefinition()
 			}
 			if (numberOfResult == 0)
 			{
-				// printf("[DEBUG] drawing error message\n");
+				printf("[DEBUG] drawing error message\n");
 				windowInstance.draw(wordNotInThisDataSet);
 			}
 		}
@@ -974,12 +1023,12 @@ void instance::handleSearchSignal(std::string input)
 	resetSearchResult();
 	Change2Lowercase(input);
 	// std::cout << input << std::endl;
-	searchResult = traverseToSearch(pRoot, input);
+	searchResult = Search(pRoot, input);
 	numberOfResult = (int)searchResult.size();
+	std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
 	if (numberOfResult > 0)
 	{
 		headWordString = input;
-		// std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
 		POSString = searchResult[definitionNum].first;
 		descriptionString = searchResult[definitionNum].second;
 		displayDef = true;

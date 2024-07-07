@@ -8,3 +8,8 @@ mead
 poppy
 slug
 cash
+car
+bed
+attribute
+monger
+fish
