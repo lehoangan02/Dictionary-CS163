@@ -48,6 +48,7 @@ class DualChoiceButton : public Button
     public:
     DualChoiceButton(sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick, DualChoiceButton* ButtonToLink);
     void click(sf::RenderWindow& window) override;
+    bool getSelected();
     private:
     DualChoiceButton* ButtonToLink;
     sf::Vector2f offset = sf::Vector2f(8.0f, 4.0f);

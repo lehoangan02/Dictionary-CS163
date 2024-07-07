@@ -13,3 +13,4 @@ bed
 attribute
 monger
 fish
+bean

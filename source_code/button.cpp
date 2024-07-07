@@ -210,6 +210,12 @@ void DualChoiceButton::click(sf::RenderWindow& window)
         (*ButtonToLink).buttonSprite.move(offsetNeg);
     }
 }
+bool DualChoiceButton::getSelected()
+{
+    return selected;
+}
+
+
 switchButton::switchButton(sf::Texture& textureDefault, const sf::Texture& textureClick) :
     Button(textureDefault, textureDefault, textureClick)
 {

@@ -281,7 +281,7 @@ void instance::operatePage1()
 	if (!loadedSave)
 	{
 		deleteWholeTrie(pRoot);
-		deserializeBinaryWrapper(pRoot);
+        deserializeBinaryWrapper(pRoot);
 		readFavourite(pRootFavourite);
 		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
@@ -306,24 +306,6 @@ void instance::operatePage1()
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
-				}
-				else if (nextPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum < (int)searchResult.size() - 1)
-					{
-						++definitionNum;
-						POSString = searchResult[definitionNum].first;
-                        descriptionString = searchResult[definitionNum].second;
-					}
-				}
-				else if (prevPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum > 0)
-					{
-						--definitionNum;
-						POSString = searchResult[definitionNum].first;
-                        descriptionString = searchResult[definitionNum].second;
-					}
 				}
 				else if (historyButton.isClicked(windowInstance))
 				{
@@ -430,6 +412,10 @@ void instance::operatePage1()
 						}
 					}
 				}
+				else
+				{
+					navigateDef();
+				}
 				
 			}
 			case sf::Event::KeyPressed:
@@ -443,6 +429,10 @@ void instance::operatePage1()
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
+				}
+				else if (event.key.code == sf::Keyboard::R)
+				{
+
 				}
 			}
 			break;
@@ -521,17 +511,40 @@ void instance::operatePage2()
 					std::cout << filepath << std::endl;
 					deleteWholeTrie(pRoot);
 					drawLoadingPage();
-					if (readDatasetCSV(filepath, pRoot))
+					if (CSVButton.getSelected())
 					{
-						std::cout << "[DEBUG] import successful\n";
-						importStatus.setFillColor(sf::Color(128, 255, 0));
-						importStatus.setString("Import Successful\n");
+						if (readDatasetCSV(filepath, pRoot))
+						{
+							std::cout << "[DEBUG] import successful\n";
+							importStatus.setFillColor(sf::Color(128, 255, 0));
+							importStatus.setString("Import Successful\n");
+						}
+						else
+						{
+							std::cout << "[DEBUG] import failed\n";
+							importStatus.setFillColor(sf::Color(255, 153, 0));
+							importStatus.setString("Import Failed\n");
+						}
+					}
+					else if (TXTButton.getSelected())
+					{
+						if (readDatasetTXT(filepath, pRoot))
+						{
+							std::cout << "[DEBUG] import successful\n";
+							importStatus.setFillColor(sf::Color(128, 255, 0));
+							importStatus.setString("Import Successful\n");
+						}
+						else
+						{
+							std::cout << "[DEBUG] import failed\n";
+							importStatus.setFillColor(sf::Color(255, 153, 0));
+							importStatus.setString("Import Failed\n");
+						}
 					}
 					else
 					{
-						std::cout << "[DEBUG] import failed\n";
 						importStatus.setFillColor(sf::Color(255, 153, 0));
-						importStatus.setString("Import Failed\n");
+						importStatus.setString("Import Failed - Format not chosen\n");
 					}
 				}
 				break;
@@ -599,7 +612,7 @@ void instance::operatePage7()
 				drawLoadingPage();
 				mouseControl = false;
 
-				serializeBinaryWrapper(pRoot);
+                serializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -688,44 +701,58 @@ void instance::operatePage9()
 		{
 			if (gameMode1st.isClicked(windowInstance))
 			{
-				std::cout << pRoot << std::endl;
-				// std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
-				// std::cout << "The random word is: " << random.second << std::endl;
-				// handleSearchSignal(random.second);
-				// displayDef = true;
+				if (pRoot) 
 				{
-					std::cout << "The random word is: ";
-					std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
-					if (random.first) {
-						std::cout << random.second << std::endl;
-						int i = 0;
-						for (auto& x : random.first->definitions) {
-							std::cout << i + 1 << ". (" << x.first << ") " << x.second << std::endl;
-							i++;
-						}
-					}
-					else {
-						std::cout << "=> Can't find a random word !" << std::endl;
-					}
+					std::cout << pRoot << std::endl;
+					std::pair<trieNode*, std::string> random;
+					random.second = "";
+					random = pickarandomword(pRoot);
+					std::cout << "The random word is: " << random.second << std::endl;
+					handleSearchSignal(random.second);
+					if (random.second != "")	displayDef = true;
+					std::cout << displayDef << std::endl;
 				}
 			}
-			else if (nextPageButton.isClicked(windowInstance))
+			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
 			{
-				if (definitionNum < (int)searchResult.size() - 1)
+				if (existInList(pRootFavourite, headWordString))
 				{
-					++definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
+					printf("turning off\n");
+					bookmarkButton.setMode(false);
+					if (pCurrentFavourite && pCurrentFavourite -> pNext)
+					{
+						printf("[DEBUG] moving to favourite down\n");
+						pCurrentFavourite = pCurrentFavourite -> pNext;
+					}
+					else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+					{
+						printf("[DEBUG] moving to favourite up\n");
+						pCurrentFavourite = pCurrentFavourite -> pPrev;
+					}
+					deleteLinkedList(pRootFavourite, headWordString);
+					pCurrentFavourite = pRootFavourite;
+					writeFavourite(pRootFavourite);
+					if (!pRootFavourite && displayFavourite)
+					{
+						printf("[DEBUG] end displaying favourite\n");
+						displayDef = false;
+						displayFavourite = false;
+					}
+					if (displayFavourite)	handleFavourite();
+				}
+				else
+				{
+					bookmarkButton.setMode(true);
+					printf("[DEBUG] new favourite\n");
+					insertLinkedList(pRootFavourite, headWordString);
+					pCurrentFavourite = pRootFavourite;
+					writeFavourite(pRootFavourite);
+					// handleFavourite();
 				}
 			}
-			else if (prevPageButton.isClicked(windowInstance))
+			else
 			{
-				if (definitionNum > 0)
-				{
-					--definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-				}
+				navigateDef();
 			}
 		}
 		break;
@@ -752,14 +779,27 @@ void instance::operatePage9()
 	gameMode1st.hoverSwitchTexture(windowInstance);
 	gameMode2nd.hoverSwitchTexture(windowInstance);
 	gameMode3rd.hoverSwitchTexture(windowInstance);
+	if (existInList(pRootFavourite, headWordString))
+	{
+		// printf("[DEBUG] word is favourite\n");
+		bookmarkButton.setMode(true);
+	}
+	else
+	{
+		bookmarkButton.setMode(false);
+	}
+	nextPageButton.hoverSwitchTexture(windowInstance);
+	nextPageButton.click(windowInstance);
+	prevPageButton.hoverSwitchTexture(windowInstance);
+	prevPageButton.click(windowInstance);
 	exitButton.hoverSwitchTexture(windowInstance);
 	switchPage();
 }
 void instance::drawPage9()
 {
 	windowInstance.clear(sf::Color(150, 150, 150));
-	drawDefinition();
 	sceneryAnimation.draw(windowInstance);
+	drawDefinition();
 	gameMode1st.draw(windowInstance);
 	gameMode2nd.draw(windowInstance);
 	gameMode3rd.draw(windowInstance);
@@ -879,6 +919,9 @@ void instance::switchPage()
 	if (pageChange)
 	{
 		// printf("[DEBUG] page changed\n");
+		displayDef = false;
+		displayFavourite = false;
+		displayHistory = false;
 		mouseControl = false;
 		searchBox.clear();
 		importBox.clear();
@@ -955,7 +998,7 @@ void instance::drawDefinition()
 			}
 			if (numberOfResult == 0)
 			{
-				printf("[DEBUG] drawing error message\n");
+				// printf("[DEBUG] drawing error message\n");
 				
 				windowInstance.draw(wordNotInThisDataSet);
 			}
@@ -1158,5 +1201,27 @@ void instance::setUpGameModeAnimation()
 	gameMode3rd.setPosition(sf::Vector2u(720, 275));
 }
 
+/// @brief handle logic of next page and prev page buttons inside event loop
+void instance::navigateDef()
+{
+	if (nextPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum < (int)searchResult.size() - 1)
+				{
+					++definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
+				}
+			}
+	else if (prevPageButton.isClicked(windowInstance))
+	{
+		if (definitionNum > 0)
+		{
+			--definitionNum;
+			POSString = searchResult[definitionNum].first;
+			descriptionString = searchResult[definitionNum].second;
+		}
+	}
+}
 
 

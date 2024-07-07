@@ -300,4 +300,6 @@ class instance
     void setUpErrorText();
     void handleFavourite();
     void setUpGameModeAnimation();
+    void navigateDef();
+    void bookmarkEventLogic();
 };
