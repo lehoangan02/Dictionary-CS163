@@ -116,8 +116,16 @@ void Button::hoverSwitchTexture(const sf::RenderWindow& window)
 }
 void Button::centerText()
     {
-        buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
+        if (shadow)
+        {
+            buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
         (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - SHADOWVER - characterSize) / 2 - SFMLTEXPADDING));
+        }
+        else
+        {
+            buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
+        (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2 - SFMLTEXPADDING));
+        }
     }
 void Button::select(bool mode)
 {
@@ -137,6 +145,36 @@ void Button::select(bool mode)
         }
     }
 }
+
+/// @brief set up the button, only use this when you know what you are doing
+/// @param texture 
+/// @param font 
+/// @param textString 
+/// @param characterSize 
+void Button::setUpHoverText(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
+std::string textString, int characterSize)
+{
+    clickToChange = false;
+    haveText = true;
+    hover = true;
+    // set up the sprite
+    this -> textureDefault = textureDefault;
+    buttonSprite.setTexture(textureDefault);
+    this -> textureHover = textureHover;
+    // set up the text
+    buttonText.setFont(font);
+    this -> characterSize = characterSize;
+    buttonText.setCharacterSize (characterSize);
+    buttonText.setString(textString);
+    buttonText.setStyle(sf::Text::Style::Bold);
+    centerText();
+}
+
+void Button::setTextFillColor(sf::Color color)
+{
+    this -> buttonText.setFillColor(color);
+}
+
 /// use this for stable ordinary button.
 /// stable meaning it does not disapplear when interacting in the same page.
 /// ordinary meaning it does not have persistent characteristic.

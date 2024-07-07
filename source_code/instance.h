@@ -49,6 +49,7 @@ class instance
     int page = 1; bool pageChange = false;
     bool mouseControl = true;
     bool loadedSave = false;
+    bool loadGameMode = false;
     sf::Event event;
     sf::Texture baseLayer; 
     sf::Sprite baseLayerSprite;
@@ -104,7 +105,7 @@ class instance
     sf::Font PlayfairDisplay;
     sf::Font SourceSans3;
     sf::Font micross;
-    
+    sf::Font PatuaOne;
     // search box
     sf::Texture searchBoxTexture;
     textbox searchBox;
@@ -212,6 +213,8 @@ class instance
     sf::Sprite toLoadLastSaveSprite;
 
     // Game mode
+    int gameMode = 0;
+    // Animations
     sf::Texture penguinTexture;
     Animation penguinAnimation;
     sf::Texture rainbowStarTexture;
@@ -226,7 +229,23 @@ class instance
     bool correctAnswer = false;
     sf::Texture congratulationsTexture;
     AnimationVertical congratulationsAnimation;
-
+    public:
+    void moveKnight();
+    private:
+    // Buttons
+    sf::Texture answerButtonTexture;
+    Button answerButton1st;
+    Button answerButton2nd;
+    Button answerButton3rd;
+    Button answerButton4th;
+    sf::Texture checkAnswerTexture;
+    Button checkAnswerButton;
+    sf::Texture choseGameModeTexture;
+    Button gameMode1st;
+    Button gameMode2nd;
+    Button gameMode3rd;
+    sf::Texture exitTexture;
+    Button exitButton;
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {
@@ -283,4 +302,5 @@ class instance
     void initiateSearch();
     void setUpErrorText();
     void handleFavourite();
+    void setUpGameModeAnimation();
 };

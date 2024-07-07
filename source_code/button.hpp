@@ -18,6 +18,9 @@ class Button
     bool hover = false;
     bool selected = false;
     public:
+    bool shadow = true;
+    public:
+    Button() {}
     Button(const sf::Texture& texture);
     Button(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize);
     Button(const sf::Texture& textureDefault, const sf::Texture& textureHover);
@@ -31,6 +34,11 @@ class Button
     void hoverSwitchTexture(const sf::RenderWindow& window);
     void setOffset(float x, float y);
     void select(bool mode);
+    void setTextFillColor(sf::Color color);
+
+    // only use these when you know what you are doing
+    void setUpHoverText(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
+std::string textString, int characterSize);
     virtual void click(sf::RenderWindow& window);
     protected:
     void centerText();

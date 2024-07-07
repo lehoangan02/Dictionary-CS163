@@ -43,6 +43,7 @@ instance::instance() :
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
 	micross(loadFont("assets/font/micross.ttf")),
+	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
@@ -106,17 +107,8 @@ instance::instance() :
 	// deserialize button
 	deserializeTexture(loadTexture("assets/images/DeserializeTexTure.png")),
 	deserializeButton(deserializeTexture, deserializeTexture, SourceSans3, "Deserialize", 36),
-	// Game animation
-	penguinTexture(loadTexture("assets/images/sprPenguinP.png")),
-	penguinAnimation(penguinTexture, sf::Vector2u(8, 3), 0.23f),
-	rainbowStarTexture(loadTexture("assets/images/Magicalrainbowstar.png")),
-	rainbowStarAnimation(rainbowStarTexture, sf::Vector2u(24, 1), 0.04f),
-	scenery(loadTexture("assets/images/scenery.png")),
-	sceneryAnimation(scenery, sf::Vector2u(19, 1), 0.15),
-	knightTexture(loadTexture("assets/images/_Run.png")),
-	knightAnimation(knightTexture, sf::Vector2u(10, 1), 0.1),
-	congratulationsTexture(loadTexture("assets/images/Congratulations.png")),
-	congratulationsAnimation(congratulationsTexture, sf::Vector2u(1, 30), 0.1f),
+	
+	// bookmark button
 	bookmarkTextureDef(loadTexture("assets/images/BookmarkDef.png")),
 	bookmarkTextureClick(loadTexture("assets/images/BookmarkClick.png")),
 	bookmarkButton(bookmarkTextureDef, bookmarkTextureClick)
@@ -223,16 +215,7 @@ instance::instance() :
 	toLoadLastSaveSprite.setTexture(toLoadLastSaveTexture);
 	toLoadLastSaveSprite.setPosition(105.0f, 125.0f);
 
-	// Game mode
-	penguinAnimation.animationSprite.setScale(3, 3);
-	penguinAnimation.setPosition(sf::Vector2u(0, 360 - (penguinAnimation.animationSprite.getGlobalBounds().height) / penguinAnimation.imageCount.y));
-	rainbowStarAnimation.animationSprite.setScale(3, 3);
-	rainbowStarAnimation.setPosition(sf::Vector2u(960 - (rainbowStarAnimation.animationSprite.getGlobalBounds().width) / rainbowStarAnimation.imageCount.x - 20,
-	360 - (rainbowStarAnimation.animationSprite.getGlobalBounds().height) / rainbowStarAnimation.imageCount.y));
-	sceneryAnimation.animationSprite.setScale(960 / sceneryAnimation.animationSprite.getGlobalBounds().width * sceneryAnimation.imageCount.x,
-	720 / sceneryAnimation.animationSprite.getGlobalBounds().height);
-	knightAnimation.animationSprite.setScale(-1.0f, 1.0f);
-	knightAnimation.setPosition(sf::Vector2u(1100, 630));
+	// bookmark button
 	bookmarkButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 358));
 }
 void instance::operate()
@@ -514,7 +497,7 @@ void instance::operatePage2()
 			case sf::Event::MouseButtonPressed:
 			{
 				mouseControl = true;
-				printf("[DEBUG] mouse button pressed\n");
+				// printf("[DEBUG] mouse button pressed\n");
 				if (importButton.isClicked(windowInstance))
 				{
 					displayStatus = true;
@@ -692,6 +675,11 @@ void instance::drawPage8()
 }
 void instance::operatePage9()
 {
+	if (!loadGameMode)
+	{
+		setUpGameModeAnimation();
+		loadGameMode = true;
+	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -712,33 +700,34 @@ void instance::operatePage9()
 			break;
 		}
 	}
-	knightTotalTime += deltaTime;
-	if (knightTotalTime >= 0.1)
-	{
-		knightAnimation.animationSprite.move(-3.0f, 0.0f);
-		knightTotalTime -= 0.1;
-		if (knightAnimation.animationSprite.getPosition().x <= -20)
-		{
-			knightAnimation.setPosition(sf::Vector2u(1100, 630));
-		}
-	}
+
+	moveKnight();
 	knightAnimation.updateAnimation(deltaTime);
 	sceneryAnimation.updateAnimation(deltaTime);
 	penguinAnimation.updateAnimation(deltaTime);
 	rainbowStarAnimation.updateAnimation(deltaTime);
 	congratulationsAnimation.updateAnimation(deltaTime);
+	gameMode1st.hoverSwitchTexture(windowInstance);
+	gameMode2nd.hoverSwitchTexture(windowInstance);
+	gameMode3rd.hoverSwitchTexture(windowInstance);
+	exitButton.hoverSwitchTexture(windowInstance);
+	switchPage();
 }
 void instance::drawPage9()
 {
 	windowInstance.clear(sf::Color(150, 150, 150));
 	sceneryAnimation.draw(windowInstance);
-	knightAnimation.draw(windowInstance);
+	gameMode1st.draw(windowInstance);
+	gameMode2nd.draw(windowInstance);
+	gameMode3rd.draw(windowInstance);
 	penguinAnimation.draw(windowInstance);
 	rainbowStarAnimation.draw(windowInstance);
 	if (correctAnswer)
 	{
 		congratulationsAnimation.draw(windowInstance);
 	}
+	exitButton.draw(windowInstance);
+	knightAnimation.draw(windowInstance);
 	windowInstance.display();
 }
 
@@ -836,6 +825,13 @@ void instance::switchPage()
 				pageChange =true;
 			}
 		}
+	}
+	if (page == 9 && exitButton.isClicked(windowInstance))
+	{
+		gameMode = 0;
+		page = 1;
+		pageChange = true;
+		printf("[DEBUG] exiting game mode\n");
 	}
 	if (pageChange)
 	{
@@ -1057,5 +1053,72 @@ void instance::setUpErrorText()
 	wordNotInThisDataSet.setString("Error: this word is not in the current dataset\n");
 	wordNotInThisDataSet.setPosition(73.0f, 455.0f);
 }
+
+void instance::moveKnight()
+{
+	knightTotalTime += deltaTime;
+	if (knightTotalTime >= 0.1)
+	{
+		knightAnimation.animationSprite.move(-3.0f, 0.0f);
+		knightTotalTime -= 0.1;
+		if (knightAnimation.animationSprite.getPosition().x <= -20)
+		{
+			knightAnimation.setPosition(sf::Vector2u(1100, 630));
+		}
+	}
+}
+void instance::setUpGameModeAnimation()
+{
+
+	// Set up animations
+	penguinTexture.loadFromFile("assets/images/sprPenguinP.png");
+	penguinAnimation.setTextureImageCount(penguinTexture, sf::Vector2u(8, 3));
+	penguinAnimation.setSwitchTime(0.23f);
+	rainbowStarTexture.loadFromFile("assets/images/Magicalrainbowstar.png");
+	rainbowStarAnimation.setTextureImageCount(rainbowStarTexture, sf::Vector2u(sf::Vector2u(24, 1)));
+	rainbowStarAnimation.setSwitchTime(0.04f);
+	scenery.loadFromFile("assets/images/scenery.png");
+	sceneryAnimation.setTextureImageCount(scenery, sf::Vector2u(19, 1));
+	sceneryAnimation.setSwitchTime(0.15f);
+	knightTexture.loadFromFile("assets/images/_Run.png");
+	knightAnimation.setTextureImageCount(knightTexture, sf::Vector2u(10, 1));
+	knightAnimation.setSwitchTime(0.1f);
+	congratulationsTexture.loadFromFile("assets/images/Congratulations.png");
+	congratulationsAnimation.setTextureImageCount(congratulationsTexture, sf::Vector2u(1, 30));
+	congratulationsAnimation.setSwitchTime(0.1f);
+
+	penguinAnimation.animationSprite.setScale(3, 3);
+	penguinAnimation.setPosition(sf::Vector2u(0, 360 - (penguinAnimation.animationSprite.getGlobalBounds().height) / penguinAnimation.imageCount.y));
+	rainbowStarAnimation.animationSprite.setScale(3, 3);
+	rainbowStarAnimation.setPosition(sf::Vector2u(960 - (rainbowStarAnimation.animationSprite.getGlobalBounds().width) / rainbowStarAnimation.imageCount.x - 20,
+	360 - (rainbowStarAnimation.animationSprite.getGlobalBounds().height) / rainbowStarAnimation.imageCount.y));
+	sceneryAnimation.animationSprite.setScale(960 / sceneryAnimation.animationSprite.getGlobalBounds().width * sceneryAnimation.imageCount.x,
+	720 / sceneryAnimation.animationSprite.getGlobalBounds().height);
+	knightAnimation.animationSprite.setScale(-1.0f, 1.0f);
+	knightAnimation.setPosition(sf::Vector2u(1100, 630));
+
+
+
+	// Set up buttons
+	exitTexture.loadFromFile("assets/images/ExitGameMode.png");
+	exitButton.shadow = false;
+	exitButton.setUpHoverText(exitTexture, exitTexture, PatuaOne, "EXIT", 30);
+	exitButton.setPosition(sf::Vector2u(364, 675));
+
+	gameModeDef.loadFromFile("assets/images/GameModeTexture.png");
+	gameMode1st.shadow = false;
+	gameMode2nd.shadow = false;
+	gameMode3rd.shadow = false;
+	gameMode1st.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Random Word", 24);
+	gameMode1st.setTextFillColor(sf::Color::Black);
+	gameMode1st.setPosition(sf::Vector2u(720, 105));
+	gameMode2nd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Game Mode 2", 24);
+	gameMode2nd.setTextFillColor(sf::Color::Black);
+	gameMode2nd.setPosition(sf::Vector2u(720, 190));
+	gameMode3rd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Game Mode 3", 24);
+	gameMode3rd.setTextFillColor(sf::Color::Black);
+	gameMode3rd.setPosition(sf::Vector2u(720, 275));
+}
+
 
 

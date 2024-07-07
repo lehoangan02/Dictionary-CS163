@@ -41,6 +41,26 @@ void Animation::setPosition(sf::Vector2u position)
     animationSprite.setPosition((float)position.x, (float)position.y);
 }
 
+/// @brief only use this if you know what you are doing
+/// @param texture 
+/// @param imageCount 
+void Animation::setTextureImageCount(const sf::Texture& texture, sf::Vector2u imageCount)
+{
+    this -> imageCount = imageCount;
+    currentRect.left = 0;
+    currentRect.top = 0;
+    currentRect.width = texture.getSize().x / imageCount.x;
+    currentRect.height = texture.getSize().y / imageCount.y;
+    animationSprite.setTexture(texture);
+}
+
+/// @brief only use this if you know what you are doing
+/// @param switchTime 
+void Animation::setSwitchTime(float switchTime)
+{
+    this -> switchTime = switchTime;
+}
+
 AnimationVertical::AnimationVertical(const sf::Texture& texture, sf::Vector2u imageCount, float switchTime) :
     Animation(texture, imageCount, switchTime)
     {

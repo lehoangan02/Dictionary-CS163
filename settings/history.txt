@@ -6,3 +6,5 @@ bean
 lmao
 mead
 poppy
+slug
+cash
