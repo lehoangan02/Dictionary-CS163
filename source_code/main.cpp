@@ -140,6 +140,10 @@ int main()
 			}
 			break;
 		}
+		case 9:
+		{
+			std::cout << "🙏" << std::endl;
+		}
 		default:
 			break;
 		}

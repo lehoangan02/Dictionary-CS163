@@ -102,6 +102,8 @@ void serializeBinary(trieNode* pRoot, std::fstream& f, std::string word)
 	f.write((char*)&temp, sizeof(int));
 	bool wordExisted = pRoot -> wordExisted;
 	f.write((char*)&wordExisted, sizeof(bool));
+	int countChildren = pRoot -> countchildren;
+	f.write((char*)&countChildren, sizeof(int));
 	int size = (int)(pRoot -> definitions.size());
 	f.write((char*)&size, sizeof(int));
 	for (int i = 0; i < size; ++i)
@@ -151,6 +153,9 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 	bool wordExisted = false;
 	f.read((char*)&wordExisted, sizeof(bool));
 	pRoot -> wordExisted = wordExisted;
+	int countChildren = 0;
+	f.read((char*)&countChildren, sizeof(int));
+	pRoot -> countchildren = countChildren;
 	int sizeDef = 0;
 	f.read((char*)&sizeDef, sizeof(int));
 	int sizeString = 0;
