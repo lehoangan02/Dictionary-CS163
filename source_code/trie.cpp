@@ -62,40 +62,17 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 		return blankVec;
 	}
 	// base case
-	if (word.length() == 0)
+	if (word.length() == 0 && pRoot->wordExisted)
 	{
-		if (pRoot->wordExisted)
-		{
-			// std::cout << "Here are the definitions of the word: \n";
-			for (int i = 0; i < (int)pRoot->definitions.size(); i++)
-			{
-				// std::cout << i + 1 << " (" << pRoot->definitions[i].first << ") ";
-				// std::cout << pRoot->definitions[i].second << std::endl;
-			}
-			return pRoot->definitions;
-		}
-		else
-		{
-			return pRoot->definitions;
-		}
+		return pRoot->definitions;
 	}
 
 	// letters case
-	if (word[0] >= 32 && word[0] <= 127)
+	if (word[0] >= 32 && word[0] <= 127 && pRoot->childNode[word[0] - 32])
 	{
-
 		// if the childNode pointer of that letter is not null, continue traversing
-		if (pRoot->childNode[word[0] - 32])
-		{
-			// std::cout << "[DEBUG] going into " << word[0] << std::endl;
-			// erase the first letter
-			pRoot = pRoot->childNode[word[0] - 32];
-			return traverseToSearch(pRoot, word.erase(0, 1));
-		}
-		else
-		{
-			return pRoot->definitions;
-		}
+		pRoot = pRoot->childNode[word[0] - 32];
+		return traverseToSearch(pRoot, word.erase(0, 1));
 	}
 	return blankVec;
 }
