@@ -26,6 +26,51 @@ bool checkingExistance(std::string s1, std::string s2)
 	return true;
 }
 
+/// @brief the original insert function
+/// @param pRoot 
+/// @param word 
+/// @param definitions 
+void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
+{
+	if (word.empty()) return;
+	if (!pRoot)
+	{
+		pRoot = new trieNode();
+	}
+	Change2Lowercase(word);
+	trieNode* cur = pRoot;
+	for (auto c : word)
+	{
+		if (!cur->childNode[int(c) - 32])
+		{
+			trieNode* newNode = new trieNode();
+			cur->childNode[int(c) - 32] = newNode;
+		}
+		cur->countchildren++;
+		cur = cur->childNode[int(c) - 32];
+	}
+	cur->wordExisted = true;
+	for (auto mean : definitions)
+	{
+		Change2Lowercase(mean.first);
+		Change2Lowercase(mean.second);
+		bool check = false;
+		for (auto x : cur->definitions)
+		{
+			//first checking whether they are the same parts of speech, and then the meaning.
+			if (checkingExistance(x.first, mean.first) && checkingExistance(x.second, mean.second))
+			{
+				check = true;
+				break;
+			}
+		}
+		if (!check)
+		{
+			cur->definitions.push_back(mean);
+		}
+	}
+}
+
 void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def)
 {
 	if (word.empty()) return;

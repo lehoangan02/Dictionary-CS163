@@ -50,7 +50,8 @@ size_t HashTable::hashFNV_1a(const std::string& s)
     const size_t fnvPrime = 0x1000193;
     size_t hash = 0x811C9DC5;
 
-    for (char c : s) {
+    for (char c : s) 
+    {
         hash ^= static_cast<size_t>(c);
         hash *= fnvPrime;
     }
@@ -175,7 +176,8 @@ size_t HashMap::hashFNV_1a(const std::string& s)
     const size_t fnvPrime = 0x1000193;
     size_t hash = 0x811C9DC5;
 
-    for (char c : s) {
+    for (char c : s) 
+    {
         hash ^= static_cast<size_t>(c);
         hash *= fnvPrime;
     }
