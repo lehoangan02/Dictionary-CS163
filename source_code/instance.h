@@ -13,6 +13,7 @@
 #include "readDataset.hpp"
 #include "history.hpp"
 #include "doublyLinkedList.hpp"
+#include "SerializeDeserialize.h"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -41,7 +42,7 @@ class instance
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
-    
+    bool displayFavourite = false;
 
     // SFML
     sf::RenderWindow windowInstance;

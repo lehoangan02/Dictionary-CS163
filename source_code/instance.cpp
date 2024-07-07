@@ -596,7 +596,7 @@ void instance::operatePage7()
 				drawLoadingPage();
 				mouseControl = false;
 
-				//serializeBinaryWrapper(pRoot);
+				serializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -644,7 +644,7 @@ void instance::operatePage8()
 				drawLoadingPage();
 				deleteWholeTrie(pRoot);
 
-				//deserializeBinaryWrapper(pRoot);
+				deserializeBinaryWrapper(pRoot);
 			}
 		}
 		break;
@@ -779,7 +779,7 @@ void instance::switchPage()
 		else if (gameModeButton.isClicked(windowInstance))
 		{
 			// printf("[DEBUG] pressing page 9\n");
-			if (page == 1)
+			if (page == 1 || page == 2 || page == 3)
 			{
 				printf("[DEBUG] going to page 9\n");
 				page = 9;
