@@ -1160,3 +1160,8 @@ void instance::setUpGameModeAnimation()
 
 
 
+instance::~instance()
+{
+	deallocateLinkedList(pRootFavourite);
+	deleteWholeTrie(pRoot);
+}
