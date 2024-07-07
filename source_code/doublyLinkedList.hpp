@@ -33,3 +33,5 @@ void readFavourite(linkedListNode*& pRoot);
 /// @brief write new favourite to saves
 /// @param pRoot 
 void writeFavourite(linkedListNode* pRoot);
+
+void deallocateLinkedList(linkedListNode*& pRoot);  

@@ -113,3 +113,18 @@ void writeFavourite(linkedListNode* pRoot)
     }
     fout.close();
 }
+
+void deallocateLinkedList(linkedListNode*& pRoot)
+{
+    if (!pRoot) return;
+    linkedListNode* pCur = pRoot;
+    linkedListNode* pTemp = pCur -> pNext;
+    while (pTemp)
+    {
+        delete pCur;
+        pCur = pTemp;
+        pTemp = pTemp -> pNext;
+    }
+    delete pCur;
+    pRoot = nullptr;
+}

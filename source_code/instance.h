@@ -14,6 +14,7 @@
 #include "history.hpp"
 #include "doublyLinkedList.hpp"
 #include "SerializeDeserialize.h"
+#include "maptable.hpp"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -21,6 +22,7 @@ class instance
 {
     public:
     instance();
+    ~instance();
     void operate();
     private:
     trieNode* pRoot = nullptr;
@@ -43,6 +45,9 @@ class instance
     long historyIndex = 0;
     bool displayHistory = false;
     bool displayFavourite = false;
+
+    // definition hashmap of hashsets data structure
+    HashMap definitionMap;
 
     // SFML
     sf::RenderWindow windowInstance;
