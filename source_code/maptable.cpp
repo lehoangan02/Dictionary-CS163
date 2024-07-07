@@ -318,8 +318,24 @@ HashTable getIntersection(HashTable& t1, HashTable& t2)
     return res;
 }
 
+// Return vector containing all elements of HashTable 
+std::vector<std::string> getVector(HashTable& table)
+{
+    std::vector<std::string> res;
+    for (int i = 0; i < table.numBucket; ++i)
+    {
+        TableBlock* pCur = table.set[i];
+        while (pCur)
+        {
+            res.push_back(pCur->data);
+            pCur = pCur->pNext;
+        }
+    }
+    return res;
+}
+
 // Search key words by definition
-HashTable searchByDef(std::string& userInput, HashMap& invertedIndex)
+std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex)
 {
     // Tokenize user's input
     std::vector<std::string> tokens = tokenize(userInput);
@@ -337,7 +353,7 @@ HashTable searchByDef(std::string& userInput, HashMap& invertedIndex)
         else
             res.clear();
     }
-    return res;
+    return getVector(res);
 }
 
 void invertIndexTrie(trieNode* pRoot, HashMap& map)

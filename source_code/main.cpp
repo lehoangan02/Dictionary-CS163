@@ -128,16 +128,9 @@ int main()
 			std::string userInput;
 			std::cout << "Your input: ";
 			getline(cin, userInput);
-			HashTable res = searchByDef(userInput, invertedIndex); // May need to convert res to vector<string>
-			for (int i = 0; i < res.numBucket; ++i)
-			{
-				TableBlock* pCur = res.set[i];
-				while (pCur)
-				{
-					std::cout << pCur->data << std::endl;
-					pCur = pCur->pNext;
-				}
-			}
+			std::vector<std::string> res = searchByDef(userInput, invertedIndex);
+			for (auto& s : res)
+				std::cout << s << std::endl;
 			break;
 		}
 		case 9:
