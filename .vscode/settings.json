@@ -62,5 +62,8 @@
       "binaryPath": "/Users/lehoangan/Documents/GitHub/weirdmultilingualdictionary/bin/main",
       "binaryArgs": []
     }
-  ]
+  ],
+  "files.associations": {
+    "iostream": "cpp"
+  }
 }
