@@ -226,8 +226,8 @@ std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k)
 		if (pRoot->childNode[i]->wordExisted) t = 1;
 		if (k <= S + t + pRoot->childNode[i]->countchildren) 
 		{
-			std::cout << "[DEBUG]  at k = " << k << " S = " << S << " t = " << t << " children of child = " << pRoot->childNode[i]->countchildren << std::endl;
-			std::cout << "[DEBUG] going into node " << i << " k - S - t = " << k - S - t << std::endl;
+			// std::cout << "[DEBUG]  at k = " << k << " S = " << S << " t = " << t << " children of child = " << pRoot->childNode[i]->countchildren << std::endl;
+			// std::cout << "[DEBUG] going into node " << i << " k - S - t = " << k - S - t << std::endl;
 			here = std::pair<trieNode*, std::string>(findtheKthword(pRoot->childNode[i], k - S - t));
 			if (!here.first) here.second = "";
 			else here.second = char(i + 32) + here.second;

@@ -318,6 +318,24 @@ void instance::operatePage1()
 					displayFavourite = false;
 					handleHistory();
 				}
+				else if (nextPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum < (int)searchResult.size() - 1)
+					{
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+					}
+				}
+				else if (prevPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum > 0)
+					{
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+					}
+				}
 				else if (favouriteButton.isClicked(windowInstance))
 				{
 					printf("[DEBUG] trying to display favourite\n");
@@ -412,11 +430,6 @@ void instance::operatePage1()
 						}
 					}
 				}
-				else
-				{
-					navigateDef();
-				}
-				
 			}
 			case sf::Event::KeyPressed:
 			{
@@ -703,14 +716,39 @@ void instance::operatePage9()
 			{
 				if (pRoot) 
 				{
-					std::cout << pRoot << std::endl;
-					std::pair<trieNode*, std::string> random;
-					random.second = "";
-					random = pickarandomword(pRoot);
-					std::cout << "The random word is: " << random.second << std::endl;
-					handleSearchSignal(random.second);
-					if (random.second != "")	displayDef = true;
-					std::cout << displayDef << std::endl;
+					for (int i = 0; i < 20; ++i)
+					{
+						std::cout << pRoot << std::endl;
+						std::pair<trieNode*, std::string> random;
+						random.second = "";
+						random = pickarandomword(pRoot);
+						std::cout << "The random word is: " << random.second << std::endl;
+						handleSearchSignal(random.second);
+						if (random.second == "")	displayDef = false;
+						else if (random.second != "")	
+						{
+							displayDef = true;
+							break;
+						}
+					}
+				}
+			}
+			else if (nextPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum < (int)searchResult.size() - 1)
+				{
+					++definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
+				}
+			}
+			else if (prevPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum > 0)
+				{
+					--definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
 				}
 			}
 			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
@@ -750,10 +788,7 @@ void instance::operatePage9()
 					// handleFavourite();
 				}
 			}
-			else
-			{
-				navigateDef();
-			}
+			
 		}
 		break;
 		case sf::Event::KeyPressed:
@@ -1201,27 +1236,5 @@ void instance::setUpGameModeAnimation()
 	gameMode3rd.setPosition(sf::Vector2u(720, 275));
 }
 
-/// @brief handle logic of next page and prev page buttons inside event loop
-void instance::navigateDef()
-{
-	if (nextPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum < (int)searchResult.size() - 1)
-				{
-					++definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-				}
-			}
-	else if (prevPageButton.isClicked(windowInstance))
-	{
-		if (definitionNum > 0)
-		{
-			--definitionNum;
-			POSString = searchResult[definitionNum].first;
-			descriptionString = searchResult[definitionNum].second;
-		}
-	}
-}
 
 
