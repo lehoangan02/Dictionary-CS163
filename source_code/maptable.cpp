@@ -21,8 +21,7 @@ HashTable::HashTable(const HashTable& source)
 
 HashTable::~HashTable()
 {
-    for (int i = 0; i < this->numBucket; ++i)
-        this->deleteLL(set[i]);
+    this->clear();
     delete[] set;
     set = nullptr;
 }
@@ -51,7 +50,8 @@ size_t HashTable::hashFNV_1a(const std::string& s)
     const size_t fnvPrime = 0x1000193;
     size_t hash = 0x811C9DC5;
 
-    for (char c : s) {
+    for (char c : s) 
+    {
         hash ^= static_cast<size_t>(c);
         hash *= fnvPrime;
     }
@@ -159,10 +159,7 @@ HashMap::HashMap(int x) : numBucket(x)
 
 HashMap::~HashMap()
 {
-    for (int i = 0; i < this->numBucket; ++i)
-    {
-        this->deleteLL(map[i]);
-    }
+    this->clear();
     delete[] map;
     map = nullptr;
 }
@@ -179,7 +176,8 @@ size_t HashMap::hashFNV_1a(const std::string& s)
     const size_t fnvPrime = 0x1000193;
     size_t hash = 0x811C9DC5;
 
-    for (char c : s) {
+    for (char c : s) 
+    {
         hash ^= static_cast<size_t>(c);
         hash *= fnvPrime;
     }
@@ -248,6 +246,13 @@ void HashMap::remove(const std::string& key)
     }
     map[pos] = pDummy->pNext;
     delete pDummy;
+}
+
+// Empty HashMap
+void HashMap::clear()
+{
+    for (int i = 0; i < this->numBucket; ++i)
+        this->deleteLL(map[i]);
 }
 
 // Deallocate a bucket (linked list) in map

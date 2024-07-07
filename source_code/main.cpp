@@ -14,6 +14,7 @@ int main()
 	trieNode* pRoot = nullptr;
 	int mode = -1;
 	HashMap invertedIndex;
+	bool indexed = false;
 	// bool imported = false;
 	// bool serialized = true;
 	while (mode != 0)
@@ -37,11 +38,13 @@ int main()
 			std::cin.ignore();
 			std::getline(std::cin, filename);
 			readDatasetTXT(filename, pRoot);
-			std::cout << "Creating Inverted Index..." << std::endl;
-			invertIndexTrie(pRoot, invertedIndex);
-			std::cout << "Finished" << std::endl;
 			//printf("imported successfully\n");
 			std::cout << "[DEBUG] " << pRoot << std::endl;
+			if (indexed)
+			{
+				invertedIndex.clear();
+				indexed = false;
+			}
 			break;
 		}
 		case 2:
@@ -118,6 +121,10 @@ int main()
 		case 7:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Creating Inverted Index..." << std::endl;
+			invertIndexTrie(pRoot, invertedIndex);
+			std::cout << "Finished" << std::endl;
+			indexed = true;
 			std::string userInput;
 			std::cout << "Your input: ";
 			getline(cin, userInput);

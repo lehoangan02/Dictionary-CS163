@@ -33,6 +33,7 @@ struct HashTable // Designed after unordered_set<string>
     void insert(const std::string& key);
     TableBlock* find(const std::string& key);
     void remove(const std::string& key);
+    void clear();
 
     // Hashing
 
@@ -42,7 +43,6 @@ struct HashTable // Designed after unordered_set<string>
     // Helper(s)
 
     void copy(const HashTable& source);
-    void clear();
     void deleteLL(TableBlock*& pHead);
 };
 
@@ -73,6 +73,7 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
     MapBlock* find(const std::string& key);
     HashTable& access(const std::string& key); // Use this for fast access to existing or non-existing elements
     void remove(const std::string& key);
+    void clear();
 
     // Hashing
 
