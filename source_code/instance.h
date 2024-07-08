@@ -41,6 +41,8 @@ class instance
     std::vector<std::string> history;
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;
+    HashMap invertIndex;
+    bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;

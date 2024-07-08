@@ -248,7 +248,8 @@ void instance::operate()
 		break;
 		case 3:
 		{
-
+			operatePage3();
+			drawPage3();
 		}
 		break;
 		case 7:
@@ -559,6 +560,7 @@ void instance::operatePage2()
 						importStatus.setFillColor(sf::Color(255, 153, 0));
 						importStatus.setString("Import Failed - Format not chosen\n");
 					}
+					loadDefinition = false;
 				}
 				break;
 			}
@@ -599,6 +601,76 @@ void instance::drawPage2()
 	CSVButton.draw(windowInstance);
 	TXTButton.draw(windowInstance);
 	drawSubModes();
+	windowInstance.display();
+}
+void instance::operatePage3()
+{
+	if (!loadDefinition)
+	{
+		drawLoadingPage();
+		invertIndexTrie(pRoot, invertIndex);
+		loadDefinition = true;
+	}
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				if (searchButton.isClicked(windowInstance))
+				{
+					std::string temp = searchBox.getString();
+					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					for (auto word : result)
+					{
+						std::cout << word << std::endl;
+					}
+					if (result.size() > 0)
+					{
+						handleSearchSignal(result[0]);
+					}
+				}
+			}
+			break;
+			case sf::Event::KeyPressed:
+			{
+				if (event.key.code == sf::Keyboard::Return)
+				{
+					std::string temp = searchBox.getString();
+					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					for (auto word : result)
+					{
+						std::cout << word << std::endl;
+					}
+					if (result.size() > 0)
+					{
+						handleSearchSignal(result[0]);
+					}
+				}
+			}
+			break;
+			default:
+			break;
+		}
+		searchBox.handleInputLogic(event, windowInstance);
+	}
+	handleSwitchModeLogic();
+	searchButton.hoverSwitchTexture(windowInstance);
+	searchModeButton.click(windowInstance);
+}
+void instance::drawPage3()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	drawSwitchMode();
+	searchBox.draw(windowInstance);
+	searchButton.draw(windowInstance);
+	drawDefinition();
 	windowInstance.display();
 }
 void instance::operatePage7()
@@ -672,8 +744,8 @@ void instance::operatePage8()
 				mouseControl = false;
 				drawLoadingPage();
 				deleteWholeTrie(pRoot);
-
 				deserializeBinaryWrapper(pRoot);
+				loadDefinition = false;
 			}
 		}
 		break;
@@ -894,8 +966,18 @@ void instance::switchPage()
 		{
 			if (page != 2)
 			{
-				printf("[DEBUG] at page 2\n");
+				printf("[DEBUG] moving to page 2\n");
 				page = 2;
+				modeButtonActive = false;
+				pageChange = true;
+			}
+		}
+		else if (definitionModeButton.isClicked(windowInstance))
+		{
+			if (page != 3)
+			{
+				printf("[DEBUG] moving to page 3\n");
+				page = 3;
 				modeButtonActive = false;
 				pageChange = true;
 			}
