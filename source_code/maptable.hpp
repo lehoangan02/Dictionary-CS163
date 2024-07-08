@@ -12,7 +12,7 @@ struct TableBlock // Used for chaining in HashTable
 
 struct HashTable // Designed after unordered_set<string>
 {
-    TableBlock** set = nullptr;
+    TableBlock** buckets = nullptr;
     int numBucket = 499; // May need improvements
 
     // Ctor
@@ -56,7 +56,7 @@ struct MapBlock // Used for chaining in HashMap
 
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
-    MapBlock** map = nullptr;
+    MapBlock** buckets = nullptr;
     int numBucket = 499; // May need improvements
 
     // Ctor
@@ -99,8 +99,8 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
 // Invert Index the Trie
 
-void invertIndexTrie(trieNode* pRoot, HashMap& map);
+void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex);
 
 // Helper(s)
 
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord);
+void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord);
