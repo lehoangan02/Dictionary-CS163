@@ -267,37 +267,37 @@ void HashMap::deleteLL(MapBlock*& pHead)
 }
 
 // Check if character is alphabetic
-bool isAlphabetic(char c)
+bool isAlphabetic(const char& c)
 {
-    return ((c > 64 && c < 91) || (c > 96 && c < 123));
+    return ((c > 'A' && c < 'Z') || (c > 'a' && c < 'z'));
 }
 
 // Tokenize a long string (tokens are separated by non-alphabetic characters)
-std::vector<std::string> tokenize(std::string& input)
+std::vector<std::string> tokenize(std::string& input) 
 {
     std::vector<std::string> res;
+    res.reserve(1000);  // Reserve space to avoid multiple allocations
+
     int head = 0, tail = 0;
     int l = input.length();
-    while (tail < l)
+
+    while (tail < l) 
     {
-        if (isAlphabetic(input[tail]))
+        if (isAlphabetic(input[tail])) 
             ++tail;
-        else
+        else 
         {
-            if (head != tail)
+            if (head != tail) 
             {
-                res.push_back(input.substr(head, tail - head));
+                res.emplace_back(input.data() + head, tail - head);
                 head = tail;
             }
-            else
-            {
-                ++tail;
-                ++head;
-            }
+            ++tail;
+            ++head;
         }
     }
-    if (head != tail)
-        res.push_back(input.substr(head, l - head));
+    if (head != tail) 
+        res.emplace_back(input.data() + head, l - head);
     return res;
 }
 
@@ -342,16 +342,17 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
     // Find all words containing tokens in their definition
     HashTable res;
-    MapBlock* findInit = invertedIndex.find(tokens[0]);
-    if (findInit)
-        res = invertedIndex.find(tokens[0])->data;
-    for (int i = 1; i < tokens.size(); ++i)
+    if (tokens.size() > 0)
     {
-        MapBlock* found = invertedIndex.find(tokens[i]);
-        if (found)
-            res = getIntersection(res, found->data);
-        else
-            res.clear();
+        MapBlock* findInit = invertedIndex.find(tokens[0]);
+        if (findInit)
+            res = invertedIndex.find(tokens[0])->data;
+        for (int i = 1; i < tokens.size(); ++i)
+        {
+            MapBlock* found = invertedIndex.find(tokens[i]);
+            if (found)
+                res = getIntersection(res, found->data);
+        }
     }
     return getVector(res);
 }

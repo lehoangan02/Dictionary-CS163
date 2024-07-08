@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 
 #include "trie.h"
 #include "instance.h"
@@ -121,10 +122,17 @@ int main()
 		case 7:
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "Creating Inverted Index..." << std::endl;
-			invertIndexTrie(pRoot, invertedIndex);
-			std::cout << "Finished" << std::endl;
-			indexed = true;
+			if (!indexed)
+			{
+				std::cout << "Creating Inverted Index..." << std::endl;
+				auto start_time = std::chrono::high_resolution_clock::now();
+				invertIndexTrie(pRoot, invertedIndex);
+    			auto end_time = std::chrono::high_resolution_clock::now();
+				std::chrono::duration<double> elapsed = end_time - start_time;
+				std::cout << "Building took " << elapsed.count() << " seconds" << std::endl;
+				std::cout << "Finished" << std::endl;
+				indexed = true;
+			}
 			std::string userInput;
 			std::cout << "Your input: ";
 			getline(cin, userInput);
