@@ -90,7 +90,11 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 bool isAlphabetic(char c);
 std::vector<std::string> tokenize(std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
-HashTable searchByDef(std::string& userInput, HashMap& invertedIndex);
+std::vector<std::string> getVector(HashTable& table);
+
+// Search by definition
+
+std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex);
 
 // Invert Index the Trie
 
