@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_set>
 #include "trie.h"
 
 struct TableBlock // Used for chaining in HashTable
@@ -11,8 +12,8 @@ struct TableBlock // Used for chaining in HashTable
 
 struct HashTable // Designed after unordered_set<string>
 {
-    TableBlock** set = nullptr;
-    int numBucket = 251; // May need improvements
+    TableBlock** buckets = nullptr;
+    int numBucket = 499; // May need improvements
 
     // Ctor
 
@@ -55,8 +56,8 @@ struct MapBlock // Used for chaining in HashMap
 
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
-    MapBlock** map = nullptr;
-    int numBucket = 251; // May need improvements
+    MapBlock** buckets = nullptr;
+    int numBucket = 499; // May need improvements
 
     // Ctor
 
@@ -87,7 +88,7 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
 // Utility functions
 
-bool isAlphabetic(char c);
+bool isAlphabetic(const char& c);
 std::vector<std::string> tokenize(std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
@@ -98,8 +99,8 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
 // Invert Index the Trie
 
-void invertIndexTrie(trieNode* pRoot, HashMap& map);
+void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex);
 
 // Helper(s)
 
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord);
+void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord);
