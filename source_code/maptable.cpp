@@ -3,13 +3,13 @@
 // Initialize empty HashTable, default number of buckets (linked list)
 HashTable::HashTable()
 {
-    set = new TableBlock*[this->numBucket] {nullptr};
+    buckets = new TableBlock*[this->numBucket] {nullptr};
 }
 
 // Initialize empty HashTable, arbitary number of buckets (linked list)
 HashTable::HashTable(int x) : numBucket(x)
 {
-    set = new TableBlock*[this->numBucket] {nullptr};
+    buckets = new TableBlock*[this->numBucket] {nullptr};
 }
 
 // Copy constructor
@@ -22,8 +22,8 @@ HashTable::HashTable(const HashTable& source)
 HashTable::~HashTable()
 {
     this->clear();
-    delete[] set;
-    set = nullptr;
+    delete[] buckets;
+    buckets = nullptr;
 }
 
 // Assign content from source HashTable
@@ -32,7 +32,7 @@ HashTable& HashTable::operator=(const HashTable& source)
     if (this != &source)
     {
         this->clear();
-        delete[] set;
+        delete[] buckets;
         this->copy(source);
     }
     return *this;
@@ -66,8 +66,8 @@ void HashTable::insert(const std::string& key)
     auto pos = this->hash(key);
     TableBlock* pNew = new TableBlock;
     pNew->data = key;
-    pNew->pNext = set[pos];
-    set[pos] = pNew; 
+    pNew->pNext = buckets[pos];
+    buckets[pos] = pNew; 
 }
 
 // Return pointer to TableBlock containing an element
@@ -75,7 +75,7 @@ void HashTable::insert(const std::string& key)
 TableBlock* HashTable::find(const std::string& key)
 {
     auto pos = this->hash(key);
-    TableBlock* pCur = set[pos];
+    TableBlock* pCur = buckets[pos];
     while (pCur && pCur->data != key)
         pCur = pCur->pNext;
     return pCur;
@@ -86,7 +86,7 @@ void HashTable::remove(const std::string& key)
 {
     auto pos = this->hash(key);
     TableBlock* pDummy = new TableBlock;
-    pDummy->pNext = set[pos];
+    pDummy->pNext = buckets[pos];
     TableBlock* pCur = pDummy;
     while (pCur->pNext)
     {
@@ -99,7 +99,7 @@ void HashTable::remove(const std::string& key)
         else
             pCur = pCur->pNext;
     }
-    set[pos] = pDummy->pNext;
+    buckets[pos] = pDummy->pNext;
     delete pDummy;
 }
 
@@ -107,15 +107,15 @@ void HashTable::remove(const std::string& key)
 void HashTable::copy(const HashTable& source)
 {
     numBucket = source.numBucket;
-    set = new TableBlock*[source.numBucket] {nullptr};
+    buckets = new TableBlock*[source.numBucket] {nullptr};
     for (int i = 0; i < source.numBucket; ++i)
     {
-        if (source.set[i])
+        if (source.buckets[i])
         {
-            set[i] = new TableBlock;
-            set[i]->data = source.set[i]->data;
-            TableBlock* pCur = set[i];
-            TableBlock* pSource = source.set[i];
+            buckets[i] = new TableBlock;
+            buckets[i]->data = source.buckets[i]->data;
+            TableBlock* pCur = buckets[i];
+            TableBlock* pSource = source.buckets[i];
             while (pSource->pNext)
             {
                 pCur->pNext = new TableBlock;
@@ -131,7 +131,7 @@ void HashTable::copy(const HashTable& source)
 void HashTable::clear()
 {
     for (int i = 0; i < this->numBucket; ++i)
-        this->deleteLL(set[i]);
+        this->deleteLL(buckets[i]);
 }
 
 // Deallocate a bucket (linked list) in table
@@ -148,20 +148,20 @@ void HashTable::deleteLL(TableBlock*& pHead)
 // Initialize empty HashMap, default number of buckets (linked list)
 HashMap::HashMap()
 {
-    map = new MapBlock*[this->numBucket] {nullptr};
+    buckets = new MapBlock*[this->numBucket] {nullptr};
 }
 
 // Initialize empty HashMap, arbitary number of buckets (linked list)
 HashMap::HashMap(int x) : numBucket(x)
 {
-    map = new MapBlock*[this->numBucket] {nullptr};
+    buckets = new MapBlock*[this->numBucket] {nullptr};
 }
 
 HashMap::~HashMap()
 {
     this->clear();
-    delete[] map;
-    map = nullptr;
+    delete[] buckets;
+    buckets = nullptr;
 }
 
 // Hash
@@ -193,8 +193,8 @@ void HashMap::insert(const std::string& key, const HashTable& data)
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
     pNew->data = data;
-    pNew->pNext = map[pos];
-    map[pos] = pNew; 
+    pNew->pNext = buckets[pos];
+    buckets[pos] = pNew; 
 }
 
 // Return pointer to MapBlock of given key
@@ -202,7 +202,7 @@ void HashMap::insert(const std::string& key, const HashTable& data)
 MapBlock* HashMap::find(const std::string& key)
 {
     auto pos = this->hash(key);
-    MapBlock* pCur = map[pos];
+    MapBlock* pCur = buckets[pos];
     while (pCur && pCur->key != key)
         pCur = pCur->pNext;
     return pCur;
@@ -220,9 +220,9 @@ HashTable& HashMap::access(const std::string& key)
     auto pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
-    pNew->pNext = map[pos];
-    map[pos] = pNew;
-    return map[pos]->data;
+    pNew->pNext = buckets[pos];
+    buckets[pos] = pNew;
+    return buckets[pos]->data;
 }
 
 // Remove a key and associated data
@@ -231,7 +231,7 @@ void HashMap::remove(const std::string& key)
 {
     auto pos = this->hash(key);
     MapBlock* pDummy = new MapBlock;
-    pDummy->pNext = map[pos];
+    pDummy->pNext = buckets[pos];
     MapBlock* pCur = pDummy;
     while (pCur->pNext)
     {
@@ -244,7 +244,7 @@ void HashMap::remove(const std::string& key)
         else
             pCur = pCur->pNext;
     }
-    map[pos] = pDummy->pNext;
+    buckets[pos] = pDummy->pNext;
     delete pDummy;
 }
 
@@ -252,10 +252,10 @@ void HashMap::remove(const std::string& key)
 void HashMap::clear()
 {
     for (int i = 0; i < this->numBucket; ++i)
-        this->deleteLL(map[i]);
+        this->deleteLL(buckets[i]);
 }
 
-// Deallocate a bucket (linked list) in map
+// Deallocate a bucket (linked list) in buckets
 void HashMap::deleteLL(MapBlock*& pHead)
 {
     while (pHead)
@@ -267,37 +267,37 @@ void HashMap::deleteLL(MapBlock*& pHead)
 }
 
 // Check if character is alphabetic
-bool isAlphabetic(char c)
+bool isAlphabetic(const char& c)
 {
-    return ((c > 64 && c < 91) || (c > 96 && c < 123));
+    return ((c > 'A' && c < 'Z') || (c > 'a' && c < 'z'));
 }
 
 // Tokenize a long string (tokens are separated by non-alphabetic characters)
-std::vector<std::string> tokenize(std::string& input)
+std::vector<std::string> tokenize(std::string& input) 
 {
     std::vector<std::string> res;
+    res.reserve(1000);  // Reserve space to avoid multiple allocations
+
     int head = 0, tail = 0;
     int l = input.length();
-    while (tail < l)
+
+    while (tail < l) 
     {
-        if (isAlphabetic(input[tail]))
+        if (isAlphabetic(input[tail])) 
             ++tail;
-        else
+        else 
         {
-            if (head != tail)
+            if (head != tail) 
             {
-                res.push_back(input.substr(head, tail - head));
+                res.emplace_back(input.data() + head, tail - head);
                 head = tail;
             }
-            else
-            {
-                ++tail;
-                ++head;
-            }
+            ++tail;
+            ++head;
         }
     }
-    if (head != tail)
-        res.push_back(input.substr(head, l - head));
+    if (head != tail) 
+        res.emplace_back(input.data() + head, l - head);
     return res;
 }
 
@@ -307,7 +307,7 @@ HashTable getIntersection(HashTable& t1, HashTable& t2)
     HashTable res;
     for (int i = 0; i < t1.numBucket; ++i)
     {
-        TableBlock* pCur = t1.set[i];
+        TableBlock* pCur = t1.buckets[i];
         while (pCur)
         {
             if (t2.find(pCur->data))
@@ -324,7 +324,7 @@ std::vector<std::string> getVector(HashTable& table)
     std::vector<std::string> res;
     for (int i = 0; i < table.numBucket; ++i)
     {
-        TableBlock* pCur = table.set[i];
+        TableBlock* pCur = table.buckets[i];
         while (pCur)
         {
             res.push_back(pCur->data);
@@ -342,34 +342,34 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
     // Find all words containing tokens in their definition
     HashTable res;
-    MapBlock* findInit = invertedIndex.find(tokens[0]);
-    if (findInit)
-        res = invertedIndex.find(tokens[0])->data;
-    for (int i = 1; i < tokens.size(); ++i)
+    if (tokens.size() > 0)
     {
-        MapBlock* found = invertedIndex.find(tokens[i]);
-        if (found)
-            res = getIntersection(res, found->data);
-        else
-            res.clear();
+        MapBlock* findInit = invertedIndex.find(tokens[0]);
+        if (findInit)
+            res = invertedIndex.find(tokens[0])->data;
+        for (int i = 1; i < tokens.size(); ++i)
+        {
+            MapBlock* found = invertedIndex.find(tokens[i]);
+            if (found)
+                res = getIntersection(res, found->data);
+        }
     }
     return getVector(res);
 }
 
-void invertIndexTrie(trieNode* pRoot, HashMap& map, bool& controlLoaded)
+void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded)
 {
     std::string curWord;
-    invertIndexTrieHelper(pRoot, map, curWord);
+    invertIndexTrieHelper(pRoot, invertedIndex, curWord);
     controlLoaded = true;
 }
-void invertIndexTrie(trieNode* pRoot, HashMap& map)
+void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex)
 {
     std::string curWord;
-    invertIndexTrieHelper(pRoot, map, curWord);
+    invertIndexTrieHelper(pRoot, invertedIndex, curWord);
 }
 
-
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord)
+void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord)
 {
     if (!pRoot)
         return;
@@ -381,10 +381,10 @@ void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord)
             for (auto& t : tokens)
             {
                 Change2Lowercase(t);
-                map.access(t).insert(curWord);
+                invertedIndex.access(t).insert(curWord);
             }
         }
     }
     for (int i = 0; i < ascii; ++i)
-        invertIndexTrieHelper(pRoot->childNode[i], map, curWord + static_cast<char>(i + 32));
+        invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord + static_cast<char>(i + 32));
 }
