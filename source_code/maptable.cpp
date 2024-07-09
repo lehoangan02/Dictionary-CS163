@@ -269,7 +269,7 @@ void HashMap::deleteLL(MapBlock*& pHead)
 // Check if character is alphabetic
 bool isAlphabetic(const char& c)
 {
-    return ((c > 'A' && c < 'Z') || (c > 'a' && c < 'z'));
+    return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
 
 // Tokenize a long string (tokens are separated by non-alphabetic characters)
@@ -363,13 +363,13 @@ void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoade
     invertIndexTrieHelper(pRoot, invertedIndex, curWord);
     controlLoaded = true;
 }
-void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex)
+void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex)
 {
     std::string curWord;
     invertIndexTrieHelper(pRoot, invertedIndex, curWord);
 }
 
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord)
+void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord)
 {
     if (!pRoot)
         return;
@@ -386,5 +386,9 @@ void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string 
         }
     }
     for (int i = 0; i < ascii; ++i)
-        invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord + static_cast<char>(i + 32));
+    {
+        curWord.push_back(static_cast<char>(i + 32));
+        invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord);
+        curWord.pop_back();
+    }
 }

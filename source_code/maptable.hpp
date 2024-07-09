@@ -102,9 +102,9 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 // passed by reference is used in multi-threading executions,
 // it provides a mechianism to control other parallel processes (animation)
 void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded);
-void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex);
+void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex);
 
 
 // Helper(s)
 
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord);
+void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
