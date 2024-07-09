@@ -4,10 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <vector>
+#include <thread>
 
 #include "button.hpp"
 #include "textbox.hpp"
 #include "animation.hpp"
+#include "loadingScreen.hpp"
 
 #include "trie.h"
 #include "readDataset.hpp"
@@ -31,13 +33,14 @@ class instance
     int definitionNum = 0;
     std::vector<std::pair<std::string, std::string>> searchResult;
     
+    // for use later
     /* import mode error code
     0 is not initialized
     1 is no file found
     2 is successful
     4 is other (format not selected)
     */
-    int errorMode = 0;
+    // int errorMode = 0;
     std::vector<std::string> history;
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;

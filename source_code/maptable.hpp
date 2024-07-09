@@ -97,8 +97,12 @@ std::vector<std::string> getVector(HashTable& table);
 std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex);
 
 // Invert Index the Trie
-
+// There are 2 overloading functions, the one with an extra boolean
+// passed by reference is used in multi-threading executions,
+// it provides a mechianism to control other parallel processes (animation)
+void invertIndexTrie(trieNode* pRoot, HashMap& map, bool& controlLoaded);
 void invertIndexTrie(trieNode* pRoot, HashMap& map);
+
 
 // Helper(s)
 

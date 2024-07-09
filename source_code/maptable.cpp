@@ -356,11 +356,18 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
     return getVector(res);
 }
 
+void invertIndexTrie(trieNode* pRoot, HashMap& map, bool& controlLoaded)
+{
+    std::string curWord;
+    invertIndexTrieHelper(pRoot, map, curWord);
+    controlLoaded = true;
+}
 void invertIndexTrie(trieNode* pRoot, HashMap& map)
 {
     std::string curWord;
     invertIndexTrieHelper(pRoot, map, curWord);
 }
+
 
 void invertIndexTrieHelper(trieNode* pRoot, HashMap& map, std::string curWord)
 {

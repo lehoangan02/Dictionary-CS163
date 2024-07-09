@@ -227,6 +227,7 @@ instance::instance() :
 }
 void instance::operate()
 {
+	std::cout << "MAX: " << sf::Texture::getMaximumSize() << std::endl;
 	while (windowInstance.isOpen())
 	{
 		deltaTime = clock.restart().asSeconds();
@@ -523,8 +524,13 @@ void instance::operatePage2()
 					displayStatus = true;
 					std::string filepath = importBox.getString();
 					std::cout << filepath << std::endl;
+
+					
+					std::atomic<bool> controlLoaded(false);
+					std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+					
+
 					deleteWholeTrie(pRoot);
-					drawLoadingPage();
 					if (CSVButton.getSelected())
 					{
 						if (readDatasetCSV(filepath, pRoot))
@@ -560,6 +566,14 @@ void instance::operatePage2()
 						importStatus.setFillColor(sf::Color(255, 153, 0));
 						importStatus.setString("Import Failed - Format not chosen\n");
 					}
+
+					controlLoaded.store(true);
+					printf("[DEBUG] done loading!\n");
+					loadingAnimationThread.join();
+
+
+
+
 					loadDefinition = false;
 				}
 				break;
@@ -607,9 +621,28 @@ void instance::operatePage3()
 {
 	if (!loadDefinition)
 	{
-		drawLoadingPage();
+		
+		// DO NOT DELETE this is another approach
+		std::atomic<bool> controlLoaded(false);
+		std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 		invertIndexTrie(pRoot, invertIndex);
+		controlLoaded.store(true);
+		printf("[DEBUG] done loading!\n");
+		loadingAnimationThread.join();
 		loadDefinition = true;
+
+
+		// DO NOT DELETE this is another approach
+		// bool controlLoaded = false;
+		// void (*loadDef)(trieNode*, HashMap&, bool&) = invertIndexTrie;
+		// std::thread loadDefinitionWorker(loadDef, pRoot, std::ref(invertIndex), std::ref(controlLoaded));
+		// loadingWrapper(windowInstance, controlLoaded);
+		// // only wait for the worker thread to join when the window is not closed during loading time
+		// if (windowInstance.isOpen())
+		// {
+		// 	loadDefinitionWorker.join();
+		// }
+		// loadDefinition = true;
 	}
 	while (windowInstance.pollEvent(event))
 	{
@@ -692,12 +725,20 @@ void instance::operatePage7()
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
-			if (serializeButton.isClicked(windowInstance))
+			if (serializeButton.isClicked(windowInstance) && mouseControl)
 			{
-				drawLoadingPage();
+				
 				mouseControl = false;
 
-                serializeBinaryWrapper(pRoot);
+
+				std::atomic<bool> controlLoaded(false);
+				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				serializeBinaryWrapper(pRoot);
+				controlLoaded.store(true);
+				printf("[DEBUG] done loading!\n");
+				loadingAnimationThread.join();
+
+
 			}
 		}
 		break;
@@ -739,13 +780,22 @@ void instance::operatePage8()
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
-			if (deserializeButton.isClicked(windowInstance))
+			if (deserializeButton.isClicked(windowInstance) && mouseControl)
 			{
 				mouseControl = false;
-				drawLoadingPage();
+
+
+				std::atomic<bool> controlLoaded(false);
+				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 				deleteWholeTrie(pRoot);
 				deserializeBinaryWrapper(pRoot);
+				controlLoaded.store(true);
+				printf("[DEBUG] done loading!\n");
+				loadingAnimationThread.join();
 				loadDefinition = false;
+
+
+
 			}
 		}
 		break;
