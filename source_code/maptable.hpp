@@ -57,7 +57,7 @@ struct MapBlock // Used for chaining in HashMap
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** buckets = nullptr;
-    int numBucket = 499; // May need improvements
+    int numBucket = 1999; // May need improvements
 
     // Ctor
 
