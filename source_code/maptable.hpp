@@ -57,7 +57,7 @@ struct MapBlock // Used for chaining in HashMap
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** buckets = nullptr;
-    int numBucket = 499; // May need improvements
+    int numBucket = 1999; // May need improvements
 
     // Ctor
 
@@ -98,9 +98,13 @@ std::vector<std::string> getVector(HashTable& table);
 std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex);
 
 // Invert Index the Trie
+// There are 2 overloading functions, the one with an extra boolean
+// passed by reference is used in multi-threading executions,
+// it provides a mechianism to control other parallel processes (animation)
+void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded);
+void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex);
 
-void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex);
 
 // Helper(s)
 
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord);
+void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
