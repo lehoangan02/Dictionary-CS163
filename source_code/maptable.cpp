@@ -342,17 +342,20 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
     // Find all words containing tokens in their definition
     HashTable res;
-    if (tokens.size() > 0)
+    size_t i = 0;
+    MapBlock* findInit = nullptr;
+    while (!findInit && i < tokens.size())
     {
-        MapBlock* findInit = invertedIndex.find(tokens[0]);
-        if (findInit)
-            res = invertedIndex.find(tokens[0])->data;
-        for (int i = 1; i < tokens.size(); ++i)
-        {
-            MapBlock* found = invertedIndex.find(tokens[i]);
-            if (found)
-                res = getIntersection(res, found->data);
-        }
+        findInit = invertedIndex.find(tokens[i]);
+        ++i;
+    }
+    if (findInit)
+        res = findInit->data;
+    for (; i < tokens.size(); ++i)
+    {
+        MapBlock* found = invertedIndex.find(tokens[i]);
+        if (found)
+            res = getIntersection(res, found->data);
     }
     return getVector(res);
 }
