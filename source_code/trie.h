@@ -35,6 +35,8 @@ struct Node
 
 void Change2Lowercase(std::string& word);
 
+void Change2Uppercase(std::string& word);
+
 bool checkingExistance(std::string s1, std::string s2);
 
 void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions);

@@ -269,7 +269,7 @@ void HashMap::deleteLL(MapBlock*& pHead)
 // Check if character is alphabetic
 bool isAlphabetic(const char& c)
 {
-    return ((c > 'A' && c < 'Z') || (c > 'a' && c < 'z'));
+    return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
 
 // Tokenize a long string (tokens are separated by non-alphabetic characters)
@@ -342,17 +342,20 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
     // Find all words containing tokens in their definition
     HashTable res;
-    if (tokens.size() > 0)
+    size_t i = 0;
+    MapBlock* findInit = nullptr;
+    while (!findInit && i < tokens.size())
     {
-        MapBlock* findInit = invertedIndex.find(tokens[0]);
-        if (findInit)
-            res = invertedIndex.find(tokens[0])->data;
-        for (int i = 1; i < tokens.size(); ++i)
-        {
-            MapBlock* found = invertedIndex.find(tokens[i]);
-            if (found)
-                res = getIntersection(res, found->data);
-        }
+        findInit = invertedIndex.find(tokens[i]);
+        ++i;
+    }
+    if (findInit)
+        res = findInit->data;
+    for (; i < tokens.size(); ++i)
+    {
+        MapBlock* found = invertedIndex.find(tokens[i]);
+        if (found)
+            res = getIntersection(res, found->data);
     }
     return getVector(res);
 }
@@ -363,13 +366,13 @@ void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoade
     invertIndexTrieHelper(pRoot, invertedIndex, curWord);
     controlLoaded = true;
 }
-void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex)
+void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex)
 {
     std::string curWord;
     invertIndexTrieHelper(pRoot, invertedIndex, curWord);
 }
 
-void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string curWord)
+void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord)
 {
     if (!pRoot)
         return;
@@ -386,5 +389,9 @@ void invertIndexTrieHelper(trieNode* pRoot, HashMap& invertedIndex, std::string 
         }
     }
     for (int i = 0; i < ascii; ++i)
-        invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord + static_cast<char>(i + 32));
+    {
+        curWord.push_back(static_cast<char>(i + 32));
+        invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord);
+        curWord.pop_back();
+    }
 }
