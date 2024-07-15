@@ -16,6 +16,16 @@ void Change2Lowercase(std::string& word)
 	}
 }
 
+void Change2Uppercase(std::string& word)
+{
+	// Check if the string is empty before transforming
+	if (!word.empty()) 
+	{
+		std::transform(word.begin(), word.end(), word.begin(),
+			[](unsigned char c) { return std::toupper(c); });
+	}
+}
+
 bool checkingExistance(std::string s1, std::string s2)
 {
 	if (s1.size() != s2.size()) return false;
