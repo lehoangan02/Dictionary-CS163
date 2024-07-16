@@ -60,4 +60,7 @@ bool SuggestingWords(std::string word, trieNode* pRoot);
 
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);
 
-
+bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot);
+void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot);
+void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot);
+void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot);
