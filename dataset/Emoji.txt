@@ -24,7 +24,7 @@
 :*)|emoji.|user is drunk
 :+1:|emoji.|thumbs up sign
 :,(|emoji.|crying
-:-|emoji.|`user spitting out its chewing tobacco.dwew  wew ewewewewe wewewe we weweweweweweweweweewweweewewwe
+:-|emoji.|`user spitting out its chewing tobacco
 :-#|emoji.|user wears braces
 :-&|emoji.|user is tongue tied
 :-(|emoji.|boo hoo
@@ -35,7 +35,7 @@
 :-/|emoji.|user is skeptical
 :-0|emoji.|no yelling!(quiet lab)
 :-1:|emoji.|thumbs down sign
-:-7|emoji.|user juust made a wry statement
+:-7|emoji.|user just made a wry statement
 :-9|emoji.|user is licking his/her lips
 :-:|emoji.|mutant smiley; the invisible smiley
 :->|emoji.|hey hey

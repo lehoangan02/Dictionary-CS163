@@ -115,7 +115,12 @@ instance::instance() :
 	// bookmark button
 	bookmarkTextureDef(loadTexture("assets/images/BookmarkDef.png")),
 	bookmarkTextureClick(loadTexture("assets/images/BookmarkClick.png")),
-	bookmarkButton(bookmarkTextureDef, bookmarkTextureClick)
+	bookmarkButton(bookmarkTextureDef, bookmarkTextureClick),
+
+	// delete this word button
+	deleteThisWordDef(loadTexture("assets/images/DeleteThisWordDef.png")),
+	deleteThisWordHov(loadTexture("assets/images/DeleteThisWordHov.png")),
+	deleteThisWordButton(deleteThisWordDef, deleteThisWordHov, SourceSans3, "DELETE THIS WORD", 36)
 
 {
 	std::ifstream fin; fin.open("note.txt");
@@ -224,6 +229,16 @@ instance::instance() :
 
 	// Set up error text
 	setUpErrorText();
+
+	// Set up delete word page
+	deleteThisWordButton.setPosition(sf::Vector2u(280 - SHADOWHOR, 295));
+	currentWordText.setFont(SourceSans3);
+	currentWordText.setCharacterSize(40);
+	currentWordText.setOutlineColor(sf::Color::Black);
+	currentWordText.setOutlineThickness(1.5);
+	currentWordText.setStyle(sf::Text::Bold);
+	currentWordText.setPosition(280, 255 - 20);
+	currentWordText.setString("aldkjf");
 }
 void instance::operate()
 {
@@ -251,6 +266,12 @@ void instance::operate()
 		{
 			operatePage3();
 			drawPage3();
+		}
+		break;
+		case 5:
+		{
+			operatePage5();
+			drawPage5();
 		}
 		break;
 		case 7:
@@ -768,10 +789,69 @@ void instance::drawPage3()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
-	drawSwitchMode();
 	searchBox.draw(windowInstance);
 	searchButton.draw(windowInstance);
 	drawDefinition();
+	drawSwitchMode();
+	windowInstance.display();
+}
+void instance::operatePage5()
+{
+	if (headWordString != "")
+	{
+		currentWordText.setString("Current word: " + headWordString);
+	}
+	else
+	{
+		currentWordText.setString("No current word!");
+	}
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				mouseControl = true;
+				if (deleteThisWordButton.isClicked(windowInstance) && mouseControl)
+				{
+					mouseControl = false;
+					if (headWordString != "")
+					{
+						RemoveAWord(pRoot, headWordString);
+						if (autoSave)
+						{
+							std::atomic<bool> controlLoaded(false);
+							std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+							serializeBinaryWrapper(pRoot);
+							controlLoaded.store(true);
+							printf("[DEBUG] done loading!\n");
+							loadingAnimationThread.join();
+						}
+					}
+				}
+			}
+			break;
+			default:
+			break;
+		}
+	}
+	hoverSubModes();
+	deleteThisWordButton.hoverSwitchTexture(windowInstance);
+	handleSwitchModeLogic();
+}
+void instance::drawPage5()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	drawSwitchMode();
+	drawSubModes();
+	windowInstance.draw(currentWordText);
+	deleteThisWordButton.draw(windowInstance);
 	windowInstance.display();
 }
 void instance::operatePage7()
@@ -1141,6 +1221,15 @@ void instance::switchPage()
 				printf("[DEBUG] changing to page 8\n");
 				page = 8;
 				pageChange =true;
+			}
+		}
+		else if (deleteModeButton.isClicked(windowInstance) && mouseControl)
+		{
+			if (page == 2 || (page >= 4 && page <= 8 && page != 5))
+			{
+				printf("[DEBUG changing to page 5\n]");
+				page = 5;
+				pageChange = true;
 			}
 		}
 	}

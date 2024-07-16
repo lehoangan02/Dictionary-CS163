@@ -222,6 +222,12 @@ class instance
     sf::Texture toLoadLastSaveTexture;
     sf::Sprite toLoadLastSaveSprite;
 
+    // delete word page
+    sf::Text currentWordText;
+    sf::Texture deleteThisWordDef;
+    sf::Texture deleteThisWordHov;
+    Button deleteThisWordButton;
+
     // Game mode
     int gameMode = 0;
     // Animations
@@ -284,12 +290,14 @@ class instance
     void operatePage1();
     void operatePage2();
     void operatePage3();
+    void operatePage5();
     void operatePage7();
     void operatePage8();
     void operatePage9();
     void drawPage1();
     void drawPage2();
     void drawPage3();
+    void drawPage5();
     void drawPage7();
     void drawPage8();
     void drawPage9();
