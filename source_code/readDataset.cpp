@@ -5,7 +5,7 @@
 bool readDatasetCSV(std::string filename, trieNode*& pRoot)
 {
     std::ifstream inputStream;
-    inputStream.open(filename);
+    inputStream.open("dataset/" + filename + ".csv");
     if (!inputStream.is_open())
     {
         printf("[DEBUG] - file not found!\n");

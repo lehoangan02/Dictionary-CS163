@@ -4,10 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <vector>
+#include <thread>
 
 #include "button.hpp"
 #include "textbox.hpp"
 #include "animation.hpp"
+#include "loadingScreen.hpp"
 
 #include "trie.h"
 #include "readDataset.hpp"
@@ -31,16 +33,19 @@ class instance
     int definitionNum = 0;
     std::vector<std::pair<std::string, std::string>> searchResult;
     
+    // for use later
     /* import mode error code
     0 is not initialized
     1 is no file found
     2 is successful
     4 is other (format not selected)
     */
-    int errorMode = 0;
+    // int errorMode = 0;
     std::vector<std::string> history;
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;
+    HashMap invertIndex;
+    bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
@@ -217,6 +222,12 @@ class instance
     sf::Texture toLoadLastSaveTexture;
     sf::Sprite toLoadLastSaveSprite;
 
+    // delete word page
+    sf::Text currentWordText;
+    sf::Texture deleteThisWordDef;
+    sf::Texture deleteThisWordHov;
+    Button deleteThisWordButton;
+
     // Game mode
     int gameMode = 0;
     // Animations
@@ -279,12 +290,14 @@ class instance
     void operatePage1();
     void operatePage2();
     void operatePage3();
+    void operatePage5();
     void operatePage7();
     void operatePage8();
     void operatePage9();
     void drawPage1();
     void drawPage2();
     void drawPage3();
+    void drawPage5();
     void drawPage7();
     void drawPage8();
     void drawPage9();

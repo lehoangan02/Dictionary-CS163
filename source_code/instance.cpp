@@ -115,7 +115,12 @@ instance::instance() :
 	// bookmark button
 	bookmarkTextureDef(loadTexture("assets/images/BookmarkDef.png")),
 	bookmarkTextureClick(loadTexture("assets/images/BookmarkClick.png")),
-	bookmarkButton(bookmarkTextureDef, bookmarkTextureClick)
+	bookmarkButton(bookmarkTextureDef, bookmarkTextureClick),
+
+	// delete this word button
+	deleteThisWordDef(loadTexture("assets/images/DeleteThisWordDef.png")),
+	deleteThisWordHov(loadTexture("assets/images/DeleteThisWordHov.png")),
+	deleteThisWordButton(deleteThisWordDef, deleteThisWordHov, SourceSans3, "DELETE THIS WORD", 36)
 
 {
 	std::ifstream fin; fin.open("note.txt");
@@ -224,9 +229,20 @@ instance::instance() :
 
 	// Set up error text
 	setUpErrorText();
+
+	// Set up delete word page
+	deleteThisWordButton.setPosition(sf::Vector2u(280 - SHADOWHOR, 295));
+	currentWordText.setFont(SourceSans3);
+	currentWordText.setCharacterSize(40);
+	currentWordText.setOutlineColor(sf::Color::Black);
+	currentWordText.setOutlineThickness(1.5);
+	currentWordText.setStyle(sf::Text::Bold);
+	currentWordText.setPosition(280, 255 - 20);
+	currentWordText.setString("aldkjf");
 }
 void instance::operate()
 {
+	std::cout << "MAX: " << sf::Texture::getMaximumSize() << std::endl;
 	while (windowInstance.isOpen())
 	{
 		deltaTime = clock.restart().asSeconds();
@@ -248,7 +264,14 @@ void instance::operate()
 		break;
 		case 3:
 		{
-
+			operatePage3();
+			drawPage3();
+		}
+		break;
+		case 5:
+		{
+			operatePage5();
+			drawPage5();
 		}
 		break;
 		case 7:
@@ -281,7 +304,7 @@ void instance::operatePage1()
 	if (!loadedSave)
 	{
 		deleteWholeTrie(pRoot);
-		deserializeBinaryWrapper(pRoot);
+        deserializeBinaryWrapper(pRoot);
 		readFavourite(pRootFavourite);
 		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
@@ -307,24 +330,6 @@ void instance::operatePage1()
 					writeHistory(temp);
 					handleSearchSignal(temp);
 				}
-				else if (nextPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum < (int)searchResult.size() - 1)
-					{
-						++definitionNum;
-						POSString = searchResult[definitionNum].first;
-                        descriptionString = searchResult[definitionNum].second;
-					}
-				}
-				else if (prevPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum > 0)
-					{
-						--definitionNum;
-						POSString = searchResult[definitionNum].first;
-                        descriptionString = searchResult[definitionNum].second;
-					}
-				}
 				else if (historyButton.isClicked(windowInstance))
 				{
                     if (!loadHistory)
@@ -335,6 +340,24 @@ void instance::operatePage1()
 					displayHistory = true;
 					displayFavourite = false;
 					handleHistory();
+				}
+				else if (nextPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum < (int)searchResult.size() - 1)
+					{
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+					}
+				}
+				else if (prevPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum > 0)
+					{
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+					}
 				}
 				else if (favouriteButton.isClicked(windowInstance))
 				{
@@ -430,7 +453,6 @@ void instance::operatePage1()
 						}
 					}
 				}
-				
 			}
 			case sf::Event::KeyPressed:
 			{
@@ -443,6 +465,10 @@ void instance::operatePage1()
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
+				}
+				else if (event.key.code == sf::Keyboard::R)
+				{
+
 				}
 			}
 			break;
@@ -519,20 +545,57 @@ void instance::operatePage2()
 					displayStatus = true;
 					std::string filepath = importBox.getString();
 					std::cout << filepath << std::endl;
+
+					
+					std::atomic<bool> controlLoaded(false);
+					std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+					
+
 					deleteWholeTrie(pRoot);
-					drawLoadingPage();
-					if (readDatasetCSV(filepath, pRoot))
+					if (CSVButton.getSelected())
 					{
-						std::cout << "[DEBUG] import successful\n";
-						importStatus.setFillColor(sf::Color(128, 255, 0));
-						importStatus.setString("Import Successful\n");
+						if (readDatasetCSV(filepath, pRoot))
+						{
+							std::cout << "[DEBUG] import successful\n";
+							importStatus.setFillColor(sf::Color(128, 255, 0));
+							importStatus.setString("Import Successful\n");
+						}
+						else
+						{
+							std::cout << "[DEBUG] import failed\n";
+							importStatus.setFillColor(sf::Color(255, 153, 0));
+							importStatus.setString("Import Failed\n");
+						}
+					}
+					else if (TXTButton.getSelected())
+					{
+						if (readDatasetTXT(filepath, pRoot))
+						{
+							std::cout << "[DEBUG] import successful\n";
+							importStatus.setFillColor(sf::Color(128, 255, 0));
+							importStatus.setString("Import Successful\n");
+						}
+						else
+						{
+							std::cout << "[DEBUG] import failed\n";
+							importStatus.setFillColor(sf::Color(255, 153, 0));
+							importStatus.setString("Import Failed\n");
+						}
 					}
 					else
 					{
-						std::cout << "[DEBUG] import failed\n";
 						importStatus.setFillColor(sf::Color(255, 153, 0));
-						importStatus.setString("Import Failed\n");
+						importStatus.setString("Import Failed - Format not chosen\n");
 					}
+
+					controlLoaded.store(true);
+					printf("[DEBUG] done loading!\n");
+					loadingAnimationThread.join();
+
+
+
+
+					loadDefinition = false;
 				}
 				break;
 			}
@@ -575,6 +638,222 @@ void instance::drawPage2()
 	drawSubModes();
 	windowInstance.display();
 }
+void instance::operatePage3()
+{
+	if (!loadDefinition)
+	{
+		
+		// DO NOT DELETE this is another approach
+		std::atomic<bool> controlLoaded(false);
+		std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+		invertIndexTrie(pRoot, invertIndex);
+		controlLoaded.store(true);
+		printf("[DEBUG] done loading!\n");
+		loadingAnimationThread.join();
+		loadDefinition = true;
+
+
+		// DO NOT DELETE this is another approach
+		// bool controlLoaded = false;
+		// void (*loadDef)(trieNode*, HashMap&, bool&) = invertIndexTrie;
+		// std::thread loadDefinitionWorker(loadDef, pRoot, std::ref(invertIndex), std::ref(controlLoaded));
+		// loadingWrapper(windowInstance, controlLoaded);
+		// // only wait for the worker thread to join when the window is not closed during loading time
+		// if (windowInstance.isOpen())
+		// {
+		// 	loadDefinitionWorker.join();
+		// }
+		// loadDefinition = true;
+	}
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				if (searchButton.isClicked(windowInstance))
+				{
+					std::string temp = searchBox.getString();
+					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					for (auto word : result)
+					{
+						std::cout << word << std::endl;
+					}
+					if (result.size() > 0)
+					{
+						handleSearchSignal(result[0]);
+					}
+				}
+				else if (nextPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum < (int)searchResult.size() - 1)
+					{
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+					}
+				}
+				else if (prevPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum > 0)
+					{
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+					}
+				}
+				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
+				{
+					if (existInList(pRootFavourite, headWordString))
+					{
+						printf("turning off\n");
+						bookmarkButton.setMode(false);
+                        if (pCurrentFavourite && pCurrentFavourite -> pNext)
+						{
+                            printf("[DEBUG] moving to favourite down\n");
+							pCurrentFavourite = pCurrentFavourite -> pNext;
+						}
+						else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+						{
+							printf("[DEBUG] moving to favourite up\n");
+							pCurrentFavourite = pCurrentFavourite -> pPrev;
+						}
+						deleteLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						if (!pRootFavourite && displayFavourite)
+						{
+							printf("[DEBUG] end displaying favourite\n");
+							displayDef = false;
+							displayFavourite = false;
+						}
+						if (displayFavourite)	handleFavourite();
+					}
+					else
+					{
+						bookmarkButton.setMode(true);
+						printf("[DEBUG] new favourite\n");
+						insertLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						// handleFavourite();
+					}
+				}
+			}
+			break;
+			case sf::Event::KeyPressed:
+			{
+				if (event.key.code == sf::Keyboard::Return)
+				{
+					std::string temp = searchBox.getString();
+					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					for (auto word : result)
+					{
+						std::cout << word << std::endl;
+					}
+					if (result.size() > 0)
+					{
+						handleSearchSignal(result[0]);
+					}
+				}
+			}
+			break;
+			default:
+			break;
+		}
+		searchBox.handleInputLogic(event, windowInstance);
+	}
+	handleSwitchModeLogic();
+	searchButton.hoverSwitchTexture(windowInstance);
+	searchModeButton.click(windowInstance);
+	nextPageButton.hoverSwitchTexture(windowInstance);
+	prevPageButton.hoverSwitchTexture(windowInstance);
+	nextPageButton.click(windowInstance);
+	prevPageButton.click(windowInstance);
+	if (existInList(pRootFavourite, headWordString))
+	{
+		// printf("[DEBUG] word is favourite\n");
+		bookmarkButton.setMode(true);
+	}
+	else
+	{
+		bookmarkButton.setMode(false);
+	}
+}
+void instance::drawPage3()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	searchBox.draw(windowInstance);
+	searchButton.draw(windowInstance);
+	drawDefinition();
+	drawSwitchMode();
+	windowInstance.display();
+}
+void instance::operatePage5()
+{
+	if (headWordString != "")
+	{
+		currentWordText.setString("Current word: " + headWordString);
+	}
+	else
+	{
+		currentWordText.setString("No current word!");
+	}
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				mouseControl = true;
+				if (deleteThisWordButton.isClicked(windowInstance) && mouseControl)
+				{
+					mouseControl = false;
+					if (headWordString != "")
+					{
+						RemoveAWord(pRoot, headWordString);
+						if (autoSave)
+						{
+							std::atomic<bool> controlLoaded(false);
+							std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+							serializeBinaryWrapper(pRoot);
+							controlLoaded.store(true);
+							printf("[DEBUG] done loading!\n");
+							loadingAnimationThread.join();
+						}
+					}
+				}
+			}
+			break;
+			default:
+			break;
+		}
+	}
+	hoverSubModes();
+	deleteThisWordButton.hoverSwitchTexture(windowInstance);
+	handleSwitchModeLogic();
+}
+void instance::drawPage5()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	drawSwitchMode();
+	drawSubModes();
+	windowInstance.draw(currentWordText);
+	deleteThisWordButton.draw(windowInstance);
+	windowInstance.display();
+}
 void instance::operatePage7()
 {
 	if (!loadAutoSave)
@@ -594,12 +873,20 @@ void instance::operatePage7()
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
-			if (serializeButton.isClicked(windowInstance))
+			if (serializeButton.isClicked(windowInstance) && mouseControl)
 			{
-				drawLoadingPage();
+				
 				mouseControl = false;
 
+
+				std::atomic<bool> controlLoaded(false);
+				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 				serializeBinaryWrapper(pRoot);
+				controlLoaded.store(true);
+				printf("[DEBUG] done loading!\n");
+				loadingAnimationThread.join();
+
+
 			}
 		}
 		break;
@@ -641,13 +928,22 @@ void instance::operatePage8()
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
-			if (deserializeButton.isClicked(windowInstance))
+			if (deserializeButton.isClicked(windowInstance) && mouseControl)
 			{
 				mouseControl = false;
-				drawLoadingPage();
-				deleteWholeTrie(pRoot);
 
+
+				std::atomic<bool> controlLoaded(false);
+				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				deleteWholeTrie(pRoot);
 				deserializeBinaryWrapper(pRoot);
+				controlLoaded.store(true);
+				printf("[DEBUG] done loading!\n");
+				loadingAnimationThread.join();
+				loadDefinition = false;
+
+
+
 			}
 		}
 		break;
@@ -688,24 +984,22 @@ void instance::operatePage9()
 		{
 			if (gameMode1st.isClicked(windowInstance))
 			{
-				std::cout << pRoot << std::endl;
-				// std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
-				// std::cout << "The random word is: " << random.second << std::endl;
-				// handleSearchSignal(random.second);
-				// displayDef = true;
+				if (pRoot) 
 				{
-					std::cout << "The random word is: ";
-					std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
-					if (random.first) {
-						std::cout << random.second << std::endl;
-						int i = 0;
-						for (auto& x : random.first->definitions) {
-							std::cout << i + 1 << ". (" << x.first << ") " << x.second << std::endl;
-							i++;
+					for (int i = 0; i < 20; ++i)
+					{
+						std::cout << pRoot << std::endl;
+						std::pair<trieNode*, std::string> random;
+						random.second = "";
+						random = pickarandomword(pRoot);
+						std::cout << "The random word is: " << random.second << std::endl;
+						handleSearchSignal(random.second);
+						if (random.second == "")	displayDef = false;
+						else if (random.second != "")	
+						{
+							displayDef = true;
+							break;
 						}
-					}
-					else {
-						std::cout << "=> Can't find a random word !" << std::endl;
 					}
 				}
 			}
@@ -727,6 +1021,44 @@ void instance::operatePage9()
 					descriptionString = searchResult[definitionNum].second;
 				}
 			}
+			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
+			{
+				if (existInList(pRootFavourite, headWordString))
+				{
+					printf("turning off\n");
+					bookmarkButton.setMode(false);
+					if (pCurrentFavourite && pCurrentFavourite -> pNext)
+					{
+						printf("[DEBUG] moving to favourite down\n");
+						pCurrentFavourite = pCurrentFavourite -> pNext;
+					}
+					else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+					{
+						printf("[DEBUG] moving to favourite up\n");
+						pCurrentFavourite = pCurrentFavourite -> pPrev;
+					}
+					deleteLinkedList(pRootFavourite, headWordString);
+					pCurrentFavourite = pRootFavourite;
+					writeFavourite(pRootFavourite);
+					if (!pRootFavourite && displayFavourite)
+					{
+						printf("[DEBUG] end displaying favourite\n");
+						displayDef = false;
+						displayFavourite = false;
+					}
+					if (displayFavourite)	handleFavourite();
+				}
+				else
+				{
+					bookmarkButton.setMode(true);
+					printf("[DEBUG] new favourite\n");
+					insertLinkedList(pRootFavourite, headWordString);
+					pCurrentFavourite = pRootFavourite;
+					writeFavourite(pRootFavourite);
+					// handleFavourite();
+				}
+			}
+			
 		}
 		break;
 		case sf::Event::KeyPressed:
@@ -752,14 +1084,27 @@ void instance::operatePage9()
 	gameMode1st.hoverSwitchTexture(windowInstance);
 	gameMode2nd.hoverSwitchTexture(windowInstance);
 	gameMode3rd.hoverSwitchTexture(windowInstance);
+	if (existInList(pRootFavourite, headWordString))
+	{
+		// printf("[DEBUG] word is favourite\n");
+		bookmarkButton.setMode(true);
+	}
+	else
+	{
+		bookmarkButton.setMode(false);
+	}
+	nextPageButton.hoverSwitchTexture(windowInstance);
+	nextPageButton.click(windowInstance);
+	prevPageButton.hoverSwitchTexture(windowInstance);
+	prevPageButton.click(windowInstance);
 	exitButton.hoverSwitchTexture(windowInstance);
 	switchPage();
 }
 void instance::drawPage9()
 {
 	windowInstance.clear(sf::Color(150, 150, 150));
-	drawDefinition();
 	sceneryAnimation.draw(windowInstance);
+	drawDefinition();
 	gameMode1st.draw(windowInstance);
 	gameMode2nd.draw(windowInstance);
 	gameMode3rd.draw(windowInstance);
@@ -819,8 +1164,18 @@ void instance::switchPage()
 		{
 			if (page != 2)
 			{
-				printf("[DEBUG] at page 2\n");
+				printf("[DEBUG] moving to page 2\n");
 				page = 2;
+				modeButtonActive = false;
+				pageChange = true;
+			}
+		}
+		else if (definitionModeButton.isClicked(windowInstance))
+		{
+			if (page != 3)
+			{
+				printf("[DEBUG] moving to page 3\n");
+				page = 3;
 				modeButtonActive = false;
 				pageChange = true;
 			}
@@ -868,6 +1223,15 @@ void instance::switchPage()
 				pageChange =true;
 			}
 		}
+		else if (deleteModeButton.isClicked(windowInstance) && mouseControl)
+		{
+			if (page == 2 || (page >= 4 && page <= 8 && page != 5))
+			{
+				printf("[DEBUG changing to page 5\n]");
+				page = 5;
+				pageChange = true;
+			}
+		}
 	}
 	if (page == 9 && exitButton.isClicked(windowInstance))
 	{
@@ -879,6 +1243,9 @@ void instance::switchPage()
 	if (pageChange)
 	{
 		// printf("[DEBUG] page changed\n");
+		displayDef = false;
+		displayFavourite = false;
+		displayHistory = false;
 		mouseControl = false;
 		searchBox.clear();
 		importBox.clear();
@@ -955,7 +1322,7 @@ void instance::drawDefinition()
 			}
 			if (numberOfResult == 0)
 			{
-				printf("[DEBUG] drawing error message\n");
+				// printf("[DEBUG] drawing error message\n");
 				
 				windowInstance.draw(wordNotInThisDataSet);
 			}

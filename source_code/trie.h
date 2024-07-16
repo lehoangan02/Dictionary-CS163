@@ -35,6 +35,8 @@ struct Node
 
 void Change2Lowercase(std::string& word);
 
+void Change2Uppercase(std::string& word);
+
 bool checkingExistance(std::string s1, std::string s2);
 
 void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions);
@@ -58,4 +60,7 @@ bool SuggestingWords(std::string word, trieNode* pRoot);
 
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);
 
-
+bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot);
+void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot);
+void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot);
+void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot);

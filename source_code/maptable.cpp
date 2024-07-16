@@ -340,6 +340,9 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
     // Tokenize user's input
     std::vector<std::string> tokens = tokenize(userInput);
 
+    for (size_t i = 0; i < tokens.size(); ++i)
+        Change2Lowercase(tokens[i]);
+
     // Find all words containing tokens in their definition
     HashTable res;
     size_t i = 0;
