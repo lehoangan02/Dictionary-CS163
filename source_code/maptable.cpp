@@ -12,13 +12,14 @@ HashTable::HashTable(int x) : numBucket(x)
     buckets = new TableBlock*[this->numBucket] {nullptr};
 }
 
-// Copy constructor
+// Custom copy constructor (Deep copy) 
 HashTable::HashTable(const HashTable& source)
 {
-    if (this != &source)
+    if (this != &source) //for not copying itself
         this->copy(source);
 }
 
+//Destruction
 HashTable::~HashTable()
 {
     this->clear();
@@ -29,37 +30,37 @@ HashTable::~HashTable()
 // Assign content from source HashTable
 HashTable& HashTable::operator=(const HashTable& source)
 {
-    if (this != &source)
+    if (this != &source) //self-assignment checking
     {
-        this->clear();
-        delete[] buckets;
-        this->copy(source);
+        this->clear(); //clear the current object's data
+        delete[] buckets; //delete the current buckets array
+        this->copy(source); //copy data from the source object
     }
-    return *this;
+    return *this; //return the current object for chaining
 }
 
-// Hash
+// Hash (for saving the position for each word in the meaning)
 size_t HashTable::hash(const std::string& key) 
 {
     return hashFNV_1a(key) % this->numBucket;
 }
 
-// FNV-1a hash
+// FNV-1a hash (non-cryptographic hash function for 32-bit variant)
 size_t HashTable::hashFNV_1a(const std::string& s) 
 {
     const size_t fnvPrime = 0x1000193;
     size_t hash = 0x811C9DC5;
-
+   
     for (char c : s) 
     {
-        hash ^= static_cast<size_t>(c);
+        hash ^= static_cast<size_t>(c); //XOR operation (hash XOR byte_of_data)
         hash *= fnvPrime;
     }
     return hash;
 }
 
 // Insert an element, do NOT store duplicates
-void HashTable::insert(const std::string& key)
+void HashTable::insert(const std::string& key) //the actual word
 {
     if (this->find(key))
         return;
@@ -68,9 +69,10 @@ void HashTable::insert(const std::string& key)
     pNew->data = key;
     pNew->pNext = buckets[pos];
     buckets[pos] = pNew; 
+
 }
 
-// Return pointer to TableBlock containing an element
+// Return pointer to TableBlock containing element 'key'(word)
 // Return nullptr if not found
 TableBlock* HashTable::find(const std::string& key)
 {
@@ -112,14 +114,12 @@ void HashTable::copy(const HashTable& source)
     {
         if (source.buckets[i])
         {
-            buckets[i] = new TableBlock;
-            buckets[i]->data = source.buckets[i]->data;
+            buckets[i] = new TableBlock{ source.buckets[i]->data, nullptr };
             TableBlock* pCur = buckets[i];
-            TableBlock* pSource = source.buckets[i];
-            while (pSource->pNext)
+            TableBlock* pSource = source.buckets[i]->pNext;
+            while (pSource)
             {
-                pCur->pNext = new TableBlock;
-                pCur->pNext->data = pSource->pNext->data;
+                pCur->pNext = new TableBlock{ pSource->data, nullptr };
                 pCur = pCur->pNext;
                 pSource = pSource->pNext;
             }
@@ -185,7 +185,7 @@ size_t HashMap::hashFNV_1a(const std::string& s)
 }
 
 // Maps a HashTable based on associating key, do NOT store duplicate keys
-void HashMap::insert(const std::string& key, const HashTable& data)
+void HashMap::insert(const std::string& key, const HashTable& data) //data is actual word
 {
     if (this->find(key))
         return;

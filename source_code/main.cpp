@@ -96,10 +96,14 @@ int main()
 			getline(cin, prefix);
 			std::cout << prefix << std::endl;
 			std::cout << "Here are some suggestions: " << std::endl;
-			if (!SuggestingWords(prefix, pRoot))
+			std::vector<std::string> suggested = SuggestingWords(prefix, pRoot);
+			if (!suggested.empty())
 			{
-				std::cout << "Trying another!" << std::endl;
-			}
+				for (auto& x : suggested)
+				{
+					std::cout << x << std::endl;
+				}
+			} else std::cout << "Trying another!" << std::endl;
 			break;
 		}
 		case 6:

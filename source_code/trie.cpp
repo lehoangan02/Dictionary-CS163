@@ -134,35 +134,41 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 
 std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word) {
 	std::vector<std::pair<std::string, std::string>> collectionLast;
-	std::vector<std::pair<std::string, std::string>> collection1, collection2;
+	std::vector<std::pair<std::string, std::string>> collection1, collection2, collection3;
 
 	if (!pRoot || word.empty()) {
 		// std::cout << "Word not found\n";
 		return collectionLast;
 	}
 
-	// std::cout << "Here are the definitions of the word: \n";
-
+	std::cout << "Here are the definitions of the word: \n";
+	
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
 		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
 			word[i] -= 32;
 		}
+		if (i == 0) //Traverse to search the for VieEng
+		{
+			collection1 = traverseToSearch(pRoot, word);
+		}
 	}
 	// Traverse the trie to find the word (the first letter in capital form)
-	collection1 = traverseToSearch(pRoot, word);
+	if (collection1.empty())
+		collection2 = traverseToSearch(pRoot, word);
 	
 	// Convert all the letters to lowercase
 	Change2Lowercase(word);
 
 	// Traverse the trie to find the word (the first letter in lowercase)
-	collection2 = traverseToSearch(pRoot, word);
+	collection3 = traverseToSearch(pRoot, word);
 
 	// Merge the two collections
-	collectionLast.reserve(collection1.size() + collection2.size());  // Pre-allocate memory
+	collectionLast.reserve(collection1.size() + collection2.size() + collection3.size());  // Pre-allocate memory
 	collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
 	collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
+	collectionLast.insert(collectionLast.end(), collection3.begin(), collection3.end());
 
 	return collectionLast;
 }
@@ -263,10 +269,10 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 }
 
 //Utility function for suggesting some existing words based on some first given characters.
-bool SuggestingWords(std::string word, trieNode* pRoot)
+std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 {
-	if (word.empty()) return false;
-	if (!pRoot) return false;
+	std::vector<std::string> collection{ "" };
+	if (word.empty() || !pRoot) return collection;
 
 	trieNode* cur = pRoot;
 	bool found = false;
@@ -291,7 +297,7 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 		//After oprating two attemps (1 for all lowercase ans 2 for uppercase at first and after blankspace)
 		if (wrongAttempts == 2) {
 			std::cout << "Word is not exist!" << std::endl;
-			return false;
+			return collection;
 		}
 		//Updating the given prefix with all lowercase character to uppercase at first and after blankspace)
 		if (!found) {
@@ -307,12 +313,11 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 
 	//Displaying max 10 words whose prefixes are the same with given word
 	int count = 0;
-	std::vector<std::string> collection;
 	SuggestHelper(word, cur, count, collection);
 	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
 		std::cout << x << std::endl;
 	}
-	return true;
+	return collection;
 }
 
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection)
