@@ -219,3 +219,34 @@ void textbox::clear()
     displayText.setString(textStream.str());
     return;
 }
+
+void wrapText(sf::Text& inputText, int width)
+{
+    std::string str = inputText.getString();
+    std::string result;
+    int space = -1; // index for the space bar
+    int hyphen_and_newline = 0;
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (str[i] == ' ') space = i + hyphen_and_newline;
+        result.push_back(str[i]);
+
+        inputText.setString(result);
+        if (inputText.getGlobalBounds().width > width)
+        {
+            if (space != -1)
+            {
+                result[space] = '\n'; // replace the space with newline
+                space = -1; // reset
+            }
+            else
+            {
+                result[result.size() - 2] = '\n'; // add newline right before that, for very long words
+                result.insert(result.size() - 3, "-"); // add additional hyphen
+                hyphen_and_newline = 2; // account for the difference between str and result
+            }
+        }
+    }
+    
+    inputText.setString(result);
+}

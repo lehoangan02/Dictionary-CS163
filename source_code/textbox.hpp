@@ -47,3 +47,5 @@ private:
     void manageFullness();
     void setLimit(int limit);
 };
+
+void wrapText(sf::Text& inputText, int width);
