@@ -85,6 +85,7 @@ void textbox::handleInputLogic(const sf::Event event, sf::RenderWindow& window)
 }
 void textbox::handleColor()
 {
+    // printf("[DEBUG] handle color ");
     if (!active)
     {
         if (textStream.str() == "")
@@ -92,23 +93,26 @@ void textbox::handleColor()
             displayText.setFillColor(sf::Color(138, 138, 141));
             textStream.str("");
             textStream << guideString;
+            // printf("[DEBUG] set grey\n");
         }
     }
     else
     {
         displayText.setFillColor(sf::Color(0, 0, 0));
+        // printf("[DEBUG] set black\n");
     }
 }
-void  textbox::select() 
+void textbox::select() 
 {
     if (active) return;
     // printf("[DEBUG] %d\n", limit);
     active = true;
     if (!full) // insert cursor
     {
+        printf("[DEBUG] not full and selected\n");
         if (textStream.str() == guideString)
         {
-            // printf("[DEBUG] resetting\n");
+            printf("[DEBUG] resetting\n");
             textStream.str("");
         }
         textStream << textCursor;
@@ -210,6 +214,7 @@ std::string textbox::getString()
 }
 void textbox::clear()
 {
+    // printf("[DEBUG] clearing ");
     textStream.str("");
     deselect();
     handleColor();
@@ -220,33 +225,137 @@ void textbox::clear()
     return;
 }
 
-void wrapText(sf::Text& inputText, int width)
-{
-    std::string str = inputText.getString();
-    std::string result;
-    int space = -1; // index for the space bar
-    int hyphen_and_newline = 0;
-    for (int i = 0; i < str.size(); i++)
+largeTextbox::largeTextbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int lineLimit, int width, sf::Vector2u position) :
+    textbox(textboxTexture, font, characterSize, std::numeric_limits<int>::max(), position)
     {
-        if (str[i] == ' ') space = i + hyphen_and_newline;
-        result.push_back(str[i]);
+        this -> width = width;
+        this  -> lineLimit = lineLimit;
+        displayText.setPosition(position.x + 20, position.y + 10);
+    }
 
-        inputText.setString(result);
-        if (inputText.getGlobalBounds().width > width)
+/// @brief the only difference with the base class function is the displayText.setString at the end
+void largeTextbox::select() 
+{
+    std::string temp = displayText.getString();
+    textStream.str(temp);
+    if (active) return;
+    // printf("[DEBUG] %d\n", limit);
+    active = true;
+    if (!full) // insert cursor
+    {
+        printf("[DEBUG] not full and selected\n");
+        if (textStream.str() == guideString)
         {
-            if (space != -1)
+            printf("[DEBUG] resetting\n");
+            textStream.str("");
+        }
+        temp = textStream.str();
+        textStream.str(temp + textCursor);
+        displayText.setString(textStream.str());
+    }
+}
+
+/// @brief the only difference with the base class function is the displayText.setString at the end
+void largeTextbox::deselect()
+{
+    std::string temp = displayText.getString();
+    textStream.str(temp);
+    if (active)
+    {
+        active = false;
+        if (!full && textStream.str() != guideString) // remove cursor
+        {
+            std::string temp = textStream.str();
+            textStream.str("");
+//            std::cout << "[DEBUG] " << (temp.empty()) << std::endl;
+//            std::cout << "[DEBUG] " << temp.length() << std::endl;
+            for (int i = 0; i < (int)temp.length() - 1; ++i)
             {
-                result[space] = '\n'; // replace the space with newline
-                space = -1; // reset
-            }
-            else
-            {
-                result[result.size() - 2] = '\n'; // add newline right before that, for very long words
-                result.insert(result.size() - 3, "-"); // add additional hyphen
-                hyphen_and_newline = 2; // account for the difference between str and result
+                textStream << temp[i];
             }
         }
+        displayText.setString(textStream.str());
     }
-    
-    inputText.setString(result);
+}
+
+void largeTextbox::manageFullness()
+{
+    if (lineLimitReached)
+    {
+        full = true;
+    }
+    else
+    {
+        full = false;
+    }
+}
+
+void largeTextbox::insertChar(char newInput)
+{
+    // printf("[DEBUG] trying to input\n");
+    if (full) return;
+    std::string temp = textStream.str();
+    textStream.str("");
+    for (int i = 0; i < (int)temp.length() - 1; ++i)
+    {
+        textStream << temp[i];
+    }
+    textStream << newInput;
+    // handle full logic from here
+    ++numChar;
+    // wrap the text
+    displayText.setString(textStream.str());
+    lineLimitReached = wrapText(displayText, width, 6) ? true : false;
+    temp = displayText.getString();
+    textStream.str(temp);
+    manageFullness();
+    // std::cout << "[DEBUG]  after inserting it's "; 
+    if (!full)
+    {
+        textStream.str(temp + textCursor);
+    }
+}
+void largeTextbox::deleteChar()
+{
+    // printf("[DEBUG] trying to delete\n");
+    if (textStream.str() == textCursor) return;
+    std::string temp = textStream.str();
+    textStream.str("");
+    if (!full)
+    {
+        for (int i = 0; i < (int)temp.length() - 2; ++i)
+        {
+            textStream << temp[i];
+        }
+    }
+    else
+    {
+        for (int i = 0; i < (int)temp.length() - 1; ++i)
+        {
+            textStream << temp[i];
+        }
+    }
+    temp = textStream.str();
+     textStream.str(temp + textCursor);
+    --numChar;
+    // wrap the text
+    displayText.setString(textStream.str());
+    lineLimitReached = wrapText(displayText, width, 6) ? true : false;
+    temp = displayText.getString();
+    textStream.str(temp);
+    manageFullness();
+}
+
+void largeTextbox::clear()
+{
+    // printf("[DEBUG] clearing ");
+    deselect();
+    textStream.str("");
+    // printf("[DEBUG] textStream: %s\n", textStream.str().c_str());
+    handleColor();
+    textStream.str(guideString);
+    numChar = 0;
+    manageFullness();
+    displayText.setString(textStream.str());
+    return;
 }
