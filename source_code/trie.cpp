@@ -263,7 +263,7 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 }
 
 //Utility function for suggesting some existing words based on some first given characters.
-bool SuggestingWords(std::string word, trieNode* pRoot)
+bool SuggestingWords(std::string word, trieNode* pRoot, std::vector<std::string>& collection)
 {
 	if (word.empty()) return false;
 
@@ -306,7 +306,7 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 
 	//Displaying max 10 words whose prefixes are the same with given word
 	int count = 0;
-	std::vector<std::string> collection;
+	collection.clear();
 	SuggestHelper(word, cur, count, collection);
 	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
 		std::cout << x << std::endl;

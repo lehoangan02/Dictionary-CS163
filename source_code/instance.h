@@ -11,6 +11,7 @@
 #include "animation.hpp"
 #include "loadingScreen.hpp"
 
+
 #include "trie.h"
 #include "readDataset.hpp"
 #include "history.hpp"
@@ -18,6 +19,7 @@
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
 #include "wrapping.hpp"
+#include "desiredsearch.h"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -279,6 +281,7 @@ class instance
     Button gameMode3rd;
     sf::Texture exitTexture;
     Button exitButton;
+    desiredsearch d;
     private:
     sf::Texture loadTexture(const std::string& filepath)
     {
