@@ -321,29 +321,27 @@ void largeTextbox::deleteChar()
     if (textStream.str() == textCursor) return;
     std::string temp = textStream.str();
     textStream.str("");
-    if (!full)
+    if (full)
     {
-        for (int i = 0; i < (int)temp.length() - 2; ++i)
-        {
-            textStream << temp[i];
-        }
+        temp.pop_back();
     }
     else
     {
-        for (int i = 0; i < (int)temp.length() - 1; ++i)
-        {
-            textStream << temp[i];
-        }
+        temp.pop_back();
+        temp.pop_back();
     }
-    temp = textStream.str();
-     textStream.str(temp + textCursor);
+    lineLimitReached = wrapText(displayText, width, 6) ? true : false;
+    manageFullness();
+    if (!full)
+        textStream.str(temp + textCursor);
+    else
+        textStream.str(temp);
+    printf("[DELETE_TEST] %s\n", textStream.str().c_str());
     --numChar;
     // wrap the text
     displayText.setString(textStream.str());
-    lineLimitReached = wrapText(displayText, width, 6) ? true : false;
-    temp = displayText.getString();
-    textStream.str(temp);
-    manageFullness();
+    
+    
 }
 
 void largeTextbox::clear()
@@ -356,6 +354,7 @@ void largeTextbox::clear()
     textStream.str(guideString);
     numChar = 0;
     manageFullness();
+    full = false;
     displayText.setString(textStream.str());
     return;
 }
