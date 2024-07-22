@@ -9,6 +9,6 @@ class desiredsearch
 	std::vector<std::string> categories;
 	std::vector<Button> options;
 	desiredsearch();
-	void updateoptions(std::string word, trieNode* pRoot);
-	void draw(sf::RenderWindow& w);
+	void updateoptions(std::string word);
+	void draw();
 };
