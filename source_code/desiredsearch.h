@@ -8,7 +8,8 @@ class desiredsearch
 {
 	std::vector<std::string> categories;
 	std::vector<Button> options;
+	int available;
 	desiredsearch();
-	void updateoptions(std::string word);
+	void updateoptions(std::string word, trieNode* pRoot);
 	void draw();
 };
