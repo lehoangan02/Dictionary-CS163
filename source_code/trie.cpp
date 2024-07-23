@@ -134,35 +134,41 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 
 std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word) {
 	std::vector<std::pair<std::string, std::string>> collectionLast;
-	std::vector<std::pair<std::string, std::string>> collection1, collection2;
+	std::vector<std::pair<std::string, std::string>> collection1, collection2, collection3;
 
 	if (!pRoot || word.empty()) {
 		// std::cout << "Word not found\n";
 		return collectionLast;
 	}
 
-	// std::cout << "Here are the definitions of the word: \n";
-
+	std::cout << "Here are the definitions of the word: \n";
+	
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
 		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
 			word[i] -= 32;
 		}
+		if (i == 0) //Traverse to search the for VieEng
+		{
+			collection1 = traverseToSearch(pRoot, word);
+		}
 	}
 	// Traverse the trie to find the word (the first letter in capital form)
-	collection1 = traverseToSearch(pRoot, word);
+	if (collection1.empty())
+		collection2 = traverseToSearch(pRoot, word);
 	
 	// Convert all the letters to lowercase
 	Change2Lowercase(word);
 
 	// Traverse the trie to find the word (the first letter in lowercase)
-	collection2 = traverseToSearch(pRoot, word);
+	collection3 = traverseToSearch(pRoot, word);
 
 	// Merge the two collections
-	collectionLast.reserve(collection1.size() + collection2.size());  // Pre-allocate memory
+	collectionLast.reserve(collection1.size() + collection2.size() + collection3.size());  // Pre-allocate memory
 	collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
 	collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
+	collectionLast.insert(collectionLast.end(), collection3.begin(), collection3.end());
 
 	return collectionLast;
 }
@@ -186,13 +192,16 @@ void RemoveAWord(trieNode*& pRoot, std::string word)
 	//base case
 	if (!pRoot)
 		return;
-	if (word.size() == 0)  {
-		if (pRoot->wordExisted) {
+	if (word.size() == 0)  
+	{
+		if (pRoot->wordExisted) 
+		{
 			pRoot->wordExisted = false;
 			pRoot->definitions.clear();
 
 			//check whether it is the last node (delete) or prefix for other words.
-			if (!isLeaf(pRoot)) {
+			if (!isLeaf(pRoot)) 
+			{
 				delete pRoot;
 				pRoot = nullptr;
 			}
@@ -200,7 +209,7 @@ void RemoveAWord(trieNode*& pRoot, std::string word)
 		return;
 	}
 
-	int indexNext = tolower(word[0]) - 32;
+	int indexNext = int(word[0]) - 32;
 	RemoveAWord(pRoot->childNode[indexNext], word.erase(0, 1));
 	pRoot->countchildren--;
 	if (isLeaf(pRoot) && !pRoot->wordExisted)
@@ -263,9 +272,10 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 }
 
 //Utility function for suggesting some existing words based on some first given characters.
-bool SuggestingWords(std::string word, trieNode* pRoot)
+std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 {
-	if (word.empty()) return false;
+	std::vector<std::string> collection{ "" };
+	if (word.empty() || !pRoot) return collection;
 
 	trieNode* cur = pRoot;
 	bool found = false;
@@ -290,7 +300,7 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 		//After oprating two attemps (1 for all lowercase ans 2 for uppercase at first and after blankspace)
 		if (wrongAttempts == 2) {
 			std::cout << "Word is not exist!" << std::endl;
-			return false;
+			return collection;
 		}
 		//Updating the given prefix with all lowercase character to uppercase at first and after blankspace)
 		if (!found) {
@@ -306,12 +316,11 @@ bool SuggestingWords(std::string word, trieNode* pRoot)
 
 	//Displaying max 10 words whose prefixes are the same with given word
 	int count = 0;
-	std::vector<std::string> collection;
 	SuggestHelper(word, cur, count, collection);
 	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
 		std::cout << x << std::endl;
 	}
-	return true;
+	return collection;
 }
 
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection)
@@ -353,57 +362,57 @@ void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot)
 
 void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot) 
 {
-    	if (left < right) 
+    if (left < right) 
 	{
-        	size_t mid = (left + right) / 2;
+        size_t mid = (left + right) / 2;
 
-        	mergeSort(words, left, mid, pRoot);
-       		mergeSort(words, mid + 1, right, pRoot);
-       		merge(words, left, mid, right, pRoot);
-    	}
+        mergeSort(words, left, mid, pRoot);
+        mergeSort(words, mid + 1, right, pRoot);
+        merge(words, left, mid, right, pRoot);
+    }
 }
 
 void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot) 
 {
-    	size_t sizeLeft = mid - left + 1;
-    	size_t sizeRight = right - mid;
+    size_t sizeLeft = mid - left + 1;
+    size_t sizeRight = right - mid;
 
-    	std::vector<std::string> leftVec(sizeLeft);
-    	std::vector<std::string> rightVec(sizeRight);
+    std::vector<std::string> leftVec(sizeLeft);
+    std::vector<std::string> rightVec(sizeRight);
 
-    	for (size_t i = 0; i < sizeLeft; ++i)
-        	leftVec[i] = words[left + i];
-    	for (size_t i = 0; i < sizeRight; ++i)
-        	rightVec[i] = words[mid + 1 + i];
+    for (size_t i = 0; i < sizeLeft; ++i)
+        leftVec[i] = words[left + i];
+    for (size_t i = 0; i < sizeRight; ++i)
+        rightVec[i] = words[mid + 1 + i];
 
-    	size_t i = 0, j = 0;
+    size_t i = 0, j = 0;
 	size_t curPos = left;
-    	while (i < sizeLeft && j < sizeRight) 
+    while (i < sizeLeft && j < sizeRight) 
 	{
-        	if (compareDefLength(rightVec[j], leftVec[i], pRoot)) 
+        if (compareDefLength(rightVec[j], leftVec[i], pRoot)) 
 		{
-           		words[curPos] = leftVec[i];
-            		++i;
-        	} 
+            words[curPos] = leftVec[i];
+            ++i;
+        } 
 		else 
 		{
-            		words[curPos] = rightVec[j];
-            		++j;
-        	}
-        	++curPos;
-    	}
+            words[curPos] = rightVec[j];
+            ++j;
+        }
+        ++curPos;
+    }
 
-    	while (i < sizeLeft) 
+    while (i < sizeLeft) 
 	{
-        	words[curPos] = leftVec[i];
-        	++i;
-        	++curPos;
-    	}
+        words[curPos] = leftVec[i];
+        ++i;
+        ++curPos;
+    }
 
-    	while (j < sizeRight) 
+    while (j < sizeRight) 
 	{
-       		words[curPos] = rightVec[j];
-        	++j;
-        	++curPos;
-    	}
+        words[curPos] = rightVec[j];
+        ++j;
+        ++curPos;
+    }
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <unordered_set>
 #include "trie.h"
 
 struct TableBlock // Used for chaining in HashTable
@@ -16,41 +15,35 @@ struct HashTable // Designed after unordered_set<string>
     int numBucket = 499; // May need improvements
 
     // Ctor
-
     HashTable();
     HashTable(int x);
     HashTable(const HashTable& source);
+    void copy(const HashTable& source);
 
     // Dtor
-
     ~HashTable();
+    void deleteLL(TableBlock*& pHead);
 
     // Operators
-
     HashTable& operator=(const HashTable& source);
 
     // Basic methods
-
     void insert(const std::string& key);
-    TableBlock* find(const std::string& key);
+    std::string* find(const std::string& key);
     void remove(const std::string& key);
     void clear();
-
+    bool isEmpty();
+    
     // Hashing
-
     size_t hash(const std::string& key);
     size_t hashFNV_1a(const std::string& s);
 
-    // Helper(s)
-
-    void copy(const HashTable& source);
-    void deleteLL(TableBlock*& pHead);
 };
 
-struct MapBlock // Used for chaining in HashMap
+struct MapBlock // Used for chaining in HashMap (traversing through the definitions)
 {
     std::string key; // Should contain alphabetic letters only
-    HashTable data; // Store words containing key in their definition
+    HashTable data; // Store words containing key in their definitions
     MapBlock* pNext = nullptr;
 };
 
@@ -60,30 +53,24 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
     int numBucket = 1999; // May need improvements
 
     // Ctor
-
     HashMap();
     HashMap(int x);
 
     // Dtor
-
     ~HashMap();
+    void deleteLL(MapBlock*& pHead);
 
     // Basic methods
-
     void insert(const std::string& key, const HashTable& data);
-    MapBlock* find(const std::string& key);
+    HashTable* find(const std::string& key);
     HashTable& access(const std::string& key); // Use this for fast access to existing or non-existing elements
     void remove(const std::string& key);
     void clear();
+    bool isEmpty();
     
     // Hashing
-
     size_t hash(const std::string& key);
     size_t hashFNV_1a(const std::string& s);
-
-    // Helper(s)
-
-    void deleteLL(MapBlock*& pHead);
 };
 
 // Utility functions
@@ -92,6 +79,7 @@ bool isAlphabetic(const char& c);
 std::vector<std::string> tokenize(std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
+void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);
 
 // Search by definition
 
