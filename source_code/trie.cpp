@@ -192,13 +192,16 @@ void RemoveAWord(trieNode*& pRoot, std::string word)
 	//base case
 	if (!pRoot)
 		return;
-	if (word.size() == 0)  {
-		if (pRoot->wordExisted) {
+	if (word.size() == 0)  
+	{
+		if (pRoot->wordExisted) 
+		{
 			pRoot->wordExisted = false;
 			pRoot->definitions.clear();
 
 			//check whether it is the last node (delete) or prefix for other words.
-			if (!isLeaf(pRoot)) {
+			if (!isLeaf(pRoot)) 
+			{
 				delete pRoot;
 				pRoot = nullptr;
 			}
@@ -206,7 +209,7 @@ void RemoveAWord(trieNode*& pRoot, std::string word)
 		return;
 	}
 
-	int indexNext = tolower(word[0]) - 32;
+	int indexNext = int(word[0]) - 32;
 	RemoveAWord(pRoot->childNode[indexNext], word.erase(0, 1));
 	pRoot->countchildren--;
 	if (isLeaf(pRoot) && !pRoot->wordExisted)

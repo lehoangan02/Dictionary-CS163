@@ -72,15 +72,17 @@ void HashTable::insert(const std::string& key) //the actual word
 
 }
 
-// Return pointer to TableBlock containing element 'key'(word)
+// Return pointer to element 'key'(word) in HashTable
 // Return nullptr if not found
-TableBlock* HashTable::find(const std::string& key)
+std::string* HashTable::find(const std::string& key)
 {
     auto pos = this->hash(key);
     TableBlock* pCur = buckets[pos];
     while (pCur && pCur->data != key)
         pCur = pCur->pNext;
-    return pCur;
+    if (!pCur)
+        return nullptr;
+    return &(pCur->data);
 }
 
 // Remove an element, do nothing if not found
@@ -103,6 +105,17 @@ void HashTable::remove(const std::string& key)
     }
     buckets[pos] = pDummy->pNext;
     delete pDummy;
+}
+
+// Check if HashTable is empty
+bool HashTable::isEmpty()
+{
+    for (int i = 0; i < this->numBucket; ++i)
+    {
+        if (this->buckets[i] != nullptr)
+            return false;
+    }
+    return true;
 }
 
 // Copy content of another HashTable
@@ -197,24 +210,26 @@ void HashMap::insert(const std::string& key, const HashTable& data) //data is ac
     buckets[pos] = pNew; 
 }
 
-// Return pointer to MapBlock of given key
+// Return pointer to data of given key
 // Return nullptr if not found
-MapBlock* HashMap::find(const std::string& key)
+HashTable* HashMap::find(const std::string& key)
 {
     auto pos = this->hash(key);
     MapBlock* pCur = buckets[pos];
     while (pCur && pCur->key != key)
         pCur = pCur->pNext;
-    return pCur;
+    if (!pCur)
+        return nullptr;
+    return &(pCur->data);
 }
 
 // Direct access to both existing and non-existing data of given key
 // If key not found, create entry of said key with empty data
 HashTable& HashMap::access(const std::string& key)
 {
-    MapBlock* pFind = this->find(key);
+    HashTable* pFind = this->find(key);
     if (pFind)
-        return pFind->data;
+        return *pFind;
     
     // If key doesnt exist, create entry of key with empty data
     auto pos = this->hash(key);
@@ -253,6 +268,17 @@ void HashMap::clear()
 {
     for (int i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
+}
+
+// Check if HashMap is empty
+bool HashMap::isEmpty()
+{
+    for (int i = 0; i < this->numBucket; ++i)
+    {
+        if (this->buckets[i] != nullptr)
+            return false;
+    }
+    return true;
 }
 
 // Deallocate a bucket (linked list) in buckets
@@ -346,19 +372,19 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
     // Find all words containing tokens in their definition
     HashTable res;
     size_t i = 0;
-    MapBlock* findInit = nullptr;
+    HashTable* findInit = nullptr;
     while (!findInit && i < tokens.size())
     {
         findInit = invertedIndex.find(tokens[i]);
         ++i;
     }
     if (findInit)
-        res = findInit->data;
+        res = *findInit;
     for (; i < tokens.size(); ++i)
     {
-        MapBlock* found = invertedIndex.find(tokens[i]);
+        HashTable* found = invertedIndex.find(tokens[i]);
         if (found)
-            res = getIntersection(res, found->data);
+            res = getIntersection(res, *found);
     }
     return getVector(res);
 }
@@ -396,5 +422,39 @@ void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string
         curWord.push_back(static_cast<char>(i + 32));
         invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord);
         curWord.pop_back();
+    }
+}
+
+void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex)
+{
+    size_t i = 0;
+    while (i < word.length())
+    {
+        if (!pRoot)
+            return;
+        int indexNext = int(word[i]) - 32;
+        pRoot = pRoot->childNode[indexNext];
+        ++i;
+    }
+    if (pRoot->wordExisted && definitionNum < pRoot->definitions.size())
+    {
+        std::vector<std::string> tokens = tokenize(pRoot->definitions[definitionNum].second);
+        for (auto& t : tokens)
+        {
+            Change2Lowercase(t);
+            HashTable* find = invertedIndex.find(t);
+            find->remove(word);
+            if (find->isEmpty())
+                invertedIndex.remove(t);
+        }
+        
+        std::vector<std::string> newTokens = tokenize(newDef.second);
+        for (auto& t : newTokens)
+        {
+            Change2Lowercase(t);
+            invertedIndex.access(t).insert(word);
+        }
+
+        pRoot->definitions[definitionNum] = newDef;
     }
 }

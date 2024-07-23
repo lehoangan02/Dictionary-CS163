@@ -3,7 +3,6 @@
 #include <chrono>
 
 #include "trie.h"
-#include "instance.h"
 #include "readDataset.hpp"
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
@@ -27,6 +26,7 @@ int main()
 		printf("5 for suggesting words\n");
 		printf("6 for viewing a random word and its definitions\n");
 		printf("7 for searching by definitions\n");
+		printf("8 for editing a definitions\n");
 		std::cout << "mode: ";
 		std::cin >> mode;
 		switch (mode)
@@ -145,9 +145,30 @@ int main()
 				std::cout << s << std::endl;
 			break;
 		}
+		case 8:
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::string word;
+			int defNum;
+			std::pair<std::string, std::string> newDef;
+			std::cout << "Word: ";
+			getline(cin, word);
+			std::cout << "Definition Number: ";
+			std::cin >> defNum;
+			std::cin.ignore();
+			std::cout << "New Definition for " << word << std::endl;
+			std::cout << "POS: ";
+			getline(cin, newDef.first);
+			std::cout << "Definition: ";
+			getline(cin, newDef.second);
+
+			editDefinition(word, defNum, newDef, pRoot, invertedIndex);
+			break;
+		}
 		case 9:
 		{
 			std::cout << "🙏" << std::endl;
+			break;
 		}
 		default:
 			break;
