@@ -12,10 +12,6 @@ desiredsearch::desiredsearch()
 	solohover.loadFromFile("assets/image/SoloResultHover.png");
 	f.loadFromFile("assets/fomt/SourceSans3-VariableFont_wght.ttf");
 	available = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		options.push_back(Button(middefault, midhover, f, "", 24));
-	}
 }
 
 void desiredsearch::adjustsuggestions()
