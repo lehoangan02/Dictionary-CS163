@@ -9,7 +9,7 @@ bool existInList(linkedListNode* pRoot, std::string input)
     if (!pRoot) return false;
     while (pRoot)
     {
-        if (pRoot -> data.compare(input) == 0) // two string are equal
+        if (pRoot -> data == input) // two string are equal
         {
             return true;
         }
@@ -86,10 +86,11 @@ void readFavourite(linkedListNode*& pRoot)
     fin.open("settings/favourite.txt");
     while (getline(fin, temp))
     {
+        Change2Uppercase(temp);
         if (temp.compare("") != 0)
         {
             insertLinkedList(pRoot, temp);
-            printf("[DEBUG] reading %s\n", temp.c_str());
+            printf("[DEBUG] reading favourite: %s\n", temp.c_str());
         }
     }
     fin.close();
@@ -104,7 +105,9 @@ void writeFavourite(linkedListNode* pRoot)
     while (pRoot)
     {
         printf("[DEBUG] writing %s\n", (pRoot -> data).c_str());
-        fout << pRoot -> data;
+        std::string temp = pRoot -> data;
+        Change2Uppercase(temp);
+        fout << temp;
         if (pRoot -> pNext)
         {
             fout << std::endl;

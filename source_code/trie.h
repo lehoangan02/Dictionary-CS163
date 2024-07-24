@@ -56,7 +56,7 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot);
 
 std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k);
 
-bool SuggestingWords(std::string word, trieNode* pRoot);
+std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot);
 
 void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);
 

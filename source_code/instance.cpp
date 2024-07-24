@@ -536,13 +536,15 @@ void instance::operatePage1()
 	prevPageButton.click(windowInstance);
 	pageUpButton.click(windowInstance);
 	pageDownButton.click(windowInstance);
+	std::cout << headWordString << std::endl;
 	if (existInList(pRootFavourite, headWordString))
 	{
-		// printf("[DEBUG] word is favourite\n");
+		printf("[DEBUG] word is favourite\n");
 		bookmarkButton.setMode(true);
 	}
 	else
 	{
+		printf("[DEBUG] word is not favourite\n");
 		bookmarkButton.setMode(false);
 	}
 	bookmarkButton.click(windowInstance, mouseControl);
