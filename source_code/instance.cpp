@@ -688,7 +688,8 @@ void instance::operatePage3()
 		// DO NOT DELETE this is another approach
 		std::atomic<bool> controlLoaded(false);
 		std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-		invertIndexTrie(pRoot, invertIndex);
+		invertedIndex.clear();
+		invertIndexTrie(pRoot, invertedIndex);
 		controlLoaded.store(true);
 		printf("[DEBUG] done loading!\n");
 		loadingAnimationThread.join();
@@ -698,7 +699,7 @@ void instance::operatePage3()
 		// DO NOT DELETE this is another approach
 		// bool controlLoaded = false;
 		// void (*loadDef)(trieNode*, HashMap&, bool&) = invertIndexTrie;
-		// std::thread loadDefinitionWorker(loadDef, pRoot, std::ref(invertIndex), std::ref(controlLoaded));
+		// std::thread loadDefinitionWorker(loadDef, pRoot, std::ref(invertedIndex), std::ref(controlLoaded));
 		// loadingWrapper(windowInstance, controlLoaded);
 		// // only wait for the worker thread to join when the window is not closed during loading time
 		// if (windowInstance.isOpen())
@@ -721,13 +722,16 @@ void instance::operatePage3()
 				if (searchButton.isClicked(windowInstance))
 				{
 					std::string temp = searchBox.getString();
-					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					std::vector<std::string> result = searchByDef(temp, invertedIndex);
+					sortByDefLength(result, pRoot);
+					std::cout << "SORTED" << std::endl;
 					for (auto word : result)
 					{
 						std::cout << word << std::endl;
 					}
 					if (result.size() > 0)
 					{
+						std::cout << result[0] << std::endl;
 						handleSearchSignal(result[0]);
 					}
 				}
@@ -797,7 +801,9 @@ void instance::operatePage3()
 				if (event.key.code == sf::Keyboard::Return)
 				{
 					std::string temp = searchBox.getString();
-					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					std::vector<std::string> result = searchByDef(temp, invertedIndex);
+					sortByDefLength(result, pRoot);
+					std::cout << "SORTED" << std::endl;
 					for (auto word : result)
 					{
 						std::cout << word << std::endl;
