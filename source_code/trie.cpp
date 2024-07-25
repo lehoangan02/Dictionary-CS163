@@ -343,11 +343,13 @@ bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot)
 {
 	std::vector<std::pair<std::string, std::string>> defVec1 = Search(pRoot, s1);
 	std::vector<std::pair<std::string, std::string>> defVec2 = Search(pRoot, s2);
+	
 	size_t sumLength1 = 0;
 	size_t sumLength2 = 0;
 
 	for (size_t i = 0; i < defVec1.size(); ++i)
 		sumLength1 += defVec1[i].second.length();
+		
 	for (size_t i = 0; i < defVec2.size(); ++i)
 		sumLength2 += defVec2[i].second.length();
 
@@ -362,31 +364,32 @@ void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot)
 
 void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot) 
 {
-    if (left < right) 
+    	if (left < right) 
 	{
-        size_t mid = (left + right) / 2;
-
-        mergeSort(words, left, mid, pRoot);
-        mergeSort(words, mid + 1, right, pRoot);
-        merge(words, left, mid, right, pRoot);
-    }
+        	size_t mid = (left + right) / 2;
+		
+        	mergeSort(words, left, mid, pRoot);
+        	mergeSort(words, mid + 1, right, pRoot);
+        	merge(words, left, mid, right, pRoot);
+    	}
 }
 
 void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot) 
 {
     size_t sizeLeft = mid - left + 1;
-    size_t sizeRight = right - mid;
+   	size_t sizeRight = right - mid;
 
-    std::vector<std::string> leftVec(sizeLeft);
-    std::vector<std::string> rightVec(sizeRight);
+	std::vector<std::string> leftVec(sizeLeft);
+	std::vector<std::string> rightVec(sizeRight);
 
-    for (size_t i = 0; i < sizeLeft; ++i)
-        leftVec[i] = words[left + i];
-    for (size_t i = 0; i < sizeRight; ++i)
-        rightVec[i] = words[mid + 1 + i];
+	for (size_t i = 0; i < sizeLeft; ++i)
+		leftVec[i] = words[left + i];
+	for (size_t i = 0; i < sizeRight; ++i)
+		rightVec[i] = words[mid + 1 + i];
 
-    size_t i = 0, j = 0;
+	size_t i = 0, j = 0;
 	size_t curPos = left;
+	
     while (i < sizeLeft && j < sizeRight) 
 	{
         if (compareDefLength(rightVec[j], leftVec[i], pRoot)) 
@@ -409,7 +412,7 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
         ++curPos;
     }
 
-    while (j < sizeRight) 
+   	while (j < sizeRight) 
 	{
         words[curPos] = rightVec[j];
         ++j;

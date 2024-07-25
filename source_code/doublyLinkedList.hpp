@@ -3,6 +3,8 @@
 #include <string>
 #include <fstream>
 
+#include "trie.h"
+
 struct linkedListNode
 {
     std::string data;
