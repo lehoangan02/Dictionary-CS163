@@ -80,7 +80,7 @@ std::vector<std::string> tokenize(std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
 void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);
-
+void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex);
 // Search by definition
 
 std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex);
@@ -95,4 +95,5 @@ void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex);
 
 // Helper(s)
 
-void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
+void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
+void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex);
