@@ -17,6 +17,7 @@
 #include "doublyLinkedList.hpp"
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
+#include "wrapping.hpp"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -44,12 +45,14 @@ class instance
     std::vector<std::string> history;
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;
-    HashMap invertIndex;
+    HashMap invertedIndex;
     bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
     bool displayFavourite = false;
+    bool loadEmojiImage = false;
+    bool getWordToDelete = false;
 
     // definition hashmap of hashsets data structure
     HashMap definitionMap;
@@ -179,6 +182,7 @@ class instance
     sf::Texture prevPageHov;
     sf::Texture prevPageClick;
     spongyButton prevPageButton;
+    bool wrappedDescription = false;
 
     // history and favourite
     sf::Texture pageUpDef;
@@ -227,6 +231,19 @@ class instance
     sf::Texture deleteThisWordDef;
     sf::Texture deleteThisWordHov;
     Button deleteThisWordButton;
+
+    // add word page
+    sf::Texture modifyTextboxTexture;
+    textbox headwordBox;
+    textbox POSBox;
+    sf::Texture descriptionBoxTexture;
+    largeTextbox descriptionBox;
+    sf::Texture cancelTexDef;
+    sf::Texture cancelTexHov;
+    Button cancelButton;
+    sf::Texture addTexDef;
+    sf::Texture addTexHov;
+    Button addButton;
 
     // Game mode
     int gameMode = 0;
@@ -290,6 +307,7 @@ class instance
     void operatePage1();
     void operatePage2();
     void operatePage3();
+    void operatePage4();
     void operatePage5();
     void operatePage7();
     void operatePage8();
@@ -297,6 +315,7 @@ class instance
     void drawPage1();
     void drawPage2();
     void drawPage3();
+    void drawPage4();
     void drawPage5();
     void drawPage7();
     void drawPage8();

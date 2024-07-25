@@ -120,7 +120,27 @@ instance::instance() :
 	// delete this word button
 	deleteThisWordDef(loadTexture("assets/images/DeleteThisWordDef.png")),
 	deleteThisWordHov(loadTexture("assets/images/DeleteThisWordHov.png")),
-	deleteThisWordButton(deleteThisWordDef, deleteThisWordHov, SourceSans3, "DELETE THIS WORD", 36)
+	deleteThisWordButton(deleteThisWordDef, deleteThisWordHov, SourceSans3, "DELETE THIS WORD", 36),
+
+	// description box
+	modifyTextboxTexture(loadTexture("assets/images/modifyTextbox.png")),
+	headwordBox(modifyTextboxTexture, SourceSans3, 24, 32, sf::Vector2u(205, 73)),
+	POSBox(modifyTextboxTexture, SourceSans3, 24, 32, sf::Vector2u(205, 153)),
+	descriptionBoxTexture(loadTexture("assets/images/largeTextbox.png")),
+	descriptionBox(descriptionBoxTexture, SourceSans3, 24, 6, 550 - (20 * 2), sf::Vector2u(205, 233)),
+	cancelTexDef(loadTexture("assets/images/CancelTexDef.png")),
+	cancelTexHov(loadTexture("assets/images/CancelTexHov.png")),
+	cancelButton(cancelTexDef, cancelTexHov),
+	addTexDef(loadTexture("assets/images/AddTexDef.png")),
+	addTexHov(loadTexture("assets/images/AddTexHov.png")),
+	addButton(addTexDef, addTexHov)
+
+
+
+
+
+
+
 
 {
 	std::ifstream fin; fin.open("note.txt");
@@ -238,7 +258,11 @@ instance::instance() :
 	currentWordText.setOutlineThickness(1.5);
 	currentWordText.setStyle(sf::Text::Bold);
 	currentWordText.setPosition(280, 255 - 20);
-	currentWordText.setString("aldkjf");
+	currentWordText.setString("");
+
+	// Set up add word page
+	cancelButton.setPosition(sf::Vector2u(205, 527));
+	addButton.setPosition(sf::Vector2u(663, 527));
 }
 void instance::operate()
 {
@@ -266,6 +290,12 @@ void instance::operate()
 		{
 			operatePage3();
 			drawPage3();
+		}
+		break;
+		case 4:
+		{
+			operatePage4();
+			drawPage4();
 		}
 		break;
 		case 5:
@@ -348,6 +378,8 @@ void instance::operatePage1()
 						++definitionNum;
 						POSString = searchResult[definitionNum].first;
 						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
 					}
 				}
 				else if (prevPageButton.isClicked(windowInstance))
@@ -357,6 +389,8 @@ void instance::operatePage1()
 						--definitionNum;
 						POSString = searchResult[definitionNum].first;
 						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
 					}
 				}
 				else if (favouriteButton.isClicked(windowInstance))
@@ -502,13 +536,15 @@ void instance::operatePage1()
 	prevPageButton.click(windowInstance);
 	pageUpButton.click(windowInstance);
 	pageDownButton.click(windowInstance);
+	std::cout << headWordString << std::endl;
 	if (existInList(pRootFavourite, headWordString))
 	{
-		// printf("[DEBUG] word is favourite\n");
+		printf("[DEBUG] word is favourite\n");
 		bookmarkButton.setMode(true);
 	}
 	else
 	{
+		printf("[DEBUG] word is not favourite\n");
 		bookmarkButton.setMode(false);
 	}
 	bookmarkButton.click(windowInstance, mouseControl);
@@ -559,6 +595,10 @@ void instance::operatePage2()
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
 							importStatus.setString("Import Successful\n");
+							if (filepath == "UnicodeEmoji.csv")
+							{
+								loadEmojiImage = true;
+							}
 						}
 						else
 						{
@@ -581,11 +621,13 @@ void instance::operatePage2()
 							importStatus.setFillColor(sf::Color(255, 153, 0));
 							importStatus.setString("Import Failed\n");
 						}
+						loadEmojiImage = false;
 					}
 					else
 					{
 						importStatus.setFillColor(sf::Color(255, 153, 0));
 						importStatus.setString("Import Failed - Format not chosen\n");
+						loadEmojiImage = false;
 					}
 
 					controlLoaded.store(true);
@@ -646,7 +688,8 @@ void instance::operatePage3()
 		// DO NOT DELETE this is another approach
 		std::atomic<bool> controlLoaded(false);
 		std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-		invertIndexTrie(pRoot, invertIndex);
+		invertedIndex.clear();
+		invertIndexTrie(pRoot, invertedIndex);
 		controlLoaded.store(true);
 		printf("[DEBUG] done loading!\n");
 		loadingAnimationThread.join();
@@ -656,7 +699,7 @@ void instance::operatePage3()
 		// DO NOT DELETE this is another approach
 		// bool controlLoaded = false;
 		// void (*loadDef)(trieNode*, HashMap&, bool&) = invertIndexTrie;
-		// std::thread loadDefinitionWorker(loadDef, pRoot, std::ref(invertIndex), std::ref(controlLoaded));
+		// std::thread loadDefinitionWorker(loadDef, pRoot, std::ref(invertedIndex), std::ref(controlLoaded));
 		// loadingWrapper(windowInstance, controlLoaded);
 		// // only wait for the worker thread to join when the window is not closed during loading time
 		// if (windowInstance.isOpen())
@@ -679,13 +722,16 @@ void instance::operatePage3()
 				if (searchButton.isClicked(windowInstance))
 				{
 					std::string temp = searchBox.getString();
-					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					std::vector<std::string> result = searchByDef(temp, invertedIndex);
+					sortByDefLength(result, pRoot);
+					std::cout << "SORTED" << std::endl;
 					for (auto word : result)
 					{
 						std::cout << word << std::endl;
 					}
 					if (result.size() > 0)
 					{
+						std::cout << result[0] << std::endl;
 						handleSearchSignal(result[0]);
 					}
 				}
@@ -696,6 +742,8 @@ void instance::operatePage3()
 						++definitionNum;
 						POSString = searchResult[definitionNum].first;
 						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
 					}
 				}
 				else if (prevPageButton.isClicked(windowInstance))
@@ -705,6 +753,8 @@ void instance::operatePage3()
 						--definitionNum;
 						POSString = searchResult[definitionNum].first;
 						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
 					}
 				}
 				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
@@ -751,7 +801,9 @@ void instance::operatePage3()
 				if (event.key.code == sf::Keyboard::Return)
 				{
 					std::string temp = searchBox.getString();
-					std::vector<std::string> result = searchByDef(temp, invertIndex);
+					std::vector<std::string> result = searchByDef(temp, invertedIndex);
+					sortByDefLength(result, pRoot);
+					std::cout << "SORTED" << std::endl;
 					for (auto word : result)
 					{
 						std::cout << word << std::endl;
@@ -795,15 +847,84 @@ void instance::drawPage3()
 	drawSwitchMode();
 	windowInstance.display();
 }
+void instance::operatePage4()
+{
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				mouseControl = true;
+				if (cancelButton.isClicked(windowInstance) && mouseControl)
+				{
+					mouseControl = false;
+					printf("1. "); headwordBox.clear();
+					printf("2. "); POSBox.clear();
+					printf("3. "); descriptionBox.clear();
+				}
+				else if (addButton.isClicked(windowInstance) && mouseControl)
+				{
+					std::string newHeadword = headwordBox.getString();
+					std::string newPOS = POSBox.getString();
+					// std::string newDescription = 
+					// insert(pRoot, newHeadword, newPOS, newDescription);
+					if (autoSave)
+					{
+						std::atomic<bool> controlLoaded(false);
+						std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+						serializeBinaryWrapper(pRoot);
+						controlLoaded.store(true);
+						printf("[DEBUG] done loading!\n");
+						loadingAnimationThread.join();
+					}
+				}
+			}
+			break;
+			default:
+			break;
+		}
+		headwordBox.handleInputLogic(event, windowInstance);
+		POSBox.handleInputLogic(event, windowInstance);
+		descriptionBox.handleInputLogic(event, windowInstance);
+	}
+	cancelButton.hoverSwitchTexture(windowInstance);
+	addButton.hoverSwitchTexture(windowInstance);
+	hoverSubModes();
+	handleSwitchModeLogic();
+	switchPage();
+}
+void instance::drawPage4()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	headwordBox.draw(windowInstance);
+	POSBox.draw(windowInstance);
+	descriptionBox.draw(windowInstance);
+	cancelButton.draw(windowInstance);
+	addButton.draw(windowInstance);
+	drawSwitchMode();
+	drawSubModes();
+	windowInstance.display();
+}
 void instance::operatePage5()
 {
-	if (headWordString != "")
+	if (!getWordToDelete)
 	{
-		currentWordText.setString("Current word: " + headWordString);
-	}
-	else
-	{
-		currentWordText.setString("No current word!");
+		if (headWordString != "")
+		{
+			currentWordText.setString("Current word: " + headWordString);
+		}
+		else
+		{
+			currentWordText.setString("No current word!");
+		}
+		getWordToDelete = true;
 	}
 	while (windowInstance.pollEvent(event))
 	{
@@ -1010,6 +1131,8 @@ void instance::operatePage9()
 					++definitionNum;
 					POSString = searchResult[definitionNum].first;
 					descriptionString = searchResult[definitionNum].second;
+					description.setString(descriptionString);
+					wrappedDescription = false;
 				}
 			}
 			else if (prevPageButton.isClicked(windowInstance))
@@ -1019,6 +1142,8 @@ void instance::operatePage9()
 					--definitionNum;
 					POSString = searchResult[definitionNum].first;
 					descriptionString = searchResult[definitionNum].second;
+					description.setString(descriptionString);
+					wrappedDescription = false;
 				}
 			}
 			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
@@ -1229,6 +1354,19 @@ void instance::switchPage()
 			{
 				printf("[DEBUG changing to page 5\n]");
 				page = 5;
+				getWordToDelete = false;
+				pageChange = true;
+			}
+		}
+		else if (addModeButton.isClicked(windowInstance) && mouseControl)
+		{
+			if (page == 2 || (page >= 4 && page <= 8 && page != 4))
+			{
+				headwordBox.clear();
+				POSBox.clear();
+				descriptionBox.clear();
+				printf("[DEBUG changing to page 4\n]");
+				page = 4;
 				pageChange = true;
 			}
 		}
@@ -1298,12 +1436,34 @@ void instance::drawDefinition()
 {
 	if (!displayDef) return;
 	windowInstance.draw(definitionBackgroundSprite);
+	Change2Uppercase(headWordString);
 	headword.setString(headWordString);
 	POS.setString(POSString);
-	description.setString(descriptionString);
+	// description.setString(descriptionString); is moved to 
+	// handleSearchSignal(std::string input) and
+	// to event-loops (prev/next page button clicked when
+	// event.type == sf::Event::MouseButtonPressed)
+	// for wrapText to work properly
+	// (because setString reset the sf::Text object to be non-wrapped)
+	if (!wrappedDescription)
+	{
+		printf("[DEBUG] wrapping\n");
+		if (wrapText(description, 814, 4))
+		{
+			std::string temp = description.getString();
+			temp = temp + "... For more information, refer to the dataset.";
+			description.setString(temp);
+		}
+		wrappedDescription = true;
+		printf("[DEBUG] wrapped\n");
+	}
 	windowInstance.draw(headword);
 	windowInstance.draw(POS);
 	windowInstance.draw(description);
+	if (loadEmojiImage)
+	{
+		
+	}
 	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
 	if (definitionNum < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
 	if (displayDef)	bookmarkButton.draw(windowInstance);
@@ -1339,7 +1499,7 @@ void instance::drawDefinition()
 			}
 			if (numberOfResult == 0)
 			{
-				printf("[DEBUG] drawing error message\n");
+				// printf("[DEBUG] drawing error message\n");
 				windowInstance.draw(wordNotInThisDataSet);
 			}
 		}
@@ -1398,12 +1558,16 @@ void instance::handleSearchSignal(std::string input)
 		headWordString = input;
 		POSString = searchResult[definitionNum].first;
 		descriptionString = searchResult[definitionNum].second;
+		description.setString(descriptionString);
 		displayDef = true;
+		wrappedDescription = false;
 	}
 	else if (displayHistory || displayFavourite)
 	{
 		headWordString = input;
+		description.setString(descriptionString);
 		displayDef = true;
+		wrappedDescription = false;
 	}
 	else	displayDef = false;
 }

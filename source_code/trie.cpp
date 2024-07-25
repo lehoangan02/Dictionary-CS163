@@ -349,7 +349,6 @@ bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot)
 
 	for (size_t i = 0; i < defVec1.size(); ++i)
 		sumLength1 += defVec1[i].second.length();
-		
 	for (size_t i = 0; i < defVec2.size(); ++i)
 		sumLength2 += defVec2[i].second.length();
 
@@ -376,46 +375,46 @@ void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieN
 
 void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot) 
 {
-    size_t sizeLeft = mid - left + 1;
+    	size_t sizeLeft = mid - left + 1;
    	size_t sizeRight = right - mid;
 
-	std::vector<std::string> leftVec(sizeLeft);
-	std::vector<std::string> rightVec(sizeRight);
+    	std::vector<std::string> leftVec(sizeLeft);
+    	std::vector<std::string> rightVec(sizeRight);
 
-	for (size_t i = 0; i < sizeLeft; ++i)
-		leftVec[i] = words[left + i];
+    	for (size_t i = 0; i < sizeLeft; ++i)
+        	leftVec[i] = words[left + i];
 	for (size_t i = 0; i < sizeRight; ++i)
-		rightVec[i] = words[mid + 1 + i];
+        	rightVec[i] = words[mid + 1 + i];
 
-	size_t i = 0, j = 0;
+    	size_t i = 0, j = 0;
 	size_t curPos = left;
 	
-    while (i < sizeLeft && j < sizeRight) 
+    	while (i < sizeLeft && j < sizeRight) 
 	{
-        if (compareDefLength(rightVec[j], leftVec[i], pRoot)) 
+        	if (compareDefLength(rightVec[j], leftVec[i], pRoot)) 
 		{
-            words[curPos] = leftVec[i];
-            ++i;
-        } 
+            		words[curPos] = leftVec[i];
+            		++i;
+        	} 
 		else 
 		{
-            words[curPos] = rightVec[j];
-            ++j;
-        }
-        ++curPos;
-    }
+            		words[curPos] = rightVec[j];
+            		++j;
+        	}
+        	++curPos;
+    	}
 
-    while (i < sizeLeft) 
+    	while (i < sizeLeft) 
 	{
-        words[curPos] = leftVec[i];
-        ++i;
-        ++curPos;
-    }
+        	words[curPos] = leftVec[i];
+        	++i;
+        	++curPos;
+    	}
 
    	while (j < sizeRight) 
 	{
-        words[curPos] = rightVec[j];
-        ++j;
-        ++curPos;
-    }
+        	words[curPos] = rightVec[j];
+        	++j;
+        	++curPos;
+    	}
 }

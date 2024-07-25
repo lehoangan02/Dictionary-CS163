@@ -5,6 +5,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "wrapping.hpp"
+
 #define SHADOWHOR 4
 #define SHADOWVER 8
 #define SFMLTEXPADDING 6
@@ -17,7 +19,7 @@ Use getString.
 
 class textbox
 {
-private:
+protected:
     sf::Sprite textboxSprite;
     sf::Texture textboxTexture;
     sf::Text displayText;
@@ -34,16 +36,34 @@ private:
 public:
     textbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int limit ,sf::Vector2u position);
     void setPosition(sf::Vector2u position);
-    void handleInputLogic(const sf::Event envent, sf::RenderWindow& window);
+    virtual void handleInputLogic(const sf::Event envent, sf::RenderWindow& window);
     void draw(sf::RenderWindow &window);
     std::string getString();
-    void clear();
-private:
-    void insertChar(char newInput);
-    void deleteChar();
+    virtual void clear();
+
+protected:
+    virtual void insertChar(char newInput);
+    virtual void deleteChar();
     void handleColor();
-    void select();
-    void deselect();
-    void manageFullness();
+    virtual void select();
+    virtual void deselect();
+    virtual void manageFullness();
     void setLimit(int limit);
+};
+class largeTextbox : public textbox
+{
+    private:
+    int width = 0;
+    int lineLimit = 0;
+    bool lineLimitReached = false;
+    public:
+    largeTextbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int lineLimit, int width, sf::Vector2u position);
+    // void handleInputLogic(const sf::Event event, sf::RenderWindow& window) override;
+    void clear() override;
+    private:
+    void select() override;
+    void deselect() override;
+    void manageFullness() override;
+    void insertChar(char newInput) override;
+    void deleteChar() override;
 };

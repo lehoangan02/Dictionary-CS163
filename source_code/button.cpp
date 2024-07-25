@@ -1,11 +1,11 @@
 #include "button.hpp"
 // for non-text, non-hover buttons
 Button::Button(const sf::Texture& texture)
-{
-    this -> textureDefault = texture;
-    buttonSprite.setTexture(textureDefault);
-    clickToChange = false;
-}
+    {
+        this -> textureDefault = texture;
+        buttonSprite.setTexture(textureDefault);
+        clickToChange = false;
+    }
     
 /// for non-hover, text button
 Button::Button(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize)
