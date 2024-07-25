@@ -392,16 +392,16 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded)
 {
     std::string curWord;
-    invertIndexTrieHelper(pRoot, invertedIndex, curWord);
+    invertIndexTrieRecursive(pRoot, invertedIndex, curWord);
     controlLoaded = true;
 }
 void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex)
 {
     std::string curWord;
-    invertIndexTrieHelper(pRoot, invertedIndex, curWord);
+    invertIndexTrieRecursive(pRoot, invertedIndex, curWord);
 }
 
-void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord)
+void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord)
 {
     if (!pRoot)
         return;
@@ -420,7 +420,7 @@ void invertIndexTrieHelper(trieNode*& pRoot, HashMap& invertedIndex, std::string
     for (int i = 0; i < ascii; ++i)
     {
         curWord.push_back(static_cast<char>(i + 32));
-        invertIndexTrieHelper(pRoot->childNode[i], invertedIndex, curWord);
+        invertIndexTrieRecursive(pRoot->childNode[i], invertedIndex, curWord);
         curWord.pop_back();
     }
 }
@@ -443,9 +443,12 @@ void editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
         {
             Change2Lowercase(t);
             HashTable* find = invertedIndex.find(t);
-            find->remove(word);
-            if (find->isEmpty())
-                invertedIndex.remove(t);
+            if (find)
+            {
+                find->remove(word);
+                if (find->isEmpty())
+                    invertedIndex.remove(t);
+            }
         }
         
         std::vector<std::string> newTokens = tokenize(newDef.second);
@@ -457,4 +460,59 @@ void editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
 
         pRoot->definitions[definitionNum] = newDef;
     }
+}
+
+void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex)
+{
+	removeWordRecursive(word, 0, pRoot, invertedIndex);
+}
+
+void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex)
+{
+	//base case
+	if (!pRoot)
+		return;
+	if (curIndex == word.size())  
+	{
+		if (pRoot->wordExisted) 
+		{
+			// Remove word from Inverted Index
+			for (auto& def : pRoot->definitions)
+			{
+				std::vector<std::string> tokens = tokenize(def.second);
+				for (auto& t : tokens)
+				{
+					Change2Lowercase(t);
+					HashTable* find = invertedIndex.find(t);
+                    if (find)
+                    {
+                        find->remove(word);
+                        if (find->isEmpty())
+                            invertedIndex.remove(t);
+                    }
+				}
+			}
+
+			// Remove word from Trie
+			pRoot->wordExisted = false;
+			pRoot->definitions.clear();
+
+			//check whether it is the last node (delete) or prefix for other words.
+			if (!isLeaf(pRoot)) 
+			{
+				delete pRoot;
+				pRoot = nullptr;
+			}
+		}
+		return;
+	}
+
+	int indexNext = int(word[curIndex]) - 32;
+	removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex);
+	pRoot->countchildren--;
+	if (isLeaf(pRoot) && !pRoot->wordExisted)
+	{
+		delete pRoot;
+		pRoot = nullptr;
+	}
 }
