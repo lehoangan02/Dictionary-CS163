@@ -25,27 +25,25 @@ void desiredsearch::adjustsuggestions()
 		}
 		case 1:
 		{
-			options[0] = Button(solodefault, solohover, f, categories[0], 24);
+			options.push_back(Button(solodefault, solohover, f, categories[0], 24));
 			break;
 		}
 		case 2:
 		{
-			options[0] = Button(topdefault, tophover, f, categories[0], 24);
-			options[1] = Button(bottomdefault, bottomhover, f, categories[1], 24);
+			options.push_back(Button(topdefault, tophover, f, categories[0], 24));
+			options.push_back(Button(bottomdefault, bottomhover, f, categories[1], 24));
 			break;
 		}
 		case 3:
 		{
-			options[0] = Button(topdefault, tophover, f, categories[0], 24);
-			options[1] = Button(middefault, midhover, f, categories[1], 24);
-			options[2] = Button(bottomdefault, bottomhover, f, categories[2], 24);
+			options.push_back(Button(topdefault, tophover, f, categories[0], 24));
+			options.push_back(Button(middefault, midhover, f, categories[1], 24));
+			options.push_back(Button(bottomdefault, bottomhover, f, categories[2], 24));
 			break;
 		}
 	}
 	for (int i = 0; i < options.size(); ++i) options[i].setPosition(sf::Vector2u(125, 145 + 65 * i));
 }
-
-
 
 void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 {
