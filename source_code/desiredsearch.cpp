@@ -14,6 +14,7 @@ desiredsearch::desiredsearch()
 	available = 0;
 }
 
+//clear the old suggest buttons and create new ones
 void desiredsearch::adjustsuggestions()
 {
 	options.clear();
@@ -45,6 +46,7 @@ void desiredsearch::adjustsuggestions()
 	for (int i = 0; i < options.size(); ++i) options[i].setPosition(sf::Vector2u(125, 145 + 65 * i));
 }
 
+//update the suggested words, and then the suggested buttons
 void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 {
 	categories = std::vector<std::string>();
@@ -65,6 +67,7 @@ void desiredsearch::draw(sf::RenderWindow &w)
 	for (Button b: options) b.draw(w);
 }
 
+//suggested search "mode", i.e. which button is pressed, -1 if none. the function also changes the word in the search box
 int desiredsearch::returnmode(sf::RenderWindow &w, std::string &word)
 {
 	for (int i = 0; i < options.size(); i++)

@@ -18,6 +18,7 @@
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
 #include "wrapping.hpp"
+#include "desiredsearch.h"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -109,6 +110,9 @@ class instance
     sf::Texture importTexHov;
     sf::Texture importTexClick;
     Button importButton;
+
+    //suggested search words
+    desiredsearch suggestedcontent;
 
     // "import file path" text
     sf::Texture importPromptTexture;
