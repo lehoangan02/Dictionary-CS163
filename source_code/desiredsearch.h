@@ -16,4 +16,5 @@ class desiredsearch
 	void updateoptions(std::string word, trieNode* pRoot);
 	void adjustsuggestions();
 	void draw(sf::RenderWindow &w);
+	int returnmode(sf::RenderWindow &w, std::string &word);
 };

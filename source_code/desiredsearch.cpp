@@ -64,3 +64,14 @@ void desiredsearch::draw(sf::RenderWindow &w)
 {
 	for (Button b: options) b.draw(w);
 }
+
+int desiredsearch::returnmode(sf::RenderWindow &w, std::string &word)
+{
+	for (int i = 0; i < options.size(); i++)
+		if (options[i].isClicked(w))
+		{
+			word = categories[i];
+			return i;
+		}
+	return -1;
+}
