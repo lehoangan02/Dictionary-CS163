@@ -154,7 +154,7 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 			collection1 = traverseToSearch(pRoot, word);
 		}
 	}
-	// Traverse the trie to find the word (the first letter in capital form)
+	// Traverse the trie to find the word (the first letter in each syllable in capital form)
 	if (collection1.empty())
 		collection2 = traverseToSearch(pRoot, word);
 	
@@ -341,8 +341,8 @@ void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<
 
 bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot)
 {
-	std::vector<std::pair<std::string, std::string>> defVec1 = Search(pRoot, s1);
-	std::vector<std::pair<std::string, std::string>> defVec2 = Search(pRoot, s2);
+	std::vector<std::pair<std::string, std::string>> defVec1 = traverseToSearch(pRoot, s1);
+	std::vector<std::pair<std::string, std::string>> defVec2 = traverseToSearch(pRoot, s2);
 	
 	size_t sumLength1 = 0;
 	size_t sumLength2 = 0;
