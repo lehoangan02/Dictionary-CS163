@@ -4,6 +4,7 @@
 #include <cctype>
 #include <algorithm>
 #include <random>
+#include <ctime>
 #include "trie.h"
 
 void Change2Lowercase(std::string& word)
@@ -417,4 +418,16 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
         	++j;
         	++curPos;
     	}
+}
+
+std::vector<std::pair<std::string, std::string>> randomWord4Def(trieNode* pRoot, std::vector<std::string> &word4Def)
+{
+	// generate a random number
+	std::mt19937 gen(static_cast<unsigned>(std::time(0)));
+	std::uniform_int_distribution<> dist(0, word4Def.size() - 1);
+	int random_number = dist(gen);
+
+	std::string word = word4Def[random_number];
+	// will return the vector of definitions if found, or else return a blank vector (maybe the word has been deleted)
+	return Search(pRoot, word); 
 }
