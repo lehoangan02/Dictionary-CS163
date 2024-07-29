@@ -4,8 +4,10 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <limits>
 
 #include "wrapping.hpp"
+
 
 #define SHADOWHOR 4
 #define SHADOWVER 8

@@ -351,6 +351,7 @@ void instance::operatePage1()
 			{
 				// printf("[DEBUG] mouse button pressed\n");
 				mouseControl = true;
+				int option = suggestedcontent.returnmode(windowInstance);
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
 					displayHistory = false;
@@ -370,6 +371,15 @@ void instance::operatePage1()
 					displayHistory = true;
 					displayFavourite = false;
 					handleHistory();
+				}
+				else if (option != -1)
+				{
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = suggestedcontent.getcategory(option);
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
 				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
@@ -520,6 +530,7 @@ void instance::operatePage1()
 			break;
 		}
 		searchBox.handleInputLogic(event, windowInstance);
+		suggestedcontent.updateoptions(searchBox.getString(), pRoot);
 	}
 	handleSwitchModeLogic();
 	searchButton.hoverSwitchTexture(windowInstance);

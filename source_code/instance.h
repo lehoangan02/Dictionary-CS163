@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <vector>
+#include <atomic>
 #include <thread>
 
 #include "button.hpp"

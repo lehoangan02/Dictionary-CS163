@@ -68,13 +68,17 @@ void desiredsearch::draw(sf::RenderWindow &w)
 }
 
 //suggested search "mode", i.e. which button is pressed, -1 if none. the function also changes the word in the search box
-int desiredsearch::returnmode(sf::RenderWindow &w, std::string &word)
+int desiredsearch::returnmode(sf::RenderWindow &w)
 {
 	for (int i = 0; i < options.size(); i++)
 		if (options[i].isClicked(w))
 		{
-			word = categories[i];
 			return i;
 		}
 	return -1;
+}
+
+std::string desiredsearch::getcategory(int i)
+{
+	return categories[i];
 }
