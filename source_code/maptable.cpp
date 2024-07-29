@@ -7,7 +7,7 @@ HashTable::HashTable()
 }
 
 // Initialize empty HashTable, arbitary number of buckets (linked list)
-HashTable::HashTable(int x) : numBucket(x)
+HashTable::HashTable(const size_t& x) : numBucket(x)
 {
     buckets = new TableBlock*[this->numBucket] {nullptr};
 }
@@ -22,9 +22,12 @@ HashTable::HashTable(const HashTable& source)
 //Destruction
 HashTable::~HashTable()
 {
-    this->clear();
-    delete[] buckets;
-    buckets = nullptr;
+    if (this->buckets)
+    {
+        this->clear();
+        delete[] buckets;
+        buckets = nullptr;
+    }
 }
 
 // Assign content from source HashTable
@@ -69,7 +72,9 @@ void HashTable::insert(const std::string& key) //the actual word
     pNew->data = key;
     pNew->pNext = buckets[pos];
     buckets[pos] = pNew; 
-
+    ++this->size;
+    if (this->size > this->numBucket)
+        this->rehash(2 * this->numBucket);
 }
 
 // Return pointer to element 'key'(word) in HashTable
@@ -99,6 +104,7 @@ void HashTable::remove(const std::string& key)
             TableBlock* pTemp = pCur->pNext->pNext;
             delete pCur->pNext;
             pCur->pNext = pTemp;
+            --this->size;
         }
         else
             pCur = pCur->pNext;
@@ -110,18 +116,14 @@ void HashTable::remove(const std::string& key)
 // Check if HashTable is empty
 bool HashTable::isEmpty()
 {
-    for (int i = 0; i < this->numBucket; ++i)
-    {
-        if (this->buckets[i] != nullptr)
-            return false;
-    }
-    return true;
+    return (this->size == 0);
 }
 
 // Copy content of another HashTable
 void HashTable::copy(const HashTable& source)
 {
-    numBucket = source.numBucket;
+    this->numBucket = source.numBucket;
+    this->size = source.size;
     buckets = new TableBlock*[source.numBucket] {nullptr};
     for (int i = 0; i < source.numBucket; ++i)
     {
@@ -145,6 +147,7 @@ void HashTable::clear()
 {
     for (int i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
+    this->size = 0;
 }
 
 // Deallocate a bucket (linked list) in table
@@ -158,6 +161,35 @@ void HashTable::deleteLL(TableBlock*& pHead)
     }
 }
 
+// Rehash (resize) HashTable to new numBucket, used when HashTable contains too many elements
+void HashTable::rehash(const size_t& newNumBucket)
+{
+    if (newNumBucket <= this->numBucket)
+        return;
+    HashTable tempTable(newNumBucket);
+    for (int i = 0; i < this->numBucket; ++i)
+    {
+        while (this->buckets[i])
+        {
+            TableBlock* pCurBlock = this->buckets[i];
+            this->buckets[i] = this->buckets[i]->pNext;
+            tempTable.insert(pCurBlock);
+        }
+    }
+    delete[] this->buckets;
+    this->buckets = tempTable.buckets;
+    this->numBucket = newNumBucket;
+    tempTable.buckets = nullptr;
+}
+
+// Insert a MapBlock into HashMap, only used when rehashing
+void HashTable::insert(TableBlock*& block)
+{
+    auto pos = this->hash(block->data);
+    block->pNext = this->buckets[pos];
+    this->buckets[pos] = block;
+}
+
 // Initialize empty HashMap, default number of buckets (linked list)
 HashMap::HashMap()
 {
@@ -165,16 +197,19 @@ HashMap::HashMap()
 }
 
 // Initialize empty HashMap, arbitary number of buckets (linked list)
-HashMap::HashMap(int x) : numBucket(x)
+HashMap::HashMap(const size_t& x) : numBucket(x)
 {
     buckets = new MapBlock*[this->numBucket] {nullptr};
 }
 
 HashMap::~HashMap()
 {
-    this->clear();
-    delete[] buckets;
-    buckets = nullptr;
+    if (this->buckets)
+    {
+        this->clear();
+        delete[] buckets;
+        buckets = nullptr;
+    }
 }
 
 // Hash
@@ -207,7 +242,10 @@ void HashMap::insert(const std::string& key, const HashTable& data) //data is ac
     pNew->key = key;
     pNew->data = data;
     pNew->pNext = buckets[pos];
-    buckets[pos] = pNew; 
+    buckets[pos] = pNew;
+    ++this->size;
+    if (this->size > this->numBucket)
+        this->rehash(2 * this->numBucket);
 }
 
 // Return pointer to data of given key
@@ -235,9 +273,12 @@ HashTable& HashMap::access(const std::string& key)
     auto pos = this->hash(key);
     MapBlock* pNew = new MapBlock;
     pNew->key = key;
-    pNew->pNext = buckets[pos];
-    buckets[pos] = pNew;
-    return buckets[pos]->data;
+    pNew->pNext = this->buckets[pos];
+    this->buckets[pos] = pNew;
+    ++this->size;
+    if (this->size > this->numBucket)
+        this->rehash(2 * this->numBucket);
+    return pNew->data;
 }
 
 // Remove a key and associated data
@@ -255,6 +296,7 @@ void HashMap::remove(const std::string& key)
             MapBlock* pTemp = pCur->pNext->pNext;
             delete pCur->pNext;
             pCur->pNext = pTemp;
+            --this->size;
         }
         else
             pCur = pCur->pNext;
@@ -268,17 +310,13 @@ void HashMap::clear()
 {
     for (int i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
+    this->size = 0;
 }
 
 // Check if HashMap is empty
 bool HashMap::isEmpty()
 {
-    for (int i = 0; i < this->numBucket; ++i)
-    {
-        if (this->buckets[i] != nullptr)
-            return false;
-    }
-    return true;
+    return (this->size == 0);
 }
 
 // Deallocate a bucket (linked list) in buckets
@@ -290,6 +328,34 @@ void HashMap::deleteLL(MapBlock*& pHead)
         delete pHead;
         pHead = pTemp;
     }
+}
+
+// Rehash (resize) HashMap to new numBucket, used when HashMap contains too many elements
+void HashMap::rehash(const size_t& newNumBucket)
+{
+    if (newNumBucket <= this->numBucket)
+        return;
+    HashMap tempMap(newNumBucket);
+    for (int i = 0; i < this->numBucket; ++i)
+    {
+        while (this->buckets[i])
+        {
+            MapBlock* pCurBlock = this->buckets[i];
+            this->buckets[i] = this->buckets[i]->pNext;
+            tempMap.insert(pCurBlock);
+        }
+    }
+    delete[] this->buckets;
+    this->buckets = tempMap.buckets;
+    this->numBucket = newNumBucket;
+    tempMap.buckets = nullptr;
+}
+
+void HashMap::insert(MapBlock*& block)
+{
+    auto pos = this->hash(block->key);
+    block->pNext = this->buckets[pos];
+    this->buckets[pos] = block;
 }
 
 // Check if character is alphabetic
