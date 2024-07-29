@@ -7,3 +7,4 @@
 /// @return number of '\newline' in the string
 int countNewLines(const std::string& input);
 bool wrapText(sf::Text& inputText, int width, int lineLimit);
+void unwrapText(std::string& text);

@@ -1,3 +1,4 @@
+#include <string>
 #include "wrapping.hpp"
 
 /// @brief wrap sf::Text object to according to a certain width, with a line limit
@@ -53,7 +54,8 @@ bool wrapText(sf::Text& inputText, int width, int lineLimit)
     return false;
 }
 
-int countNewLines(const std::string& input) {
+int countNewLines(const std::string& input) 
+{
     int count = 0;
     for (char character : input) {
         if (character == '\n') {
@@ -61,4 +63,23 @@ int countNewLines(const std::string& input) {
         }
     }
     return count;
+}
+
+void unwrapText(std::string& text)
+{
+    for (int i = 0; i < text.size(); i++)
+    {
+        if (text[i] == '\n')
+        {
+            if (text[i - 1] == '-')
+            {
+                text.erase(i - 1, 2);
+                
+            }
+            else
+            {
+                text[i] = ' ';
+            }
+        }
+    }
 }

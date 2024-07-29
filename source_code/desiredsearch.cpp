@@ -14,6 +14,7 @@ desiredsearch::desiredsearch()
 	available = 0;
 }
 
+//clear the old suggest buttons and create new ones
 void desiredsearch::adjustsuggestions()
 {
 	options.clear();
@@ -25,28 +26,27 @@ void desiredsearch::adjustsuggestions()
 		}
 		case 1:
 		{
-			options[0] = Button(solodefault, solohover, f, categories[0], 24);
+			options.push_back(Button(solodefault, solohover, f, categories[0], 24));
 			break;
 		}
 		case 2:
 		{
-			options[0] = Button(topdefault, tophover, f, categories[0], 24);
-			options[1] = Button(bottomdefault, bottomhover, f, categories[1], 24);
+			options.push_back(Button(topdefault, tophover, f, categories[0], 24));
+			options.push_back(Button(bottomdefault, bottomhover, f, categories[1], 24));
 			break;
 		}
 		case 3:
 		{
-			options[0] = Button(topdefault, tophover, f, categories[0], 24);
-			options[1] = Button(middefault, midhover, f, categories[1], 24);
-			options[2] = Button(bottomdefault, bottomhover, f, categories[2], 24);
+			options.push_back(Button(topdefault, tophover, f, categories[0], 24));
+			options.push_back(Button(middefault, midhover, f, categories[1], 24));
+			options.push_back(Button(bottomdefault, bottomhover, f, categories[2], 24));
 			break;
 		}
 	}
 	for (int i = 0; i < options.size(); ++i) options[i].setPosition(sf::Vector2u(125, 145 + 65 * i));
 }
 
-
-
+//update the suggested words, and then the suggested buttons
 void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 {
 	categories = std::vector<std::string>();
@@ -65,4 +65,16 @@ void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 void desiredsearch::draw(sf::RenderWindow &w)
 {
 	for (Button b: options) b.draw(w);
+}
+
+//suggested search "mode", i.e. which button is pressed, -1 if none. the function also changes the word in the search box
+int desiredsearch::returnmode(sf::RenderWindow &w, std::string &word)
+{
+	for (int i = 0; i < options.size(); i++)
+		if (options[i].isClicked(w))
+		{
+			word = categories[i];
+			return i;
+		}
+	return -1;
 }

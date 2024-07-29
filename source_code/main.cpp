@@ -27,20 +27,21 @@ int main()
 		printf("6 for viewing a random word and its definitions\n");
 		printf("7 for searching by definitions\n");
 		printf("8 for editing a definitions\n");
-		std::cout << "mode: ";
-		std::cin >> mode;
+		printf("9 for removing a word\n");
+		cout << "mode: ";
+		cin >> mode;
 		switch (mode)
 		{
 		case 1:
 		{
 			deleteWholeTrie(pRoot);
-			std::string filename;
-			std::cout << "input filename: ";
-			std::cin.ignore();
-			std::getline(std::cin, filename);
+			string filename;
+			cout << "input filename: ";
+			cin.ignore();
+			getline(cin, filename);
 			readDatasetTXT(filename, pRoot);
 			//printf("imported successfully\n");
-			std::cout << "[DEBUG] " << pRoot << std::endl;
+			cout << "[DEBUG] " << pRoot << endl;
 			if (indexed)
 			{
 				invertedIndex.clear();
@@ -50,28 +51,28 @@ int main()
 		}
 		case 2:
 		{
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "search here: ";
-			std::string searchObject;
-			std::getline(std::cin, searchObject);
-			std::cout << "searching: " << searchObject << std::endl;
-			//std::cout << "[DEBUG] " << pRoot << std::endl;
-			std::vector<std::pair<std::string, std::string>> test = Search(pRoot, searchObject);
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "search here: ";
+			string searchObject;
+			getline(cin, searchObject);
+			cout << "searching: " << searchObject << endl;
+			//cout << "[DEBUG] " << pRoot << endl;
+			vector<pair<string, string>> test = Search(pRoot, searchObject);
 			if (test.empty()) {
-				std::cout << "Word not found\n";
+				cout << "Word not found\n";
 			}
 			else {
 				for (auto& x : test)
 				{
-					std::cout << "-    (" << x.first << ") : ";
-					std::cout << x.second << std::endl;
+					cout << "-    (" << x.first << ") : ";
+					cout << x.second << endl;
 				}
 			}
 			break;
 		}
 		case 3:
 		{
-			std::fstream f; f.open("serialized.bin", std::ios::out | std::ios::trunc | std::ios::binary);
+			fstream f; f.open("serialized.bin", ios::out | ios::trunc | ios::binary);
 			serializeBinary(pRoot, f, "");
 			f.close();
 			break;
@@ -79,87 +80,91 @@ int main()
 		case 4:
 		{
 			deleteWholeTrie(pRoot);
-			std::fstream f; f.open("serialized.bin", std::ios::in | std::ios::binary);
+			fstream f; f.open("serialized.bin", ios::in | ios::binary);
 			if (f.is_open() == false)
 			{
-				std::cout << "[DEBUG] no file found to deserialize!\n";
+				cout << "[DEBUG] no file found to deserialize!\n";
 				return false;
 			}
 			deserializeBinary(pRoot, f, "");
-			std::cout << "[DEBUG] " << pRoot << std::endl;
+			cout << "[DEBUG] " << pRoot << endl;
 			break;
 		}
 		case 5:
 		{
-			std::cout << "Please input: "; cin.ignore();
-			std::string prefix;
+			cout << "Please input: "; cin.ignore();
+			string prefix;
 			getline(cin, prefix);
-			std::cout << prefix << std::endl;
-			std::cout << "Here are some suggestions: " << std::endl;
-			std::vector<std::string> suggested = SuggestingWords(prefix, pRoot);
+			cout << prefix << endl;
+			cout << "Here are some suggestions: " << endl;
+			vector<string> suggested = SuggestingWords(prefix, pRoot);
 			if (!suggested.empty())
 			{
 				for (auto& x : suggested)
 				{
-					std::cout << x << std::endl;
+					cout << x << endl;
 				}
-			} else std::cout << "Trying another!" << std::endl;
+			} else cout << "Trying another!" << endl;
 			break;
 		}
 		case 6:
 		{
-			std::cout << "The random word is: "; cin.ignore();
-			std::pair<trieNode*, std::string> random = pickarandomword(pRoot);
+			cout << "The random word is: "; cin.ignore();
+			pair<trieNode*, string> random = pickarandomword(pRoot);
 			if (random.first) {
-				std::cout << random.second << std::endl;
+				cout << random.second << endl;
 				int i = 0;
 				for (auto& x : random.first->definitions) {
-					std::cout << i + 1 << ". (" << x.first << ") " << x.second << std::endl;
+					cout << i + 1 << ". (" << x.first << ") " << x.second << endl;
 					i++;
 				}
 			}
 			else {
-				std::cout << "=> Can't find a random word !" << std::endl;
+				cout << "=> Can't find a random word !" << endl;
 			}
 			break;
 		}
 		case 7:
 		{
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			if (!indexed)
 			{
-				std::cout << "Creating Inverted Index..." << std::endl;
-				auto start_time = std::chrono::high_resolution_clock::now();
+				cout << "Creating Inverted Index..." << endl;
+				auto start_time = chrono::high_resolution_clock::now();
+
 				invertIndexTrie(pRoot, invertedIndex);
-    			auto end_time = std::chrono::high_resolution_clock::now();
-				std::chrono::duration<double> elapsed = end_time - start_time;
-				std::cout << "Building took " << elapsed.count() << " seconds" << std::endl;
-				std::cout << "Finished" << std::endl;
+				
+    			auto end_time = chrono::high_resolution_clock::now();
+				cout << "Finished" << endl;
+				chrono::duration<double> elapsed = end_time - start_time;
+				cout << "Building took " << elapsed.count() << " seconds" << endl;
+				cout << "Tokens generated: " << invertedIndex.size << endl;
 				indexed = true;
 			}
-			std::string userInput;
-			std::cout << "Your input: ";
+			string userInput;
+			cout << "Your input: ";
 			getline(cin, userInput);
-			std::vector<std::string> res = searchByDef(userInput, invertedIndex);
+			vector<string> res = searchByDef(userInput, invertedIndex);
+			sortByDefLength(res, pRoot);
 			for (auto& s : res)
-				std::cout << s << std::endl;
+				cout << s << endl;
 			break;
 		}
 		case 8:
 		{
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::string word;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			string word;
 			int defNum;
-			std::pair<std::string, std::string> newDef;
-			std::cout << "Word: ";
+			pair<string, string> newDef;
+			cout << "Word: ";
 			getline(cin, word);
-			std::cout << "Definition Number: ";
-			std::cin >> defNum;
-			std::cin.ignore();
-			std::cout << "New Definition for " << word << std::endl;
-			std::cout << "POS: ";
+			cout << "Definition Number: ";
+			cin >> defNum;
+			cin.ignore();
+			cout << "New Definition for " << word << endl;
+			cout << "POS: ";
 			getline(cin, newDef.first);
-			std::cout << "Definition: ";
+			cout << "Definition: ";
 			getline(cin, newDef.second);
 
 			editDefinition(word, defNum, newDef, pRoot, invertedIndex);
@@ -167,7 +172,17 @@ int main()
 		}
 		case 9:
 		{
-			std::cout << "🙏" << std::endl;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			string word;
+			cout << "You want to delete: ";
+			getline(cin, word);
+
+			removeWord(word, pRoot, invertedIndex);
+			break;
+		}
+		case 10:
+		{
+			cout << "🙏" << endl;
 			break;
 		}
 		default:

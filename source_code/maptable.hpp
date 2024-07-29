@@ -12,13 +12,13 @@ struct TableBlock // Used for chaining in HashTable
 struct HashTable // Designed after unordered_set<string>
 {
     TableBlock** buckets = nullptr;
-    int numBucket = 499; // May need improvements
+    size_t numBucket = 16; // Default bucket count
+    size_t size = 0; // Number of elements
 
     // Ctor
     HashTable();
-    HashTable(int x);
+    HashTable(const size_t& x);
     HashTable(const HashTable& source);
-    void copy(const HashTable& source);
 
     // Dtor
     ~HashTable();
@@ -26,6 +26,7 @@ struct HashTable // Designed after unordered_set<string>
 
     // Operators
     HashTable& operator=(const HashTable& source);
+    void copy(const HashTable& source);
 
     // Basic methods
     void insert(const std::string& key);
@@ -38,6 +39,9 @@ struct HashTable // Designed after unordered_set<string>
     size_t hash(const std::string& key);
     size_t hashFNV_1a(const std::string& s);
 
+    // Resizing
+    void rehash(const size_t& newNumBucket);
+    void insert(TableBlock*& block);
 };
 
 struct MapBlock // Used for chaining in HashMap (traversing through the definitions)
@@ -50,11 +54,12 @@ struct MapBlock // Used for chaining in HashMap (traversing through the definiti
 struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 {
     MapBlock** buckets = nullptr;
-    int numBucket = 1999; // May need improvements
+    size_t numBucket = 16; // Default bucket count
+    size_t size = 0; // Number of elements
 
     // Ctor
     HashMap();
-    HashMap(int x);
+    HashMap(const size_t& x);
 
     // Dtor
     ~HashMap();
@@ -71,6 +76,10 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
     // Hashing
     size_t hash(const std::string& key);
     size_t hashFNV_1a(const std::string& s);
+
+    // Resizing
+    void rehash(const size_t& newNumBucket);
+    void insert(MapBlock*& block);
 };
 
 // Utility functions
@@ -81,6 +90,7 @@ HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
 void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);
 void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex);
+
 // Search by definition
 
 std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex);
