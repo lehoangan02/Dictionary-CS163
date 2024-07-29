@@ -27,7 +27,7 @@ int main()
 		printf("6 for viewing a random word and its definitions\n");
 		printf("7 for searching by definitions\n");
 		printf("8 for editing a definitions\n");
-		printf("9 for removing a word\n");
+		printf("9 for removing a word\n10 for import CSV\n");
 		cout << "mode: ";
 		cin >> mode;
 		switch (mode)
@@ -72,22 +72,35 @@ int main()
 		}
 		case 3:
 		{
+			auto start_time = chrono::high_resolution_clock::now();
 			fstream f; f.open("serialized.bin", ios::out | ios::trunc | ios::binary);
 			serializeBinary(pRoot, f, "");
 			f.close();
+			auto end_time = chrono::high_resolution_clock::now();
+			cout << "Finished" << endl;
+			chrono::duration<double> elapsed = end_time - start_time;
+			cout << "Building took " << elapsed.count() << " seconds" << endl;
+			
 			break;
 		}
 		case 4:
 		{
+			auto start_time = chrono::high_resolution_clock::now();
+			
 			deleteWholeTrie(pRoot);
 			fstream f; f.open("serialized.bin", ios::in | ios::binary);
 			if (f.is_open() == false)
 			{
 				cout << "[DEBUG] no file found to deserialize!\n";
-				return false;
+				break;
 			}
-			deserializeBinary(pRoot, f, "");
+			deserializeBinaryWrapper(pRoot);
 			cout << "[DEBUG] " << pRoot << endl;
+
+			auto end_time = chrono::high_resolution_clock::now();
+			cout << "Finished" << endl;
+			chrono::duration<double> elapsed = end_time - start_time;
+			cout << "Building took " << elapsed.count() << " seconds" << endl;
 			break;
 		}
 		case 5:
@@ -130,8 +143,8 @@ int main()
 			if (!indexed)
 			{
 				cout << "Creating Inverted Index..." << endl;
+				
 				auto start_time = chrono::high_resolution_clock::now();
-
 				invertIndexTrie(pRoot, invertedIndex);
 				
     			auto end_time = chrono::high_resolution_clock::now();
@@ -182,7 +195,19 @@ int main()
 		}
 		case 10:
 		{
-			cout << "🙏" << endl;
+			std::vector<std::string> wordFourDef;
+			wordFourDef.reserve(6000);
+			std::string filepath; printf("input filepath: "); std::cin >> filepath;
+			auto start_time = chrono::high_resolution_clock::now();
+			readDatasetCSV(filepath, pRoot, wordFourDef);
+			auto end_time = chrono::high_resolution_clock::now();
+			cout << "Finished" << endl;
+			chrono::duration<double> elapsed = end_time - start_time;
+			cout << "Building took " << elapsed.count() << " seconds" << endl;
+			for (int i = 0; i < static_cast<int>(wordFourDef.size()); ++i)
+			{
+				std::cout << wordFourDef[i] << std::endl;
+			}
 			break;
 		}
 		default:

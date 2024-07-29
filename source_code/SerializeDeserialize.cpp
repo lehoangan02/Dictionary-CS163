@@ -87,7 +87,8 @@ void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 void serializeBinaryWrapper(trieNode* pRoot)
 {
 	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::out | std::ios::trunc);
-	serializeBinary(pRoot, f, "");
+	std::string temp = "";
+	serializeBinary(pRoot, f, temp);
 }
 void serializeBinary(trieNode* pRoot, std::fstream& f, std::string word)
 {
@@ -136,10 +137,11 @@ bool deserializeBinaryWrapper(trieNode*& pRoot)
 		std::cout << "[DEBUG] no file found to deserialize!\n";
 		return false;
 	}
-	deserializeBinary(pRoot, f, "");
+	std::string temp = "";
+	deserializeBinary(pRoot, f, temp);
 	return true;
 }
-void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
+void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word)
 {
 	int temp = 0;
 	f.read((char*)&temp, sizeof(int));
@@ -181,7 +183,9 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string word)
 	for (int i = 0; i < 96; ++i)
 	{
 		std::string newWord = word + (char)(i + 32);
+		word.push_back((char)(i + 32));
 		// std::cout << "[DEBUG] probing " << newWord << std::endl;
 		deserializeBinary(pRoot -> childNode[i], f, newWord);
+		word.pop_back();
 	}
 }

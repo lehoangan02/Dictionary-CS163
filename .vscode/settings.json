@@ -116,6 +116,8 @@
     "typeinfo": "cpp",
     "unordered_map": "cpp",
     "variant": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "charconv": "cpp",
+    "unordered_set": "cpp"
   }
 }
