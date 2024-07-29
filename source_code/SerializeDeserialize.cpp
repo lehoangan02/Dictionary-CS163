@@ -90,7 +90,7 @@ void serializeBinaryWrapper(trieNode* pRoot)
 	std::string temp = "";
 	serializeBinary(pRoot, f, temp);
 }
-void serializeBinary(trieNode* pRoot, std::fstream& f, std::string word)
+void serializeBinary(trieNode* pRoot, std::fstream& f, std::string& word)
 {
 	int temp = 0;
 	if (!pRoot)
@@ -120,10 +120,10 @@ void serializeBinary(trieNode* pRoot, std::fstream& f, std::string word)
 	}
 	for (int i = 0; i < 96; ++i)
 	{
-		int asciiVal = i + 32;
-		std::string newWord = word + (char)asciiVal;
+		word.push_back((char)(i + 32));
 		// std::cout << "[DEBUG] new word is " << newWord << std::endl;
-		serializeBinary(pRoot -> childNode[i], f, newWord);
+		serializeBinary(pRoot -> childNode[i], f, word);
+		word.pop_back();
 	}
 	return;
 }
@@ -182,10 +182,9 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word)
 	pRoot -> definitions = definitionVec;
 	for (int i = 0; i < 96; ++i)
 	{
-		std::string newWord = word + (char)(i + 32);
 		word.push_back((char)(i + 32));
 		// std::cout << "[DEBUG] probing " << newWord << std::endl;
-		deserializeBinary(pRoot -> childNode[i], f, newWord);
+		deserializeBinary(pRoot -> childNode[i], f, word);
 		word.pop_back();
 	}
 }

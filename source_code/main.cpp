@@ -74,7 +74,8 @@ int main()
 		{
 			auto start_time = chrono::high_resolution_clock::now();
 			fstream f; f.open("serialized.bin", ios::out | ios::trunc | ios::binary);
-			serializeBinary(pRoot, f, "");
+			std::string temp = "";
+			serializeBinary(pRoot, f, temp);
 			f.close();
 			auto end_time = chrono::high_resolution_clock::now();
 			cout << "Finished" << endl;
