@@ -182,7 +182,7 @@ void HashTable::rehash(const size_t& newNumBucket)
     tempTable.buckets = nullptr;
 }
 
-// Insert a MapBlock into HashMap, only used when rehashing
+// Insert a TableBlock into HashTable, only used when rehashing
 void HashTable::insert(TableBlock*& block)
 {
     auto pos = this->hash(block->data);
@@ -351,6 +351,7 @@ void HashMap::rehash(const size_t& newNumBucket)
     tempMap.buckets = nullptr;
 }
 
+// Insert a MapBlock into HashMap, only used when rehashing
 void HashMap::insert(MapBlock*& block)
 {
     auto pos = this->hash(block->key);
