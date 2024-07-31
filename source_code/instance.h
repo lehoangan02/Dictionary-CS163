@@ -252,7 +252,7 @@ class instance
     Button addButton;
 
     // Game mode
-    int gameMode = 0;
+    int gameMode = 0; // 1 for random word, 2 for random word4Def
     // Animations
     sf::Texture penguinTexture;
     Animation penguinAnimation;
@@ -266,6 +266,7 @@ class instance
     sf::Clock clock;
     float knightTotalTime = 0;
     bool correctAnswer = false;
+    std::string correctAnswerString = "";
     sf::Texture congratulationsTexture;
     AnimationVertical congratulationsAnimation;
     public:
@@ -277,8 +278,11 @@ class instance
     Button answerButton2nd;
     Button answerButton3rd;
     Button answerButton4th;
-    sf::Texture checkAnswerTexture;
+    sf::Texture checkAnswerTextureDef;
+    sf::Texture checkAnswerTextureHov;
     Button checkAnswerButton;
+    sf::Texture gameSearchBoxTexture;
+    textbox gameSearchBox;
     sf::Texture choseGameModeTexture;
     Button gameMode1st;
     Button gameMode2nd;

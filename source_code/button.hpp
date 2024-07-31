@@ -36,10 +36,12 @@ class Button
     void setOffset(float x, float y);
     void select(bool mode);
     void setTextFillColor(sf::Color color);
+    void setText(std::string text);
 
     // only use these when you know what you are doing
     void setUpHoverText(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
 std::string textString, int characterSize);
+    void setUpNonHoverText(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize);
     virtual void click(sf::RenderWindow& window);
     protected:
     void centerText();

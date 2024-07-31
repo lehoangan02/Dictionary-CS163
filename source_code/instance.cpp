@@ -547,15 +547,15 @@ void instance::operatePage1()
 	prevPageButton.click(windowInstance);
 	pageUpButton.click(windowInstance);
 	pageDownButton.click(windowInstance);
-	std::cout << headWordString << std::endl;
+	// std::cout << headWordString << std::endl;
 	if (existInList(pRootFavourite, headWordString))
 	{
-		printf("[DEBUG] word is favourite\n");
+		// printf("[DEBUG] word is favourite\n");
 		bookmarkButton.setMode(true);
 	}
 	else
 	{
-		printf("[DEBUG] word is not favourite\n");
+		// printf("[DEBUG] word is not favourite\n");
 		bookmarkButton.setMode(false);
 	}
 	bookmarkButton.click(windowInstance, mouseControl);
@@ -1116,6 +1116,9 @@ void instance::operatePage9()
 		{
 			if (gameMode1st.isClicked(windowInstance))
 			{
+				displayDef = false;
+				correctAnswer = false;
+				gameMode = 1;
 				if (pRoot) 
 				{
 					for (int i = 0; i < 20; ++i)
@@ -1133,6 +1136,26 @@ void instance::operatePage9()
 							break;
 						}
 					}
+				}
+			}
+			else if (gameMode2nd.isClicked(windowInstance))
+			{
+				gameMode = 2;
+				displayDef = false;
+				correctAnswerString = randomWord4Def(word4Def);
+				std::cout << "word with 4 def: " << correctAnswerString << std::endl;
+				if (correctAnswerString != "")
+					handleSearchSignal(correctAnswerString);
+			}
+			else if (checkAnswerButton.isClicked(windowInstance) && gameMode == 2)
+			{
+				std::string temp = gameSearchBox.getString();
+				if (temp == correctAnswerString)
+				{
+					correctAnswer = true;
+					congratulationsAnimation.setPosition(sf::Vector2u(325, 222));
+					congratulationsAnimation.resetAnimation();
+					std::cout << "CORRECT ANSWER\n";
 				}
 			}
 			else if (nextPageButton.isClicked(windowInstance))
@@ -1209,6 +1232,7 @@ void instance::operatePage9()
 		default:
 			break;
 		}
+		gameSearchBox.handleInputLogic(event, windowInstance);
 	}
 
 	moveKnight();
@@ -1234,6 +1258,7 @@ void instance::operatePage9()
 	prevPageButton.hoverSwitchTexture(windowInstance);
 	prevPageButton.click(windowInstance);
 	exitButton.hoverSwitchTexture(windowInstance);
+	checkAnswerButton.hoverSwitchTexture(windowInstance);
 	switchPage();
 }
 void instance::drawPage9()
@@ -1249,6 +1274,11 @@ void instance::drawPage9()
 	if (correctAnswer)
 	{
 		congratulationsAnimation.draw(windowInstance);
+	}
+	if (gameMode == 2)
+	{
+		checkAnswerButton.draw(windowInstance);
+		gameSearchBox.draw(windowInstance);
 	}
 	exitButton.draw(windowInstance);
 	knightAnimation.draw(windowInstance);
@@ -1402,7 +1432,7 @@ void instance::switchPage()
 		definitionNum = 0;
 		historyIndex = 0;
 		pCurrentFavourite = pRootFavourite;
-
+		gameMode = 0;
 	}
 }
 
@@ -1468,7 +1498,8 @@ void instance::drawDefinition()
 		wrappedDescription = true;
 		printf("[DEBUG] wrapped\n");
 	}
-	windowInstance.draw(headword);
+	if (gameMode != 2)
+		windowInstance.draw(headword);
 	windowInstance.draw(POS);
 	windowInstance.draw(description);
 	if (loadEmojiImage)
@@ -1685,6 +1716,11 @@ void instance::setUpGameModeAnimation()
 	exitButton.setUpHoverText(exitTexture, exitTexture, PatuaOne, "EXIT", 30);
 	exitButton.setPosition(sf::Vector2u(364, 675));
 
+	checkAnswerTextureDef.loadFromFile("assets/images/CheckResultTexture.png");
+	checkAnswerTextureHov.loadFromFile("assets/images/CheckResultTextureHov.png");
+	checkAnswerButton.setUpHoverText(checkAnswerTextureDef, checkAnswerTextureHov, PatuaOne, "", 24);
+	checkAnswerButton.setPosition(sf::Vector2u(720, 20));
+
 	gameModeDef.loadFromFile("assets/images/GameModeTexture.png");
 	gameMode1st.shadow = false;
 	gameMode2nd.shadow = false;
@@ -1698,6 +1734,23 @@ void instance::setUpGameModeAnimation()
 	gameMode3rd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Game Mode 3", 24);
 	gameMode3rd.setTextFillColor(sf::Color::Black);
 	gameMode3rd.setPosition(sf::Vector2u(720, 275));
+
+	answerButtonTexture.loadFromFile("assets/images/pickOneTexture.png");
+	answerButton1st.shadow = false;
+	answerButton2nd.shadow = false;
+	answerButton3rd.shadow = false;
+	answerButton4th.shadow = false;
+	answerButton1st.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton2nd.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton3rd.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton4th.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton1st.setPosition(sf::Vector2u(30, 190));
+	answerButton2nd.setPosition(sf::Vector2u(450, 190));
+	answerButton3rd.setPosition(sf::Vector2u(30, 275));
+	answerButton4th.setPosition(sf::Vector2u(450, 275));
+
+	gameSearchBoxTexture.loadFromFile("assets/images/gameSearchBox.png");
+	gameSearchBox.setUp(gameSearchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(30 - SHADOWHOR, 20));
 }
 
 

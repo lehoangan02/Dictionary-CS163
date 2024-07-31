@@ -14,6 +14,26 @@ textbox::textbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize,
     setLimit(limit);
     
 }
+/// @brief only use if you know what you are doing
+/// @param textboxTexture 
+/// @param font 
+/// @param characterSize 
+/// @param limit 
+/// @param position 
+void textbox::setUp(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int limit ,sf::Vector2u position)
+{
+    this -> textboxTexture = textboxTexture;
+    this -> textboxSprite.setTexture(textboxTexture);
+    displayText.setFont(font);
+    this -> characterSize = characterSize;
+    this -> displayText.setString(guideString);
+    textStream << guideString;
+    setPosition(position);
+    displayText.setStyle(sf::Text::Bold);
+    displayText.setFillColor(sf::Color(138, 138, 141));
+    setLimit(limit);
+}
+
 void textbox::setPosition(sf::Vector2u position)
 {
     this -> textboxSprite.setPosition((float)position.x, (float)position.y);

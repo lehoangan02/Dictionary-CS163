@@ -170,6 +170,24 @@ std::string textString, int characterSize)
     centerText();
 }
 
+/// @brief set up the button, only use this when you know what you are doing
+/// @param texture 
+/// @param font 
+/// @param textString 
+/// @param characterSize 
+void Button::setUpNonHoverText(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize)
+{
+    clickToChange = false;
+    this -> textureDefault = texture;
+    buttonSprite.setTexture(textureDefault);
+    haveText = true;
+    this -> characterSize = characterSize;
+    buttonText.setFont(font);
+    buttonText.setCharacterSize(characterSize);
+    buttonText.setString(textString);
+    centerText();
+}
+
 void Button::setTextFillColor(sf::Color color)
 {
     this -> buttonText.setFillColor(color);

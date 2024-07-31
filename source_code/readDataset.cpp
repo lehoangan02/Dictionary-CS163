@@ -25,7 +25,6 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         
         // read the keyword
         getline(tempStream, word, ',');
-        Change2Lowercase(word);
         // std::cout << "[DEBUG]" << word << " ";
 
         // read the count (not used in our dictionary)

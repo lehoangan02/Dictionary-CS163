@@ -41,6 +41,10 @@ protected:
     int numChar = 0;
 public:
     textbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int limit ,sf::Vector2u position);
+    // only use if you know what you are doing
+    textbox() {}
+    // only use if you know what you are doing
+    void setUp(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int limit ,sf::Vector2u position);
     void setPosition(sf::Vector2u position);
     virtual void handleInputLogic(const sf::Event envent, sf::RenderWindow& window);
     void draw(sf::RenderWindow &window);
