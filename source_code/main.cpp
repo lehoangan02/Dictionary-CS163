@@ -29,6 +29,7 @@ int main()
 		printf("7 for searching by definitions\n");
 		printf("8 for editing a definitions\n");
 		printf("9 for removing a word\n10 for import CSV\n");
+		printf("11 for a random word with 4 definitions\n");
 		cout << "mode: ";
 		cin >> mode;
 		switch (mode)
@@ -96,7 +97,7 @@ int main()
 				cout << "[DEBUG] no file found to deserialize!\n";
 				break;
 			}
-			deserializeBinaryWrapper(pRoot);
+			deserializeBinaryWrapper(pRoot, word4Def);
 			cout << "[DEBUG] " << pRoot << endl;
 
 			auto end_time = chrono::high_resolution_clock::now();
