@@ -47,6 +47,7 @@ class instance
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;
     HashMap invertedIndex;
+    std::vector<std::string> word4Def;
     bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;

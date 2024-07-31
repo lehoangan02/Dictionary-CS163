@@ -590,8 +590,7 @@ void instance::operatePage2()
 					deleteWholeTrie(pRoot);
 					if (CSVButton.getSelected())
 					{
-						bool junk = false; // this is temporary only
-						if (/*readDatasetCSV(filepath, pRoot)*/junk)
+						if (readDatasetCSV(filepath, pRoot, word4Def))
 						{
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
