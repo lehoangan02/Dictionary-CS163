@@ -143,6 +143,10 @@ instance::instance() :
 
 
 {
+	// reserve word4Def for faster insert at the beginning
+	word4Def.reserve(1000);
+	
+	// SFML
 	std::ifstream fin; fin.open("note.txt");
 	if (!fin.is_open()) printf("[DEBUG] no file found\n");
 	// Base layer
@@ -334,7 +338,7 @@ void instance::operatePage1()
 	if (!loadedSave)
 	{
 		deleteWholeTrie(pRoot);
-        deserializeBinaryWrapper(pRoot);
+        deserializeBinaryWrapper(pRoot, word4Def);
 		readFavourite(pRootFavourite);
 		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
@@ -1068,7 +1072,7 @@ void instance::operatePage8()
 				std::atomic<bool> controlLoaded(false);
 				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 				deleteWholeTrie(pRoot);
-				deserializeBinaryWrapper(pRoot);
+				deserializeBinaryWrapper(pRoot, word4Def);
 				controlLoaded.store(true);
 				printf("[DEBUG] done loading!\n");
 				loadingAnimationThread.join();

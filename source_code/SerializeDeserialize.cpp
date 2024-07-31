@@ -129,7 +129,7 @@ void serializeBinary(trieNode* pRoot, std::fstream& f, std::string& word)
 }
 
 // deserialization of the saved trie (compatibility mode)
-bool deserializeBinaryWrapper(trieNode*& pRoot)
+bool deserializeBinaryWrapper(trieNode*& pRoot, std::vector<std::string>& word4Def)
 {
 	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::in);
 	if (!f.is_open())
@@ -138,10 +138,10 @@ bool deserializeBinaryWrapper(trieNode*& pRoot)
 		return false;
 	}
 	std::string temp = "";
-	deserializeBinary(pRoot, f, temp);
+	deserializeBinary(pRoot, f, temp, word4Def);
 	return true;
 }
-void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word)
+void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word, std::vector<std::string>& word4Def)
 {
 	int temp = 0;
 	f.read((char*)&temp, sizeof(int));
@@ -179,12 +179,16 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word)
 		definitionVec.push_back(std::pair<std::string, std::string>{POS, description});
 		// std::cout << "[DEBUG] POS: " << POS << " - definition: " << description << std::endl;
 	}
+	if (static_cast<int> (definitionVec.size()) >= 4)
+	{
+		word4Def.push_back(word);
+	}
 	pRoot -> definitions = definitionVec;
 	for (int i = 0; i < 96; ++i)
 	{
 		word.push_back((char)(i + 32));
 		// std::cout << "[DEBUG] probing " << newWord << std::endl;
-		deserializeBinary(pRoot -> childNode[i], f, word);
+		deserializeBinary(pRoot -> childNode[i], f, word, word4Def);
 		word.pop_back();
 	}
 }
