@@ -1,4 +1,6 @@
 #include <string>
+#include <ctime>
+#include <random>
 #include "wrapping.hpp"
 
 /// @brief wrap sf::Text object to according to a certain width, with a line limit
@@ -82,4 +84,12 @@ void unwrapText(std::string& text)
             }
         }
     }
+}
+
+int randomNum(int a, int b)
+{
+    std::mt19937 gen(static_cast<unsigned>(std::time(0)));
+    std::uniform_int_distribution<> dist(a, b);
+
+    return dist(gen);
 }

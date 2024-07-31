@@ -8,3 +8,4 @@
 int countNewLines(const std::string& input);
 bool wrapText(sf::Text& inputText, int width, int lineLimit);
 void unwrapText(std::string& text);
+int randomNum(int a, int b); // generate a random integer from a to b
