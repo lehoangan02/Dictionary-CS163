@@ -596,3 +596,21 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 		pRoot = nullptr;
 	}
 }
+
+void addWord(std::string& word, std::string& pos, std::string& definition, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+{
+    // If this is the 4th definition of word, add it to word4Def
+    if (traverseToSearch(pRoot, word).size() == 3)
+        word4Def.push_back(word);
+    
+    // Insert word to trie
+    insert(pRoot, word, pos, definition);
+
+    // Inverted Indexing word
+    std::vector<std::string> tokens = tokenize(definition);
+    for (auto& t : tokens)
+    {
+        Change2Lowercase(t);
+        invertedIndex.access(t).insert(word);
+    }
+}
