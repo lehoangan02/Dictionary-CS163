@@ -601,7 +601,7 @@ void instance::operatePage2()
 					deleteWholeTrie(pRoot);
 					if (CSVButton.getSelected())
 					{
-						if (readDatasetCSV(filepath, pRoot))
+						if (readDatasetCSV(filepath, pRoot, word4Def))
 						{
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
