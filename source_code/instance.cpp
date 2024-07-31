@@ -1319,7 +1319,7 @@ void instance::switchPage()
 		else if (gameModeButton.isClicked(windowInstance))
 		{
 			// printf("[DEBUG] pressing page 9\n");
-			if (page == 1 || page == 2 || page == 3)
+			if (page >= 1 && page <= 8)
 			{
 				printf("[DEBUG] going to page 9\n");
 				page = 9;
