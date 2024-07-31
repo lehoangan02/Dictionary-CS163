@@ -53,7 +53,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
             if (definitionVec.size() >= 4)
             {
                 ++count4Def;
-                wordFourDef.push_back(word);
+                wordFourDef.push_back(previousWord);
             }
             for (int i = 0; i < definitionVec.size(); ++i)
             {
@@ -84,7 +84,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         if (definitionVec.size() >= 4)
         {
             ++count4Def;
-            wordFourDef.push_back(word);
+            wordFourDef.push_back(previousWord);
         }
     }
     std::cout << "count word4Def: " << count4Def << std::endl;
