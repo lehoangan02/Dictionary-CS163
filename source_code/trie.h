@@ -64,4 +64,4 @@ bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot);
 void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot);
 void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot);
 void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot);
-std::vector<std::pair<std::string, std::string>> randomWord4Def(trieNode* pRoot, std::vector<std::string>& word4Def);
+std::string randomWord4Def(std::vector<std::string>& word4Def);

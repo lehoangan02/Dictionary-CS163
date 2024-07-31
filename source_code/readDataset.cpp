@@ -2,8 +2,9 @@
 #include "readDataset.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
 
-bool readDatasetCSV(std::string filename, trieNode*& pRoot)
+bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::string>& wordFourDef)
 {
+    int count4Def = 0;
     std::ifstream inputStream;
     inputStream.open("dataset/" + filename + ".csv");
     if (!inputStream.is_open())
@@ -25,7 +26,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         // read the keyword
         getline(tempStream, word, ',');
         Change2Lowercase(word);
-        std::cout << "[DEBUG]" << word << " ";
+        // std::cout << "[DEBUG]" << word << " ";
 
         // read the count (not used in our dictionary)
         getline(tempStream, tempString, ',');
@@ -34,21 +35,26 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         getline(tempStream, POS, ',');
         if (POS.length() >= 6)
             POS = POS.substr(3, POS.length() - 6);
-        std::cout << POS << " ";
+        // std::cout << POS << " ";
 
         // read the description
         getline(tempStream, description, ',');
         if (description.length() >= 6)
             description = description.substr(3, description.length() - 7);
         removeQuotationMarkDuplicate(description);
-        std::cout << description << std::endl;
+        // std::cout << description << std::endl;
 
         // if word is the same, insert the word into vector
         // if word is new, then insert the vector (which contain the previous word)
         if (word != previousWord && previousWord != "")
         {
-            std::cout << "[DEBUG] end of vec\n";
+            // std::cout << "[DEBUG] end of vec\n";
             insert(pRoot, previousWord, definitionVec);
+            if (definitionVec.size() >= 4)
+            {
+                ++count4Def;
+                wordFourDef.push_back(previousWord);
+            }
             for (int i = 0; i < definitionVec.size(); ++i)
             {
                 // std::cout << "[DEBUG]" << previousWord << " ";
@@ -75,7 +81,13 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot)
         //     std::cout << definitionVec[i].second << std::endl;
         // }
         insert(pRoot, previousWord, definitionVec);
+        if (definitionVec.size() >= 4)
+        {
+            ++count4Def;
+            wordFourDef.push_back(previousWord);
+        }
     }
+    std::cout << "count word4Def: " << count4Def << std::endl;
     return true;
 }
 

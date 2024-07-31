@@ -420,14 +420,16 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	}
 }
 
-std::vector<std::pair<std::string, std::string>> randomWord4Def(trieNode* pRoot, std::vector<std::string> &word4Def)
+std::string randomWord4Def(std::vector<std::string> &word4Def)
 {
+    if (word4Def.size() == 0)
+        return "NO WORD";
 	// generate a random number
 	std::mt19937 gen(static_cast<unsigned>(std::time(0)));
 	std::uniform_int_distribution<> dist(0, word4Def.size() - 1);
 	int random_number = dist(gen);
-
+    
 	std::string word = word4Def[random_number];
 	// will return the vector of definitions if found, or else return a blank vector (maybe the word has been deleted)
-	return Search(pRoot, word); 
+	return word;
 }

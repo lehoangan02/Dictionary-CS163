@@ -9,6 +9,8 @@
 #include "wrapping.hpp"
 
 
+#include "wrapping.hpp"
+
 #define SHADOWHOR 4
 #define SHADOWVER 8
 #define SFMLTEXPADDING 6
