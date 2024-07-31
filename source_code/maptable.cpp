@@ -529,12 +529,12 @@ void editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
     }
 }
 
-void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex)
+void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
-	removeWordRecursive(word, 0, pRoot, invertedIndex);
+	removeWordRecursive(word, 0, pRoot, invertedIndex, word4Def);
 }
 
-void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex)
+void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
 	//base case
 	if (!pRoot)
@@ -543,6 +543,19 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 	{
 		if (pRoot->wordExisted) 
 		{
+            // If word has >= 4 definitions, remove it from word4Def
+            if (pRoot->definitions.size() >= 4)
+            {
+                for (auto it = word4Def.begin(); it < word4Def.end(); ++it)
+                {
+                    if (*it == word)
+                    {
+                        word4Def.erase(it);
+                        break;
+                    }
+                }
+            }
+
 			// Remove word from Inverted Index
 			for (auto& def : pRoot->definitions)
 			{
@@ -575,7 +588,7 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 	}
 
 	int indexNext = int(word[curIndex]) - 32;
-	removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex);
+	removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex, word4Def);
 	pRoot->countchildren--;
 	if (isLeaf(pRoot) && !pRoot->wordExisted)
 	{

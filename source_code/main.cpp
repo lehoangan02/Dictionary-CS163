@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 
 #include "trie.h"
-#include "instance.h"
 #include "readDataset.hpp"
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
@@ -192,7 +192,7 @@ int main()
 			cout << "You want to delete: ";
 			getline(cin, word);
 
-			removeWord(word, pRoot, invertedIndex);
+			removeWord(word, pRoot, invertedIndex, word4Def);
 			break;
 		}
 		case 10:
