@@ -253,6 +253,10 @@ class instance
 
     // Game mode
     int gameMode = 0; // 1 for random word, 2 for random word4Def
+    bool correctAnswer = false;
+    bool wrongAnswer = false;
+    std::string multipleChoices[4];
+    bool validMultipleChoices = false;
     // Animations
     sf::Texture penguinTexture;
     Animation penguinAnimation;
@@ -265,12 +269,14 @@ class instance
     float deltaTime = 0;
     sf::Clock clock;
     float knightTotalTime = 0;
-    bool correctAnswer = false;
     std::string correctAnswerString = "";
     sf::Texture congratulationsTexture;
     AnimationVertical congratulationsAnimation;
+    sf::Texture wrongAnswerTexture;
+    sf::Sprite wrongAnswerSprite;
     public:
     void moveKnight();
+    void resetGameMode(int mode);
     private:
     // Buttons
     sf::Texture answerButtonTexture;

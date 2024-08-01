@@ -1120,9 +1120,8 @@ void instance::operatePage9()
 		{
 			if (gameMode1st.isClicked(windowInstance))
 			{
-				displayDef = false;
-				correctAnswer = false;
 				gameMode = 1;
+				resetGameMode(1);
 				if (pRoot) 
 				{
 					for (int i = 0; i < 20; ++i)
@@ -1145,11 +1144,54 @@ void instance::operatePage9()
 			else if (gameMode2nd.isClicked(windowInstance))
 			{
 				gameMode = 2;
-				displayDef = false;
+				resetGameMode(2);
 				correctAnswerString = randomWord4Def(word4Def);
+				Change2Lowercase(correctAnswerString);
+				std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 				std::cout << "word with 4 def: " << correctAnswerString << std::endl;
 				if (correctAnswerString != "")
 					handleSearchSignal(correctAnswerString);
+			}
+			else if (gameMode3rd.isClicked(windowInstance))
+			{
+				gameMode = 3;
+				resetGameMode(3);
+				if (pRoot) 
+				{
+					int numWord = 0;
+					for (int i = 0; i < 500; ++i)
+					{
+						std::pair<trieNode*, std::string> random;
+						random.second = "";
+						random = pickarandomword(pRoot);
+						std::cout << "The random word is: " << random.second << std::endl;
+						if (random.second == "")	displayDef = false;
+						else if (random.second != "")	
+						{
+							multipleChoices[numWord] = random.second;
+							++numWord;
+						}
+						if (numWord == 4)
+						{
+							validMultipleChoices = true;
+							break;
+						}
+					}
+					std::cout << "the 4 words are: \n";
+					for (int i = 0; i < 4; ++i)
+					{
+						std::cout << multipleChoices[i] << std::endl;
+					}
+					
+					correctAnswerString = multipleChoices[randomNum(0, 4)];
+					std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
+					answerButton1st.setText(multipleChoices[0]);
+					answerButton2nd.setText(multipleChoices[1]);
+					answerButton3rd.setText(multipleChoices[2]);
+					answerButton4th.setText(multipleChoices[3]);
+
+					handleSearchSignal(correctAnswerString);
+				}
 			}
 			else if (checkAnswerButton.isClicked(windowInstance) && gameMode == 2)
 			{
@@ -1157,9 +1199,77 @@ void instance::operatePage9()
 				if (temp == correctAnswerString)
 				{
 					correctAnswer = true;
-					congratulationsAnimation.setPosition(sf::Vector2u(325, 222));
+					wrongAnswer = false;
 					congratulationsAnimation.resetAnimation();
 					std::cout << "CORRECT ANSWER\n";
+				}
+				else
+				{
+					wrongAnswer = true;
+					correctAnswer = false;
+				}
+			}
+			else if (gameMode == 3)
+			{
+				if (answerButton1st.isClicked(windowInstance))
+				{
+					if (multipleChoices[0] == correctAnswerString)
+					{
+						congratulationsAnimation.resetAnimation();
+						correctAnswer = true;
+						wrongAnswer = false;
+					}
+					else
+					{
+						wrongAnswer = true;
+						correctAnswer = false;
+					}
+					printf("[DEBUG] chose\n");
+				}
+				else if (answerButton2nd.isClicked(windowInstance))
+				{
+					if (multipleChoices[1] == correctAnswerString)
+					{
+						congratulationsAnimation.resetAnimation();
+						correctAnswer = true;
+						wrongAnswer = false;
+					}
+					else
+					{
+						wrongAnswer = true;
+						correctAnswer = false;
+					}
+					printf("[DEBUG] chose\n");
+				}
+				else if (answerButton3rd.isClicked(windowInstance))
+				{
+					if (multipleChoices[2] == correctAnswerString)
+					{
+						congratulationsAnimation.resetAnimation();
+						correctAnswer = true;
+						wrongAnswer = false;
+					}
+					else
+					{
+						wrongAnswer = true;
+						correctAnswer = false;
+					}
+					printf("[DEBUG] chose\n");
+				}
+				else if (answerButton4th.isClicked(windowInstance))
+				{
+					if (multipleChoices[3] == correctAnswerString)
+					{
+						congratulationsAnimation.resetAnimation();
+						correctAnswer = true;
+						wrongAnswer = false;
+					}
+					else
+					{
+						wrongAnswer = true;
+						correctAnswer = false;
+					}
+					printf("[DEBUG] chose\n");
 				}
 			}
 			else if (nextPageButton.isClicked(windowInstance))
@@ -1263,6 +1373,10 @@ void instance::operatePage9()
 	prevPageButton.click(windowInstance);
 	exitButton.hoverSwitchTexture(windowInstance);
 	checkAnswerButton.hoverSwitchTexture(windowInstance);
+	answerButton1st.hoverSwitchTexture(windowInstance);
+	answerButton2nd.hoverSwitchTexture(windowInstance);
+	answerButton3rd.hoverSwitchTexture(windowInstance);
+	answerButton4th.hoverSwitchTexture(windowInstance);
 	switchPage();
 }
 void instance::drawPage9()
@@ -1273,17 +1387,28 @@ void instance::drawPage9()
 	gameMode1st.draw(windowInstance);
 	gameMode2nd.draw(windowInstance);
 	gameMode3rd.draw(windowInstance);
-	penguinAnimation.draw(windowInstance);
-	rainbowStarAnimation.draw(windowInstance);
 	if (correctAnswer)
 	{
 		congratulationsAnimation.draw(windowInstance);
+	}
+	if (wrongAnswer)
+	{
+		windowInstance.draw(wrongAnswerSprite);
 	}
 	if (gameMode == 2)
 	{
 		checkAnswerButton.draw(windowInstance);
 		gameSearchBox.draw(windowInstance);
 	}
+	if (gameMode == 3 && validMultipleChoices)
+	{
+		answerButton1st.draw(windowInstance);
+		answerButton2nd.draw(windowInstance);
+		answerButton3rd.draw(windowInstance);
+		answerButton4th.draw(windowInstance);
+	}
+	penguinAnimation.draw(windowInstance);
+	rainbowStarAnimation.draw(windowInstance);
 	exitButton.draw(windowInstance);
 	knightAnimation.draw(windowInstance);
 	windowInstance.display();
@@ -1502,7 +1627,7 @@ void instance::drawDefinition()
 		wrappedDescription = true;
 		printf("[DEBUG] wrapped\n");
 	}
-	if (gameMode != 2)
+	if (gameMode != 2 && gameMode != 3)
 		windowInstance.draw(headword);
 	windowInstance.draw(POS);
 	windowInstance.draw(description);
@@ -1682,6 +1807,38 @@ void instance::moveKnight()
 		}
 	}
 }
+
+void instance::resetGameMode(int mode)
+{
+	displayDef = false;
+	correctAnswer = false;
+	wrongAnswer = false;
+	switch (mode)
+	{
+	case 2:
+	{
+		correctAnswerString = "";
+		congratulationsAnimation.setPosition(sf::Vector2u(325, 287));
+		wrongAnswerSprite.setPosition(430, 260);
+	}
+	break;
+	case 3:
+	{
+		correctAnswerString = "";
+		for (int i = 0; i < 4; ++i)
+		{
+			multipleChoices[i] = "";
+		}
+		congratulationsAnimation.setPosition(sf::Vector2u(214, 20));
+		wrongAnswerSprite.setPosition(319, 215);
+	}
+		break;
+	
+	default:
+		break;
+	}
+}
+
 void instance::setUpGameModeAnimation()
 {
 
@@ -1712,7 +1869,9 @@ void instance::setUpGameModeAnimation()
 	knightAnimation.animationSprite.setScale(-1.0f, 1.0f);
 	knightAnimation.setPosition(sf::Vector2u(1100, 630));
 
-
+	// wrong answer icon
+	wrongAnswerTexture.loadFromFile("assets/images/WrongAnswerTexture.png");
+	wrongAnswerSprite.setTexture(wrongAnswerTexture);
 
 	// Set up buttons
 	exitTexture.loadFromFile("assets/images/ExitGameMode.png");
@@ -1744,14 +1903,18 @@ void instance::setUpGameModeAnimation()
 	answerButton2nd.shadow = false;
 	answerButton3rd.shadow = false;
 	answerButton4th.shadow = false;
-	answerButton1st.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
-	answerButton2nd.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
-	answerButton3rd.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
-	answerButton4th.setUpNonHoverText(answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton1st.setUpHoverText(answerButtonTexture, answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton2nd.setUpHoverText(answerButtonTexture, answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton3rd.setUpHoverText(answerButtonTexture, answerButtonTexture, PatuaOne, "lorem", 24);
+	answerButton4th.setUpHoverText(answerButtonTexture, answerButtonTexture, PatuaOne, "lorem", 24);
 	answerButton1st.setPosition(sf::Vector2u(30, 190));
 	answerButton2nd.setPosition(sf::Vector2u(450, 190));
 	answerButton3rd.setPosition(sf::Vector2u(30, 275));
 	answerButton4th.setPosition(sf::Vector2u(450, 275));
+	answerButton1st.setTextFillColor(sf::Color::Black);
+	answerButton2nd.setTextFillColor(sf::Color::Black);
+	answerButton3rd.setTextFillColor(sf::Color::Black);
+	answerButton4th.setTextFillColor(sf::Color::Black);
 
 	gameSearchBoxTexture.loadFromFile("assets/images/gameSearchBox.png");
 	gameSearchBox.setUp(gameSearchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(30 - SHADOWHOR, 20));

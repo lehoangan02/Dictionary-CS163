@@ -127,6 +127,12 @@ void Button::centerText()
         (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2 - SFMLTEXPADDING));
         }
     }
+
+void Button::setText(std::string text)
+{
+    this -> buttonText.setString(text);
+    centerText();
+}
 void Button::select(bool mode)
 {
     selected = mode;
