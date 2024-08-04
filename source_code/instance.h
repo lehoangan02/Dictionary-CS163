@@ -6,6 +6,7 @@
 #include <vector>
 //#include <atomic>
 #include <thread>
+#include <string>
 
 #include "button.hpp"
 #include "textbox.hpp"
@@ -88,6 +89,9 @@ class instance
     sf::Texture gameModeDef;
     sf::Texture gameModeHov;
     Button gameModeButton;
+    sf::Texture emojiTexture;
+    sf::Sprite emojiSprite;
+    int emojiNumber;
 
     // search button
     sf::Texture searchTexDef; 
@@ -308,7 +312,15 @@ class instance
         font.loadFromFile(filepath);
         return font;
     }
-    
+    int getEmojiNumber(std::string POSString)
+    {
+        if (POSString.substr(0, 14) != "emoji number: ") return -1;
+        int number = 0;
+        POSString.erase(0, 14);
+        number = std::stoi(POSString);
+        printf("[DEBUG] opening: %d\n", number);
+        return number;
+    }
     /*
     Page 1 (main) searching
     Page 2 import

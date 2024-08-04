@@ -1,0 +1,1817 @@
+Word,Count,POS,Definition
+U+1F600,1,emoji number: 1,grinning face
+U+1F603,2,emoji number: 2,grinning face with big eyes
+U+1F604,3,emoji number: 3,grinning face with smiling eyes
+U+1F601,4,emoji number: 4,beaming face with smiling eyes
+U+1F606,5,emoji number: 5,grinning squinting face
+U+1F605,6,emoji number: 6,grinning face with sweat
+U+1F923,7,emoji number: 7,rolling on the floor laughing
+U+1F602,8,emoji number: 8,face with tears of joy
+U+1F642,9,emoji number: 9,slightly smiling face
+U+1F643,10,emoji number: 10,upside-down face
+U+1F609,11,emoji number: 11,winking face
+U+1F60A,12,emoji number: 12,smiling face with smiling eyes
+U+1F607,13,emoji number: 13,smiling face with halo
+U+1F970,14,emoji number: 14,smiling face with hearts
+U+1F60D,15,emoji number: 15,smiling face with heart-eyes
+U+1F929,16,emoji number: 16,star-struck
+U+1F618,17,emoji number: 17,face blowing a kiss
+U+1F617,18,emoji number: 18,kissing face
+U+263A,19,emoji number: 19,smiling face
+U+1F61A,20,emoji number: 20,kissing face with closed eyes
+U+1F619,21,emoji number: 21,kissing face with smiling eyes
+U+1F972,22,emoji number: 22,smiling face with tear
+U+1F60B,23,emoji number: 23,face savoring food
+U+1F61B,24,emoji number: 24,face with tongue
+U+1F61C,25,emoji number: 25,winking face with tongue
+U+1F92A,26,emoji number: 26,zany face
+U+1F61D,27,emoji number: 27,squinting face with tongue
+U+1F911,28,emoji number: 28,money-mouth face
+U+1F917,29,emoji number: 29,hugging face
+U+1F92D,30,emoji number: 30,face with hand over mouth
+U+1F92B,31,emoji number: 31,shushing face
+U+1F914,32,emoji number: 32,thinking face
+U+1F910,33,emoji number: 33,zipper-mouth face
+U+1F928,34,emoji number: 34,face with raised eyebrow
+U+1F610,35,emoji number: 35,neutral face
+U+1F611,36,emoji number: 36,expressionless face
+U+1F636,37,emoji number: 37,face without mouth
+U+1F636 U+200D U+1F32B U+FE0F,38,emoji number: 38,⊛ face in clouds
+U+1F60F,39,emoji number: 39,smirking face
+U+1F612,40,emoji number: 40,unamused face
+U+1F644,41,emoji number: 41,face with rolling eyes
+U+1F62C,42,emoji number: 42,grimacing face
+U+1F62E U+200D U+1F4A8,43,emoji number: 43,⊛ face exhaling
+U+1F925,44,emoji number: 44,lying face
+U+1F60C,45,emoji number: 45,relieved face
+U+1F614,46,emoji number: 46,pensive face
+U+1F62A,47,emoji number: 47,sleepy face
+U+1F924,48,emoji number: 48,drooling face
+U+1F634,49,emoji number: 49,sleeping face
+U+1F637,50,emoji number: 50,face with medical mask
+U+1F912,51,emoji number: 51,face with thermometer
+U+1F915,52,emoji number: 52,face with head-bandage
+U+1F922,53,emoji number: 53,nauseated face
+U+1F92E,54,emoji number: 54,face vomiting
+U+1F927,55,emoji number: 55,sneezing face
+U+1F975,56,emoji number: 56,hot face
+U+1F976,57,emoji number: 57,cold face
+U+1F974,58,emoji number: 58,woozy face
+U+1F635,59,emoji number: 59,knocked-out face
+U+1F635 U+200D U+1F4AB,60,emoji number: 60,⊛ face with spiral eyes
+U+1F92F,61,emoji number: 61,exploding head
+U+1F920,62,emoji number: 62,cowboy hat face
+U+1F973,63,emoji number: 63,partying face
+U+1F978,64,emoji number: 64,disguised face
+U+1F60E,65,emoji number: 65,smiling face with sunglasses
+U+1F913,66,emoji number: 66,nerd face
+U+1F9D0,67,emoji number: 67,face with monocle
+U+1F615,68,emoji number: 68,confused face
+U+1F61F,69,emoji number: 69,worried face
+U+1F641,70,emoji number: 70,slightly frowning face
+U+2639,71,emoji number: 71,frowning face
+U+1F62E,72,emoji number: 72,face with open mouth
+U+1F62F,73,emoji number: 73,hushed face
+U+1F632,74,emoji number: 74,astonished face
+U+1F633,75,emoji number: 75,flushed face
+U+1F97A,76,emoji number: 76,pleading face
+U+1F626,77,emoji number: 77,frowning face with open mouth
+U+1F627,78,emoji number: 78,anguished face
+U+1F628,79,emoji number: 79,fearful face
+U+1F630,80,emoji number: 80,anxious face with sweat
+U+1F625,81,emoji number: 81,sad but relieved face
+U+1F622,82,emoji number: 82,crying face
+U+1F62D,83,emoji number: 83,loudly crying face
+U+1F631,84,emoji number: 84,face screaming in fear
+U+1F616,85,emoji number: 85,confounded face
+U+1F623,86,emoji number: 86,persevering face
+U+1F61E,87,emoji number: 87,disappointed face
+U+1F613,88,emoji number: 88,downcast face with sweat
+U+1F629,89,emoji number: 89,weary face
+U+1F62B,90,emoji number: 90,tired face
+U+1F971,91,emoji number: 91,yawning face
+U+1F624,92,emoji number: 92,face with steam from nose
+U+1F621,93,emoji number: 93,pouting face
+U+1F620,94,emoji number: 94,angry face
+U+1F92C,95,emoji number: 95,face with symbols on mouth
+U+1F608,96,emoji number: 96,smiling face with horns
+U+1F47F,97,emoji number: 97,angry face with horns
+U+1F480,98,emoji number: 98,skull
+U+2620,99,emoji number: 99,skull and crossbones
+U+1F4A9,100,emoji number: 100,pile of poo
+U+1F921,101,emoji number: 101,clown face
+U+1F479,102,emoji number: 102,ogre
+U+1F47A,103,emoji number: 103,goblin
+U+1F47B,104,emoji number: 104,ghost
+U+1F47D,105,emoji number: 105,alien
+U+1F47E,106,emoji number: 106,alien monster
+U+1F916,107,emoji number: 107,robot
+U+1F63A,108,emoji number: 108,grinning cat
+U+1F638,109,emoji number: 109,grinning cat with smiling eyes
+U+1F639,110,emoji number: 110,cat with tears of joy
+U+1F63B,111,emoji number: 111,smiling cat with heart-eyes
+U+1F63C,112,emoji number: 112,cat with wry smile
+U+1F63D,113,emoji number: 113,kissing cat
+U+1F640,114,emoji number: 114,weary cat
+U+1F63F,115,emoji number: 115,crying cat
+U+1F63E,116,emoji number: 116,pouting cat
+U+1F648,117,emoji number: 117,see-no-evil monkey
+U+1F649,118,emoji number: 118,hear-no-evil monkey
+U+1F64A,119,emoji number: 119,speak-no-evil monkey
+U+1F48B,120,emoji number: 120,kiss mark
+U+1F48C,121,emoji number: 121,love letter
+U+1F498,122,emoji number: 122,heart with arrow
+U+1F49D,123,emoji number: 123,heart with ribbon
+U+1F496,124,emoji number: 124,sparkling heart
+U+1F497,125,emoji number: 125,growing heart
+U+1F493,126,emoji number: 126,beating heart
+U+1F49E,127,emoji number: 127,revolving hearts
+U+1F495,128,emoji number: 128,two hearts
+U+1F49F,129,emoji number: 129,heart decoration
+U+2763,130,emoji number: 130,heart exclamation
+U+1F494,131,emoji number: 131,broken heart
+U+2764 U+FE0F U+200D U+1F525,132,emoji number: 132,⊛ heart on fire
+U+2764 U+FE0F U+200D U+1FA79,133,emoji number: 133,⊛ mending heart
+U+2764,134,emoji number: 134,red heart
+U+1F9E1,135,emoji number: 135,orange heart
+U+1F49B,136,emoji number: 136,yellow heart
+U+1F49A,137,emoji number: 137,green heart
+U+1F499,138,emoji number: 138,blue heart
+U+1F49C,139,emoji number: 139,purple heart
+U+1F90E,140,emoji number: 140,brown heart
+U+1F5A4,141,emoji number: 141,black heart
+U+1F90D,142,emoji number: 142,white heart
+U+1F4AF,143,emoji number: 143,hundred points
+U+1F4A2,144,emoji number: 144,anger symbol
+U+1F4A5,145,emoji number: 145,collision
+U+1F4AB,146,emoji number: 146,dizzy
+U+1F4A6,147,emoji number: 147,sweat droplets
+U+1F4A8,148,emoji number: 148,dashing away
+U+1F573,149,emoji number: 149,hole
+U+1F4A3,150,emoji number: 150,bomb
+U+1F4AC,151,emoji number: 151,speech balloon
+U+1F441 U+FE0F U+200D U+1F5E8 U+FE0F,152,emoji number: 152,eye in speech bubble
+U+1F5E8,153,emoji number: 153,left speech bubble
+U+1F5EF,154,emoji number: 154,right anger bubble
+U+1F4AD,155,emoji number: 155,thought balloon
+U+1F4A4,156,emoji number: 156,zzz
+U+1F44B,157,emoji number: 157,waving hand
+U+1F91A,158,emoji number: 158,raised back of hand
+U+1F590,159,emoji number: 159,hand with fingers splayed
+U+270B,160,emoji number: 160,raised hand
+U+1F596,161,emoji number: 161,vulcan salute
+U+1F44C,162,emoji number: 162,OK hand
+U+1F90C,163,emoji number: 163,pinched fingers
+U+1F90F,164,emoji number: 164,pinching hand
+U+270C,165,emoji number: 165,victory hand
+U+1F91E,166,emoji number: 166,crossed fingers
+U+1F91F,167,emoji number: 167,love-you gesture
+U+1F918,168,emoji number: 168,sign of the horns
+U+1F919,169,emoji number: 169,call me hand
+U+1F448,170,emoji number: 170,backhand index pointing left
+U+1F449,171,emoji number: 171,backhand index pointing right
+U+1F446,172,emoji number: 172,backhand index pointing up
+U+1F595,173,emoji number: 173,middle finger
+U+1F447,174,emoji number: 174,backhand index pointing down
+U+261D,175,emoji number: 175,index pointing up
+U+1F44D,176,emoji number: 176,thumbs up
+U+1F44E,177,emoji number: 177,thumbs down
+U+270A,178,emoji number: 178,raised fist
+U+1F44A,179,emoji number: 179,oncoming fist
+U+1F91B,180,emoji number: 180,left-facing fist
+U+1F91C,181,emoji number: 181,right-facing fist
+U+1F44F,182,emoji number: 182,clapping hands
+U+1F64C,183,emoji number: 183,raising hands
+U+1F450,184,emoji number: 184,open hands
+U+1F932,185,emoji number: 185,palms up together
+U+1F91D,186,emoji number: 186,handshake
+U+1F64F,187,emoji number: 187,folded hands
+U+270D,188,emoji number: 188,writing hand
+U+1F485,189,emoji number: 189,nail polish
+U+1F933,190,emoji number: 190,selfie
+U+1F4AA,191,emoji number: 191,flexed biceps
+U+1F9BE,192,emoji number: 192,mechanical arm
+U+1F9BF,193,emoji number: 193,mechanical leg
+U+1F9B5,194,emoji number: 194,leg
+U+1F9B6,195,emoji number: 195,foot
+U+1F442,196,emoji number: 196,ear
+U+1F9BB,197,emoji number: 197,ear with hearing aid
+U+1F443,198,emoji number: 198,nose
+U+1F9E0,199,emoji number: 199,brain
+U+1FAC0,200,emoji number: 200,anatomical heart
+U+1FAC1,201,emoji number: 201,lungs
+U+1F9B7,202,emoji number: 202,tooth
+U+1F9B4,203,emoji number: 203,bone
+U+1F440,204,emoji number: 204,eyes
+U+1F441,205,emoji number: 205,eye
+U+1F445,206,emoji number: 206,tongue
+U+1F444,207,emoji number: 207,mouth
+U+1F476,208,emoji number: 208,baby
+U+1F9D2,209,emoji number: 209,child
+U+1F466,210,emoji number: 210,boy
+U+1F467,211,emoji number: 211,girl
+U+1F9D1,212,emoji number: 212,person
+U+1F471,213,emoji number: 213,person: blond hair
+U+1F468,214,emoji number: 214,man
+U+1F9D4,215,emoji number: 215,person: beard
+U+1F9D4 U+200D U+2642 U+FE0F,216,emoji number: 216,⊛ man: beard
+U+1F9D4 U+200D U+2640 U+FE0F,217,emoji number: 217,⊛ woman: beard
+U+1F468 U+200D U+1F9B0,218,emoji number: 218,man: red hair
+U+1F468 U+200D U+1F9B1,219,emoji number: 219,man: curly hair
+U+1F468 U+200D U+1F9B3,220,emoji number: 220,man: white hair
+U+1F468 U+200D U+1F9B2,221,emoji number: 221,man: bald
+U+1F469,222,emoji number: 222,woman
+U+1F469 U+200D U+1F9B0,223,emoji number: 223,woman: red hair
+U+1F9D1 U+200D U+1F9B0,224,emoji number: 224,person: red hair
+U+1F469 U+200D U+1F9B1,225,emoji number: 225,woman: curly hair
+U+1F9D1 U+200D U+1F9B1,226,emoji number: 226,person: curly hair
+U+1F469 U+200D U+1F9B3,227,emoji number: 227,woman: white hair
+U+1F9D1 U+200D U+1F9B3,228,emoji number: 228,person: white hair
+U+1F469 U+200D U+1F9B2,229,emoji number: 229,woman: bald
+U+1F9D1 U+200D U+1F9B2,230,emoji number: 230,person: bald
+U+1F471 U+200D U+2640 U+FE0F,231,emoji number: 231,woman: blond hair
+U+1F471 U+200D U+2642 U+FE0F,232,emoji number: 232,man: blond hair
+U+1F9D3,233,emoji number: 233,older person
+U+1F474,234,emoji number: 234,old man
+U+1F475,235,emoji number: 235,old woman
+U+1F64D,236,emoji number: 236,person frowning
+U+1F64D U+200D U+2642 U+FE0F,237,emoji number: 237,man frowning
+U+1F64D U+200D U+2640 U+FE0F,238,emoji number: 238,woman frowning
+U+1F64E,239,emoji number: 239,person pouting
+U+1F64E U+200D U+2642 U+FE0F,240,emoji number: 240,man pouting
+U+1F64E U+200D U+2640 U+FE0F,241,emoji number: 241,woman pouting
+U+1F645,242,emoji number: 242,person gesturing NO
+U+1F645 U+200D U+2642 U+FE0F,243,emoji number: 243,man gesturing NO
+U+1F645 U+200D U+2640 U+FE0F,244,emoji number: 244,woman gesturing NO
+U+1F646,245,emoji number: 245,person gesturing OK
+U+1F646 U+200D U+2642 U+FE0F,246,emoji number: 246,man gesturing OK
+U+1F646 U+200D U+2640 U+FE0F,247,emoji number: 247,woman gesturing OK
+U+1F481,248,emoji number: 248,person tipping hand
+U+1F481 U+200D U+2642 U+FE0F,249,emoji number: 249,man tipping hand
+U+1F481 U+200D U+2640 U+FE0F,250,emoji number: 250,woman tipping hand
+U+1F64B,251,emoji number: 251,person raising hand
+U+1F64B U+200D U+2642 U+FE0F,252,emoji number: 252,man raising hand
+U+1F64B U+200D U+2640 U+FE0F,253,emoji number: 253,woman raising hand
+U+1F9CF,254,emoji number: 254,deaf person
+U+1F9CF U+200D U+2642 U+FE0F,255,emoji number: 255,deaf man
+U+1F9CF U+200D U+2640 U+FE0F,256,emoji number: 256,deaf woman
+U+1F647,257,emoji number: 257,person bowing
+U+1F647 U+200D U+2642 U+FE0F,258,emoji number: 258,man bowing
+U+1F647 U+200D U+2640 U+FE0F,259,emoji number: 259,woman bowing
+U+1F926,260,emoji number: 260,person facepalming
+U+1F926 U+200D U+2642 U+FE0F,261,emoji number: 261,man facepalming
+U+1F926 U+200D U+2640 U+FE0F,262,emoji number: 262,woman facepalming
+U+1F937,263,emoji number: 263,person shrugging
+U+1F937 U+200D U+2642 U+FE0F,264,emoji number: 264,man shrugging
+U+1F937 U+200D U+2640 U+FE0F,265,emoji number: 265,woman shrugging
+U+1F9D1 U+200D U+2695 U+FE0F,266,emoji number: 266,health worker
+U+1F468 U+200D U+2695 U+FE0F,267,emoji number: 267,man health worker
+U+1F469 U+200D U+2695 U+FE0F,268,emoji number: 268,woman health worker
+U+1F9D1 U+200D U+1F393,269,emoji number: 269,student
+U+1F468 U+200D U+1F393,270,emoji number: 270,man student
+U+1F469 U+200D U+1F393,271,emoji number: 271,woman student
+U+1F9D1 U+200D U+1F3EB,272,emoji number: 272,teacher
+U+1F468 U+200D U+1F3EB,273,emoji number: 273,man teacher
+U+1F469 U+200D U+1F3EB,274,emoji number: 274,woman teacher
+U+1F9D1 U+200D U+2696 U+FE0F,275,emoji number: 275,judge
+U+1F468 U+200D U+2696 U+FE0F,276,emoji number: 276,man judge
+U+1F469 U+200D U+2696 U+FE0F,277,emoji number: 277,woman judge
+U+1F9D1 U+200D U+1F33E,278,emoji number: 278,farmer
+U+1F468 U+200D U+1F33E,279,emoji number: 279,man farmer
+U+1F469 U+200D U+1F33E,280,emoji number: 280,woman farmer
+U+1F9D1 U+200D U+1F373,281,emoji number: 281,cook
+U+1F468 U+200D U+1F373,282,emoji number: 282,man cook
+U+1F469 U+200D U+1F373,283,emoji number: 283,woman cook
+U+1F9D1 U+200D U+1F527,284,emoji number: 284,mechanic
+U+1F468 U+200D U+1F527,285,emoji number: 285,man mechanic
+U+1F469 U+200D U+1F527,286,emoji number: 286,woman mechanic
+U+1F9D1 U+200D U+1F3ED,287,emoji number: 287,factory worker
+U+1F468 U+200D U+1F3ED,288,emoji number: 288,man factory worker
+U+1F469 U+200D U+1F3ED,289,emoji number: 289,woman factory worker
+U+1F9D1 U+200D U+1F4BC,290,emoji number: 290,office worker
+U+1F468 U+200D U+1F4BC,291,emoji number: 291,man office worker
+U+1F469 U+200D U+1F4BC,292,emoji number: 292,woman office worker
+U+1F9D1 U+200D U+1F52C,293,emoji number: 293,scientist
+U+1F468 U+200D U+1F52C,294,emoji number: 294,man scientist
+U+1F469 U+200D U+1F52C,295,emoji number: 295,woman scientist
+U+1F9D1 U+200D U+1F4BB,296,emoji number: 296,technologist
+U+1F468 U+200D U+1F4BB,297,emoji number: 297,man technologist
+U+1F469 U+200D U+1F4BB,298,emoji number: 298,woman technologist
+U+1F9D1 U+200D U+1F3A4,299,emoji number: 299,singer
+U+1F468 U+200D U+1F3A4,300,emoji number: 300,man singer
+U+1F469 U+200D U+1F3A4,301,emoji number: 301,woman singer
+U+1F9D1 U+200D U+1F3A8,302,emoji number: 302,artist
+U+1F468 U+200D U+1F3A8,303,emoji number: 303,man artist
+U+1F469 U+200D U+1F3A8,304,emoji number: 304,woman artist
+U+1F9D1 U+200D U+2708 U+FE0F,305,emoji number: 305,pilot
+U+1F468 U+200D U+2708 U+FE0F,306,emoji number: 306,man pilot
+U+1F469 U+200D U+2708 U+FE0F,307,emoji number: 307,woman pilot
+U+1F9D1 U+200D U+1F680,308,emoji number: 308,astronaut
+U+1F468 U+200D U+1F680,309,emoji number: 309,man astronaut
+U+1F469 U+200D U+1F680,310,emoji number: 310,woman astronaut
+U+1F9D1 U+200D U+1F692,311,emoji number: 311,firefighter
+U+1F468 U+200D U+1F692,312,emoji number: 312,man firefighter
+U+1F469 U+200D U+1F692,313,emoji number: 313,woman firefighter
+U+1F46E,314,emoji number: 314,police officer
+U+1F46E U+200D U+2642 U+FE0F,315,emoji number: 315,man police officer
+U+1F46E U+200D U+2640 U+FE0F,316,emoji number: 316,woman police officer
+U+1F575,317,emoji number: 317,detective
+U+1F575 U+FE0F U+200D U+2642 U+FE0F,318,emoji number: 318,man detective
+U+1F575 U+FE0F U+200D U+2640 U+FE0F,319,emoji number: 319,woman detective
+U+1F482,320,emoji number: 320,guard
+U+1F482 U+200D U+2642 U+FE0F,321,emoji number: 321,man guard
+U+1F482 U+200D U+2640 U+FE0F,322,emoji number: 322,woman guard
+U+1F977,323,emoji number: 323,ninja
+U+1F477,324,emoji number: 324,construction worker
+U+1F477 U+200D U+2642 U+FE0F,325,emoji number: 325,man construction worker
+U+1F477 U+200D U+2640 U+FE0F,326,emoji number: 326,woman construction worker
+U+1F934,327,emoji number: 327,prince
+U+1F478,328,emoji number: 328,princess
+U+1F473,329,emoji number: 329,person wearing turban
+U+1F473 U+200D U+2642 U+FE0F,330,emoji number: 330,man wearing turban
+U+1F473 U+200D U+2640 U+FE0F,331,emoji number: 331,woman wearing turban
+U+1F472,332,emoji number: 332,person with skullcap
+U+1F9D5,333,emoji number: 333,woman with headscarf
+U+1F935,334,emoji number: 334,person in tuxedo
+U+1F935 U+200D U+2642 U+FE0F,335,emoji number: 335,man in tuxedo
+U+1F935 U+200D U+2640 U+FE0F,336,emoji number: 336,woman in tuxedo
+U+1F470,337,emoji number: 337,person with veil
+U+1F470 U+200D U+2642 U+FE0F,338,emoji number: 338,man with veil
+U+1F470 U+200D U+2640 U+FE0F,339,emoji number: 339,woman with veil
+U+1F930,340,emoji number: 340,pregnant woman
+U+1F931,341,emoji number: 341,breast-feeding
+U+1F469 U+200D U+1F37C,342,emoji number: 342,woman feeding baby
+U+1F468 U+200D U+1F37C,343,emoji number: 343,man feeding baby
+U+1F9D1 U+200D U+1F37C,344,emoji number: 344,person feeding baby
+U+1F47C,345,emoji number: 345,baby angel
+U+1F385,346,emoji number: 346,Santa Claus
+U+1F936,347,emoji number: 347,Mrs. Claus
+U+1F9D1 U+200D U+1F384,348,emoji number: 348,mx claus
+U+1F9B8,349,emoji number: 349,superhero
+U+1F9B8 U+200D U+2642 U+FE0F,350,emoji number: 350,man superhero
+U+1F9B8 U+200D U+2640 U+FE0F,351,emoji number: 351,woman superhero
+U+1F9B9,352,emoji number: 352,supervillain
+U+1F9B9 U+200D U+2642 U+FE0F,353,emoji number: 353,man supervillain
+U+1F9B9 U+200D U+2640 U+FE0F,354,emoji number: 354,woman supervillain
+U+1F9D9,355,emoji number: 355,mage
+U+1F9D9 U+200D U+2642 U+FE0F,356,emoji number: 356,man mage
+U+1F9D9 U+200D U+2640 U+FE0F,357,emoji number: 357,woman mage
+U+1F9DA,358,emoji number: 358,fairy
+U+1F9DA U+200D U+2642 U+FE0F,359,emoji number: 359,man fairy
+U+1F9DA U+200D U+2640 U+FE0F,360,emoji number: 360,woman fairy
+U+1F9DB,361,emoji number: 361,vampire
+U+1F9DB U+200D U+2642 U+FE0F,362,emoji number: 362,man vampire
+U+1F9DB U+200D U+2640 U+FE0F,363,emoji number: 363,woman vampire
+U+1F9DC,364,emoji number: 364,merperson
+U+1F9DC U+200D U+2642 U+FE0F,365,emoji number: 365,merman
+U+1F9DC U+200D U+2640 U+FE0F,366,emoji number: 366,mermaid
+U+1F9DD,367,emoji number: 367,elf
+U+1F9DD U+200D U+2642 U+FE0F,368,emoji number: 368,man elf
+U+1F9DD U+200D U+2640 U+FE0F,369,emoji number: 369,woman elf
+U+1F9DE,370,emoji number: 370,genie
+U+1F9DE U+200D U+2642 U+FE0F,371,emoji number: 371,man genie
+U+1F9DE U+200D U+2640 U+FE0F,372,emoji number: 372,woman genie
+U+1F9DF,373,emoji number: 373,zombie
+U+1F9DF U+200D U+2642 U+FE0F,374,emoji number: 374,man zombie
+U+1F9DF U+200D U+2640 U+FE0F,375,emoji number: 375,woman zombie
+U+1F486,376,emoji number: 376,person getting massage
+U+1F486 U+200D U+2642 U+FE0F,377,emoji number: 377,man getting massage
+U+1F486 U+200D U+2640 U+FE0F,378,emoji number: 378,woman getting massage
+U+1F487,379,emoji number: 379,person getting haircut
+U+1F487 U+200D U+2642 U+FE0F,380,emoji number: 380,man getting haircut
+U+1F487 U+200D U+2640 U+FE0F,381,emoji number: 381,woman getting haircut
+U+1F6B6,382,emoji number: 382,person walking
+U+1F6B6 U+200D U+2642 U+FE0F,383,emoji number: 383,man walking
+U+1F6B6 U+200D U+2640 U+FE0F,384,emoji number: 384,woman walking
+U+1F9CD,385,emoji number: 385,person standing
+U+1F9CD U+200D U+2642 U+FE0F,386,emoji number: 386,man standing
+U+1F9CD U+200D U+2640 U+FE0F,387,emoji number: 387,woman standing
+U+1F9CE,388,emoji number: 388,person kneeling
+U+1F9CE U+200D U+2642 U+FE0F,389,emoji number: 389,man kneeling
+U+1F9CE U+200D U+2640 U+FE0F,390,emoji number: 390,woman kneeling
+U+1F9D1 U+200D U+1F9AF,391,emoji number: 391,person with white cane
+U+1F468 U+200D U+1F9AF,392,emoji number: 392,man with white cane
+U+1F469 U+200D U+1F9AF,393,emoji number: 393,woman with white cane
+U+1F9D1 U+200D U+1F9BC,394,emoji number: 394,person in motorized wheelchair
+U+1F468 U+200D U+1F9BC,395,emoji number: 395,man in motorized wheelchair
+U+1F469 U+200D U+1F9BC,396,emoji number: 396,woman in motorized wheelchair
+U+1F9D1 U+200D U+1F9BD,397,emoji number: 397,person in manual wheelchair
+U+1F468 U+200D U+1F9BD,398,emoji number: 398,man in manual wheelchair
+U+1F469 U+200D U+1F9BD,399,emoji number: 399,woman in manual wheelchair
+U+1F3C3,400,emoji number: 400,person running
+U+1F3C3 U+200D U+2642 U+FE0F,401,emoji number: 401,man running
+U+1F3C3 U+200D U+2640 U+FE0F,402,emoji number: 402,woman running
+U+1F483,403,emoji number: 403,woman dancing
+U+1F57A,404,emoji number: 404,man dancing
+U+1F574,405,emoji number: 405,person in suit levitating
+U+1F46F,406,emoji number: 406,people with bunny ears
+U+1F46F U+200D U+2642 U+FE0F,407,emoji number: 407,men with bunny ears
+U+1F46F U+200D U+2640 U+FE0F,408,emoji number: 408,women with bunny ears
+U+1F9D6,409,emoji number: 409,person in steamy room
+U+1F9D6 U+200D U+2642 U+FE0F,410,emoji number: 410,man in steamy room
+U+1F9D6 U+200D U+2640 U+FE0F,411,emoji number: 411,woman in steamy room
+U+1F9D7,412,emoji number: 412,person climbing
+U+1F9D7 U+200D U+2642 U+FE0F,413,emoji number: 413,man climbing
+U+1F9D7 U+200D U+2640 U+FE0F,414,emoji number: 414,woman climbing
+U+1F93A,415,emoji number: 415,person fencing
+U+1F3C7,416,emoji number: 416,horse racing
+U+26F7,417,emoji number: 417,skier
+U+1F3C2,418,emoji number: 418,snowboarder
+U+1F3CC,419,emoji number: 419,person golfing
+U+1F3CC U+FE0F U+200D U+2642 U+FE0F,420,emoji number: 420,man golfing
+U+1F3CC U+FE0F U+200D U+2640 U+FE0F,421,emoji number: 421,woman golfing
+U+1F3C4,422,emoji number: 422,person surfing
+U+1F3C4 U+200D U+2642 U+FE0F,423,emoji number: 423,man surfing
+U+1F3C4 U+200D U+2640 U+FE0F,424,emoji number: 424,woman surfing
+U+1F6A3,425,emoji number: 425,person rowing boat
+U+1F6A3 U+200D U+2642 U+FE0F,426,emoji number: 426,man rowing boat
+U+1F6A3 U+200D U+2640 U+FE0F,427,emoji number: 427,woman rowing boat
+U+1F3CA,428,emoji number: 428,person swimming
+U+1F3CA U+200D U+2642 U+FE0F,429,emoji number: 429,man swimming
+U+1F3CA U+200D U+2640 U+FE0F,430,emoji number: 430,woman swimming
+U+26F9,431,emoji number: 431,person bouncing ball
+U+26F9 U+FE0F U+200D U+2642 U+FE0F,432,emoji number: 432,man bouncing ball
+U+26F9 U+FE0F U+200D U+2640 U+FE0F,433,emoji number: 433,woman bouncing ball
+U+1F3CB,434,emoji number: 434,person lifting weights
+U+1F3CB U+FE0F U+200D U+2642 U+FE0F,435,emoji number: 435,man lifting weights
+U+1F3CB U+FE0F U+200D U+2640 U+FE0F,436,emoji number: 436,woman lifting weights
+U+1F6B4,437,emoji number: 437,person biking
+U+1F6B4 U+200D U+2642 U+FE0F,438,emoji number: 438,man biking
+U+1F6B4 U+200D U+2640 U+FE0F,439,emoji number: 439,woman biking
+U+1F6B5,440,emoji number: 440,person mountain biking
+U+1F6B5 U+200D U+2642 U+FE0F,441,emoji number: 441,man mountain biking
+U+1F6B5 U+200D U+2640 U+FE0F,442,emoji number: 442,woman mountain biking
+U+1F938,443,emoji number: 443,person cartwheeling
+U+1F938 U+200D U+2642 U+FE0F,444,emoji number: 444,man cartwheeling
+U+1F938 U+200D U+2640 U+FE0F,445,emoji number: 445,woman cartwheeling
+U+1F93C,446,emoji number: 446,people wrestling
+U+1F93C U+200D U+2642 U+FE0F,447,emoji number: 447,men wrestling
+U+1F93C U+200D U+2640 U+FE0F,448,emoji number: 448,women wrestling
+U+1F93D,449,emoji number: 449,person playing water polo
+U+1F93D U+200D U+2642 U+FE0F,450,emoji number: 450,man playing water polo
+U+1F93D U+200D U+2640 U+FE0F,451,emoji number: 451,woman playing water polo
+U+1F93E,452,emoji number: 452,person playing handball
+U+1F93E U+200D U+2642 U+FE0F,453,emoji number: 453,man playing handball
+U+1F93E U+200D U+2640 U+FE0F,454,emoji number: 454,woman playing handball
+U+1F939,455,emoji number: 455,person juggling
+U+1F939 U+200D U+2642 U+FE0F,456,emoji number: 456,man juggling
+U+1F939 U+200D U+2640 U+FE0F,457,emoji number: 457,woman juggling
+U+1F9D8,458,emoji number: 458,person in lotus position
+U+1F9D8 U+200D U+2642 U+FE0F,459,emoji number: 459,man in lotus position
+U+1F9D8 U+200D U+2640 U+FE0F,460,emoji number: 460,woman in lotus position
+U+1F6C0,461,emoji number: 461,person taking bath
+U+1F6CC,462,emoji number: 462,person in bed
+U+1F9D1 U+200D U+1F91D U+200D U+1F9D1,463,emoji number: 463,people holding hands
+U+1F46D,464,emoji number: 464,women holding hands
+U+1F46B,465,emoji number: 465,woman and man holding hands
+U+1F46C,466,emoji number: 466,men holding hands
+U+1F48F,467,emoji number: 467,kiss
+U+1F469 U+200D U+2764 U+FE0F U+200D U+1F48B U+200D U+1F468,468,emoji number: 468,"kiss: woman, man"
+U+1F468 U+200D U+2764 U+FE0F U+200D U+1F48B U+200D U+1F468,469,emoji number: 469,"kiss: man, man"
+U+1F469 U+200D U+2764 U+FE0F U+200D U+1F48B U+200D U+1F469,470,emoji number: 470,"kiss: woman, woman"
+U+1F491,471,emoji number: 471,couple with heart
+U+1F469 U+200D U+2764 U+FE0F U+200D U+1F468,472,emoji number: 472,"couple with heart: woman, man"
+U+1F468 U+200D U+2764 U+FE0F U+200D U+1F468,473,emoji number: 473,"couple with heart: man, man"
+U+1F469 U+200D U+2764 U+FE0F U+200D U+1F469,474,emoji number: 474,"couple with heart: woman, woman"
+U+1F46A,475,emoji number: 475,family
+U+1F468 U+200D U+1F469 U+200D U+1F466,476,emoji number: 476,"family: man, woman, boy"
+U+1F468 U+200D U+1F469 U+200D U+1F467,477,emoji number: 477,"family: man, woman, girl"
+U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466,478,emoji number: 478,"family: man, woman, girl, boy"
+U+1F468 U+200D U+1F469 U+200D U+1F466 U+200D U+1F466,479,emoji number: 479,"family: man, woman, boy, boy"
+U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467,480,emoji number: 480,"family: man, woman, girl, girl"
+U+1F468 U+200D U+1F468 U+200D U+1F466,481,emoji number: 481,"family: man, man, boy"
+U+1F468 U+200D U+1F468 U+200D U+1F467,482,emoji number: 482,"family: man, man, girl"
+U+1F468 U+200D U+1F468 U+200D U+1F467 U+200D U+1F466,483,emoji number: 483,"family: man, man, girl, boy"
+U+1F468 U+200D U+1F468 U+200D U+1F466 U+200D U+1F466,484,emoji number: 484,"family: man, man, boy, boy"
+U+1F468 U+200D U+1F468 U+200D U+1F467 U+200D U+1F467,485,emoji number: 485,"family: man, man, girl, girl"
+U+1F469 U+200D U+1F469 U+200D U+1F466,486,emoji number: 486,"family: woman, woman, boy"
+U+1F469 U+200D U+1F469 U+200D U+1F467,487,emoji number: 487,"family: woman, woman, girl"
+U+1F469 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466,488,emoji number: 488,"family: woman, woman, girl, boy"
+U+1F469 U+200D U+1F469 U+200D U+1F466 U+200D U+1F466,489,emoji number: 489,"family: woman, woman, boy, boy"
+U+1F469 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467,490,emoji number: 490,"family: woman, woman, girl, girl"
+U+1F468 U+200D U+1F466,491,emoji number: 491,"family: man, boy"
+U+1F468 U+200D U+1F466 U+200D U+1F466,492,emoji number: 492,"family: man, boy, boy"
+U+1F468 U+200D U+1F467,493,emoji number: 493,"family: man, girl"
+U+1F468 U+200D U+1F467 U+200D U+1F466,494,emoji number: 494,"family: man, girl, boy"
+U+1F468 U+200D U+1F467 U+200D U+1F467,495,emoji number: 495,"family: man, girl, girl"
+U+1F469 U+200D U+1F466,496,emoji number: 496,"family: woman, boy"
+U+1F469 U+200D U+1F466 U+200D U+1F466,497,emoji number: 497,"family: woman, boy, boy"
+U+1F469 U+200D U+1F467,498,emoji number: 498,"family: woman, girl"
+U+1F469 U+200D U+1F467 U+200D U+1F466,499,emoji number: 499,"family: woman, girl, boy"
+U+1F469 U+200D U+1F467 U+200D U+1F467,500,emoji number: 500,"family: woman, girl, girl"
+U+1F5E3,501,emoji number: 501,speaking head
+U+1F464,502,emoji number: 502,bust in silhouette
+U+1F465,503,emoji number: 503,busts in silhouette
+U+1FAC2,504,emoji number: 504,people hugging
+U+1F463,505,emoji number: 505,footprints
+U+1F9B0,506,emoji number: 506,red hair
+U+1F9B1,507,emoji number: 507,curly hair
+U+1F9B3,508,emoji number: 508,white hair
+U+1F9B2,509,emoji number: 509,bald
+U+1F435,510,emoji number: 510,monkey face
+U+1F412,511,emoji number: 511,monkey
+U+1F98D,512,emoji number: 512,gorilla
+U+1F9A7,513,emoji number: 513,orangutan
+U+1F436,514,emoji number: 514,dog face
+U+1F415,515,emoji number: 515,dog
+U+1F9AE,516,emoji number: 516,guide dog
+U+1F415 U+200D U+1F9BA,517,emoji number: 517,service dog
+U+1F429,518,emoji number: 518,poodle
+U+1F43A,519,emoji number: 519,wolf
+U+1F98A,520,emoji number: 520,fox
+U+1F99D,521,emoji number: 521,raccoon
+U+1F431,522,emoji number: 522,cat face
+U+1F408,523,emoji number: 523,cat
+U+1F408 U+200D U+2B1B,524,emoji number: 524,black cat
+U+1F981,525,emoji number: 525,lion
+U+1F42F,526,emoji number: 526,tiger face
+U+1F405,527,emoji number: 527,tiger
+U+1F406,528,emoji number: 528,leopard
+U+1F434,529,emoji number: 529,horse face
+U+1F40E,530,emoji number: 530,horse
+U+1F984,531,emoji number: 531,unicorn
+U+1F993,532,emoji number: 532,zebra
+U+1F98C,533,emoji number: 533,deer
+U+1F9AC,534,emoji number: 534,bison
+U+1F42E,535,emoji number: 535,cow face
+U+1F402,536,emoji number: 536,ox
+U+1F403,537,emoji number: 537,water buffalo
+U+1F404,538,emoji number: 538,cow
+U+1F437,539,emoji number: 539,pig face
+U+1F416,540,emoji number: 540,pig
+U+1F417,541,emoji number: 541,boar
+U+1F43D,542,emoji number: 542,pig nose
+U+1F40F,543,emoji number: 543,ram
+U+1F411,544,emoji number: 544,ewe
+U+1F410,545,emoji number: 545,goat
+U+1F42A,546,emoji number: 546,camel
+U+1F42B,547,emoji number: 547,two-hump camel
+U+1F999,548,emoji number: 548,llama
+U+1F992,549,emoji number: 549,giraffe
+U+1F418,550,emoji number: 550,elephant
+U+1F9A3,551,emoji number: 551,mammoth
+U+1F98F,552,emoji number: 552,rhinoceros
+U+1F99B,553,emoji number: 553,hippopotamus
+U+1F42D,554,emoji number: 554,mouse face
+U+1F401,555,emoji number: 555,mouse
+U+1F400,556,emoji number: 556,rat
+U+1F439,557,emoji number: 557,hamster
+U+1F430,558,emoji number: 558,rabbit face
+U+1F407,559,emoji number: 559,rabbit
+U+1F43F,560,emoji number: 560,chipmunk
+U+1F9AB,561,emoji number: 561,beaver
+U+1F994,562,emoji number: 562,hedgehog
+U+1F987,563,emoji number: 563,bat
+U+1F43B,564,emoji number: 564,bear
+U+1F43B U+200D U+2744 U+FE0F,565,emoji number: 565,polar bear
+U+1F428,566,emoji number: 566,koala
+U+1F43C,567,emoji number: 567,panda
+U+1F9A5,568,emoji number: 568,sloth
+U+1F9A6,569,emoji number: 569,otter
+U+1F9A8,570,emoji number: 570,skunk
+U+1F998,571,emoji number: 571,kangaroo
+U+1F9A1,572,emoji number: 572,badger
+U+1F43E,573,emoji number: 573,paw prints
+U+1F983,574,emoji number: 574,turkey
+U+1F414,575,emoji number: 575,chicken
+U+1F413,576,emoji number: 576,rooster
+U+1F423,577,emoji number: 577,hatching chick
+U+1F424,578,emoji number: 578,baby chick
+U+1F425,579,emoji number: 579,front-facing baby chick
+U+1F426,580,emoji number: 580,bird
+U+1F427,581,emoji number: 581,penguin
+U+1F54A,582,emoji number: 582,dove
+U+1F985,583,emoji number: 583,eagle
+U+1F986,584,emoji number: 584,duck
+U+1F9A2,585,emoji number: 585,swan
+U+1F989,586,emoji number: 586,owl
+U+1F9A4,587,emoji number: 587,dodo
+U+1FAB6,588,emoji number: 588,feather
+U+1F9A9,589,emoji number: 589,flamingo
+U+1F99A,590,emoji number: 590,peacock
+U+1F99C,591,emoji number: 591,parrot
+U+1F438,592,emoji number: 592,frog
+U+1F40A,593,emoji number: 593,crocodile
+U+1F422,594,emoji number: 594,turtle
+U+1F98E,595,emoji number: 595,lizard
+U+1F40D,596,emoji number: 596,snake
+U+1F432,597,emoji number: 597,dragon face
+U+1F409,598,emoji number: 598,dragon
+U+1F995,599,emoji number: 599,sauropod
+U+1F996,600,emoji number: 600,T-Rex
+U+1F433,601,emoji number: 601,spouting whale
+U+1F40B,602,emoji number: 602,whale
+U+1F42C,603,emoji number: 603,dolphin
+U+1F9AD,604,emoji number: 604,seal
+U+1F41F,605,emoji number: 605,fish
+U+1F420,606,emoji number: 606,tropical fish
+U+1F421,607,emoji number: 607,blowfish
+U+1F988,608,emoji number: 608,shark
+U+1F419,609,emoji number: 609,octopus
+U+1F41A,610,emoji number: 610,spiral shell
+U+1F40C,611,emoji number: 611,snail
+U+1F98B,612,emoji number: 612,butterfly
+U+1F41B,613,emoji number: 613,bug
+U+1F41C,614,emoji number: 614,ant
+U+1F41D,615,emoji number: 615,honeybee
+U+1FAB2,616,emoji number: 616,beetle
+U+1F41E,617,emoji number: 617,lady beetle
+U+1F997,618,emoji number: 618,cricket
+U+1FAB3,619,emoji number: 619,cockroach
+U+1F577,620,emoji number: 620,spider
+U+1F578,621,emoji number: 621,spider web
+U+1F982,622,emoji number: 622,scorpion
+U+1F99F,623,emoji number: 623,mosquito
+U+1FAB0,624,emoji number: 624,fly
+U+1FAB1,625,emoji number: 625,worm
+U+1F9A0,626,emoji number: 626,microbe
+U+1F490,627,emoji number: 627,bouquet
+U+1F338,628,emoji number: 628,cherry blossom
+U+1F4AE,629,emoji number: 629,white flower
+U+1F3F5,630,emoji number: 630,rosette
+U+1F339,631,emoji number: 631,rose
+U+1F940,632,emoji number: 632,wilted flower
+U+1F33A,633,emoji number: 633,hibiscus
+U+1F33B,634,emoji number: 634,sunflower
+U+1F33C,635,emoji number: 635,blossom
+U+1F337,636,emoji number: 636,tulip
+U+1F331,637,emoji number: 637,seedling
+U+1FAB4,638,emoji number: 638,potted plant
+U+1F332,639,emoji number: 639,evergreen tree
+U+1F333,640,emoji number: 640,deciduous tree
+U+1F334,641,emoji number: 641,palm tree
+U+1F335,642,emoji number: 642,cactus
+U+1F33E,643,emoji number: 643,sheaf of rice
+U+1F33F,644,emoji number: 644,herb
+U+2618,645,emoji number: 645,shamrock
+U+1F340,646,emoji number: 646,four leaf clover
+U+1F341,647,emoji number: 647,maple leaf
+U+1F342,648,emoji number: 648,fallen leaf
+U+1F343,649,emoji number: 649,leaf fluttering in wind
+U+1F347,650,emoji number: 650,grapes
+U+1F348,651,emoji number: 651,melon
+U+1F349,652,emoji number: 652,watermelon
+U+1F34A,653,emoji number: 653,tangerine
+U+1F34B,654,emoji number: 654,lemon
+U+1F34C,655,emoji number: 655,banana
+U+1F34D,656,emoji number: 656,pineapple
+U+1F96D,657,emoji number: 657,mango
+U+1F34E,658,emoji number: 658,red apple
+U+1F34F,659,emoji number: 659,green apple
+U+1F350,660,emoji number: 660,pear
+U+1F351,661,emoji number: 661,peach
+U+1F352,662,emoji number: 662,cherries
+U+1F353,663,emoji number: 663,strawberry
+U+1FAD0,664,emoji number: 664,blueberries
+U+1F95D,665,emoji number: 665,kiwi fruit
+U+1F345,666,emoji number: 666,tomato
+U+1FAD2,667,emoji number: 667,olive
+U+1F965,668,emoji number: 668,coconut
+U+1F951,669,emoji number: 669,avocado
+U+1F346,670,emoji number: 670,eggplant
+U+1F954,671,emoji number: 671,potato
+U+1F955,672,emoji number: 672,carrot
+U+1F33D,673,emoji number: 673,ear of corn
+U+1F336,674,emoji number: 674,hot pepper
+U+1FAD1,675,emoji number: 675,bell pepper
+U+1F952,676,emoji number: 676,cucumber
+U+1F96C,677,emoji number: 677,leafy green
+U+1F966,678,emoji number: 678,broccoli
+U+1F9C4,679,emoji number: 679,garlic
+U+1F9C5,680,emoji number: 680,onion
+U+1F344,681,emoji number: 681,mushroom
+U+1F95C,682,emoji number: 682,peanuts
+U+1F330,683,emoji number: 683,chestnut
+U+1F35E,684,emoji number: 684,bread
+U+1F950,685,emoji number: 685,croissant
+U+1F956,686,emoji number: 686,baguette bread
+U+1FAD3,687,emoji number: 687,flatbread
+U+1F968,688,emoji number: 688,pretzel
+U+1F96F,689,emoji number: 689,bagel
+U+1F95E,690,emoji number: 690,pancakes
+U+1F9C7,691,emoji number: 691,waffle
+U+1F9C0,692,emoji number: 692,cheese wedge
+U+1F356,693,emoji number: 693,meat on bone
+U+1F357,694,emoji number: 694,poultry leg
+U+1F969,695,emoji number: 695,cut of meat
+U+1F953,696,emoji number: 696,bacon
+U+1F354,697,emoji number: 697,hamburger
+U+1F35F,698,emoji number: 698,french fries
+U+1F355,699,emoji number: 699,pizza
+U+1F32D,700,emoji number: 700,hot dog
+U+1F96A,701,emoji number: 701,sandwich
+U+1F32E,702,emoji number: 702,taco
+U+1F32F,703,emoji number: 703,burrito
+U+1FAD4,704,emoji number: 704,tamale
+U+1F959,705,emoji number: 705,stuffed flatbread
+U+1F9C6,706,emoji number: 706,falafel
+U+1F95A,707,emoji number: 707,egg
+U+1F373,708,emoji number: 708,cooking
+U+1F958,709,emoji number: 709,shallow pan of food
+U+1F372,710,emoji number: 710,pot of food
+U+1FAD5,711,emoji number: 711,fondue
+U+1F963,712,emoji number: 712,bowl with spoon
+U+1F957,713,emoji number: 713,green salad
+U+1F37F,714,emoji number: 714,popcorn
+U+1F9C8,715,emoji number: 715,butter
+U+1F9C2,716,emoji number: 716,salt
+U+1F96B,717,emoji number: 717,canned food
+U+1F371,718,emoji number: 718,bento box
+U+1F358,719,emoji number: 719,rice cracker
+U+1F359,720,emoji number: 720,rice ball
+U+1F35A,721,emoji number: 721,cooked rice
+U+1F35B,722,emoji number: 722,curry rice
+U+1F35C,723,emoji number: 723,steaming bowl
+U+1F35D,724,emoji number: 724,spaghetti
+U+1F360,725,emoji number: 725,roasted sweet potato
+U+1F362,726,emoji number: 726,oden
+U+1F363,727,emoji number: 727,sushi
+U+1F364,728,emoji number: 728,fried shrimp
+U+1F365,729,emoji number: 729,fish cake with swirl
+U+1F96E,730,emoji number: 730,moon cake
+U+1F361,731,emoji number: 731,dango
+U+1F95F,732,emoji number: 732,dumpling
+U+1F960,733,emoji number: 733,fortune cookie
+U+1F961,734,emoji number: 734,takeout box
+U+1F980,735,emoji number: 735,crab
+U+1F99E,736,emoji number: 736,lobster
+U+1F990,737,emoji number: 737,shrimp
+U+1F991,738,emoji number: 738,squid
+U+1F9AA,739,emoji number: 739,oyster
+U+1F366,740,emoji number: 740,soft ice cream
+U+1F367,741,emoji number: 741,shaved ice
+U+1F368,742,emoji number: 742,ice cream
+U+1F369,743,emoji number: 743,doughnut
+U+1F36A,744,emoji number: 744,cookie
+U+1F382,745,emoji number: 745,birthday cake
+U+1F370,746,emoji number: 746,shortcake
+U+1F9C1,747,emoji number: 747,cupcake
+U+1F967,748,emoji number: 748,pie
+U+1F36B,749,emoji number: 749,chocolate bar
+U+1F36C,750,emoji number: 750,candy
+U+1F36D,751,emoji number: 751,lollipop
+U+1F36E,752,emoji number: 752,custard
+U+1F36F,753,emoji number: 753,honey pot
+U+1F37C,754,emoji number: 754,baby bottle
+U+1F95B,755,emoji number: 755,glass of milk
+U+2615,756,emoji number: 756,hot beverage
+U+1FAD6,757,emoji number: 757,teapot
+U+1F375,758,emoji number: 758,teacup without handle
+U+1F376,759,emoji number: 759,sake
+U+1F37E,760,emoji number: 760,bottle with popping cork
+U+1F377,761,emoji number: 761,wine glass
+U+1F378,762,emoji number: 762,cocktail glass
+U+1F379,763,emoji number: 763,tropical drink
+U+1F37A,764,emoji number: 764,beer mug
+U+1F37B,765,emoji number: 765,clinking beer mugs
+U+1F942,766,emoji number: 766,clinking glasses
+U+1F943,767,emoji number: 767,tumbler glass
+U+1F964,768,emoji number: 768,cup with straw
+U+1F9CB,769,emoji number: 769,bubble tea
+U+1F9C3,770,emoji number: 770,beverage box
+U+1F9C9,771,emoji number: 771,mate
+U+1F9CA,772,emoji number: 772,ice
+U+1F962,773,emoji number: 773,chopsticks
+U+1F37D,774,emoji number: 774,fork and knife with plate
+U+1F374,775,emoji number: 775,fork and knife
+U+1F944,776,emoji number: 776,spoon
+U+1F52A,777,emoji number: 777,kitchen knife
+U+1F3FA,778,emoji number: 778,amphora
+U+1F30D,779,emoji number: 779,globe showing Europe-Africa
+U+1F30E,780,emoji number: 780,globe showing Americas
+U+1F30F,781,emoji number: 781,globe showing Asia-Australia
+U+1F310,782,emoji number: 782,globe with meridians
+U+1F5FA,783,emoji number: 783,world map
+U+1F5FE,784,emoji number: 784,map of Japan
+U+1F9ED,785,emoji number: 785,compass
+U+1F3D4,786,emoji number: 786,snow-capped mountain
+U+26F0,787,emoji number: 787,mountain
+U+1F30B,788,emoji number: 788,volcano
+U+1F5FB,789,emoji number: 789,mount fuji
+U+1F3D5,790,emoji number: 790,camping
+U+1F3D6,791,emoji number: 791,beach with umbrella
+U+1F3DC,792,emoji number: 792,desert
+U+1F3DD,793,emoji number: 793,desert island
+U+1F3DE,794,emoji number: 794,national park
+U+1F3DF,795,emoji number: 795,stadium
+U+1F3DB,796,emoji number: 796,classical building
+U+1F3D7,797,emoji number: 797,building construction
+U+1F9F1,798,emoji number: 798,brick
+U+1FAA8,799,emoji number: 799,rock
+U+1FAB5,800,emoji number: 800,wood
+U+1F6D6,801,emoji number: 801,hut
+U+1F3D8,802,emoji number: 802,houses
+U+1F3DA,803,emoji number: 803,derelict house
+U+1F3E0,804,emoji number: 804,house
+U+1F3E1,805,emoji number: 805,house with garden
+U+1F3E2,806,emoji number: 806,office building
+U+1F3E3,807,emoji number: 807,Japanese post office
+U+1F3E4,808,emoji number: 808,post office
+U+1F3E5,809,emoji number: 809,hospital
+U+1F3E6,810,emoji number: 810,bank
+U+1F3E8,811,emoji number: 811,hotel
+U+1F3E9,812,emoji number: 812,love hotel
+U+1F3EA,813,emoji number: 813,convenience store
+U+1F3EB,814,emoji number: 814,school
+U+1F3EC,815,emoji number: 815,department store
+U+1F3ED,816,emoji number: 816,factory
+U+1F3EF,817,emoji number: 817,Japanese castle
+U+1F3F0,818,emoji number: 818,castle
+U+1F492,819,emoji number: 819,wedding
+U+1F5FC,820,emoji number: 820,Tokyo tower
+U+1F5FD,821,emoji number: 821,Statue of Liberty
+U+26EA,822,emoji number: 822,church
+U+1F54C,823,emoji number: 823,mosque
+U+1F6D5,824,emoji number: 824,hindu temple
+U+1F54D,825,emoji number: 825,synagogue
+U+26E9,826,emoji number: 826,shinto shrine
+U+1F54B,827,emoji number: 827,kaaba
+U+26F2,828,emoji number: 828,fountain
+U+26FA,829,emoji number: 829,tent
+U+1F301,830,emoji number: 830,foggy
+U+1F303,831,emoji number: 831,night with stars
+U+1F3D9,832,emoji number: 832,cityscape
+U+1F304,833,emoji number: 833,sunrise over mountains
+U+1F305,834,emoji number: 834,sunrise
+U+1F306,835,emoji number: 835,cityscape at dusk
+U+1F307,836,emoji number: 836,sunset
+U+1F309,837,emoji number: 837,bridge at night
+U+2668,838,emoji number: 838,hot springs
+U+1F3A0,839,emoji number: 839,carousel horse
+U+1F3A1,840,emoji number: 840,ferris wheel
+U+1F3A2,841,emoji number: 841,roller coaster
+U+1F488,842,emoji number: 842,barber pole
+U+1F3AA,843,emoji number: 843,circus tent
+U+1F682,844,emoji number: 844,locomotive
+U+1F683,845,emoji number: 845,railway car
+U+1F684,846,emoji number: 846,high-speed train
+U+1F685,847,emoji number: 847,bullet train
+U+1F686,848,emoji number: 848,train
+U+1F687,849,emoji number: 849,metro
+U+1F688,850,emoji number: 850,light rail
+U+1F689,851,emoji number: 851,station
+U+1F68A,852,emoji number: 852,tram
+U+1F69D,853,emoji number: 853,monorail
+U+1F69E,854,emoji number: 854,mountain railway
+U+1F68B,855,emoji number: 855,tram car
+U+1F68C,856,emoji number: 856,bus
+U+1F68D,857,emoji number: 857,oncoming bus
+U+1F68E,858,emoji number: 858,trolleybus
+U+1F690,859,emoji number: 859,minibus
+U+1F691,860,emoji number: 860,ambulance
+U+1F692,861,emoji number: 861,fire engine
+U+1F693,862,emoji number: 862,police car
+U+1F694,863,emoji number: 863,oncoming police car
+U+1F695,864,emoji number: 864,taxi
+U+1F696,865,emoji number: 865,oncoming taxi
+U+1F697,866,emoji number: 866,automobile
+U+1F698,867,emoji number: 867,oncoming automobile
+U+1F699,868,emoji number: 868,sport utility vehicle
+U+1F6FB,869,emoji number: 869,pickup truck
+U+1F69A,870,emoji number: 870,delivery truck
+U+1F69B,871,emoji number: 871,articulated lorry
+U+1F69C,872,emoji number: 872,tractor
+U+1F3CE,873,emoji number: 873,racing car
+U+1F3CD,874,emoji number: 874,motorcycle
+U+1F6F5,875,emoji number: 875,motor scooter
+U+1F9BD,876,emoji number: 876,manual wheelchair
+U+1F9BC,877,emoji number: 877,motorized wheelchair
+U+1F6FA,878,emoji number: 878,auto rickshaw
+U+1F6B2,879,emoji number: 879,bicycle
+U+1F6F4,880,emoji number: 880,kick scooter
+U+1F6F9,881,emoji number: 881,skateboard
+U+1F6FC,882,emoji number: 882,roller skate
+U+1F68F,883,emoji number: 883,bus stop
+U+1F6E3,884,emoji number: 884,motorway
+U+1F6E4,885,emoji number: 885,railway track
+U+1F6E2,886,emoji number: 886,oil drum
+U+26FD,887,emoji number: 887,fuel pump
+U+1F6A8,888,emoji number: 888,police car light
+U+1F6A5,889,emoji number: 889,horizontal traffic light
+U+1F6A6,890,emoji number: 890,vertical traffic light
+U+1F6D1,891,emoji number: 891,stop sign
+U+1F6A7,892,emoji number: 892,construction
+U+2693,893,emoji number: 893,anchor
+U+26F5,894,emoji number: 894,sailboat
+U+1F6F6,895,emoji number: 895,canoe
+U+1F6A4,896,emoji number: 896,speedboat
+U+1F6F3,897,emoji number: 897,passenger ship
+U+26F4,898,emoji number: 898,ferry
+U+1F6E5,899,emoji number: 899,motor boat
+U+1F6A2,900,emoji number: 900,ship
+U+2708,901,emoji number: 901,airplane
+U+1F6E9,902,emoji number: 902,small airplane
+U+1F6EB,903,emoji number: 903,airplane departure
+U+1F6EC,904,emoji number: 904,airplane arrival
+U+1FA82,905,emoji number: 905,parachute
+U+1F4BA,906,emoji number: 906,seat
+U+1F681,907,emoji number: 907,helicopter
+U+1F69F,908,emoji number: 908,suspension railway
+U+1F6A0,909,emoji number: 909,mountain cableway
+U+1F6A1,910,emoji number: 910,aerial tramway
+U+1F6F0,911,emoji number: 911,satellite
+U+1F680,912,emoji number: 912,rocket
+U+1F6F8,913,emoji number: 913,flying saucer
+U+1F6CE,914,emoji number: 914,bellhop bell
+U+1F9F3,915,emoji number: 915,luggage
+U+231B,916,emoji number: 916,hourglass done
+U+23F3,917,emoji number: 917,hourglass not done
+U+231A,918,emoji number: 918,watch
+U+23F0,919,emoji number: 919,alarm clock
+U+23F1,920,emoji number: 920,stopwatch
+U+23F2,921,emoji number: 921,timer clock
+U+1F570,922,emoji number: 922,mantelpiece clock
+U+1F55B,923,emoji number: 923,twelve o’clock
+U+1F567,924,emoji number: 924,twelve-thirty
+U+1F550,925,emoji number: 925,one o’clock
+U+1F55C,926,emoji number: 926,one-thirty
+U+1F551,927,emoji number: 927,two o’clock
+U+1F55D,928,emoji number: 928,two-thirty
+U+1F552,929,emoji number: 929,three o’clock
+U+1F55E,930,emoji number: 930,three-thirty
+U+1F553,931,emoji number: 931,four o’clock
+U+1F55F,932,emoji number: 932,four-thirty
+U+1F554,933,emoji number: 933,five o’clock
+U+1F560,934,emoji number: 934,five-thirty
+U+1F555,935,emoji number: 935,six o’clock
+U+1F561,936,emoji number: 936,six-thirty
+U+1F556,937,emoji number: 937,seven o’clock
+U+1F562,938,emoji number: 938,seven-thirty
+U+1F557,939,emoji number: 939,eight o’clock
+U+1F563,940,emoji number: 940,eight-thirty
+U+1F558,941,emoji number: 941,nine o’clock
+U+1F564,942,emoji number: 942,nine-thirty
+U+1F559,943,emoji number: 943,ten o’clock
+U+1F565,944,emoji number: 944,ten-thirty
+U+1F55A,945,emoji number: 945,eleven o’clock
+U+1F566,946,emoji number: 946,eleven-thirty
+U+1F311,947,emoji number: 947,new moon
+U+1F312,948,emoji number: 948,waxing crescent moon
+U+1F313,949,emoji number: 949,first quarter moon
+U+1F314,950,emoji number: 950,waxing gibbous moon
+U+1F315,951,emoji number: 951,full moon
+U+1F316,952,emoji number: 952,waning gibbous moon
+U+1F317,953,emoji number: 953,last quarter moon
+U+1F318,954,emoji number: 954,waning crescent moon
+U+1F319,955,emoji number: 955,crescent moon
+U+1F31A,956,emoji number: 956,new moon face
+U+1F31B,957,emoji number: 957,first quarter moon face
+U+1F31C,958,emoji number: 958,last quarter moon face
+U+1F321,959,emoji number: 959,thermometer
+U+2600,960,emoji number: 960,sun
+U+1F31D,961,emoji number: 961,full moon face
+U+1F31E,962,emoji number: 962,sun with face
+U+1FA90,963,emoji number: 963,ringed planet
+U+2B50,964,emoji number: 964,star
+U+1F31F,965,emoji number: 965,glowing star
+U+1F320,966,emoji number: 966,shooting star
+U+1F30C,967,emoji number: 967,milky way
+U+2601,968,emoji number: 968,cloud
+U+26C5,969,emoji number: 969,sun behind cloud
+U+26C8,970,emoji number: 970,cloud with lightning and rain
+U+1F324,971,emoji number: 971,sun behind small cloud
+U+1F325,972,emoji number: 972,sun behind large cloud
+U+1F326,973,emoji number: 973,sun behind rain cloud
+U+1F327,974,emoji number: 974,cloud with rain
+U+1F328,975,emoji number: 975,cloud with snow
+U+1F329,976,emoji number: 976,cloud with lightning
+U+1F32A,977,emoji number: 977,tornado
+U+1F32B,978,emoji number: 978,fog
+U+1F32C,979,emoji number: 979,wind face
+U+1F300,980,emoji number: 980,cyclone
+U+1F308,981,emoji number: 981,rainbow
+U+1F302,982,emoji number: 982,closed umbrella
+U+2602,983,emoji number: 983,umbrella
+U+2614,984,emoji number: 984,umbrella with rain drops
+U+26F1,985,emoji number: 985,umbrella on ground
+U+26A1,986,emoji number: 986,high voltage
+U+2744,987,emoji number: 987,snowflake
+U+2603,988,emoji number: 988,snowman
+U+26C4,989,emoji number: 989,snowman without snow
+U+2604,990,emoji number: 990,comet
+U+1F525,991,emoji number: 991,fire
+U+1F4A7,992,emoji number: 992,droplet
+U+1F30A,993,emoji number: 993,water wave
+U+1F383,994,emoji number: 994,jack-o-lantern
+U+1F384,995,emoji number: 995,Christmas tree
+U+1F386,996,emoji number: 996,fireworks
+U+1F387,997,emoji number: 997,sparkler
+U+1F9E8,998,emoji number: 998,firecracker
+U+2728,999,emoji number: 999,sparkles
+U+1F388,1000,emoji number: 1000,balloon
+U+1F389,1001,emoji number: 1001,party popper
+U+1F38A,1002,emoji number: 1002,confetti ball
+U+1F38B,1003,emoji number: 1003,tanabata tree
+U+1F38D,1004,emoji number: 1004,pine decoration
+U+1F38E,1005,emoji number: 1005,Japanese dolls
+U+1F38F,1006,emoji number: 1006,carp streamer
+U+1F390,1007,emoji number: 1007,wind chime
+U+1F391,1008,emoji number: 1008,moon viewing ceremony
+U+1F9E7,1009,emoji number: 1009,red envelope
+U+1F380,1010,emoji number: 1010,ribbon
+U+1F381,1011,emoji number: 1011,wrapped gift
+U+1F397,1012,emoji number: 1012,reminder ribbon
+U+1F39F,1013,emoji number: 1013,admission tickets
+U+1F3AB,1014,emoji number: 1014,ticket
+U+1F396,1015,emoji number: 1015,military medal
+U+1F3C6,1016,emoji number: 1016,trophy
+U+1F3C5,1017,emoji number: 1017,sports medal
+U+1F947,1018,emoji number: 1018,1st place medal
+U+1F948,1019,emoji number: 1019,2nd place medal
+U+1F949,1020,emoji number: 1020,3rd place medal
+U+26BD,1021,emoji number: 1021,soccer ball
+U+26BE,1022,emoji number: 1022,baseball
+U+1F94E,1023,emoji number: 1023,softball
+U+1F3C0,1024,emoji number: 1024,basketball
+U+1F3D0,1025,emoji number: 1025,volleyball
+U+1F3C8,1026,emoji number: 1026,american football
+U+1F3C9,1027,emoji number: 1027,rugby football
+U+1F3BE,1028,emoji number: 1028,tennis
+U+1F94F,1029,emoji number: 1029,flying disc
+U+1F3B3,1030,emoji number: 1030,bowling
+U+1F3CF,1031,emoji number: 1031,cricket game
+U+1F3D1,1032,emoji number: 1032,field hockey
+U+1F3D2,1033,emoji number: 1033,ice hockey
+U+1F94D,1034,emoji number: 1034,lacrosse
+U+1F3D3,1035,emoji number: 1035,ping pong
+U+1F3F8,1036,emoji number: 1036,badminton
+U+1F94A,1037,emoji number: 1037,boxing glove
+U+1F94B,1038,emoji number: 1038,martial arts uniform
+U+1F945,1039,emoji number: 1039,goal net
+U+26F3,1040,emoji number: 1040,flag in hole
+U+26F8,1041,emoji number: 1041,ice skate
+U+1F3A3,1042,emoji number: 1042,fishing pole
+U+1F93F,1043,emoji number: 1043,diving mask
+U+1F3BD,1044,emoji number: 1044,running shirt
+U+1F3BF,1045,emoji number: 1045,skis
+U+1F6F7,1046,emoji number: 1046,sled
+U+1F94C,1047,emoji number: 1047,curling stone
+U+1F3AF,1048,emoji number: 1048,bullseye
+U+1FA80,1049,emoji number: 1049,yo-yo
+U+1FA81,1050,emoji number: 1050,kite
+U+1F3B1,1051,emoji number: 1051,pool 8 ball
+U+1F52E,1052,emoji number: 1052,crystal ball
+U+1FA84,1053,emoji number: 1053,magic wand
+U+1F9FF,1054,emoji number: 1054,nazar amulet
+U+1F3AE,1055,emoji number: 1055,video game
+U+1F579,1056,emoji number: 1056,joystick
+U+1F3B0,1057,emoji number: 1057,slot machine
+U+1F3B2,1058,emoji number: 1058,game die
+U+1F9E9,1059,emoji number: 1059,puzzle piece
+U+1F9F8,1060,emoji number: 1060,teddy bear
+U+1FA85,1061,emoji number: 1061,piñata
+U+1FA86,1062,emoji number: 1062,nesting dolls
+U+2660,1063,emoji number: 1063,spade suit
+U+2665,1064,emoji number: 1064,heart suit
+U+2666,1065,emoji number: 1065,diamond suit
+U+2663,1066,emoji number: 1066,club suit
+U+265F,1067,emoji number: 1067,chess pawn
+U+1F0CF,1068,emoji number: 1068,joker
+U+1F004,1069,emoji number: 1069,mahjong red dragon
+U+1F3B4,1070,emoji number: 1070,flower playing cards
+U+1F3AD,1071,emoji number: 1071,performing arts
+U+1F5BC,1072,emoji number: 1072,framed picture
+U+1F3A8,1073,emoji number: 1073,artist palette
+U+1F9F5,1074,emoji number: 1074,thread
+U+1FAA1,1075,emoji number: 1075,sewing needle
+U+1F9F6,1076,emoji number: 1076,yarn
+U+1FAA2,1077,emoji number: 1077,knot
+U+1F453,1078,emoji number: 1078,glasses
+U+1F576,1079,emoji number: 1079,sunglasses
+U+1F97D,1080,emoji number: 1080,goggles
+U+1F97C,1081,emoji number: 1081,lab coat
+U+1F9BA,1082,emoji number: 1082,safety vest
+U+1F454,1083,emoji number: 1083,necktie
+U+1F455,1084,emoji number: 1084,t-shirt
+U+1F456,1085,emoji number: 1085,jeans
+U+1F9E3,1086,emoji number: 1086,scarf
+U+1F9E4,1087,emoji number: 1087,gloves
+U+1F9E5,1088,emoji number: 1088,coat
+U+1F9E6,1089,emoji number: 1089,socks
+U+1F457,1090,emoji number: 1090,dress
+U+1F458,1091,emoji number: 1091,kimono
+U+1F97B,1092,emoji number: 1092,sari
+U+1FA71,1093,emoji number: 1093,one-piece swimsuit
+U+1FA72,1094,emoji number: 1094,briefs
+U+1FA73,1095,emoji number: 1095,shorts
+U+1F459,1096,emoji number: 1096,bikini
+U+1F45A,1097,emoji number: 1097,woman’s clothes
+U+1F45B,1098,emoji number: 1098,purse
+U+1F45C,1099,emoji number: 1099,handbag
+U+1F45D,1100,emoji number: 1100,clutch bag
+U+1F6CD,1101,emoji number: 1101,shopping bags
+U+1F392,1102,emoji number: 1102,backpack
+U+1FA74,1103,emoji number: 1103,thong sandal
+U+1F45E,1104,emoji number: 1104,man’s shoe
+U+1F45F,1105,emoji number: 1105,running shoe
+U+1F97E,1106,emoji number: 1106,hiking boot
+U+1F97F,1107,emoji number: 1107,flat shoe
+U+1F460,1108,emoji number: 1108,high-heeled shoe
+U+1F461,1109,emoji number: 1109,woman’s sandal
+U+1FA70,1110,emoji number: 1110,ballet shoes
+U+1F462,1111,emoji number: 1111,woman’s boot
+U+1F451,1112,emoji number: 1112,crown
+U+1F452,1113,emoji number: 1113,woman’s hat
+U+1F3A9,1114,emoji number: 1114,top hat
+U+1F393,1115,emoji number: 1115,graduation cap
+U+1F9E2,1116,emoji number: 1116,billed cap
+U+1FA96,1117,emoji number: 1117,military helmet
+U+26D1,1118,emoji number: 1118,rescue worker’s helmet
+U+1F4FF,1119,emoji number: 1119,prayer beads
+U+1F484,1120,emoji number: 1120,lipstick
+U+1F48D,1121,emoji number: 1121,ring
+U+1F48E,1122,emoji number: 1122,gem stone
+U+1F507,1123,emoji number: 1123,muted speaker
+U+1F508,1124,emoji number: 1124,speaker low volume
+U+1F509,1125,emoji number: 1125,speaker medium volume
+U+1F50A,1126,emoji number: 1126,speaker high volume
+U+1F4E2,1127,emoji number: 1127,loudspeaker
+U+1F4E3,1128,emoji number: 1128,megaphone
+U+1F4EF,1129,emoji number: 1129,postal horn
+U+1F514,1130,emoji number: 1130,bell
+U+1F515,1131,emoji number: 1131,bell with slash
+U+1F3BC,1132,emoji number: 1132,musical score
+U+1F3B5,1133,emoji number: 1133,musical note
+U+1F3B6,1134,emoji number: 1134,musical notes
+U+1F399,1135,emoji number: 1135,studio microphone
+U+1F39A,1136,emoji number: 1136,level slider
+U+1F39B,1137,emoji number: 1137,control knobs
+U+1F3A4,1138,emoji number: 1138,microphone
+U+1F3A7,1139,emoji number: 1139,headphone
+U+1F4FB,1140,emoji number: 1140,radio
+U+1F3B7,1141,emoji number: 1141,saxophone
+U+1FA97,1142,emoji number: 1142,accordion
+U+1F3B8,1143,emoji number: 1143,guitar
+U+1F3B9,1144,emoji number: 1144,musical keyboard
+U+1F3BA,1145,emoji number: 1145,trumpet
+U+1F3BB,1146,emoji number: 1146,violin
+U+1FA95,1147,emoji number: 1147,banjo
+U+1F941,1148,emoji number: 1148,drum
+U+1FA98,1149,emoji number: 1149,long drum
+U+1F4F1,1150,emoji number: 1150,mobile phone
+U+1F4F2,1151,emoji number: 1151,mobile phone with arrow
+U+260E,1152,emoji number: 1152,telephone
+U+1F4DE,1153,emoji number: 1153,telephone receiver
+U+1F4DF,1154,emoji number: 1154,pager
+U+1F4E0,1155,emoji number: 1155,fax machine
+U+1F50B,1156,emoji number: 1156,battery
+U+1F50C,1157,emoji number: 1157,electric plug
+U+1F4BB,1158,emoji number: 1158,laptop
+U+1F5A5,1159,emoji number: 1159,desktop computer
+U+1F5A8,1160,emoji number: 1160,printer
+U+2328,1161,emoji number: 1161,keyboard
+U+1F5B1,1162,emoji number: 1162,computer mouse
+U+1F5B2,1163,emoji number: 1163,trackball
+U+1F4BD,1164,emoji number: 1164,computer disk
+U+1F4BE,1165,emoji number: 1165,floppy disk
+U+1F4BF,1166,emoji number: 1166,optical disk
+U+1F4C0,1167,emoji number: 1167,dvd
+U+1F9EE,1168,emoji number: 1168,abacus
+U+1F3A5,1169,emoji number: 1169,movie camera
+U+1F39E,1170,emoji number: 1170,film frames
+U+1F4FD,1171,emoji number: 1171,film projector
+U+1F3AC,1172,emoji number: 1172,clapper board
+U+1F4FA,1173,emoji number: 1173,television
+U+1F4F7,1174,emoji number: 1174,camera
+U+1F4F8,1175,emoji number: 1175,camera with flash
+U+1F4F9,1176,emoji number: 1176,video camera
+U+1F4FC,1177,emoji number: 1177,videocassette
+U+1F50D,1178,emoji number: 1178,magnifying glass tilted left
+U+1F50E,1179,emoji number: 1179,magnifying glass tilted right
+U+1F56F,1180,emoji number: 1180,candle
+U+1F4A1,1181,emoji number: 1181,light bulb
+U+1F526,1182,emoji number: 1182,flashlight
+U+1F3EE,1183,emoji number: 1183,red paper lantern
+U+1FA94,1184,emoji number: 1184,diya lamp
+U+1F4D4,1185,emoji number: 1185,notebook with decorative cover
+U+1F4D5,1186,emoji number: 1186,closed book
+U+1F4D6,1187,emoji number: 1187,open book
+U+1F4D7,1188,emoji number: 1188,green book
+U+1F4D8,1189,emoji number: 1189,blue book
+U+1F4D9,1190,emoji number: 1190,orange book
+U+1F4DA,1191,emoji number: 1191,books
+U+1F4D3,1192,emoji number: 1192,notebook
+U+1F4D2,1193,emoji number: 1193,ledger
+U+1F4C3,1194,emoji number: 1194,page with curl
+U+1F4DC,1195,emoji number: 1195,scroll
+U+1F4C4,1196,emoji number: 1196,page facing up
+U+1F4F0,1197,emoji number: 1197,newspaper
+U+1F5DE,1198,emoji number: 1198,rolled-up newspaper
+U+1F4D1,1199,emoji number: 1199,bookmark tabs
+U+1F516,1200,emoji number: 1200,bookmark
+U+1F3F7,1201,emoji number: 1201,label
+U+1F4B0,1202,emoji number: 1202,money bag
+U+1FA99,1203,emoji number: 1203,coin
+U+1F4B4,1204,emoji number: 1204,yen banknote
+U+1F4B5,1205,emoji number: 1205,dollar banknote
+U+1F4B6,1206,emoji number: 1206,euro banknote
+U+1F4B7,1207,emoji number: 1207,pound banknote
+U+1F4B8,1208,emoji number: 1208,money with wings
+U+1F4B3,1209,emoji number: 1209,credit card
+U+1F9FE,1210,emoji number: 1210,receipt
+U+1F4B9,1211,emoji number: 1211,chart increasing with yen
+U+2709,1212,emoji number: 1212,envelope
+U+1F4E7,1213,emoji number: 1213,e-mail
+U+1F4E8,1214,emoji number: 1214,incoming envelope
+U+1F4E9,1215,emoji number: 1215,envelope with arrow
+U+1F4E4,1216,emoji number: 1216,outbox tray
+U+1F4E5,1217,emoji number: 1217,inbox tray
+U+1F4E6,1218,emoji number: 1218,package
+U+1F4EB,1219,emoji number: 1219,closed mailbox with raised flag
+U+1F4EA,1220,emoji number: 1220,closed mailbox with lowered flag
+U+1F4EC,1221,emoji number: 1221,open mailbox with raised flag
+U+1F4ED,1222,emoji number: 1222,open mailbox with lowered flag
+U+1F4EE,1223,emoji number: 1223,postbox
+U+1F5F3,1224,emoji number: 1224,ballot box with ballot
+U+270F,1225,emoji number: 1225,pencil
+U+2712,1226,emoji number: 1226,black nib
+U+1F58B,1227,emoji number: 1227,fountain pen
+U+1F58A,1228,emoji number: 1228,pen
+U+1F58C,1229,emoji number: 1229,paintbrush
+U+1F58D,1230,emoji number: 1230,crayon
+U+1F4DD,1231,emoji number: 1231,memo
+U+1F4BC,1232,emoji number: 1232,briefcase
+U+1F4C1,1233,emoji number: 1233,file folder
+U+1F4C2,1234,emoji number: 1234,open file folder
+U+1F5C2,1235,emoji number: 1235,card index dividers
+U+1F4C5,1236,emoji number: 1236,calendar
+U+1F4C6,1237,emoji number: 1237,tear-off calendar
+U+1F5D2,1238,emoji number: 1238,spiral notepad
+U+1F5D3,1239,emoji number: 1239,spiral calendar
+U+1F4C7,1240,emoji number: 1240,card index
+U+1F4C8,1241,emoji number: 1241,chart increasing
+U+1F4C9,1242,emoji number: 1242,chart decreasing
+U+1F4CA,1243,emoji number: 1243,bar chart
+U+1F4CB,1244,emoji number: 1244,clipboard
+U+1F4CC,1245,emoji number: 1245,pushpin
+U+1F4CD,1246,emoji number: 1246,round pushpin
+U+1F4CE,1247,emoji number: 1247,paperclip
+U+1F587,1248,emoji number: 1248,linked paperclips
+U+1F4CF,1249,emoji number: 1249,straight ruler
+U+1F4D0,1250,emoji number: 1250,triangular ruler
+U+2702,1251,emoji number: 1251,scissors
+U+1F5C3,1252,emoji number: 1252,card file box
+U+1F5C4,1253,emoji number: 1253,file cabinet
+U+1F5D1,1254,emoji number: 1254,wastebasket
+U+1F512,1255,emoji number: 1255,locked
+U+1F513,1256,emoji number: 1256,unlocked
+U+1F50F,1257,emoji number: 1257,locked with pen
+U+1F510,1258,emoji number: 1258,locked with key
+U+1F511,1259,emoji number: 1259,key
+U+1F5DD,1260,emoji number: 1260,old key
+U+1F528,1261,emoji number: 1261,hammer
+U+1FA93,1262,emoji number: 1262,axe
+U+26CF,1263,emoji number: 1263,pick
+U+2692,1264,emoji number: 1264,hammer and pick
+U+1F6E0,1265,emoji number: 1265,hammer and wrench
+U+1F5E1,1266,emoji number: 1266,dagger
+U+2694,1267,emoji number: 1267,crossed swords
+U+1F52B,1268,emoji number: 1268,water pistol
+U+1FA83,1269,emoji number: 1269,boomerang
+U+1F3F9,1270,emoji number: 1270,bow and arrow
+U+1F6E1,1271,emoji number: 1271,shield
+U+1FA9A,1272,emoji number: 1272,carpentry saw
+U+1F527,1273,emoji number: 1273,wrench
+U+1FA9B,1274,emoji number: 1274,screwdriver
+U+1F529,1275,emoji number: 1275,nut and bolt
+U+2699,1276,emoji number: 1276,gear
+U+1F5DC,1277,emoji number: 1277,clamp
+U+2696,1278,emoji number: 1278,balance scale
+U+1F9AF,1279,emoji number: 1279,white cane
+U+1F517,1280,emoji number: 1280,link
+U+26D3,1281,emoji number: 1281,chains
+U+1FA9D,1282,emoji number: 1282,hook
+U+1F9F0,1283,emoji number: 1283,toolbox
+U+1F9F2,1284,emoji number: 1284,magnet
+U+1FA9C,1285,emoji number: 1285,ladder
+U+2697,1286,emoji number: 1286,alembic
+U+1F9EA,1287,emoji number: 1287,test tube
+U+1F9EB,1288,emoji number: 1288,petri dish
+U+1F9EC,1289,emoji number: 1289,dna
+U+1F52C,1290,emoji number: 1290,microscope
+U+1F52D,1291,emoji number: 1291,telescope
+U+1F4E1,1292,emoji number: 1292,satellite antenna
+U+1F489,1293,emoji number: 1293,syringe
+U+1FA78,1294,emoji number: 1294,drop of blood
+U+1F48A,1295,emoji number: 1295,pill
+U+1FA79,1296,emoji number: 1296,adhesive bandage
+U+1FA7A,1297,emoji number: 1297,stethoscope
+U+1F6AA,1298,emoji number: 1298,door
+U+1F6D7,1299,emoji number: 1299,elevator
+U+1FA9E,1300,emoji number: 1300,mirror
+U+1FA9F,1301,emoji number: 1301,window
+U+1F6CF,1302,emoji number: 1302,bed
+U+1F6CB,1303,emoji number: 1303,couch and lamp
+U+1FA91,1304,emoji number: 1304,chair
+U+1F6BD,1305,emoji number: 1305,toilet
+U+1FAA0,1306,emoji number: 1306,plunger
+U+1F6BF,1307,emoji number: 1307,shower
+U+1F6C1,1308,emoji number: 1308,bathtub
+U+1FAA4,1309,emoji number: 1309,mouse trap
+U+1FA92,1310,emoji number: 1310,razor
+U+1F9F4,1311,emoji number: 1311,lotion bottle
+U+1F9F7,1312,emoji number: 1312,safety pin
+U+1F9F9,1313,emoji number: 1313,broom
+U+1F9FA,1314,emoji number: 1314,basket
+U+1F9FB,1315,emoji number: 1315,roll of paper
+U+1FAA3,1316,emoji number: 1316,bucket
+U+1F9FC,1317,emoji number: 1317,soap
+U+1FAA5,1318,emoji number: 1318,toothbrush
+U+1F9FD,1319,emoji number: 1319,sponge
+U+1F9EF,1320,emoji number: 1320,fire extinguisher
+U+1F6D2,1321,emoji number: 1321,shopping cart
+U+1F6AC,1322,emoji number: 1322,cigarette
+U+26B0,1323,emoji number: 1323,coffin
+U+1FAA6,1324,emoji number: 1324,headstone
+U+26B1,1325,emoji number: 1325,funeral urn
+U+1F5FF,1326,emoji number: 1326,moai
+U+1FAA7,1327,emoji number: 1327,placard
+U+1F3E7,1328,emoji number: 1328,ATM sign
+U+1F6AE,1329,emoji number: 1329,litter in bin sign
+U+1F6B0,1330,emoji number: 1330,potable water
+U+267F,1331,emoji number: 1331,wheelchair symbol
+U+1F6B9,1332,emoji number: 1332,men’s room
+U+1F6BA,1333,emoji number: 1333,women’s room
+U+1F6BB,1334,emoji number: 1334,restroom
+U+1F6BC,1335,emoji number: 1335,baby symbol
+U+1F6BE,1336,emoji number: 1336,water closet
+U+1F6C2,1337,emoji number: 1337,passport control
+U+1F6C3,1338,emoji number: 1338,customs
+U+1F6C4,1339,emoji number: 1339,baggage claim
+U+1F6C5,1340,emoji number: 1340,left luggage
+U+26A0,1341,emoji number: 1341,warning
+U+1F6B8,1342,emoji number: 1342,children crossing
+U+26D4,1343,emoji number: 1343,no entry
+U+1F6AB,1344,emoji number: 1344,prohibited
+U+1F6B3,1345,emoji number: 1345,no bicycles
+U+1F6AD,1346,emoji number: 1346,no smoking
+U+1F6AF,1347,emoji number: 1347,no littering
+U+1F6B1,1348,emoji number: 1348,non-potable water
+U+1F6B7,1349,emoji number: 1349,no pedestrians
+U+1F4F5,1350,emoji number: 1350,no mobile phones
+U+1F51E,1351,emoji number: 1351,no one under eighteen
+U+2622,1352,emoji number: 1352,radioactive
+U+2623,1353,emoji number: 1353,biohazard
+U+2B06,1354,emoji number: 1354,up arrow
+U+2197,1355,emoji number: 1355,up-right arrow
+U+27A1,1356,emoji number: 1356,right arrow
+U+2198,1357,emoji number: 1357,down-right arrow
+U+2B07,1358,emoji number: 1358,down arrow
+U+2199,1359,emoji number: 1359,down-left arrow
+U+2B05,1360,emoji number: 1360,left arrow
+U+2196,1361,emoji number: 1361,up-left arrow
+U+2195,1362,emoji number: 1362,up-down arrow
+U+2194,1363,emoji number: 1363,left-right arrow
+U+21A9,1364,emoji number: 1364,right arrow curving left
+U+21AA,1365,emoji number: 1365,left arrow curving right
+U+2934,1366,emoji number: 1366,right arrow curving up
+U+2935,1367,emoji number: 1367,right arrow curving down
+U+1F503,1368,emoji number: 1368,clockwise vertical arrows
+U+1F504,1369,emoji number: 1369,counterclockwise arrows button
+U+1F519,1370,emoji number: 1370,BACK arrow
+U+1F51A,1371,emoji number: 1371,END arrow
+U+1F51B,1372,emoji number: 1372,ON! arrow
+U+1F51C,1373,emoji number: 1373,SOON arrow
+U+1F51D,1374,emoji number: 1374,TOP arrow
+U+1F6D0,1375,emoji number: 1375,place of worship
+U+269B,1376,emoji number: 1376,atom symbol
+U+1F549,1377,emoji number: 1377,om
+U+2721,1378,emoji number: 1378,star of David
+U+2638,1379,emoji number: 1379,wheel of dharma
+U+262F,1380,emoji number: 1380,yin yang
+U+271D,1381,emoji number: 1381,latin cross
+U+2626,1382,emoji number: 1382,orthodox cross
+U+262A,1383,emoji number: 1383,star and crescent
+U+262E,1384,emoji number: 1384,peace symbol
+U+1F54E,1385,emoji number: 1385,menorah
+U+1F52F,1386,emoji number: 1386,dotted six-pointed star
+U+2648,1387,emoji number: 1387,Aries
+U+2649,1388,emoji number: 1388,Taurus
+U+264A,1389,emoji number: 1389,Gemini
+U+264B,1390,emoji number: 1390,Cancer
+U+264C,1391,emoji number: 1391,Leo
+U+264D,1392,emoji number: 1392,Virgo
+U+264E,1393,emoji number: 1393,Libra
+U+264F,1394,emoji number: 1394,Scorpio
+U+2650,1395,emoji number: 1395,Sagittarius
+U+2651,1396,emoji number: 1396,Capricorn
+U+2652,1397,emoji number: 1397,Aquarius
+U+2653,1398,emoji number: 1398,Pisces
+U+26CE,1399,emoji number: 1399,Ophiuchus
+U+1F500,1400,emoji number: 1400,shuffle tracks button
+U+1F501,1401,emoji number: 1401,repeat button
+U+1F502,1402,emoji number: 1402,repeat single button
+U+25B6,1403,emoji number: 1403,play button
+U+23E9,1404,emoji number: 1404,fast-forward button
+U+23ED,1405,emoji number: 1405,next track button
+U+23EF,1406,emoji number: 1406,play or pause button
+U+25C0,1407,emoji number: 1407,reverse button
+U+23EA,1408,emoji number: 1408,fast reverse button
+U+23EE,1409,emoji number: 1409,last track button
+U+1F53C,1410,emoji number: 1410,upwards button
+U+23EB,1411,emoji number: 1411,fast up button
+U+1F53D,1412,emoji number: 1412,downwards button
+U+23EC,1413,emoji number: 1413,fast down button
+U+23F8,1414,emoji number: 1414,pause button
+U+23F9,1415,emoji number: 1415,stop button
+U+23FA,1416,emoji number: 1416,record button
+U+23CF,1417,emoji number: 1417,eject button
+U+1F3A6,1418,emoji number: 1418,cinema
+U+1F505,1419,emoji number: 1419,dim button
+U+1F506,1420,emoji number: 1420,bright button
+U+1F4F6,1421,emoji number: 1421,antenna bars
+U+1F4F3,1422,emoji number: 1422,vibration mode
+U+1F4F4,1423,emoji number: 1423,mobile phone off
+U+2640,1424,emoji number: 1424,female sign
+U+2642,1425,emoji number: 1425,male sign
+U+26A7,1426,emoji number: 1426,transgender symbol
+U+2716,1427,emoji number: 1427,multiply
+U+2795,1428,emoji number: 1428,plus
+U+2796,1429,emoji number: 1429,minus
+U+2797,1430,emoji number: 1430,divide
+U+267E,1431,emoji number: 1431,infinity
+U+203C,1432,emoji number: 1432,double exclamation mark
+U+2049,1433,emoji number: 1433,exclamation question mark
+U+2753,1434,emoji number: 1434,red question mark
+U+2754,1435,emoji number: 1435,white question mark
+U+2755,1436,emoji number: 1436,white exclamation mark
+U+2757,1437,emoji number: 1437,red exclamation mark
+U+3030,1438,emoji number: 1438,wavy dash
+U+1F4B1,1439,emoji number: 1439,currency exchange
+U+1F4B2,1440,emoji number: 1440,heavy dollar sign
+U+2695,1441,emoji number: 1441,medical symbol
+U+267B,1442,emoji number: 1442,recycling symbol
+U+269C,1443,emoji number: 1443,fleur-de-lis
+U+1F531,1444,emoji number: 1444,trident emblem
+U+1F4DB,1445,emoji number: 1445,name badge
+U+1F530,1446,emoji number: 1446,Japanese symbol for beginner
+U+2B55,1447,emoji number: 1447,hollow red circle
+U+2705,1448,emoji number: 1448,check mark button
+U+2611,1449,emoji number: 1449,check box with check
+U+2714,1450,emoji number: 1450,check mark
+U+274C,1451,emoji number: 1451,cross mark
+U+274E,1452,emoji number: 1452,cross mark button
+U+27B0,1453,emoji number: 1453,curly loop
+U+27BF,1454,emoji number: 1454,double curly loop
+U+303D,1455,emoji number: 1455,part alternation mark
+U+2733,1456,emoji number: 1456,eight-spoked asterisk
+U+2734,1457,emoji number: 1457,eight-pointed star
+U+2747,1458,emoji number: 1458,sparkle
+U+00A9,1459,emoji number: 1459,copyright
+U+00AE,1460,emoji number: 1460,registered
+U+2122,1461,emoji number: 1461,trade mark
+U+0023 U+FE0F U+20E3,1462,emoji number: 1462,keycap: #
+U+002A U+FE0F U+20E3,1463,emoji number: 1463,keycap: *
+U+0030 U+FE0F U+20E3,1464,emoji number: 1464,keycap: 0
+U+0031 U+FE0F U+20E3,1465,emoji number: 1465,keycap: 1
+U+0032 U+FE0F U+20E3,1466,emoji number: 1466,keycap: 2
+U+0033 U+FE0F U+20E3,1467,emoji number: 1467,keycap: 3
+U+0034 U+FE0F U+20E3,1468,emoji number: 1468,keycap: 4
+U+0035 U+FE0F U+20E3,1469,emoji number: 1469,keycap: 5
+U+0036 U+FE0F U+20E3,1470,emoji number: 1470,keycap: 6
+U+0037 U+FE0F U+20E3,1471,emoji number: 1471,keycap: 7
+U+0038 U+FE0F U+20E3,1472,emoji number: 1472,keycap: 8
+U+0039 U+FE0F U+20E3,1473,emoji number: 1473,keycap: 9
+U+1F51F,1474,emoji number: 1474,keycap: 10
+U+1F520,1475,emoji number: 1475,input latin uppercase
+U+1F521,1476,emoji number: 1476,input latin lowercase
+U+1F522,1477,emoji number: 1477,input numbers
+U+1F523,1478,emoji number: 1478,input symbols
+U+1F524,1479,emoji number: 1479,input latin letters
+U+1F170,1480,emoji number: 1480,A button (blood type)
+U+1F18E,1481,emoji number: 1481,AB button (blood type)
+U+1F171,1482,emoji number: 1482,B button (blood type)
+U+1F191,1483,emoji number: 1483,CL button
+U+1F192,1484,emoji number: 1484,COOL button
+U+1F193,1485,emoji number: 1485,FREE button
+U+2139,1486,emoji number: 1486,information
+U+1F194,1487,emoji number: 1487,ID button
+U+24C2,1488,emoji number: 1488,circled M
+U+1F195,1489,emoji number: 1489,NEW button
+U+1F196,1490,emoji number: 1490,NG button
+U+1F17E,1491,emoji number: 1491,O button (blood type)
+U+1F197,1492,emoji number: 1492,OK button
+U+1F17F,1493,emoji number: 1493,P button
+U+1F198,1494,emoji number: 1494,SOS button
+U+1F199,1495,emoji number: 1495,UP! button
+U+1F19A,1496,emoji number: 1496,VS button
+U+1F201,1497,emoji number: 1497,Japanese “here” button
+U+1F202,1498,emoji number: 1498,Japanese “service charge” button
+U+1F237,1499,emoji number: 1499,Japanese “monthly amount” button
+U+1F236,1500,emoji number: 1500,Japanese “not free of charge” button
+U+1F22F,1501,emoji number: 1501,Japanese “reserved” button
+U+1F250,1502,emoji number: 1502,Japanese “bargain” button
+U+1F239,1503,emoji number: 1503,Japanese “discount” button
+U+1F21A,1504,emoji number: 1504,Japanese “free of charge” button
+U+1F232,1505,emoji number: 1505,Japanese “prohibited” button
+U+1F251,1506,emoji number: 1506,Japanese “acceptable” button
+U+1F238,1507,emoji number: 1507,Japanese “application” button
+U+1F234,1508,emoji number: 1508,Japanese “passing grade” button
+U+1F233,1509,emoji number: 1509,Japanese “vacancy” button
+U+3297,1510,emoji number: 1510,Japanese “congratulations” button
+U+3299,1511,emoji number: 1511,Japanese “secret” button
+U+1F23A,1512,emoji number: 1512,Japanese “open for business” button
+U+1F235,1513,emoji number: 1513,Japanese “no vacancy” button
+U+1F534,1514,emoji number: 1514,red circle
+U+1F7E0,1515,emoji number: 1515,orange circle
+U+1F7E1,1516,emoji number: 1516,yellow circle
+U+1F7E2,1517,emoji number: 1517,green circle
+U+1F535,1518,emoji number: 1518,blue circle
+U+1F7E3,1519,emoji number: 1519,purple circle
+U+1F7E4,1520,emoji number: 1520,brown circle
+U+26AB,1521,emoji number: 1521,black circle
+U+26AA,1522,emoji number: 1522,white circle
+U+1F7E5,1523,emoji number: 1523,red square
+U+1F7E7,1524,emoji number: 1524,orange square
+U+1F7E8,1525,emoji number: 1525,yellow square
+U+1F7E9,1526,emoji number: 1526,green square
+U+1F7E6,1527,emoji number: 1527,blue square
+U+1F7EA,1528,emoji number: 1528,purple square
+U+1F7EB,1529,emoji number: 1529,brown square
+U+2B1B,1530,emoji number: 1530,black large square
+U+2B1C,1531,emoji number: 1531,white large square
+U+25FC,1532,emoji number: 1532,black medium square
+U+25FB,1533,emoji number: 1533,white medium square
+U+25FE,1534,emoji number: 1534,black medium-small square
+U+25FD,1535,emoji number: 1535,white medium-small square
+U+25AA,1536,emoji number: 1536,black small square
+U+25AB,1537,emoji number: 1537,white small square
+U+1F536,1538,emoji number: 1538,large orange diamond
+U+1F537,1539,emoji number: 1539,large blue diamond
+U+1F538,1540,emoji number: 1540,small orange diamond
+U+1F539,1541,emoji number: 1541,small blue diamond
+U+1F53A,1542,emoji number: 1542,red triangle pointed up
+U+1F53B,1543,emoji number: 1543,red triangle pointed down
+U+1F4A0,1544,emoji number: 1544,diamond with a dot
+U+1F518,1545,emoji number: 1545,radio button
+U+1F533,1546,emoji number: 1546,white square button
+U+1F532,1547,emoji number: 1547,black square button
+U+1F3C1,1548,emoji number: 1548,chequered flag
+U+1F6A9,1549,emoji number: 1549,triangular flag
+U+1F38C,1550,emoji number: 1550,crossed flags
+U+1F3F4,1551,emoji number: 1551,black flag
+U+1F3F3,1552,emoji number: 1552,white flag
+U+1F3F3 U+FE0F U+200D U+1F308,1553,emoji number: 1553,rainbow flag
+U+1F3F3 U+FE0F U+200D U+26A7 U+FE0F,1554,emoji number: 1554,transgender flag
+U+1F3F4 U+200D U+2620 U+FE0F,1555,emoji number: 1555,pirate flag
+U+1F1E6 U+1F1E8,1556,emoji number: 1556,flag: Ascension Island
+U+1F1E6 U+1F1E9,1557,emoji number: 1557,flag: Andorra
+U+1F1E6 U+1F1EA,1558,emoji number: 1558,flag: United Arab Emirates
+U+1F1E6 U+1F1EB,1559,emoji number: 1559,flag: Afghanistan
+U+1F1E6 U+1F1EC,1560,emoji number: 1560,flag: Antigua & Barbuda
+U+1F1E6 U+1F1EE,1561,emoji number: 1561,flag: Anguilla
+U+1F1E6 U+1F1F1,1562,emoji number: 1562,flag: Albania
+U+1F1E6 U+1F1F2,1563,emoji number: 1563,flag: Armenia
+U+1F1E6 U+1F1F4,1564,emoji number: 1564,flag: Angola
+U+1F1E6 U+1F1F6,1565,emoji number: 1565,flag: Antarctica
+U+1F1E6 U+1F1F7,1566,emoji number: 1566,flag: Argentina
+U+1F1E6 U+1F1F8,1567,emoji number: 1567,flag: American Samoa
+U+1F1E6 U+1F1F9,1568,emoji number: 1568,flag: Austria
+U+1F1E6 U+1F1FA,1569,emoji number: 1569,flag: Australia
+U+1F1E6 U+1F1FC,1570,emoji number: 1570,flag: Aruba
+U+1F1E6 U+1F1FD,1571,emoji number: 1571,flag: Åland Islands
+U+1F1E6 U+1F1FF,1572,emoji number: 1572,flag: Azerbaijan
+U+1F1E7 U+1F1E6,1573,emoji number: 1573,flag: Bosnia & Herzegovina
+U+1F1E7 U+1F1E7,1574,emoji number: 1574,flag: Barbados
+U+1F1E7 U+1F1E9,1575,emoji number: 1575,flag: Bangladesh
+U+1F1E7 U+1F1EA,1576,emoji number: 1576,flag: Belgium
+U+1F1E7 U+1F1EB,1577,emoji number: 1577,flag: Burkina Faso
+U+1F1E7 U+1F1EC,1578,emoji number: 1578,flag: Bulgaria
+U+1F1E7 U+1F1ED,1579,emoji number: 1579,flag: Bahrain
+U+1F1E7 U+1F1EE,1580,emoji number: 1580,flag: Burundi
+U+1F1E7 U+1F1EF,1581,emoji number: 1581,flag: Benin
+U+1F1E7 U+1F1F1,1582,emoji number: 1582,flag: St. Barthélemy
+U+1F1E7 U+1F1F2,1583,emoji number: 1583,flag: Bermuda
+U+1F1E7 U+1F1F3,1584,emoji number: 1584,flag: Brunei
+U+1F1E7 U+1F1F4,1585,emoji number: 1585,flag: Bolivia
+U+1F1E7 U+1F1F6,1586,emoji number: 1586,flag: Caribbean Netherlands
+U+1F1E7 U+1F1F7,1587,emoji number: 1587,flag: Brazil
+U+1F1E7 U+1F1F8,1588,emoji number: 1588,flag: Bahamas
+U+1F1E7 U+1F1F9,1589,emoji number: 1589,flag: Bhutan
+U+1F1E7 U+1F1FB,1590,emoji number: 1590,flag: Bouvet Island
+U+1F1E7 U+1F1FC,1591,emoji number: 1591,flag: Botswana
+U+1F1E7 U+1F1FE,1592,emoji number: 1592,flag: Belarus
+U+1F1E7 U+1F1FF,1593,emoji number: 1593,flag: Belize
+U+1F1E8 U+1F1E6,1594,emoji number: 1594,flag: Canada
+U+1F1E8 U+1F1E8,1595,emoji number: 1595,flag: Cocos (Keeling) Islands
+U+1F1E8 U+1F1E9,1596,emoji number: 1596,flag: Congo - Kinshasa
+U+1F1E8 U+1F1EB,1597,emoji number: 1597,flag: Central African Republic
+U+1F1E8 U+1F1EC,1598,emoji number: 1598,flag: Congo - Brazzaville
+U+1F1E8 U+1F1ED,1599,emoji number: 1599,flag: Switzerland
+U+1F1E8 U+1F1EE,1600,emoji number: 1600,flag: Côte d’Ivoire
+U+1F1E8 U+1F1F0,1601,emoji number: 1601,flag: Cook Islands
+U+1F1E8 U+1F1F1,1602,emoji number: 1602,flag: Chile
+U+1F1E8 U+1F1F2,1603,emoji number: 1603,flag: Cameroon
+U+1F1E8 U+1F1F3,1604,emoji number: 1604,flag: China
+U+1F1E8 U+1F1F4,1605,emoji number: 1605,flag: Colombia
+U+1F1E8 U+1F1F5,1606,emoji number: 1606,flag: Clipperton Island
+U+1F1E8 U+1F1F7,1607,emoji number: 1607,flag: Costa Rica
+U+1F1E8 U+1F1FA,1608,emoji number: 1608,flag: Cuba
+U+1F1E8 U+1F1FB,1609,emoji number: 1609,flag: Cape Verde
+U+1F1E8 U+1F1FC,1610,emoji number: 1610,flag: Curaçao
+U+1F1E8 U+1F1FD,1611,emoji number: 1611,flag: Christmas Island
+U+1F1E8 U+1F1FE,1612,emoji number: 1612,flag: Cyprus
+U+1F1E8 U+1F1FF,1613,emoji number: 1613,flag: Czechia
+U+1F1E9 U+1F1EA,1614,emoji number: 1614,flag: Germany
+U+1F1E9 U+1F1EC,1615,emoji number: 1615,flag: Diego Garcia
+U+1F1E9 U+1F1EF,1616,emoji number: 1616,flag: Djibouti
+U+1F1E9 U+1F1F0,1617,emoji number: 1617,flag: Denmark
+U+1F1E9 U+1F1F2,1618,emoji number: 1618,flag: Dominica
+U+1F1E9 U+1F1F4,1619,emoji number: 1619,flag: Dominican Republic
+U+1F1E9 U+1F1FF,1620,emoji number: 1620,flag: Algeria
+U+1F1EA U+1F1E6,1621,emoji number: 1621,flag: Ceuta & Melilla
+U+1F1EA U+1F1E8,1622,emoji number: 1622,flag: Ecuador
+U+1F1EA U+1F1EA,1623,emoji number: 1623,flag: Estonia
+U+1F1EA U+1F1EC,1624,emoji number: 1624,flag: Egypt
+U+1F1EA U+1F1ED,1625,emoji number: 1625,flag: Western Sahara
+U+1F1EA U+1F1F7,1626,emoji number: 1626,flag: Eritrea
+U+1F1EA U+1F1F8,1627,emoji number: 1627,flag: Spain
+U+1F1EA U+1F1F9,1628,emoji number: 1628,flag: Ethiopia
+U+1F1EA U+1F1FA,1629,emoji number: 1629,flag: European Union
+U+1F1EB U+1F1EE,1630,emoji number: 1630,flag: Finland
+U+1F1EB U+1F1EF,1631,emoji number: 1631,flag: Fiji
+U+1F1EB U+1F1F0,1632,emoji number: 1632,flag: Falkland Islands
+U+1F1EB U+1F1F2,1633,emoji number: 1633,flag: Micronesia
+U+1F1EB U+1F1F4,1634,emoji number: 1634,flag: Faroe Islands
+U+1F1EB U+1F1F7,1635,emoji number: 1635,flag: France
+U+1F1EC U+1F1E6,1636,emoji number: 1636,flag: Gabon
+U+1F1EC U+1F1E7,1637,emoji number: 1637,flag: United Kingdom
+U+1F1EC U+1F1E9,1638,emoji number: 1638,flag: Grenada
+U+1F1EC U+1F1EA,1639,emoji number: 1639,flag: Georgia
+U+1F1EC U+1F1EB,1640,emoji number: 1640,flag: French Guiana
+U+1F1EC U+1F1EC,1641,emoji number: 1641,flag: Guernsey
+U+1F1EC U+1F1ED,1642,emoji number: 1642,flag: Ghana
+U+1F1EC U+1F1EE,1643,emoji number: 1643,flag: Gibraltar
+U+1F1EC U+1F1F1,1644,emoji number: 1644,flag: Greenland
+U+1F1EC U+1F1F2,1645,emoji number: 1645,flag: Gambia
+U+1F1EC U+1F1F3,1646,emoji number: 1646,flag: Guinea
+U+1F1EC U+1F1F5,1647,emoji number: 1647,flag: Guadeloupe
+U+1F1EC U+1F1F6,1648,emoji number: 1648,flag: Equatorial Guinea
+U+1F1EC U+1F1F7,1649,emoji number: 1649,flag: Greece
+U+1F1EC U+1F1F8,1650,emoji number: 1650,flag: South Georgia & South Sandwich Islands
+U+1F1EC U+1F1F9,1651,emoji number: 1651,flag: Guatemala
+U+1F1EC U+1F1FA,1652,emoji number: 1652,flag: Guam
+U+1F1EC U+1F1FC,1653,emoji number: 1653,flag: Guinea-Bissau
+U+1F1EC U+1F1FE,1654,emoji number: 1654,flag: Guyana
+U+1F1ED U+1F1F0,1655,emoji number: 1655,flag: Hong Kong SAR China
+U+1F1ED U+1F1F2,1656,emoji number: 1656,flag: Heard & McDonald Islands
+U+1F1ED U+1F1F3,1657,emoji number: 1657,flag: Honduras
+U+1F1ED U+1F1F7,1658,emoji number: 1658,flag: Croatia
+U+1F1ED U+1F1F9,1659,emoji number: 1659,flag: Haiti
+U+1F1ED U+1F1FA,1660,emoji number: 1660,flag: Hungary
+U+1F1EE U+1F1E8,1661,emoji number: 1661,flag: Canary Islands
+U+1F1EE U+1F1E9,1662,emoji number: 1662,flag: Indonesia
+U+1F1EE U+1F1EA,1663,emoji number: 1663,flag: Ireland
+U+1F1EE U+1F1F1,1664,emoji number: 1664,flag: Israel
+U+1F1EE U+1F1F2,1665,emoji number: 1665,flag: Isle of Man
+U+1F1EE U+1F1F3,1666,emoji number: 1666,flag: India
+U+1F1EE U+1F1F4,1667,emoji number: 1667,flag: British Indian Ocean Territory
+U+1F1EE U+1F1F6,1668,emoji number: 1668,flag: Iraq
+U+1F1EE U+1F1F7,1669,emoji number: 1669,flag: Iran
+U+1F1EE U+1F1F8,1670,emoji number: 1670,flag: Iceland
+U+1F1EE U+1F1F9,1671,emoji number: 1671,flag: Italy
+U+1F1EF U+1F1EA,1672,emoji number: 1672,flag: Jersey
+U+1F1EF U+1F1F2,1673,emoji number: 1673,flag: Jamaica
+U+1F1EF U+1F1F4,1674,emoji number: 1674,flag: Jordan
+U+1F1EF U+1F1F5,1675,emoji number: 1675,flag: Japan
+U+1F1F0 U+1F1EA,1676,emoji number: 1676,flag: Kenya
+U+1F1F0 U+1F1EC,1677,emoji number: 1677,flag: Kyrgyzstan
+U+1F1F0 U+1F1ED,1678,emoji number: 1678,flag: Cambodia
+U+1F1F0 U+1F1EE,1679,emoji number: 1679,flag: Kiribati
+U+1F1F0 U+1F1F2,1680,emoji number: 1680,flag: Comoros
+U+1F1F0 U+1F1F3,1681,emoji number: 1681,flag: St. Kitts & Nevis
+U+1F1F0 U+1F1F5,1682,emoji number: 1682,flag: North Korea
+U+1F1F0 U+1F1F7,1683,emoji number: 1683,flag: South Korea
+U+1F1F0 U+1F1FC,1684,emoji number: 1684,flag: Kuwait
+U+1F1F0 U+1F1FE,1685,emoji number: 1685,flag: Cayman Islands
+U+1F1F0 U+1F1FF,1686,emoji number: 1686,flag: Kazakhstan
+U+1F1F1 U+1F1E6,1687,emoji number: 1687,flag: Laos
+U+1F1F1 U+1F1E7,1688,emoji number: 1688,flag: Lebanon
+U+1F1F1 U+1F1E8,1689,emoji number: 1689,flag: St. Lucia
+U+1F1F1 U+1F1EE,1690,emoji number: 1690,flag: Liechtenstein
+U+1F1F1 U+1F1F0,1691,emoji number: 1691,flag: Sri Lanka
+U+1F1F1 U+1F1F7,1692,emoji number: 1692,flag: Liberia
+U+1F1F1 U+1F1F8,1693,emoji number: 1693,flag: Lesotho
+U+1F1F1 U+1F1F9,1694,emoji number: 1694,flag: Lithuania
+U+1F1F1 U+1F1FA,1695,emoji number: 1695,flag: Luxembourg
+U+1F1F1 U+1F1FB,1696,emoji number: 1696,flag: Latvia
+U+1F1F1 U+1F1FE,1697,emoji number: 1697,flag: Libya
+U+1F1F2 U+1F1E6,1698,emoji number: 1698,flag: Morocco
+U+1F1F2 U+1F1E8,1699,emoji number: 1699,flag: Monaco
+U+1F1F2 U+1F1E9,1700,emoji number: 1700,flag: Moldova
+U+1F1F2 U+1F1EA,1701,emoji number: 1701,flag: Montenegro
+U+1F1F2 U+1F1EB,1702,emoji number: 1702,flag: St. Martin
+U+1F1F2 U+1F1EC,1703,emoji number: 1703,flag: Madagascar
+U+1F1F2 U+1F1ED,1704,emoji number: 1704,flag: Marshall Islands
+U+1F1F2 U+1F1F0,1705,emoji number: 1705,flag: North Macedonia
+U+1F1F2 U+1F1F1,1706,emoji number: 1706,flag: Mali
+U+1F1F2 U+1F1F2,1707,emoji number: 1707,flag: Myanmar (Burma)
+U+1F1F2 U+1F1F3,1708,emoji number: 1708,flag: Mongolia
+U+1F1F2 U+1F1F4,1709,emoji number: 1709,flag: Macao SAR China
+U+1F1F2 U+1F1F5,1710,emoji number: 1710,flag: Northern Mariana Islands
+U+1F1F2 U+1F1F6,1711,emoji number: 1711,flag: Martinique
+U+1F1F2 U+1F1F7,1712,emoji number: 1712,flag: Mauritania
+U+1F1F2 U+1F1F8,1713,emoji number: 1713,flag: Montserrat
+U+1F1F2 U+1F1F9,1714,emoji number: 1714,flag: Malta
+U+1F1F2 U+1F1FA,1715,emoji number: 1715,flag: Mauritius
+U+1F1F2 U+1F1FB,1716,emoji number: 1716,flag: Maldives
+U+1F1F2 U+1F1FC,1717,emoji number: 1717,flag: Malawi
+U+1F1F2 U+1F1FD,1718,emoji number: 1718,flag: Mexico
+U+1F1F2 U+1F1FE,1719,emoji number: 1719,flag: Malaysia
+U+1F1F2 U+1F1FF,1720,emoji number: 1720,flag: Mozambique
+U+1F1F3 U+1F1E6,1721,emoji number: 1721,flag: Namibia
+U+1F1F3 U+1F1E8,1722,emoji number: 1722,flag: New Caledonia
+U+1F1F3 U+1F1EA,1723,emoji number: 1723,flag: Niger
+U+1F1F3 U+1F1EB,1724,emoji number: 1724,flag: Norfolk Island
+U+1F1F3 U+1F1EC,1725,emoji number: 1725,flag: Nigeria
+U+1F1F3 U+1F1EE,1726,emoji number: 1726,flag: Nicaragua
+U+1F1F3 U+1F1F1,1727,emoji number: 1727,flag: Netherlands
+U+1F1F3 U+1F1F4,1728,emoji number: 1728,flag: Norway
+U+1F1F3 U+1F1F5,1729,emoji number: 1729,flag: Nepal
+U+1F1F3 U+1F1F7,1730,emoji number: 1730,flag: Nauru
+U+1F1F3 U+1F1FA,1731,emoji number: 1731,flag: Niue
+U+1F1F3 U+1F1FF,1732,emoji number: 1732,flag: New Zealand
+U+1F1F4 U+1F1F2,1733,emoji number: 1733,flag: Oman
+U+1F1F5 U+1F1E6,1734,emoji number: 1734,flag: Panama
+U+1F1F5 U+1F1EA,1735,emoji number: 1735,flag: Peru
+U+1F1F5 U+1F1EB,1736,emoji number: 1736,flag: French Polynesia
+U+1F1F5 U+1F1EC,1737,emoji number: 1737,flag: Papua New Guinea
+U+1F1F5 U+1F1ED,1738,emoji number: 1738,flag: Philippines
+U+1F1F5 U+1F1F0,1739,emoji number: 1739,flag: Pakistan
+U+1F1F5 U+1F1F1,1740,emoji number: 1740,flag: Poland
+U+1F1F5 U+1F1F2,1741,emoji number: 1741,flag: St. Pierre & Miquelon
+U+1F1F5 U+1F1F3,1742,emoji number: 1742,flag: Pitcairn Islands
+U+1F1F5 U+1F1F7,1743,emoji number: 1743,flag: Puerto Rico
+U+1F1F5 U+1F1F8,1744,emoji number: 1744,flag: Palestinian Territories
+U+1F1F5 U+1F1F9,1745,emoji number: 1745,flag: Portugal
+U+1F1F5 U+1F1FC,1746,emoji number: 1746,flag: Palau
+U+1F1F5 U+1F1FE,1747,emoji number: 1747,flag: Paraguay
+U+1F1F6 U+1F1E6,1748,emoji number: 1748,flag: Qatar
+U+1F1F7 U+1F1EA,1749,emoji number: 1749,flag: Réunion
+U+1F1F7 U+1F1F4,1750,emoji number: 1750,flag: Romania
+U+1F1F7 U+1F1F8,1751,emoji number: 1751,flag: Serbia
+U+1F1F7 U+1F1FA,1752,emoji number: 1752,flag: Russia
+U+1F1F7 U+1F1FC,1753,emoji number: 1753,flag: Rwanda
+U+1F1F8 U+1F1E6,1754,emoji number: 1754,flag: Saudi Arabia
+U+1F1F8 U+1F1E7,1755,emoji number: 1755,flag: Solomon Islands
+U+1F1F8 U+1F1E8,1756,emoji number: 1756,flag: Seychelles
+U+1F1F8 U+1F1E9,1757,emoji number: 1757,flag: Sudan
+U+1F1F8 U+1F1EA,1758,emoji number: 1758,flag: Sweden
+U+1F1F8 U+1F1EC,1759,emoji number: 1759,flag: Singapore
+U+1F1F8 U+1F1ED,1760,emoji number: 1760,flag: St. Helena
+U+1F1F8 U+1F1EE,1761,emoji number: 1761,flag: Slovenia
+U+1F1F8 U+1F1EF,1762,emoji number: 1762,flag: Svalbard & Jan Mayen
+U+1F1F8 U+1F1F0,1763,emoji number: 1763,flag: Slovakia
+U+1F1F8 U+1F1F1,1764,emoji number: 1764,flag: Sierra Leone
+U+1F1F8 U+1F1F2,1765,emoji number: 1765,flag: San Marino
+U+1F1F8 U+1F1F3,1766,emoji number: 1766,flag: Senegal
+U+1F1F8 U+1F1F4,1767,emoji number: 1767,flag: Somalia
+U+1F1F8 U+1F1F7,1768,emoji number: 1768,flag: Suriname
+U+1F1F8 U+1F1F8,1769,emoji number: 1769,flag: South Sudan
+U+1F1F8 U+1F1F9,1770,emoji number: 1770,flag: São Tomé & Príncipe
+U+1F1F8 U+1F1FB,1771,emoji number: 1771,flag: El Salvador
+U+1F1F8 U+1F1FD,1772,emoji number: 1772,flag: Sint Maarten
+U+1F1F8 U+1F1FE,1773,emoji number: 1773,flag: Syria
+U+1F1F8 U+1F1FF,1774,emoji number: 1774,flag: Eswatini
+U+1F1F9 U+1F1E6,1775,emoji number: 1775,flag: Tristan da Cunha
+U+1F1F9 U+1F1E8,1776,emoji number: 1776,flag: Turks & Caicos Islands
+U+1F1F9 U+1F1E9,1777,emoji number: 1777,flag: Chad
+U+1F1F9 U+1F1EB,1778,emoji number: 1778,flag: French Southern Territories
+U+1F1F9 U+1F1EC,1779,emoji number: 1779,flag: Togo
+U+1F1F9 U+1F1ED,1780,emoji number: 1780,flag: Thailand
+U+1F1F9 U+1F1EF,1781,emoji number: 1781,flag: Tajikistan
+U+1F1F9 U+1F1F0,1782,emoji number: 1782,flag: Tokelau
+U+1F1F9 U+1F1F1,1783,emoji number: 1783,flag: Timor-Leste
+U+1F1F9 U+1F1F2,1784,emoji number: 1784,flag: Turkmenistan
+U+1F1F9 U+1F1F3,1785,emoji number: 1785,flag: Tunisia
+U+1F1F9 U+1F1F4,1786,emoji number: 1786,flag: Tonga
+U+1F1F9 U+1F1F7,1787,emoji number: 1787,flag: Turkey
+U+1F1F9 U+1F1F9,1788,emoji number: 1788,flag: Trinidad & Tobago
+U+1F1F9 U+1F1FB,1789,emoji number: 1789,flag: Tuvalu
+U+1F1F9 U+1F1FC,1790,emoji number: 1790,flag: Taiwan
+U+1F1F9 U+1F1FF,1791,emoji number: 1791,flag: Tanzania
+U+1F1FA U+1F1E6,1792,emoji number: 1792,flag: Ukraine
+U+1F1FA U+1F1EC,1793,emoji number: 1793,flag: Uganda
+U+1F1FA U+1F1F2,1794,emoji number: 1794,flag: U.S. Outlying Islands
+U+1F1FA U+1F1F3,1795,emoji number: 1795,flag: United Nations
+U+1F1FA U+1F1F8,1796,emoji number: 1796,flag: United States
+U+1F1FA U+1F1FE,1797,emoji number: 1797,flag: Uruguay
+U+1F1FA U+1F1FF,1798,emoji number: 1798,flag: Uzbekistan
+U+1F1FB U+1F1E6,1799,emoji number: 1799,flag: Vatican City
+U+1F1FB U+1F1E8,1800,emoji number: 1800,flag: St. Vincent & Grenadines
+U+1F1FB U+1F1EA,1801,emoji number: 1801,flag: Venezuela
+U+1F1FB U+1F1EC,1802,emoji number: 1802,flag: British Virgin Islands
+U+1F1FB U+1F1EE,1803,emoji number: 1803,flag: U.S. Virgin Islands
+U+1F1FB U+1F1F3,1804,emoji number: 1804,flag: Vietnam
+U+1F1FB U+1F1FA,1805,emoji number: 1805,flag: Vanuatu
+U+1F1FC U+1F1EB,1806,emoji number: 1806,flag: Wallis & Futuna
+U+1F1FC U+1F1F8,1807,emoji number: 1807,flag: Samoa
+U+1F1FD U+1F1F0,1808,emoji number: 1808,flag: Kosovo
+U+1F1FE U+1F1EA,1809,emoji number: 1809,flag: Yemen
+U+1F1FE U+1F1F9,1810,emoji number: 1810,flag: Mayotte
+U+1F1FF U+1F1E6,1811,emoji number: 1811,flag: South Africa
+U+1F1FF U+1F1F2,1812,emoji number: 1812,flag: Zambia
+U+1F1FF U+1F1FC,1813,emoji number: 1813,flag: Zimbabwe
+U+1F3F4 U+E0065,1814,emoji number: 1814,flag: England
+U+1F3F4 U+E0073,1815,emoji number: 1815,flag: Scotland
+U+1F3F4 U+E0077,1816,emoji number: 1816,flag: Wales

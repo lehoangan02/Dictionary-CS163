@@ -216,6 +216,8 @@ instance::instance() :
 	description.setFillColor(sf::Color::Black);
 	description.setString(descriptionString);
 	description.setPosition(73.0f, 505.0f);
+	emojiSprite.setScale(0.76923076923, 0.76923076923);
+	emojiSprite.setPosition(455, 405);
 
 	// Set up serialize, auto-save button and prompt
 	serializeButton.setPosition(sf::Vector2u(550 - SHADOWHOR, 125));
@@ -610,9 +612,13 @@ void instance::operatePage2()
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
 							importStatus.setString("Import Successful\n");
-							if (filepath == "UnicodeEmoji.csv")
+							if (filepath == "UnicodeEmoji")
 							{
 								loadEmojiImage = true;
+							}
+							else
+							{
+								loadEmojiImage = false;
 							}
 						}
 						else
@@ -636,7 +642,16 @@ void instance::operatePage2()
 							importStatus.setFillColor(sf::Color(255, 153, 0));
 							importStatus.setString("Import Failed\n");
 						}
-						loadEmojiImage = false;
+						if (filepath == "UnicodeEmoji")
+						{
+							printf("[DEBUG] EMOJI\n");
+							loadEmojiImage = true;
+							std::cout << Search(pRoot, "U+1F600")[0].second << std::endl;
+						}
+						else
+						{
+							loadEmojiImage = false;
+						}
 					}
 					else
 					{
@@ -1634,9 +1649,9 @@ void instance::drawDefinition()
 		windowInstance.draw(headword);
 	windowInstance.draw(POS);
 	windowInstance.draw(description);
-	if (loadEmojiImage)
+	if (loadEmojiImage && POSString.substr(0, 14) == "emoji number: ")
 	{
-		
+		windowInstance.draw(emojiSprite);
 	}
 	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
 	if (definitionNum < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
@@ -1722,8 +1737,7 @@ void instance::drawLoadingPage()
 void instance::handleSearchSignal(std::string input)
 {
 	resetSearchResult();
-	Change2Lowercase(input);
-	// std::cout << input << std::endl;
+	std::cout << input << std::endl;
 	searchResult = Search(pRoot, input);
 	numberOfResult = (int)searchResult.size();
 	std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
@@ -1744,6 +1758,17 @@ void instance::handleSearchSignal(std::string input)
 		wrappedDescription = false;
 	}
 	else	displayDef = false;
+	std::cout << "[DEBUG] emoji state is " << loadEmojiImage << std::endl;
+	if (loadEmojiImage)
+	{
+		if (POSString.substr(0, 14) != "emoji number: ");
+		else
+		{
+			emojiTexture.loadFromFile("dataset/Apple/" + std::to_string(getEmojiNumber(POSString)) + ".png");
+			emojiTexture.setSmooth(true);
+			emojiSprite.setTexture(emojiTexture, true);
+		}
+	}
 }
 
 void instance::handleHistory()
