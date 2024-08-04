@@ -6,6 +6,7 @@
 #include "readDataset.hpp"
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
+#include "instance.h"
 
 using namespace std;
 
