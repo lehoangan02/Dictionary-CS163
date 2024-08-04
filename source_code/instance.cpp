@@ -837,7 +837,6 @@ void instance::operatePage3()
 	}
 	handleSwitchModeLogic();
 	searchButton.hoverSwitchTexture(windowInstance);
-	searchModeButton.click(windowInstance);
 	nextPageButton.hoverSwitchTexture(windowInstance);
 	prevPageButton.hoverSwitchTexture(windowInstance);
 	nextPageButton.click(windowInstance);
@@ -931,6 +930,11 @@ void instance::drawPage4()
 }
 void instance::operatePage5()
 {
+	if (!loadAutoSave)
+	{
+		loadAutoSaveSetting();
+		loadAutoSave = true;
+	}
 	if (!getWordToDelete)
 	{
 		if (headWordString != "")
@@ -963,6 +967,7 @@ void instance::operatePage5()
 						removeWord(headWordString, pRoot, invertedIndex, word4Def);
 						if (autoSave)
 						{
+							std::cout << "auto-saving\n";
 							std::atomic<bool> controlLoaded(false);
 							std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 							serializeBinaryWrapper(pRoot);
@@ -1524,7 +1529,7 @@ void instance::switchPage()
 		{
 			if (page == 2 || (page >= 4 && page <= 8 && page != 5))
 			{
-				printf("[DEBUG changing to page 5\n]");
+				printf("[DEBUG] changing to page 5\n");
 				page = 5;
 				getWordToDelete = false;
 				pageChange = true;
@@ -1591,10 +1596,6 @@ void instance::handleSwitchModeLogic()
 		modeButton.select(false);
 		modeButtonActive = false; }
 	modeButton.hoverSwitchTexture(windowInstance);
-	if (!modeButton.isHovering(windowInstance)
-	&& sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-		modeButton.select(false);
-		modeButtonActive = false; }
 	if (modeButtonActive) {
 		searchModeButton.hoverSwitchTexture(windowInstance);
 		settingModeButton.hoverSwitchTexture(windowInstance);
