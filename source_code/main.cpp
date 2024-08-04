@@ -3,7 +3,6 @@
 #include <chrono>
 
 #include "trie.h"
-#include "instance.h"
 #include "readDataset.hpp"
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
