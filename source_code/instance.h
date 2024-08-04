@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <vector>
-#include <atomic>
+//#include <atomic>
 #include <thread>
 
 #include "button.hpp"
@@ -19,7 +19,7 @@
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
 #include "wrapping.hpp"
-#include "desiredsearch.h"
+//#include "desiredsearch.h"
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -114,7 +114,7 @@ class instance
     Button importButton;
 
     //suggested search words
-    desiredsearch suggestedcontent;
+//    desiredsearch suggestedcontent;
 
     // "import file path" text
     sf::Texture importPromptTexture;

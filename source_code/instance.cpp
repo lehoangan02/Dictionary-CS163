@@ -355,7 +355,7 @@ void instance::operatePage1()
 			{
 				// printf("[DEBUG] mouse button pressed\n");
 				mouseControl = true;
-				int option = suggestedcontent.returnmode(windowInstance);
+//				int option = suggestedcontent.returnmode(windowInstance);
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
 					displayHistory = false;
@@ -376,15 +376,15 @@ void instance::operatePage1()
 					displayFavourite = false;
 					handleHistory();
 				}
-				else if (option != -1)
-				{
-					displayHistory = false;
-					historyIndex = 0;
-					std::string temp = suggestedcontent.getcategory(option);
-					history.push_back(temp);
-					writeHistory(temp);
-					handleSearchSignal(temp);
-				}
+//				else if (option != -1)
+//				{
+//					displayHistory = false;
+//					historyIndex = 0;
+//					std::string temp = suggestedcontent.getcategory(option);
+//					history.push_back(temp);
+//					writeHistory(temp);
+//					handleSearchSignal(temp);
+//				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
 					if (definitionNum < (int)searchResult.size() - 1)
@@ -534,7 +534,7 @@ void instance::operatePage1()
 			break;
 		}
 		searchBox.handleInputLogic(event, windowInstance);
-		suggestedcontent.updateoptions(searchBox.getString(), pRoot);
+//		suggestedcontent.updateoptions(searchBox.getString(), pRoot);
 	}
 	handleSwitchModeLogic();
 	searchButton.hoverSwitchTexture(windowInstance);
@@ -887,8 +887,10 @@ void instance::operatePage4()
 				{
 					std::string newHeadword = headwordBox.getString();
 					std::string newPOS = POSBox.getString();
-					// std::string newDescription = 
-					// insert(pRoot, newHeadword, newPOS, newDescription);
+					std::string newDescription = descriptionBox.getString();
+					unwrapText(newDescription);
+					addWord(newHeadword, newPOS, newDescription, pRoot, invertedIndex, word4Def);
+					insert(pRoot, newHeadword, newPOS, newDescription);
 					if (autoSave)
 					{
 						std::atomic<bool> controlLoaded(false);
@@ -958,7 +960,7 @@ void instance::operatePage5()
 					mouseControl = false;
 					if (headWordString != "")
 					{
-						RemoveAWord(pRoot, headWordString);
+						removeWord(headWordString, pRoot, invertedIndex, word4Def);
 						if (autoSave)
 						{
 							std::atomic<bool> controlLoaded(false);
