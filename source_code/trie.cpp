@@ -443,12 +443,14 @@ std::string randomWord4Def(std::vector<std::string> &word4Def)
 	return word;
 }
 
-bool CheckWords(const std::string& word1, const std::string& word2){
+bool CheckWords(const std::string& word1, const std::string& word2)
+{
 	return word1.compare(word2); //if correct return 0
 }
 
 //The app can provide a random definition with four keywords, and users choose the correct word.
-void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<trieNode*, std::string>& rdword) {
+void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<trieNode*, std::string>& rdword) 
+{
 	rdword = pickarandomword(pRoot);
 	WordList.insert(rdword.second);
 	while (WordList.size() != 4)
