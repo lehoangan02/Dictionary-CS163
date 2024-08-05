@@ -41,7 +41,12 @@ void Change2Uppercase(std::string& word);
 bool checkingExistance(std::string s1, std::string s2);
 
 // these functions should be overloaded
+/// @brief the original insert function (it's still needed), you should not use this in instance.cpp
+/// @param pRoot 
+/// @param word 
+/// @param definitions 
 void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions);
+/// @brief the new insert function, you should use this in instance.cpp
 void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def);
 bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot);
 
