@@ -232,6 +232,14 @@ std::string textbox::getString()
     deselect();
     return textStream.str();
 }
+std::string textbox::pullString()
+{
+    if (textStream.str() == guideString)
+    {
+        return "";
+    }
+    return textStream.str().substr(0, textStream.str().length() - 1);
+}
 void textbox::clear()
 {
     // printf("[DEBUG] clearing ");

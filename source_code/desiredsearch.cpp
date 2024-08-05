@@ -2,16 +2,15 @@
 
 desiredsearch::desiredsearch()
 {
-	topdefault.loadFromFile("assets/image/TopResultNone.png");
-	tophover.loadFromFile("assets/image/TopResultHover.png");
-	middefault.loadFromFile("assets/image/MiddleResultNone.png");
-	midhover.loadFromFile("assets/image/MiddleResultHover.png");
-	bottomdefault.loadFromFile("assets/image/BottomResultNone.png");
-	bottomhover.loadFromFile("assets/image/BottomResultHover.png");
-	solodefault.loadFromFile("assets/image/SoloResultNone.png");
-	solohover.loadFromFile("assets/image/SoloResultHover.png");
-	f.loadFromFile("assets/fomt/SourceSans3-VariableFont_wght.ttf");
-	available = 0;
+	topdefault.loadFromFile("assets/images/TopResultNone.png");
+	tophover.loadFromFile("assets/images/TopResultHover.png");
+	middefault.loadFromFile("assets/images/MiddleResultNone.png");
+	midhover.loadFromFile("assets/images/MiddleResultHover.png");
+	bottomdefault.loadFromFile("assets/images/BottomResultNone.png");
+	bottomhover.loadFromFile("assets/images/BottomResultHover.png");
+	solodefault.loadFromFile("assets/images/SoloResultNone.png");
+	solohover.loadFromFile("assets/images/SoloResultHover.png");
+	f.loadFromFile("assets/font/SourceSans3-VariableFont_wght.ttf");
 }
 
 //clear the old suggest buttons and create new ones
@@ -50,21 +49,27 @@ void desiredsearch::adjustsuggestions()
 void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 {
 	categories = std::vector<std::string>();
+	options.clear();
 	//re-init the buttons
-	int count = 0;
-	SuggestHelper(word, pRoot, count, categories);
+	if (!word.length()) return;
+	std::cout << word << "\n";
+	categories = std::vector<std::string>(SuggestingWords(word, pRoot));
+	categories.erase(categories.begin());
 	if (categories.size() > 3)
 	{
-		categories.resize(3);
-		count = 3;
+		categories.erase(categories.begin() + 3, categories.end());
 	}
-	available = count;
-	adjustsuggestions();
+	available = categories.size();
+	for (std::string s : categories) std::cout << s << "\n";
+	this->adjustsuggestions();
 }
 
 void desiredsearch::draw(sf::RenderWindow &w)
 {
-	for (Button b: options) b.draw(w);
+	for (Button b : options)
+	{
+		b.draw(w);
+	}
 }
 
 //suggested search "mode", i.e. which button is pressed, -1 if none. the function also changes the word in the search box
@@ -73,6 +78,8 @@ int desiredsearch::returnmode(sf::RenderWindow &w)
 	for (int i = 0; i < options.size(); i++)
 		if (options[i].isClicked(w))
 		{
+			available = 0;
+			categories.clear();
 			return i;
 		}
 	return -1;
@@ -81,4 +88,13 @@ int desiredsearch::returnmode(sf::RenderWindow &w)
 std::string desiredsearch::getcategory(int i)
 {
 	return categories[i];
+}
+
+void desiredsearch::handlelogic(sf::RenderWindow& w)
+{
+	for (Button b : options)
+	{
+		b.hoverSwitchTexture(w);
+		b.click(w);
+	}
 }

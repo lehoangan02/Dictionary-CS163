@@ -49,6 +49,7 @@ public:
     virtual void handleInputLogic(const sf::Event envent, sf::RenderWindow& window);
     void draw(sf::RenderWindow &window);
     std::string getString();
+    std::string pullString();
     virtual void clear();
 
 protected:

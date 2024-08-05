@@ -355,6 +355,7 @@ void instance::operatePage1()
 		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
 	}
+	std::string temp;
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -367,12 +368,12 @@ void instance::operatePage1()
 			{
 				// printf("[DEBUG] mouse button pressed\n");
 				mouseControl = true;
-//				int option = suggestedcontent.returnmode(windowInstance);
+				int option = suggestedcontent.returnmode(windowInstance);
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
 					displayHistory = false;
 					historyIndex = 0;
-					std::string temp = searchBox.getString();
+					temp = searchBox.getString();
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
@@ -388,15 +389,16 @@ void instance::operatePage1()
 					displayFavourite = false;
 					handleHistory();
 				}
-//				else if (option != -1)
-//				{
-//					displayHistory = false;
-//					historyIndex = 0;
-//					std::string temp = suggestedcontent.getcategory(option);
-//					history.push_back(temp);
-//					writeHistory(temp);
-//					handleSearchSignal(temp);
-//				}
+				//I might mess this one up tho, so can anyone read this again and push the word in temp into searchBox, and search it as well, my thanks.
+				/*else if (option != -1)
+				{
+					displayHistory = false;
+					historyIndex = 0;
+					temp = suggestedcontent.getcategory(option);
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
+				}*/
 				else if (nextPageButton.isClicked(windowInstance))
 				{
 					if (definitionNum < (int)searchResult.size() - 1)
@@ -521,7 +523,7 @@ void instance::operatePage1()
 					printf("[DEBUG] enter pressed\n");
 					displayHistory = false;
 					historyIndex = 0;
-					std::string temp = searchBox.getString();
+					temp = searchBox.getString();
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
@@ -546,9 +548,11 @@ void instance::operatePage1()
 			break;
 		}
 		searchBox.handleInputLogic(event, windowInstance);
-//		suggestedcontent.updateoptions(searchBox.getString(), pRoot);
+		std::cout << searchBox.pullString() << std::endl;
+		suggestedcontent.updateoptions(searchBox.pullString(), pRoot);
 	}
 	handleSwitchModeLogic();
+	suggestedcontent.handlelogic(windowInstance);
 	searchButton.hoverSwitchTexture(windowInstance);
 	searchButton.click(windowInstance);
 	historyButton.hoverSwitchTexture(windowInstance);
@@ -586,6 +590,7 @@ void instance::drawPage1()
 	searchBox.draw(windowInstance);
 	drawDefinition();
 	drawSwitchMode();
+	suggestedcontent.draw(windowInstance);
 	windowInstance.display();
 }
 void instance::operatePage2()
