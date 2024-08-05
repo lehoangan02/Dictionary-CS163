@@ -8,4 +8,4 @@
 
 #include "trie.h"
 bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::string>& wordFourDef);
-bool readDatasetTXT(const std::string& filename, trieNode*& pRoot);
+bool readDatasetTXT(const std::string& filename, trieNode*& pRoot, std::vector<std::string>& word4Def);

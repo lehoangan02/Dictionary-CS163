@@ -42,7 +42,7 @@ int main()
 			cout << "input filename: ";
 			cin.ignore();
 			getline(cin, filename);
-			readDatasetTXT(filename, pRoot);
+			readDatasetTXT(filename, pRoot, word4Def);
 			//printf("imported successfully\n");
 			cout << "[DEBUG] " << pRoot << endl;
 			if (indexed)
@@ -215,8 +215,11 @@ int main()
 		}
 		case 11:
 		{
+			for (auto word : word4Def)
+			{
+				std::cout << word << std::endl;
+			}
 			std::cout << randomWord4Def(word4Def) << std::endl;
-
 		}
 		default:
 			break;

@@ -630,7 +630,7 @@ void instance::operatePage2()
 					}
 					else if (TXTButton.getSelected())
 					{
-						if (readDatasetTXT(filepath, pRoot))
+						if (readDatasetTXT(filepath, pRoot, word4Def))
 						{
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));

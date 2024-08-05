@@ -41,7 +41,7 @@ bool checkingExistance(std::string s1, std::string s2)
 /// @param pRoot 
 /// @param word 
 /// @param definitions 
-void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
+void insert1(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
 {
 	if (word.empty()) return;
 	if (!pRoot)
@@ -81,7 +81,7 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 	}
 }
 
-void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def)
+void insert2(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def)
 {
 	if (word.empty()) return;
 	if (!pRoot) {
@@ -107,6 +107,17 @@ void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, c
 	}
 
 	if (!checkexist) cur->definitions.push_back({ pos, def });
+
+	Change2Lowercase(word);
+
+	if (shouldAddWord(word4Def, word, pRoot)) {
+		word4Def.push_back(word);
+	}
+
+}
+
+bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot) {
+	return traverseToSearch(pRoot, word).size() >= 4 && (word4Def.empty() || word4Def.back() != word);
 }
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
