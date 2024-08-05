@@ -48,7 +48,6 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 	{
 		pRoot = new trieNode();
 	}
-	Change2Lowercase(word);
 	trieNode* cur = pRoot;
 	for (auto c : word)
 	{
