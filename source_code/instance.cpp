@@ -440,7 +440,7 @@ void instance::operatePage1()
 							printf("[DEBUG] moving to favourite up\n");
 							pCurrentFavourite = pCurrentFavourite -> pPrev;
 						}
-						deleteLinkedList(pRootFavourite, headWordString);
+						deleteNode(pRootFavourite, headWordString);
 						pCurrentFavourite = pRootFavourite;
 						writeFavourite(pRootFavourite);
 						if (!pRootFavourite && displayFavourite)
@@ -803,7 +803,7 @@ void instance::operatePage3()
 							printf("[DEBUG] moving to favourite up\n");
 							pCurrentFavourite = pCurrentFavourite -> pPrev;
 						}
-						deleteLinkedList(pRootFavourite, headWordString);
+						deleteNode(pRootFavourite, headWordString);
 						pCurrentFavourite = pRootFavourite;
 						writeFavourite(pRootFavourite);
 						if (!pRootFavourite && displayFavourite)
@@ -1332,7 +1332,7 @@ void instance::operatePage9()
 						printf("[DEBUG] moving to favourite up\n");
 						pCurrentFavourite = pCurrentFavourite -> pPrev;
 					}
-					deleteLinkedList(pRootFavourite, headWordString);
+					deleteNode(pRootFavourite, headWordString);
 					pCurrentFavourite = pRootFavourite;
 					writeFavourite(pRootFavourite);
 					if (!pRootFavourite && displayFavourite)

@@ -30,7 +30,6 @@ void insertLinkedList(linkedListNode*& pRoot, std::string input)
     {
         pRoot = newPRoot;
         return;
-
     }
     pRoot -> pPrev = newPRoot;
     newPRoot -> pNext = pRoot;
@@ -41,7 +40,7 @@ void insertLinkedList(linkedListNode*& pRoot, std::string input)
 /// @brief delete a word from a linked list
 /// @param pRoot 
 /// @param input 
-void deleteLinkedList(linkedListNode*& pRoot, std::string input)
+void deleteNode(linkedListNode*& pRoot, std::string input)
 {
     if (!existInList(pRoot, input)) return;
     if (!pRoot) return;
