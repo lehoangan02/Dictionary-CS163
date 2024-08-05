@@ -33,6 +33,7 @@ int main()
 		printf("9 for removing a word\n10 for import CSV\n");
 		printf("11 for a random word with 4 definitions\n");
 		printf("12 for a random defition with 4 keywords\n");
+		printf("13 search words by countchildren num\n");
 		cout << "mode: ";
 		cin >> mode;
 		switch (mode)
@@ -141,6 +142,7 @@ int main()
 			else {
 				cout << "=> Can't find a random word !" << endl;
 			}
+			std::cout << endl;
 			break;
 		}
 		case 7:
@@ -253,6 +255,16 @@ int main()
 			std::cout << "- Choose the correct keywords : "; cin.ignore();  getline(cin, answer);
 			if (!CheckWords(answer, rdword.second)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
 			std::cout << endl;
+		}
+		case 13:
+		{
+			std::cout << pRoot->countchildren << std::endl;
+			int num;
+			std::cout << "Please enter the countnum: ";
+			std::cin >> num;
+			std::pair<trieNode*, std::string> rd = findtheKthword(pRoot, num);
+			if (!rd.first) cout << "NULLPTR!" << std::endl;
+			else std::cout << rd.second << std::endl;
 		}
 		default:
 			break;

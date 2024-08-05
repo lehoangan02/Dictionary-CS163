@@ -52,6 +52,7 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 /// @brief the new insert function, you should use this in instance.cpp
 void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def);
 bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot);
+void ChangeCountChild(trieNode*& pRoot, std::string word);
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word);
 
