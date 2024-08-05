@@ -86,7 +86,7 @@ void readFavourite(linkedListNode*& pRoot)
     fin.open("settings/favourite.txt");
     while (getline(fin, temp))
     {
-        Change2Uppercase(temp);
+        // Change2Uppercase(temp);
         if (temp.compare("") != 0)
         {
             insertLinkedList(pRoot, temp);
@@ -106,7 +106,7 @@ void writeFavourite(linkedListNode* pRoot)
     {
         printf("[DEBUG] writing %s\n", (pRoot -> data).c_str());
         std::string temp = pRoot -> data;
-        Change2Uppercase(temp);
+        // Change2Uppercase(temp);
         fout << temp;
         if (pRoot -> pNext)
         {

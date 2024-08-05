@@ -62,8 +62,8 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 	cur->wordExisted = true;
 	for (auto mean : definitions)
 	{
-		Change2Lowercase(mean.first);
-		Change2Lowercase(mean.second);
+		// Change2Lowercase(mean.first);
+		// Change2Lowercase(mean.second);
 		bool check = false;
 		for (auto x : cur->definitions)
 		{
@@ -135,7 +135,6 @@ std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoo
 std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word) {
 	std::vector<std::pair<std::string, std::string>> collectionLast;
 	std::vector<std::pair<std::string, std::string>> collection1, collection2, collection3;
-
 	if (!pRoot || word.empty()) {
 		// std::cout << "Word not found\n";
 		return collectionLast;

@@ -33,6 +33,9 @@ struct Node
 	Node(std::string key) : word(key), next(nullptr) {};
 };
 
+// for tracking the original word and the number of definitions
+// this is necessary for similar word with different (upper/lower) cases
+// std::vector<std::pair<std::string, int>> originalList;
 void Change2Lowercase(std::string& word);
 
 void Change2Uppercase(std::string& word);
