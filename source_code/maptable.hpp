@@ -67,6 +67,7 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
     // Basic methods
     void insert(const std::string& key, const HashTable& data);
+    void insertWordDef(const std::string& word, const std::string& definition);
     HashTable* find(const std::string& key);
     HashTable& access(const std::string& key); // Use this for fast access to existing or non-existing elements
     void remove(const std::string& key);
@@ -85,7 +86,7 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 // Utility functions
 
 bool isAlphabetic(const char& c);
-std::vector<std::string> tokenize(std::string& input);
+std::vector<std::string> tokenize(const std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
 void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);

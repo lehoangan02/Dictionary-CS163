@@ -248,6 +248,18 @@ void HashMap::insert(const std::string& key, const HashTable& data) //data is ac
         this->rehash(2 * this->numBucket);
 }
 
+// Insert word and definition into HashMap (for Inverted Index)
+void HashMap::insertWordDef(const std::string& word, const std::string& definition)
+{
+    std::vector<std::string> tokens = tokenize(definition);
+
+    for (std::string& t : tokens)
+    {
+        Change2Lowercase(t);
+        this->access(t).insert(word);
+    }
+}
+
 // Return pointer to data of given key
 // Return nullptr if not found
 HashTable* HashMap::find(const std::string& key)
@@ -366,7 +378,7 @@ bool isAlphabetic(const char& c)
 }
 
 // Tokenize a long string (tokens are separated by non-alphabetic characters)
-std::vector<std::string> tokenize(std::string& input) 
+std::vector<std::string> tokenize(const std::string& input) 
 {
     std::vector<std::string> res;
     res.reserve(1000);  // Reserve space to avoid multiple allocations
