@@ -60,7 +60,10 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 		cur->countchildren++;
 		cur = cur->childNode[int(c) - 32];
 	}
-	cur->wordExisted = true;
+
+	if (cur->wordExisted) ChangeCountChild(pRoot, word);
+	else cur->wordExisted = true;
+
 	for (auto mean : definitions)
 	{
 		// Change2Lowercase(mean.first);
@@ -97,7 +100,9 @@ void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const s
 		cur->countchildren++;
 		cur = cur->childNode[int(c) - 32];
 	}
-	cur->wordExisted = true;
+
+	if (cur->wordExisted) ChangeCountChild(pRoot, word);
+	else cur->wordExisted = true;
 
 	bool checkexist = false;
 	for (auto& means : cur->definitions) {
@@ -118,6 +123,15 @@ void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot) {
 	return traverseToSearch(pRoot, word).size() >= 4 && (word4Def.empty() || word4Def.back() != word);
+}
+
+void ChangeCountChild(trieNode*& pRoot, std::string word)
+{
+	trieNode* cur = pRoot;
+	for (auto c : word) {
+		cur->countchildren--;
+		cur = cur->childNode[int(c) - 32];
+	}
 }
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
