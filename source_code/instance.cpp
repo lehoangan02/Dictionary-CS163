@@ -450,7 +450,7 @@ void instance::operatePage1()
 							printf("[DEBUG] moving to favourite up\n");
 							pCurrentFavourite = pCurrentFavourite -> pPrev;
 						}
-						deleteLinkedList(pRootFavourite, headWordString);
+						deleteNode(pRootFavourite, headWordString);
 						pCurrentFavourite = pRootFavourite;
 						writeFavourite(pRootFavourite);
 						if (!pRootFavourite && displayFavourite)
@@ -640,7 +640,7 @@ void instance::operatePage2()
 					}
 					else if (TXTButton.getSelected())
 					{
-						if (readDatasetTXT(filepath, pRoot))
+						if (readDatasetTXT(filepath, pRoot, word4Def))
 						{
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
@@ -814,7 +814,7 @@ void instance::operatePage3()
 							printf("[DEBUG] moving to favourite up\n");
 							pCurrentFavourite = pCurrentFavourite -> pPrev;
 						}
-						deleteLinkedList(pRootFavourite, headWordString);
+						deleteNode(pRootFavourite, headWordString);
 						pCurrentFavourite = pRootFavourite;
 						writeFavourite(pRootFavourite);
 						if (!pRootFavourite && displayFavourite)
@@ -920,7 +920,7 @@ void instance::operatePage4()
 					std::string newDescription = descriptionBox.getString();
 					unwrapText(newDescription);
 					addWord(newHeadword, newPOS, newDescription, pRoot, invertedIndex, word4Def);
-					insert(pRoot, newHeadword, newPOS, newDescription);
+					insert(pRoot, newHeadword, newPOS, newDescription, word4Def);
 					if (autoSave)
 					{
 						std::atomic<bool> controlLoaded(false);
@@ -1431,7 +1431,7 @@ void instance::operatePage9()
 						printf("[DEBUG] moving to favourite up\n");
 						pCurrentFavourite = pCurrentFavourite -> pPrev;
 					}
-					deleteLinkedList(pRootFavourite, headWordString);
+					deleteNode(pRootFavourite, headWordString);
 					pCurrentFavourite = pRootFavourite;
 					writeFavourite(pRootFavourite);
 					if (!pRootFavourite && displayFavourite)

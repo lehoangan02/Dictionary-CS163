@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <ctime>
+#include <unordered_set>
 #include "trie.h"
 
 void Change2Lowercase(std::string& word)
@@ -37,7 +38,7 @@ bool checkingExistance(std::string s1, std::string s2)
 	return true;
 }
 
-/// @brief the original insert function
+/// @brief the original insert function (it's still needed), you should not use this in instance.cpp
 /// @param pRoot 
 /// @param word 
 /// @param definitions 
@@ -80,8 +81,8 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 		}
 	}
 }
-
-void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, const std::string& def)
+/// @brief the new insert function, you should use this in instance.cpp
+void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def)
 {
 	if (word.empty()) return;
 	if (!pRoot) {
@@ -107,6 +108,16 @@ void insert(trieNode*& pRoot, const std::string& word, const std::string& pos, c
 	}
 
 	if (!checkexist) cur->definitions.push_back({ pos, def });
+
+	Change2Lowercase(word);
+
+	if (shouldAddWord(word4Def, word, pRoot)) {
+		word4Def.push_back(word);
+	}
+}
+
+bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot) {
+	return traverseToSearch(pRoot, word).size() >= 4 && (word4Def.empty() || word4Def.back() != word);
 }
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
@@ -430,4 +441,24 @@ std::string randomWord4Def(std::vector<std::string> &word4Def)
 	std::string word = word4Def[random_number];
 	// will return the vector of definitions if found, or else return a blank vector (maybe the word has been deleted)
 	return word;
+}
+
+bool CheckWords(const std::string& word1, const std::string& word2){
+	return word1.compare(word2); //if correct return 0
+}
+
+//The app can provide a random definition with four keywords, and users choose the correct word.
+void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<trieNode*, std::string>& rdword) {
+	rdword = pickarandomword(pRoot);
+	WordList.insert(rdword.second);
+	while (WordList.size() != 4)
+	{
+		std::random_device dev;
+		std::mt19937 rng(dev());
+		std::uniform_int_distribution<std::mt19937::result_type> dist(1, pRoot->countchildren);
+		if (int(dist(rng)) != rdword.first->countchildren)
+		{
+			WordList.insert(findtheKthword(pRoot, int(dist(rng))).second);
+		}
+	}
 }
