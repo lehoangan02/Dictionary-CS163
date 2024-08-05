@@ -133,7 +133,10 @@ instance::instance() :
 	cancelButton(cancelTexDef, cancelTexHov),
 	addTexDef(loadTexture("assets/images/AddTexDef.png")),
 	addTexHov(loadTexture("assets/images/AddTexHov.png")),
-	addButton(addTexDef, addTexHov)
+	addButton(addTexDef, addTexHov),
+	saveTexDef(loadTexture("assets/images/SaveWordDef.png")),
+	saveTexHov(loadTexture("assets/images/SaveWordHov.png")),
+	saveButton(saveTexDef, saveTexHov)
 
 
 
@@ -269,6 +272,7 @@ instance::instance() :
 	// Set up add word page
 	cancelButton.setPosition(sf::Vector2u(205, 527));
 	addButton.setPosition(sf::Vector2u(663, 527));
+	saveButton.setPosition(sf::Vector2u(663, 527));
 }
 void instance::operate()
 {
@@ -308,6 +312,12 @@ void instance::operate()
 		{
 			operatePage5();
 			drawPage5();
+		}
+		break;
+		case 6:
+		{
+			operatePage6();
+			drawPage6();
 		}
 		break;
 		case 7:
@@ -752,6 +762,7 @@ void instance::operatePage3()
 				if (searchButton.isClicked(windowInstance))
 				{
 					std::string temp = searchBox.getString();
+					printf("%s\n", temp.c_str());
 					std::vector<std::string> result = searchByDef(temp, invertedIndex);
 					sortByDefLength(result, pRoot);
 					std::cout << "SORTED" << std::endl;
@@ -878,6 +889,11 @@ void instance::drawPage3()
 }
 void instance::operatePage4()
 {
+	if (!loadAutoSave)
+	{
+		loadAutoSaveSetting();
+		loadAutoSave = true;
+	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -979,6 +995,7 @@ void instance::operatePage5()
 					mouseControl = false;
 					if (headWordString != "")
 					{
+						// removeAllCase(headWordString, pRoot, word4Def, invertedIndex);
 						removeWord(headWordString, pRoot, invertedIndex, word4Def);
 						if (autoSave)
 						{
@@ -1010,6 +1027,88 @@ void instance::drawPage5()
 	drawSubModes();
 	windowInstance.draw(currentWordText);
 	deleteThisWordButton.draw(windowInstance);
+	windowInstance.display();
+}
+void instance::operatePage6()
+{
+	if (!loadAutoSave)
+	{
+		loadAutoSaveSetting();
+		loadAutoSave = true;
+	}
+	if (!getWordToEdit)
+	{
+		if (headWordString != "")
+		{
+			currentWordText.setString("Current word: " + headWordString);
+		}
+		else
+		{
+			currentWordText.setString("No current word!");
+		}
+		getWordToEdit = true;
+	}
+	while (windowInstance.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				windowInstance.close();
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				mouseControl = true;
+				if (cancelButton.isClicked(windowInstance) && mouseControl)
+				{
+					mouseControl = false;
+					printf("2. "); POSBox.clear();
+					printf("3. "); descriptionBox.clear();
+				}
+				else if (saveButton.isClicked(windowInstance) && mouseControl)
+				{
+					std::string newDescription = descriptionBox.getString();
+					unwrapText(newDescription);
+					std::pair<std::string, std::string> newDefinition = make_pair(POSBox.getString(), newDescription);
+					// edit word here
+					editDefinition(headWordString, definitionNum, newDefinition, pRoot, invertedIndex);
+					//
+					if (autoSave)
+					{
+						std::atomic<bool> controlLoaded(false);
+						std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+						serializeBinaryWrapper(pRoot);
+						controlLoaded.store(true);
+						printf("[DEBUG] done loading!\n");
+						loadingAnimationThread.join();
+					}
+				}
+			}
+			break;
+			default:
+			break;
+		}
+		POSBox.handleInputLogic(event, windowInstance);
+		descriptionBox.handleInputLogic(event, windowInstance);
+	}
+	cancelButton.hoverSwitchTexture(windowInstance);
+	saveButton.hoverSwitchTexture(windowInstance);
+	hoverSubModes();
+	handleSwitchModeLogic();
+	switchPage();
+}
+void instance::drawPage6()
+{
+	windowInstance.clear();
+	windowInstance.draw(baseLayerSprite);
+	windowInstance.draw(currentWordText);
+	POSBox.draw(windowInstance);
+	descriptionBox.draw(windowInstance);
+	cancelButton.draw(windowInstance);
+	saveButton.draw(windowInstance);
+	drawSwitchMode();
+	drawSubModes();
 	windowInstance.display();
 }
 void instance::operatePage7()
@@ -1168,7 +1267,7 @@ void instance::operatePage9()
 				gameMode = 2;
 				resetGameMode(2);
 				correctAnswerString = randomWord4Def(word4Def);
-				Change2Lowercase(correctAnswerString);
+				// Change2Lowercase(correctAnswerString);
 				std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 				std::cout << "word with 4 def: " << correctAnswerString << std::endl;
 				if (correctAnswerString != "")
@@ -1544,6 +1643,7 @@ void instance::switchPage()
 		{
 			if (page == 2 || (page >= 4 && page <= 8 && page != 5))
 			{
+				currentWordText.setPosition(280, 255 - 20);
 				printf("[DEBUG] changing to page 5\n");
 				page = 5;
 				getWordToDelete = false;
@@ -1559,6 +1659,18 @@ void instance::switchPage()
 				descriptionBox.clear();
 				printf("[DEBUG changing to page 4\n]");
 				page = 4;
+				pageChange = true;
+			}
+		}
+		else if (editModeButton.isClicked(windowInstance) && mouseControl)
+		{
+			if (page == 2 || (page >= 4 && page <= 8 && page != 6))
+			{
+				currentWordText.setPosition(205, 73);
+				POSBox.clear();
+				descriptionBox.clear();
+				printf("[DEBUG changing to page 6\n]");
+				page = 6;
 				pageChange = true;
 			}
 		}
@@ -1624,7 +1736,7 @@ void instance::drawDefinition()
 {
 	if (!displayDef) return;
 	windowInstance.draw(definitionBackgroundSprite);
-	Change2Uppercase(headWordString);
+	// Change2Uppercase(headWordString);
 	headword.setString(headWordString);
 	POS.setString(POSString);
 	// description.setString(descriptionString); is moved to 

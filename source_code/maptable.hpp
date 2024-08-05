@@ -108,3 +108,12 @@ void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex);
 
 void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
 void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
+
+
+
+/// @brief  remove all 3 case (upper & lower & first upper)
+/// @param word 
+/// @param pRoot 
+/// @param word4Def 
+/// @param invertedIndex 
+void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex);

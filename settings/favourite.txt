@@ -1,5 +1,5 @@
-ATTRIBUTE
-BEAN
-LMAO
-DRAGON
-AN GIANG
+An Giang
+Dragon
+lmao
+Bean
+Attribute

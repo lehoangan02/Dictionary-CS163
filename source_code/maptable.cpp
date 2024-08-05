@@ -616,3 +616,30 @@ void addWord(std::string& word, std::string& pos, std::string& definition, trieN
         invertedIndex.access(t).insert(word);
     }
 }
+void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex)
+{
+	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase
+    printf("removing\n");
+    Change2Lowercase(word);
+	int length = word.length();
+	for (int i = 0; i < length; ++i) {
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+			word[i] -= 32;
+		}
+		if (i == 0) //Traverse to search the for VieEng
+		{
+            printf("%s\n", word.c_str());
+			removeWord(word, pRoot, invertedIndex, word4Def);
+		}
+	}
+	//(the first letter in each syllable in capital form)
+    printf("%s\n", word.c_str());
+	removeWord(word, pRoot, invertedIndex, word4Def);
+	
+	// Convert all the letters to lowercase
+	Change2Lowercase(word);
+
+	// Traverse the trie to find the word (the first letter in lowercase)
+    printf("%s\n", word.c_str());
+	removeWord(word, pRoot, invertedIndex, word4Def);
+}

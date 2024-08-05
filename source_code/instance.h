@@ -57,6 +57,7 @@ class instance
     bool displayFavourite = false;
     bool loadEmojiImage = false;
     bool getWordToDelete = false;
+    bool getWordToEdit = false;
 
     // definition hashmap of hashsets data structure
     HashMap definitionMap;
@@ -174,6 +175,7 @@ class instance
     Button deserializeModeButton;
 
     // Definition elements
+    // std::string originalWord = "";
     std::string headWordString = "";
     std::string POSString = "";
     std::string descriptionString = "";
@@ -254,6 +256,9 @@ class instance
     sf::Texture addTexDef;
     sf::Texture addTexHov;
     Button addButton;
+    sf::Texture saveTexDef;
+    sf::Texture saveTexHov;
+    Button saveButton;
 
     // Game mode
     int gameMode = 0; // 1 for random word, 2 for random word4Def
@@ -337,6 +342,7 @@ class instance
     void operatePage3();
     void operatePage4();
     void operatePage5();
+    void operatePage6();
     void operatePage7();
     void operatePage8();
     void operatePage9();
@@ -345,6 +351,7 @@ class instance
     void drawPage3();
     void drawPage4();
     void drawPage5();
+    void drawPage6();
     void drawPage7();
     void drawPage8();
     void drawPage9();
