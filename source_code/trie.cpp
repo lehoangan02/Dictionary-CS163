@@ -52,15 +52,22 @@ void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 	trieNode* cur = pRoot;
 	for (auto c : word)
 	{
+		cur->countchildren++;
+
 		if (!cur->childNode[int(c) - 32])
 		{
 			trieNode* newNode = new trieNode();
 			cur->childNode[int(c) - 32] = newNode;
 		}
-		cur->countchildren++;
+		
 		cur = cur->childNode[int(c) - 32];
 	}
-	cur->wordExisted = true;
+
+	if (cur->wordExisted) {
+		ChangeCountChild(pRoot, word);
+	}
+	else cur->wordExisted = true;
+	
 	for (auto mean : definitions)
 	{
 		// Change2Lowercase(mean.first);
@@ -91,13 +98,19 @@ void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 	trieNode* cur = pRoot;
 	for (auto c : word) {
+		cur->countchildren++;
+
 		if (!cur->childNode[int(c) - 32]) {
 			cur->childNode[int(c) - 32] = new trieNode();
 		}
-		cur->countchildren++;
+		
 		cur = cur->childNode[int(c) - 32];
 	}
-	cur->wordExisted = true;
+
+	if (cur->wordExisted) {
+		ChangeCountChild(pRoot, word);
+	}
+	else cur->wordExisted = true;
 
 	bool checkexist = false;
 	for (auto& means : cur->definitions) {
@@ -118,6 +131,15 @@ void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot) {
 	return traverseToSearch(pRoot, word).size() >= 4 && (word4Def.empty() || word4Def.back() != word);
+}
+
+void ChangeCountChild(trieNode*& pRoot, std::string word)
+{
+	trieNode* cur = pRoot;
+	for (auto c : word) {
+		cur->countchildren--;
+		cur = cur->childNode[int(c) - 32];
+	}
 }
 
 std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word)
@@ -156,12 +178,12 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
-		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
-			word[i] -= 32;
-		}
 		if (i == 0) //Traverse to search the for VieEng
 		{
 			collection1 = traverseToSearch(pRoot, word);
+		}
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+			word[i] -= 32;
 		}
 	}
 	// Traverse the trie to find the word (the first letter in each syllable in capital form)
@@ -246,28 +268,40 @@ void deleteWholeTrie(trieNode*& pRoot)
 std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k)
 {
 	if (!pRoot) return std::pair<trieNode*, std::string>(nullptr, "");
-	if (k == 0 && pRoot->wordExisted) return std::pair<trieNode*, std::string>(pRoot, ""); //is this place 0 or 1, I thought if we hit a node when we count 1 then we just... take it???
+
+	// If k == 0 and current node has a word, return the current node
+	if (k == 0 && pRoot->wordExisted) return std::pair<trieNode*, std::string>(pRoot, "");
+
 	std::pair<trieNode*, std::string> here;
 	int S = 0, t = 0;
-	for (int i = 0; i < 96; i++)
+
+	for (int i = 0; i < 96; i++) // Assuming 96 possible characters (e.g., from space to tilde in ASCII)
 	{
 		if (!pRoot->childNode[i]) continue;
-		if (pRoot->childNode[i]->wordExisted) t = 1;
-		if (k <= S + t + pRoot->childNode[i]->countchildren) 
+
+		// If child node exists and it represents a word, set t to 1
+		t = pRoot->childNode[i]->wordExisted ? 1 : 0;
+
+		// Check if k is within the range of this child node's subtree
+		if (k <= S + t + pRoot->childNode[i]->countchildren)
 		{
-			// std::cout << "[DEBUG]  at k = " << k << " S = " << S << " t = " << t << " children of child = " << pRoot->childNode[i]->countchildren << std::endl;
-			// std::cout << "[DEBUG] going into node " << i << " k - S - t = " << k - S - t << std::endl;
-			here = std::pair<trieNode*, std::string>(findtheKthword(pRoot->childNode[i], k - S - t));
-			if (!here.first) here.second = "";
-			else here.second = char(i + 32) + here.second;
-			return here;
+			// Recursively find the k-th word in the child node
+			here = findtheKthword(pRoot->childNode[i], k - S - t);
+
+			if (here.first)
+			{
+				// Prepend the character corresponding to the current child node to the result
+				here.second = char(i + 32) + here.second;
+				return here;
+			}
 		}
 		else
 		{
+			// Move to the next child node and adjust S accordingly
 			S += t + pRoot->childNode[i]->countchildren;
-			t = 0;
 		}
 	}
+
 	return std::pair<trieNode*, std::string>(nullptr, "");
 }
 
@@ -278,7 +312,9 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 	std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(1,pRoot->countchildren);
-	return findtheKthword(pRoot, int(dist(rng)));
+	int k = int(dist(rng));
+	std::cout << k << std::endl;
+	return findtheKthword(pRoot, k);
 }
 
 //Utility function for suggesting some existing words based on some first given characters.
