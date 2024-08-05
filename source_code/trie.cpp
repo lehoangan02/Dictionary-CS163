@@ -462,3 +462,33 @@ void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::
 		}
 	}
 }
+
+bool correction(std::string& correctWord, trieNode*& pRoot)
+{
+	if (correctWord.empty()) return false;
+
+	// case 1: all lowercase
+	Change2Lowercase(correctWord);
+
+	if (traverseToSearch(pRoot, correctWord).size() > 0) // has definitions
+		return true;
+
+	// case 2: first capital letter
+	correctWord[0] = toupper(correctWord[0]);
+	if (traverseToSearch(pRoot, correctWord).size() > 0) // has definitions
+		return true;
+
+	// case 3: camel case
+	for (int i = 0; i < correctWord.size() - 1; i++)
+	{
+		if (correctWord[i] == ' ')
+		{
+			correctWord[i + 1] = toupper(correctWord[i + 1]);
+		}
+	}
+
+	if (traverseToSearch(pRoot, correctWord).size() > 0) // has definitions
+		return true;
+
+	return false;
+}
