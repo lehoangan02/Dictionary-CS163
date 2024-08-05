@@ -1285,10 +1285,9 @@ void instance::operatePage9()
 				if (pRoot) 
 				{
 					int numWord = 0;
-					for (int i = 0; i < 500; ++i)
+					while (numWord < 4)
 					{
-						std::pair<trieNode*, std::string> random;
-						random.second = "";
+						std::pair<trieNode*, std::string> random (nullptr, "");
 						random = pickarandomword(pRoot);
 						std::cout << "The random word is: " << random.second << std::endl;
 						if (random.second == "")	displayDef = false;
@@ -1300,7 +1299,6 @@ void instance::operatePage9()
 						if (numWord == 4)
 						{
 							validMultipleChoices = true;
-							break;
 						}
 					}
 					std::cout << "the 4 words are: \n";
@@ -1309,7 +1307,7 @@ void instance::operatePage9()
 						std::cout << multipleChoices[i] << std::endl;
 					}
 					
-					correctAnswerString = multipleChoices[randomNum(0, 4)];
+					correctAnswerString = multipleChoices[randomNum(0, 3)];
 					std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 					answerButton1st.setText(multipleChoices[0]);
 					answerButton2nd.setText(multipleChoices[1]);

@@ -170,12 +170,12 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
 	int length = word.length();
 	for (int i = 0; i < length; ++i) {
-		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
-			word[i] -= 32;
-		}
 		if (i == 0) //Traverse to search the for VieEng
 		{
 			collection1 = traverseToSearch(pRoot, word);
+		}
+		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+			word[i] -= 32;
 		}
 	}
 	// Traverse the trie to find the word (the first letter in each syllable in capital form)
