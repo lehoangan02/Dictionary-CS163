@@ -979,7 +979,7 @@ void instance::operatePage5()
 					mouseControl = false;
 					if (headWordString != "")
 					{
-						removeWord(headWordString, pRoot, invertedIndex, word4Def);
+						removeAllCase(headWordString, pRoot, word4Def, invertedIndex);
 						if (autoSave)
 						{
 							std::cout << "auto-saving\n";
