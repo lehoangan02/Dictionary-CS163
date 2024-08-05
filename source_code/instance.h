@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <vector>
-#include <atomic>
+//#include <atomic>
 #include <thread>
 #include <string>
 
