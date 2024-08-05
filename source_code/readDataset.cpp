@@ -48,7 +48,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         if (word != previousWord && previousWord != "")
         {
             // std::cout << "[DEBUG] end of vec\n";
-            insert1(pRoot, previousWord, definitionVec);
+            insert(pRoot, previousWord, definitionVec);
             if (definitionVec.size() >= 4)
             {
                 ++count4Def;
@@ -79,7 +79,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         //     std::cout << definitionVec[i].first << " ";
         //     std::cout << definitionVec[i].second << std::endl;
         // }
-        insert1(pRoot, previousWord, definitionVec);
+        insert(pRoot, previousWord, definitionVec);
         if (definitionVec.size() >= 4)
         {
             ++count4Def;
@@ -109,7 +109,7 @@ bool readDatasetTXT(const std::string& filename, trieNode*& pRoot, std::vector<s
         getline(split, def);
         /*std::cout << word << " (" << pos << ") " << std::endl;
         std::cout << "- " << def << std::endl;*/
-        insert2(pRoot, word, pos, def, word4Def);
+        insert(pRoot, word, pos, def, word4Def);
     }
     std::cout << "File imported successfully!" << std::endl;
     fin.close();

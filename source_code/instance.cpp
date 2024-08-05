@@ -904,7 +904,7 @@ void instance::operatePage4()
 					std::string newDescription = descriptionBox.getString();
 					unwrapText(newDescription);
 					addWord(newHeadword, newPOS, newDescription, pRoot, invertedIndex, word4Def);
-					insert(pRoot, newHeadword, newPOS, newDescription);
+					insert(pRoot, newHeadword, newPOS, newDescription, word4Def);
 					if (autoSave)
 					{
 						std::atomic<bool> controlLoaded(false);

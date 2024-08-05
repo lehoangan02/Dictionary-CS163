@@ -37,11 +37,11 @@ bool checkingExistance(std::string s1, std::string s2)
 	return true;
 }
 
-/// @brief the original insert function
+/// @brief the original insert function (it's still needed), you should not use this in instance.cpp
 /// @param pRoot 
 /// @param word 
 /// @param definitions 
-void insert1(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
+void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions)
 {
 	if (word.empty()) return;
 	if (!pRoot)
@@ -80,8 +80,8 @@ void insert1(trieNode*& pRoot, std::string word, std::vector<std::pair<std::stri
 		}
 	}
 }
-
-void insert2(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def)
+/// @brief the new insert function, you should use this in instance.cpp
+void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def)
 {
 	if (word.empty()) return;
 	if (!pRoot) {
