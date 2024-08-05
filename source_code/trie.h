@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <unordered_set>
 #include <fstream>
 
 const int ascii = 96; //32-127
@@ -65,4 +66,7 @@ bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot);
 void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot);
 void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot);
 void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot);
+
 std::string randomWord4Def(std::vector<std::string>& word4Def);
+bool CheckWords(const std::string& word1, const std::string& word2);
+void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<trieNode*, std::string>& rdword);

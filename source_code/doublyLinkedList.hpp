@@ -26,7 +26,7 @@ void insertLinkedList(linkedListNode*& pRoot, std::string input);
 /// @brief delete a word from a linked list
 /// @param pRoot 
 /// @param input 
-void deleteLinkedList(linkedListNode*& pRoot, std::string input);
+void deleteNode(linkedListNode*& pRoot, std::string input);
 
 /// @brief read previous favourite words
 /// @param pRoot 

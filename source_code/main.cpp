@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <unordered_set>
 
 #include "trie.h"
 #include "readDataset.hpp"
@@ -31,6 +32,7 @@ int main()
 		printf("8 for editing a definitions\n");
 		printf("9 for removing a word\n10 for import CSV\n");
 		printf("11 for a random word with 4 definitions\n");
+		printf("12 for a random defition with 4 keywords\n");
 		cout << "mode: ";
 		cin >> mode;
 		switch (mode)
@@ -215,11 +217,42 @@ int main()
 		}
 		case 11:
 		{
-			for (auto word : word4Def)
+			/*for (auto word : word4Def)
 			{
 				std::cout << word << std::endl;
+			}*/
+			std::string rdword = randomWord4Def(word4Def);
+			std::cout << "\n- The random word is: " << rdword << std::endl;
+			std::cout << "\nHere are 4 definitions for guessing: " << std::endl;
+			std::vector < std::pair<std::string, std::string>> DefList = traverseToSearch(pRoot, rdword);
+			for (int i = 0; i < 4; ++i)
+			{
+				std::cout << i + 1 << ". (" << DefList[i].first << ") " << DefList[i].second << std::endl;
 			}
-			std::cout << randomWord4Def(word4Def) << std::endl;
+			std::cout << "\n- Please enter your word: "; cin.ignore();
+			std::string guess;
+			getline(cin, guess);
+			Change2Lowercase(guess);
+			if (!CheckWords(rdword, guess)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
+			std::cout << endl;
+		}
+		case 12:
+		{
+			std::pair<trieNode*, std::string> rdword;
+			std::unordered_set<std::string> WordList;
+			RandomDef(pRoot, WordList, rdword);
+			std::cout << "\n- The random definition is: " << rdword.first->definitions[0].second << std::endl;
+			std::cout << std::endl;
+			int i = 1;
+			for (auto it : WordList)
+			{
+				cout << i << ") " << it << std::endl;
+				i++;
+			}
+			std::string answer; 
+			std::cout << "- Choose the correct keywords : "; cin.ignore();  getline(cin, answer);
+			if (!CheckWords(answer, rdword.second)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
+			std::cout << endl;
 		}
 		default:
 			break;
