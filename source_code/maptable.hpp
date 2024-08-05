@@ -67,7 +67,6 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
 
     // Basic methods
     void insert(const std::string& key, const HashTable& data);
-    void insertWordDef(const std::string& word, const std::string& definition);
     HashTable* find(const std::string& key);
     HashTable& access(const std::string& key); // Use this for fast access to existing or non-existing elements
     void remove(const std::string& key);
@@ -81,6 +80,10 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
     // Resizing
     void rehash(const size_t& newNumBucket);
     void insert(MapBlock*& block);
+
+    // For Inverted Index
+    void insertWordDef(const std::string& word, const std::string& definition);
+    void removeWordDef(const std::string& word, const std::string& definition);
 };
 
 // Utility functions

@@ -248,18 +248,6 @@ void HashMap::insert(const std::string& key, const HashTable& data) //data is ac
         this->rehash(2 * this->numBucket);
 }
 
-// Insert word and definition into HashMap (for Inverted Index)
-void HashMap::insertWordDef(const std::string& word, const std::string& definition)
-{
-    std::vector<std::string> tokens = tokenize(definition);
-
-    for (std::string& t : tokens)
-    {
-        Change2Lowercase(t);
-        this->access(t).insert(word);
-    }
-}
-
 // Return pointer to data of given key
 // Return nullptr if not found
 HashTable* HashMap::find(const std::string& key)
@@ -371,6 +359,36 @@ void HashMap::insert(MapBlock*& block)
     this->buckets[pos] = block;
 }
 
+// Insert word and its definition into HashMap (for Inverted Index)
+void HashMap::insertWordDef(const std::string& word, const std::string& definition)
+{
+    std::vector<std::string> tokens = tokenize(definition);
+
+    for (std::string& t : tokens)
+    {
+        Change2Lowercase(t);
+        this->access(t).insert(word);
+    }
+}
+
+// Remove word and its definition from HashMap (for Inverted Index)
+void HashMap::removeWordDef(const std::string& word, const std::string& definition)
+{
+    std::vector<std::string> tokens = tokenize(definition);
+
+    for (std::string& t : tokens)
+    {
+        Change2Lowercase(t);
+        HashTable* find = this->find(t);
+        if (find)
+        {
+            find->remove(word);
+            if (find->isEmpty())
+                this->remove(t);
+        }
+    }
+}
+
 // Check if character is alphabetic
 bool isAlphabetic(const char& c)
 {
@@ -450,21 +468,31 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
     // Find all words containing tokens in their definition
     HashTable res;
-    size_t i = 0;
     HashTable* findInit = nullptr;
+    size_t i = 0;
+
     while (!findInit && i < tokens.size())
     {
         findInit = invertedIndex.find(tokens[i]);
         ++i;
     }
+
     if (findInit)
         res = *findInit;
+
     for (; i < tokens.size(); ++i)
     {
         HashTable* found = invertedIndex.find(tokens[i]);
+
         if (found)
-            res = getIntersection(res, *found);
+        {
+            HashTable intersect = getIntersection(res, *found);
+
+            if (!intersect.isEmpty())
+                res = intersect;
+        }
     }
+
     return getVector(res);
 }
 
@@ -484,18 +512,13 @@ void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::str
 {
     if (!pRoot)
         return;
+
     if (pRoot->wordExisted)
     {
         for (auto& s : pRoot->definitions)
-        {
-            std::vector<std::string> tokens = tokenize(s.second);
-            for (auto& t : tokens)
-            {
-                Change2Lowercase(t);
-                invertedIndex.access(t).insert(curWord);
-            }
-        }
+            invertedIndex.insertWordDef(curWord, s.second);
     }
+
     for (int i = 0; i < ascii; ++i)
     {
         curWord.push_back(static_cast<char>(i + 32));
@@ -511,31 +534,14 @@ void editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
     {
         if (!pRoot)
             return;
-        int indexNext = int(word[i]) - 32;
+        int indexNext = static_cast<int>(word[i]) - 32;
         pRoot = pRoot->childNode[indexNext];
         ++i;
     }
     if (pRoot->wordExisted && definitionNum < pRoot->definitions.size())
     {
-        std::vector<std::string> tokens = tokenize(pRoot->definitions[definitionNum].second);
-        for (auto& t : tokens)
-        {
-            Change2Lowercase(t);
-            HashTable* find = invertedIndex.find(t);
-            if (find)
-            {
-                find->remove(word);
-                if (find->isEmpty())
-                    invertedIndex.remove(t);
-            }
-        }
-        
-        std::vector<std::string> newTokens = tokenize(newDef.second);
-        for (auto& t : newTokens)
-        {
-            Change2Lowercase(t);
-            invertedIndex.access(t).insert(word);
-        }
+        invertedIndex.removeWordDef(word, pRoot->definitions[definitionNum].second);
+        invertedIndex.insertWordDef(word, newDef.second);
 
         pRoot->definitions[definitionNum] = newDef;
     }
@@ -570,20 +576,7 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 
 			// Remove word from Inverted Index
 			for (auto& def : pRoot->definitions)
-			{
-				std::vector<std::string> tokens = tokenize(def.second);
-				for (auto& t : tokens)
-				{
-					Change2Lowercase(t);
-					HashTable* find = invertedIndex.find(t);
-                    if (find)
-                    {
-                        find->remove(word);
-                        if (find->isEmpty())
-                            invertedIndex.remove(t);
-                    }
-				}
-			}
+                invertedIndex.removeWordDef(word, def.second);
 
 			// Remove word from Trie
 			pRoot->wordExisted = false;
@@ -619,12 +612,7 @@ void addWord(std::string& word, std::string& pos, std::string& definition, trieN
     insert(pRoot, word, pos, definition);
 
     // Inverted Indexing word
-    std::vector<std::string> tokens = tokenize(definition);
-    for (auto& t : tokens)
-    {
-        Change2Lowercase(t);
-        invertedIndex.access(t).insert(word);
-    }
+    invertedIndex.insertWordDef(word, definition);
 }
 void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex)
 {
