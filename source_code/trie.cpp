@@ -164,35 +164,37 @@ std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::st
 		// std::cout << "Word not found\n";
 		return collectionLast;
 	}
-
-	std::cout << "Here are the definitions of the word: \n";
+	return traverseToSearch(pRoot, word);
+	{
+	// std::cout << "Here are the definitions of the word: \n";
 	
-	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
-	int length = word.length();
-	for (int i = 0; i < length; ++i) {
-		if (i == 0) //Traverse to search the for VieEng
-		{
-			collection1 = traverseToSearch(pRoot, word);
-		}
-		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
-			word[i] -= 32;
-		}
-	}
-	// Traverse the trie to find the word (the first letter in each syllable in capital form)
-	if (collection1.empty())
-		collection2 = traverseToSearch(pRoot, word);
+	// //first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
+	// int length = word.length();
+	// for (int i = 0; i < length; ++i) {
+	// 	if (i == 0) //Traverse to search the for VieEng
+	// 	{
+	// 		collection1 = traverseToSearch(pRoot, word);
+	// 	}
+	// 	if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
+	// 		word[i] -= 32;
+	// 	}
+	// }
+	// // Traverse the trie to find the word (the first letter in each syllable in capital form)
+	// if (collection1.empty())
+	// 	collection2 = traverseToSearch(pRoot, word);
 	
-	// Convert all the letters to lowercase
-	Change2Lowercase(word);
+	// // Convert all the letters to lowercase
+	// Change2Lowercase(word);
 
-	// Traverse the trie to find the word (the first letter in lowercase)
-	collection3 = traverseToSearch(pRoot, word);
+	// // Traverse the trie to find the word (the first letter in lowercase)
+	// collection3 = traverseToSearch(pRoot, word);
 
 	// Merge the two collections
-	collectionLast.reserve(collection1.size() + collection2.size() + collection3.size());  // Pre-allocate memory
-	collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
-	collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
-	collectionLast.insert(collectionLast.end(), collection3.begin(), collection3.end());
+	// collectionLast.reserve(collection1.size() + collection2.size() + collection3.size());  // Pre-allocate memory
+	// collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
+	// collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
+	// collectionLast.insert(collectionLast.end(), collection3.begin(), collection3.end());
+	}
 
 	return collectionLast;
 }
@@ -224,7 +226,7 @@ void RemoveAWord(trieNode*& pRoot, std::string word)
 			pRoot->definitions.clear();
 
 			//check whether it is the last node (delete) or prefix for other words.
-			if (!isLeaf(pRoot)) 
+			if (!isLeaf(pRoot))
 			{
 				delete pRoot;
 				pRoot = nullptr;
@@ -292,7 +294,8 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 	std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(1,pRoot->countchildren);
-	return findtheKthword(pRoot, int(dist(rng)));
+	int k = int(dist(rng)); printf("%d\n", k);
+	return findtheKthword(pRoot, k);
 }
 
 //Utility function for suggesting some existing words based on some first given characters.
@@ -323,7 +326,7 @@ std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 		}
 		//After oprating two attemps (1 for all lowercase ans 2 for uppercase at first and after blankspace)
 		if (wrongAttempts == 2) {
-			std::cout << "Word is not exist!" << std::endl;
+			// std::cout << "Word does not exist!" << std::endl;
 			return collection;
 		}
 		//Updating the given prefix with all lowercase character to uppercase at first and after blankspace)
@@ -342,7 +345,7 @@ std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 	int count = 0;
 	SuggestHelper(word, cur, count, collection);
 	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
-		std::cout << x << std::endl;
+		// std::cout << x << std::endl;
 	}
 	return collection;
 }
@@ -448,10 +451,11 @@ std::string randomWord4Def(std::vector<std::string> &word4Def)
     if (word4Def.size() == 0)
         return "NO WORD";
 	// generate a random number
-	std::mt19937 gen(static_cast<unsigned>(std::time(0)));
-	std::uniform_int_distribution<> dist(0, word4Def.size() - 1);
-	int random_number = dist(gen);
-    
+	std::random_device dev;
+	std::mt19937 rng(dev());
+	std::uniform_int_distribution<std::mt19937::result_type> dist(0, word4Def.size() - 1);
+	int random_number = dist(rng);
+    std::cout << random_number << std::endl;
 	std::string word = word4Def[random_number];
 	// will return the vector of definitions if found, or else return a blank vector (maybe the word has been deleted)
 	return word;

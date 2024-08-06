@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <fstream>
 
+#include "wrapping.hpp"
+
 const int ascii = 96; //32-127
 
 struct trieNode

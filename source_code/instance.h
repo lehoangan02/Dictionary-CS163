@@ -176,7 +176,6 @@ class instance
     Button deserializeModeButton;
 
     // Definition elements
-    // std::string originalWord = "";
     std::string headWordString = "";
     std::string POSString = "";
     std::string descriptionString = "";
@@ -210,6 +209,14 @@ class instance
     sf::Texture  bookmarkTextureDef;
     sf::Texture  bookmarkTextureClick;
     switchButton bookmarkButton;
+
+    // correct the user input
+    bool showCorrection = false;
+    sf::Texture selectCorrectionTexDef;
+    sf::Texture selectCorrectionTexHov;
+    Button selectCorrectionButton;
+    sf::Text correctUserInput;
+    sf::String correctUserInputString;
 
     // serialize button
     std::string serializeString = "Serialize";

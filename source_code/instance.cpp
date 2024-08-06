@@ -136,10 +136,11 @@ instance::instance() :
 	addButton(addTexDef, addTexHov),
 	saveTexDef(loadTexture("assets/images/SaveWordDef.png")),
 	saveTexHov(loadTexture("assets/images/SaveWordHov.png")),
-	saveButton(saveTexDef, saveTexHov)
-
-
-
+	saveButton(saveTexDef, saveTexHov),
+	// select correction button
+	selectCorrectionTexDef(loadTexture("assets/images/selectCorrectionDef.png")),
+	selectCorrectionTexHov(loadTexture("assets/images/selectCorrectionHov.png")),
+	selectCorrectionButton(selectCorrectionTexDef, selectCorrectionTexHov)
 
 
 
@@ -221,6 +222,14 @@ instance::instance() :
 	description.setPosition(73.0f, 505.0f);
 	emojiSprite.setScale(0.76923076923, 0.76923076923);
 	emojiSprite.setPosition(455, 405);
+	selectCorrectionButton.setPosition(sf::Vector2u(145 - SHADOWVER, 330));
+	correctUserInput.setFont(SourceSans3);
+	correctUserInput.setFillColor(sf::Color::White);
+	correctUserInput.setOutlineColor(sf::Color::Black);
+	correctUserInput.setStyle(sf::Text::Style::Bold);
+	correctUserInput.setOutlineThickness(1);
+	correctUserInput.setCharacterSize(24);
+	correctUserInput.setPosition(180, 332);
 
 	// Set up serialize, auto-save button and prompt
 	serializeButton.setPosition(sf::Vector2u(550 - SHADOWHOR, 125));
@@ -360,170 +369,196 @@ void instance::operatePage1()
 	{
 		switch (event.type)
 		{
-		case sf::Event::Closed:
-		{
-			windowInstance.close();
-		}
-		case sf::Event::MouseButtonPressed:
-		{
-			// printf("[DEBUG] mouse button pressed\n");
-			mouseControl = true;
-			int option = suggestedcontent.returnmode(windowInstance);
-			if (searchButton.isClicked(windowInstance)) // static function
+			case sf::Event::Closed:
 			{
-				displayHistory = false;
-				historyIndex = 0;
-				temp = searchBox.getString();
-				history.push_back(temp);
-				writeHistory(temp);
-				handleSearchSignal(temp);
+				windowInstance.close();
 			}
-			else if (historyButton.isClicked(windowInstance))
+			case sf::Event::MouseButtonPressed:
 			{
-				if (!loadHistory)
+				// printf("[DEBUG] mouse button pressed\n");
+				mouseControl = true;
+//				int option = suggestedcontent.returnmode(windowInstance);
+				if (searchButton.isClicked(windowInstance)) // static function
 				{
-					readHistory(history);
-					loadHistory = true;
+					showCorrection = false;
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
+					// user input correction
+					std::string corrected = temp;
+					if (correction(corrected, pRoot) && numberOfResult == 0)
+					{
+						showCorrection = true;
+						correctUserInputString = "Did you mean: " + corrected;
+						correctUserInput.setString(correctUserInputString);
+					}
 				}
-				displayHistory = true;
-				displayFavourite = false;
-				handleHistory();
-			}
-			else if (option != -1)
-			{
-				searchBox.syncstring(suggestedcontent.getcategory(option));
-			}
-			else if (nextPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum < (int)searchResult.size() - 1)
+				else if (historyButton.isClicked(windowInstance))
 				{
-					++definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-					description.setString(descriptionString);
-					wrappedDescription = false;
-				}
-			}
-			else if (prevPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum > 0)
-				{
-					--definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-					description.setString(descriptionString);
-					wrappedDescription = false;
-				}
-			}
-			else if (favouriteButton.isClicked(windowInstance))
-			{
-				printf("[DEBUG] trying to display favourite\n");
-				if (pCurrentFavourite)
-				{
-					displayFavourite = true;
-					handleFavourite();
-				}
-				else
-				{
+                    if (!loadHistory)
+                    {
+                        readHistory(history);
+                        loadHistory = true;
+                    }
+					displayHistory = true;
 					displayFavourite = false;
-					displayDef = false;
+					handleHistory();
 				}
-				displayHistory = false;
-			}
-			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
-			{
-				if (existInList(pRootFavourite, headWordString))
+				else if (nextPageButton.isClicked(windowInstance))
 				{
-					printf("turning off\n");
-					bookmarkButton.setMode(false);
-					if (pCurrentFavourite && pCurrentFavourite->pNext)
+					if (definitionNum < (int)searchResult.size() - 1)
 					{
-						printf("[DEBUG] moving to favourite down\n");
-						pCurrentFavourite = pCurrentFavourite->pNext;
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
 					}
-					else if (pCurrentFavourite && pCurrentFavourite->pPrev)
+				}
+				else if (prevPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum > 0)
 					{
-						printf("[DEBUG] moving to favourite up\n");
-						pCurrentFavourite = pCurrentFavourite->pPrev;
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
 					}
-					deleteNode(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					if (!pRootFavourite && displayFavourite)
+				}
+				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance))
+				{
+					showCorrection = false;
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					correction(temp, pRoot);
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
+				}
+				else if (favouriteButton.isClicked(windowInstance))
+				{
+					printf("[DEBUG] trying to display favourite\n");
+					if (pCurrentFavourite) 
 					{
-						printf("[DEBUG] end displaying favourite\n");
-						displayDef = false;
+						displayFavourite = true;
+						handleFavourite();
+					}
+					else	
+					{
 						displayFavourite = false;
+						displayDef = false;
 					}
-					if (displayFavourite)	handleFavourite();
+					displayHistory = false;
 				}
-				else
+				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
 				{
-					bookmarkButton.setMode(true);
-					printf("[DEBUG] new favourite\n");
-					insertLinkedList(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					// handleFavourite();
+					showCorrection = false;
+					if (existInList(pRootFavourite, headWordString))
+					{
+						printf("turning off\n");
+						bookmarkButton.setMode(false);
+                        if (pCurrentFavourite && pCurrentFavourite -> pNext)
+						{
+                            printf("[DEBUG] moving to favourite down\n");
+							pCurrentFavourite = pCurrentFavourite -> pNext;
+						}
+						else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+						{
+							printf("[DEBUG] moving to favourite up\n");
+							pCurrentFavourite = pCurrentFavourite -> pPrev;
+						}
+						deleteNode(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						if (!pRootFavourite && displayFavourite)
+						{
+							printf("[DEBUG] end displaying favourite\n");
+							displayDef = false;
+							displayFavourite = false;
+						}
+						if (displayFavourite)	handleFavourite();
+					}
+					else
+					{
+						bookmarkButton.setMode(true);
+						printf("[DEBUG] new favourite\n");
+						insertLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						// handleFavourite();
+					}
+				}
+				else if ((displayHistory || displayFavourite) && displayDef)
+				{
+					if (displayHistory)
+					{
+						if (pageUpButton.isClicked(windowInstance))
+						{
+							if (historyIndex > 0)
+							{
+								--historyIndex;
+								handleHistory();
+							}
+						}
+						else if (pageDownButton.isClicked(windowInstance))
+						{
+							if (historyIndex < (int)history.size() - 1)
+							{
+								++historyIndex;
+								handleHistory();
+							}
+						}
+						
+					}
+					else if (displayFavourite)
+					{
+						if (pageUpButton.isClicked(windowInstance))
+						{
+							if (pCurrentFavourite -> pPrev)
+							{
+								pCurrentFavourite = pCurrentFavourite -> pPrev;
+								handleFavourite();
+							}
+						}
+						else if (pageDownButton.isClicked(windowInstance))
+						{
+							if (pCurrentFavourite -> pNext)
+							{
+								pCurrentFavourite = pCurrentFavourite -> pNext;
+								handleFavourite();
+							}
+						}
+					}
 				}
 			}
-			else if ((displayHistory || displayFavourite) && displayDef)
+			case sf::Event::KeyPressed:
 			{
-				if (displayHistory)
+				if (event.key.code == sf::Keyboard::Return)
 				{
-					if (pageUpButton.isClicked(windowInstance))
+					showCorrection = false;
+					printf("[DEBUG] enter pressed\n");
+					displayHistory = false;
+					historyIndex = 0;
+					std::string temp = searchBox.getString();
+					history.push_back(temp);
+					writeHistory(temp);
+					handleSearchSignal(temp);
+					// user input correction
+					std::string corrected = temp;
+					if (correction(corrected, pRoot) && numberOfResult == 0)
 					{
-						if (historyIndex > 0)
-						{
-							--historyIndex;
-							handleHistory();
-						}
-					}
-					else if (pageDownButton.isClicked(windowInstance))
-					{
-						if (historyIndex < (int)history.size() - 1)
-						{
-							++historyIndex;
-							handleHistory();
-						}
-					}
-
-				}
-				else if (displayFavourite)
-				{
-					if (pageUpButton.isClicked(windowInstance))
-					{
-						if (pCurrentFavourite->pPrev)
-						{
-							pCurrentFavourite = pCurrentFavourite->pPrev;
-							handleFavourite();
-						}
-					}
-					else if (pageDownButton.isClicked(windowInstance))
-					{
-						if (pCurrentFavourite->pNext)
-						{
-							pCurrentFavourite = pCurrentFavourite->pNext;
-							handleFavourite();
-						}
+						showCorrection = true;
+						correctUserInputString = "Did you mean: " + corrected;
+						correctUserInput.setString(correctUserInputString);
 					}
 				}
-			}
-		}
-		case sf::Event::KeyPressed:
-		{
-			if (event.key.code == sf::Keyboard::Return)
-			{
-				printf("[DEBUG] enter pressed\n");
-				displayHistory = false;
-				historyIndex = 0;
-				temp = searchBox.getString();
-				history.push_back(temp);
-				writeHistory(temp);
-				handleSearchSignal(temp);
-			}
-			else if (event.key.code == sf::Keyboard::R)
-			{
+				else if (event.key.code == sf::Keyboard::R)
+				{
 
 			}
 		}
@@ -572,6 +607,10 @@ void instance::operatePage1()
 		// printf("[DEBUG] word is not favourite\n");
 		bookmarkButton.setMode(false);
 	}
+	if (showCorrection)
+	{
+		selectCorrectionButton.hoverSwitchTexture(windowInstance);
+	}
 	bookmarkButton.click(windowInstance, mouseControl);
 }
 void instance::drawPage1()
@@ -583,6 +622,11 @@ void instance::drawPage1()
 	favouriteButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
 	drawDefinition();
+	if (showCorrection)
+	{
+		selectCorrectionButton.draw(windowInstance);
+		windowInstance.draw(correctUserInput);
+	}
 	drawSwitchMode();
 	if (searchBox.isactive()) suggestedcontent.draw(windowInstance);
 	windowInstance.display();
@@ -1303,7 +1347,7 @@ void instance::operatePage9()
 						std::cout << multipleChoices[i] << std::endl;
 					}
 
-					correctAnswerString = multipleChoices[randomNum(0, 4)];
+					correctAnswerString = multipleChoices[randomNum(0, 3)];
 					std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 					answerButton1st.setText(multipleChoices[0]);
 					answerButton2nd.setText(multipleChoices[1]);
@@ -1679,6 +1723,8 @@ void instance::switchPage()
 		gameMode = 0;
 		page = 1;
 		pageChange = true;
+		correctAnswer = false;
+		wrongAnswer = false;
 		printf("[DEBUG] exiting game mode\n");
 	}
 	if (pageChange)
