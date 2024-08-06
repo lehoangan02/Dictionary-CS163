@@ -50,8 +50,9 @@ public:
     void draw(sf::RenderWindow &window);
     std::string getString();
     std::string pullString();
+    void syncstring(std::string s);
     virtual void clear();
-
+    const bool isactive() const;
 protected:
     virtual void insertChar(char newInput);
     virtual void deleteChar();

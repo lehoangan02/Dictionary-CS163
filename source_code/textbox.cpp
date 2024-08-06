@@ -240,6 +240,15 @@ std::string textbox::pullString()
     }
     return textStream.str().substr(0, textStream.str().length() - 1);
 }
+void textbox::syncstring(std::string s)
+{
+    while (pullString().length()) deleteChar();
+    for (char c : s) insertChar(c);
+}
+const bool textbox::isactive() const
+{
+    return active;
+}
 void textbox::clear()
 {
     // printf("[DEBUG] clearing ");

@@ -52,7 +52,7 @@ void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 	options.clear();
 	//re-init the buttons
 	if (!word.length()) return;
-	std::cout << word << "\n";
+	/*std::cout << word << "\n";*/
 	categories = std::vector<std::string>(SuggestingWords(word, pRoot));
 	categories.erase(categories.begin());
 	if (categories.size() > 3)
@@ -60,7 +60,7 @@ void desiredsearch::updateoptions(std::string word, trieNode* pRoot)
 		categories.erase(categories.begin() + 3, categories.end());
 	}
 	available = categories.size();
-	for (std::string s : categories) std::cout << s << "\n";
+	/*for (std::string s : categories) std::cout << s << "\n";*/
 	this->adjustsuggestions();
 }
 
@@ -78,8 +78,6 @@ int desiredsearch::returnmode(sf::RenderWindow &w)
 	for (int i = 0; i < options.size(); i++)
 		if (options[i].isClicked(w))
 		{
-			available = 0;
-			categories.clear();
 			return i;
 		}
 	return -1;
