@@ -1,2 +1,0 @@
-I need help on reassuring that the button switches hover.
-Did I do it right in desiredsearch.cpp?
