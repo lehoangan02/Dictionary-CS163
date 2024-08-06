@@ -366,41 +366,49 @@ void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<
 	}
 }
 
-bool compareDefLength(std::string& s1, std::string& s2, trieNode*& pRoot)
+double getDefLength(std::string& word, trieNode*& pRoot)
 {
-	std::vector<std::pair<std::string, std::string>> defVec1 = traverseToSearch(pRoot, s1);
-	std::vector<std::pair<std::string, std::string>> defVec2 = traverseToSearch(pRoot, s2);
+	std::vector<std::pair<std::string, std::string>> defVec = traverseToSearch(pRoot, word);
 	
-	size_t sumLength1 = 0;
-	size_t sumLength2 = 0;
+	if (defVec.size() == 0)
+		return -1;
 
-	for (size_t i = 0; i < defVec1.size(); ++i)
-		sumLength1 += defVec1[i].second.length();
-	for (size_t i = 0; i < defVec2.size(); ++i)
-		sumLength2 += defVec2[i].second.length();
+	size_t sumLength = 0;
 
-	return (sumLength1 * defVec2.size() >= sumLength2 * defVec1.size());
+	for (size_t i = 0; i < defVec.size(); ++i)
+		sumLength += defVec[i].second.length();
+
+	return static_cast<double>(sumLength) / defVec.size();
 }
 
 void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot)
 {
 	if (keyWords.size() > 0)
-		mergeSort(keyWords, 0, keyWords.size() - 1, pRoot);
+	{
+		size_t size = keyWords.size();
+		std::vector<double> defLength(size);
+
+		for (size_t i = 0; i < size; ++i)
+			defLength[i] = getDefLength(keyWords[i], pRoot);
+
+		mergeSort(keyWords, 0, size - 1, defLength);
+	}
 }
 
-void mergeSort(std::vector<std::string>& words, size_t left, size_t right, trieNode*& pRoot) 
+void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<double>& defLength) 
 {
     if (left < right) 
 	{
         size_t mid = (left + right) / 2;
 		
-        mergeSort(words, left, mid, pRoot);
-        mergeSort(words, mid + 1, right, pRoot);
-        merge(words, left, mid, right, pRoot);
+        mergeSort(words, left, mid, defLength);
+        mergeSort(words, mid + 1, right, defLength);
+
+        merge(words, left, mid, right, defLength);
     }
 }
 
-void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, trieNode*& pRoot) 
+void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<double>& defLength) 
 {
 	size_t sizeLeft = mid - left + 1;
 	size_t sizeRight = right - mid;
@@ -408,40 +416,53 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	std::vector<std::string> leftVec(sizeLeft);
 	std::vector<std::string> rightVec(sizeRight);
 
-	for (size_t i = 0; i < sizeLeft; ++i)
-		leftVec[i] = words[left + i];
-	for (size_t i = 0; i < sizeRight; ++i)
-		rightVec[i] = words[mid + 1 + i];
+	std::vector<double> defLengthLeft(sizeLeft);
+	std::vector<double> defLengthRight(sizeRight);
 
-	size_t i = 0, j = 0;
+	for (size_t i = 0; i < sizeLeft; ++i)
+	{
+		leftVec[i] = words[left + i];
+		defLengthLeft[i] = defLength[left + i];
+	}
+	for (size_t i = 0; i < sizeRight; ++i)
+	{
+		rightVec[i] = words[mid + 1 + i];
+		defLengthRight[i] = defLength[mid + 1 + i];
+	}
+
+	size_t curPosLeft = 0, curPosRight = 0;
 	size_t curPos = left;
 
-	while (i < sizeLeft && j < sizeRight) 
+	while (curPosLeft < sizeLeft && curPosRight < sizeRight) 
 	{
-		if (compareDefLength(rightVec[j], leftVec[i], pRoot)) 
+		if (defLengthLeft[curPosLeft] < defLengthRight[curPosRight])
 		{
-			words[curPos] = leftVec[i];
-			++i;
+			words[curPos] = leftVec[curPosLeft];
+			defLength[curPos] = defLengthLeft[curPosLeft];
+			++curPosLeft;
 		} 
 		else 
 		{
-			words[curPos] = rightVec[j];
-			++j;
+			words[curPos] = rightVec[curPosRight];
+			defLength[curPos] = defLengthRight[curPosRight];
+			++curPosRight;
 		}
 		++curPos;
 	}
 
-	while (i < sizeLeft) 
+	while (curPosLeft < sizeLeft) 
 	{
-		words[curPos] = leftVec[i];
-		++i;
+		words[curPos] = leftVec[curPosLeft];
+		defLength[curPos] = defLengthLeft[curPosLeft];
+		++curPosLeft;
 		++curPos;
 	}
 
-	while (j < sizeRight) 
+	while (curPosRight < sizeRight) 
 	{
-		words[curPos] = rightVec[j];
-		++j;
+		words[curPos] = rightVec[curPosRight];
+		defLength[curPos] = defLengthRight[curPosRight];
+		++curPosRight;
 		++curPos;
 	}
 }
