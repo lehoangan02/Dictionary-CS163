@@ -1,4 +1,5 @@
 #include "instance.h"
+#include "random.h"
 //line 286
 //line 501
 //line 548
