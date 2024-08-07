@@ -8,7 +8,6 @@
 #include <thread>
 #include <string>
 
-#include "desiredsearch.h"
 #include "button.hpp"
 #include "textbox.hpp"
 #include "animation.hpp"
@@ -21,6 +20,7 @@
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
 #include "wrapping.hpp"
+#include "suggestionPanels.hpp"
 
 
 #define SHADOWHOR 4
@@ -119,9 +119,6 @@ class instance
     sf::Texture importTexClick;
     Button importButton;
 
-    //suggested search words
-    desiredsearch suggestedcontent;
-
     // "import file path" text
     sf::Texture importPromptTexture;
     sf::Sprite importPromptSprite;
@@ -134,6 +131,9 @@ class instance
     // search box
     sf::Texture searchBoxTexture;
     textbox searchBox;
+
+    // suggestion panels
+    SuggestionPanels suggestionPanels;
 
     // import box
     sf::Texture importBoxTexture;

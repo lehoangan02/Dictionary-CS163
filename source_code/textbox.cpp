@@ -223,31 +223,17 @@ void textbox::setLimit(int limit)
 {
     this -> limit = limit;
 }
-std::string textbox::getString()
+std::string textbox::getString(bool deselectBox)
 {
     if (textStream.str() == guideString)
     {
         return "";
     }
-    deselect();
-    return textStream.str();
-}
-std::string textbox::pullString()
-{
-    if (textStream.str() == guideString)
-    {
-        return "";
-    }
-    return textStream.str().substr(0, textStream.str().length() - 1);
-}
-void textbox::syncstring(std::string s)
-{
-    while (pullString().length()) deleteChar();
-    for (char c : s) insertChar(c);
-}
-const bool textbox::isactive() const
-{
-    return active;
+    if (deselectBox) deselect();
+    if (active && !full)
+        return textStream.str().substr(0, textStream.str().size()- 1);
+    else
+        return textStream.str();
 }
 void textbox::clear()
 {
@@ -262,6 +248,7 @@ void textbox::clear()
     return;
 }
 
+
 largeTextbox::largeTextbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int lineLimit, int width, sf::Vector2u position) :
     textbox(textboxTexture, font, characterSize, std::numeric_limits<int>::max(), position)
     {
@@ -269,6 +256,10 @@ largeTextbox::largeTextbox(sf::Texture& textboxTexture, sf::Font& font, int char
         this  -> lineLimit = lineLimit;
         displayText.setPosition(position.x + 20, position.y + 10);
     }
+bool textbox::isSelected() const
+{
+    return active;
+}
 
 /// @brief the only difference with the base class function is the displayText.setString at the end
 void largeTextbox::select() 
