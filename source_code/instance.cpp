@@ -222,14 +222,14 @@ instance::instance() :
 	description.setPosition(73.0f, 505.0f);
 	emojiSprite.setScale(0.76923076923, 0.76923076923);
 	emojiSprite.setPosition(455, 405);
-	selectCorrectionButton.setPosition(sf::Vector2u(145 - SHADOWVER, 330));
+	selectCorrectionButton.setPosition(sf::Vector2u(145 - SHADOWVER, 125));
 	correctUserInput.setFont(SourceSans3);
 	correctUserInput.setFillColor(sf::Color::White);
 	correctUserInput.setOutlineColor(sf::Color::Black);
 	correctUserInput.setStyle(sf::Text::Style::Bold);
 	correctUserInput.setOutlineThickness(1);
 	correctUserInput.setCharacterSize(24);
-	correctUserInput.setPosition(180, 332);
+	correctUserInput.setPosition(180, 127);
 
 	// Set up serialize, auto-save button and prompt
 	serializeButton.setPosition(sf::Vector2u(550 - SHADOWHOR, 125));
@@ -282,6 +282,18 @@ instance::instance() :
 	cancelButton.setPosition(sf::Vector2u(205, 527));
 	addButton.setPosition(sf::Vector2u(663, 527));
 	saveButton.setPosition(sf::Vector2u(663, 527));
+
+	// Set up suggestion panels
+	suggestionPanels.setUp(loadTexture("assets/images/1stInTrioSuggestionPanelDef.png"),
+	loadTexture("assets/images/1stInTrioSuggestionPanelHov.png"), 
+	loadTexture("assets/images/2ndInTrioSuggestionPanelDef.png"),
+	loadTexture("assets/images/2ndInTrioSuggestionPanelHov.png"),
+	loadTexture("assets/images/3rdInTrioSuggestionPanelDef.png"),
+	loadTexture("assets/images/3rdInTrioSuggestionPanelHov.png"),
+	loadTexture("assets/images/SingleSuggestionPanelDef.png"),
+	loadTexture("assets/images/SingleSuggestionPanelHov.png"),
+	SourceSans3);
+	suggestionPanels.setPosition(sf::Vector2u(145 - SHADOWHOR, 125));
 }
 void instance::operate()
 {
@@ -381,6 +393,8 @@ void instance::operatePage1()
 				if (searchButton.isClicked(windowInstance)) // static function
 				{
 					showCorrection = false;
+					suggestionPanels.display = false;
+					printf("[DEBUG] suggestion panels off\n");
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
@@ -535,13 +549,39 @@ void instance::operatePage1()
 						}
 					}
 				}
+				else if (searchBox.isSelected() && searchBox.getString().size() > 0)
+				{
+					printf("[DEBUG] suggestion panels on\n");
+					suggestionPanels.display = true;
+				}
+				if (mouseControl)
+				{
+					for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
+					{
+						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance))
+						{
+							showCorrection = false;
+							suggestionPanels.display = false;
+							printf("[DEBUG] suggestion panels off\n");
+							displayHistory = false;
+							historyIndex = 0;
+							std::string temp = suggestionPanels.buttonStrings[i];
+							history.push_back(temp);
+							writeHistory(temp);
+							handleSearchSignal(temp);
+							break;
+						}
+					}
+				}
 			}
 			case sf::Event::KeyPressed:
 			{
 				if (event.key.code == sf::Keyboard::Return)
 				{
-					showCorrection = false;
 					printf("[DEBUG] enter pressed\n");
+					showCorrection = false;
+					suggestionPanels.display = false;
+					printf("[DEBUG] suggestion panels off\n");
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
@@ -560,30 +600,35 @@ void instance::operatePage1()
 				else if (event.key.code == sf::Keyboard::R)
 				{
 
+				}
+				else if (searchBox.isSelected())
+				{
+					printf("[DEBUG] suggestion panels on\n");
+					suggestionPanels.display = true;
+				}
+				// std::cout << "Search box: " << searchBox.getString(false) << std::endl;
 			}
-		}
-		break;
-		case sf::Event::LostFocus:
-		{
-			std::cout << "[DEBUG] lost focus" << std::endl;
-		}
-		break;
-		case sf::Event::GainedFocus:
-		{
-			std::cout << "[DEBUG] gained focus" << std::endl;
-		}
-		break;
-		default:
 			break;
+			case sf::Event::LostFocus:
+			{
+				std::cout << "[DEBUG] lost focus" << std::endl;
+			}
+			break;
+			case sf::Event::GainedFocus:
+			{
+				std::cout << "[DEBUG] gained focus" << std::endl;
+			}
+			break;
+			default:
+				break;
 		}
 		searchBox.handleInputLogic(event, windowInstance);
-		/*std::cout << searchBox.pullString() << std::endl;*/
-		suggestedcontent.updateoptions(searchBox.pullString(), pRoot);
+		suggestionPanels.update(event, searchBox.getString(false), pRoot, windowInstance);
 	}
 	handleSwitchModeLogic();
-	suggestedcontent.handlelogic(windowInstance);
 	searchButton.hoverSwitchTexture(windowInstance);
 	searchButton.click(windowInstance);
+	suggestionPanels.hoverswitchTexture(windowInstance);
 	historyButton.hoverSwitchTexture(windowInstance);
 	historyButton.click(windowInstance);
 	favouriteButton.hoverSwitchTexture(windowInstance);
@@ -618,6 +663,7 @@ void instance::drawPage1()
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
 	searchButton.draw(windowInstance);
+	suggestionPanels.draw(windowInstance);
 	historyButton.draw(windowInstance);
 	favouriteButton.draw(windowInstance);
 	searchBox.draw(windowInstance);
@@ -628,7 +674,6 @@ void instance::drawPage1()
 		windowInstance.draw(correctUserInput);
 	}
 	drawSwitchMode();
-	if (searchBox.isactive()) suggestedcontent.draw(windowInstance);
 	windowInstance.display();
 }
 void instance::operatePage2()
@@ -1615,6 +1660,7 @@ void instance::switchPage()
 				pageChange = true;
 				numberOfResult = 0;
 				displayDef = false;
+				suggestionPanels.display = false;
 				displayHistory = false;
 				displayFavourite = false;
 			}

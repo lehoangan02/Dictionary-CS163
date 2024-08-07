@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 
+#define SHADOWHOR 4
 #define SHADOWVER 8
 #define SFMLTEXPADDING 6
 
@@ -28,12 +29,12 @@ class Button
     Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Texture& textureClick);
     Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
     std::string textString, int characterSize);
-    void setPosition(sf::Vector2u position);
+    virtual void setPosition(sf::Vector2u position);
     void draw(sf::RenderWindow& window);
     bool isClicked(sf::RenderWindow& window);
     bool isHovering(const sf::RenderWindow& window);
     void hoverSwitchTexture(const sf::RenderWindow& window);
-    void setOffset(float x, float y);
+    // void setOffset(float x, float y);
     void select(bool mode);
     void setTextFillColor(sf::Color color);
     void setText(std::string text);
@@ -44,7 +45,7 @@ std::string textString, int characterSize);
     void setUpNonHoverText(const sf::Texture& texture, const sf::Font& font, std::string textString, int characterSize);
     virtual void click(sf::RenderWindow& window);
     protected:
-    void centerText();
+    virtual void centerText();
 };
 class DualChoiceButton : public Button
 {
@@ -75,4 +76,13 @@ class spongyButton : public Button
     void setOffset(float x, float y);
     private:
     bool offsetControl[2] = {true, false};
+};
+class suggestionButton : public Button
+{
+    private:
+    int positionLeft = 0;
+    public:
+    void centerText() override;
+    void setPosition(sf::Vector2u position) override;
+    void setTexture(sf::Texture& textureDef, sf::Texture& textureHov, bool shadow);
 };

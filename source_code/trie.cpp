@@ -301,7 +301,9 @@ std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot)
 //Utility function for suggesting some existing words based on some first given characters.
 std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 {
-	std::vector<std::string> collection{ "" };
+	// std::vector<std::string> collection{ "" };
+	std::vector<std::string> collection;
+	collection.clear();
 	if (word.empty() || !pRoot) return collection;
 
 	trieNode* cur = pRoot;
@@ -326,7 +328,7 @@ std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 		}
 		//After oprating two attemps (1 for all lowercase ans 2 for uppercase at first and after blankspace)
 		if (wrongAttempts == 2) {
-			// std::cout << "Word does not exist!" << std::endl;
+			std::cout << "Word does not exist!" << std::endl;
 			return collection;
 		}
 		//Updating the given prefix with all lowercase character to uppercase at first and after blankspace)
@@ -345,7 +347,7 @@ std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot)
 	int count = 0;
 	SuggestHelper(word, cur, count, collection);
 	for (auto& x : collection) { //Displaying the suggestions [DEBUG]
-		// std::cout << x << std::endl;
+		std::cout << x << std::endl;
 	}
 	return collection;
 }
