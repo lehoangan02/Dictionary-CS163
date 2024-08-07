@@ -125,7 +125,7 @@ void HashTable::copy(const HashTable& source)
     this->numBucket = source.numBucket;
     this->size = source.size;
     buckets = new TableBlock*[source.numBucket] {nullptr};
-    for (int i = 0; i < source.numBucket; ++i)
+    for (size_t i = 0; i < source.numBucket; ++i)
     {
         if (source.buckets[i])
         {
@@ -145,7 +145,7 @@ void HashTable::copy(const HashTable& source)
 // Empty HashTable
 void HashTable::clear()
 {
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
     this->size = 0;
 }
@@ -167,7 +167,7 @@ void HashTable::rehash(const size_t& newNumBucket)
     if (newNumBucket <= this->numBucket)
         return;
     HashTable tempTable(newNumBucket);
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
     {
         while (this->buckets[i])
         {
@@ -308,7 +308,7 @@ void HashMap::remove(const std::string& key)
 // Empty HashMap
 void HashMap::clear()
 {
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
     this->size = 0;
 }
@@ -336,7 +336,7 @@ void HashMap::rehash(const size_t& newNumBucket)
     if (newNumBucket <= this->numBucket)
         return;
     HashMap tempMap(newNumBucket);
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
     {
         while (this->buckets[i])
         {
@@ -401,8 +401,8 @@ std::vector<std::string> tokenize(const std::string& input)
     std::vector<std::string> res;
     res.reserve(1000);  // Reserve space to avoid multiple allocations
 
-    int head = 0, tail = 0;
-    int l = input.length();
+    size_t head = 0, tail = 0;
+    size_t l = input.length();
 
     while (tail < l) 
     {
@@ -428,7 +428,7 @@ std::vector<std::string> tokenize(const std::string& input)
 HashTable getIntersection(HashTable& t1, HashTable& t2)
 {
     HashTable res;
-    for (int i = 0; i < t1.numBucket; ++i)
+    for (size_t i = 0; i < t1.numBucket; ++i)
     {
         TableBlock* pCur = t1.buckets[i];
         while (pCur)
@@ -445,7 +445,7 @@ HashTable getIntersection(HashTable& t1, HashTable& t2)
 std::vector<std::string> getVector(HashTable& table)
 {
     std::vector<std::string> res;
-    for (int i = 0; i < table.numBucket; ++i)
+    for (size_t i = 0; i < table.numBucket; ++i)
     {
         TableBlock* pCur = table.buckets[i];
         while (pCur)
@@ -627,8 +627,8 @@ void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>&
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase
     printf("removing\n");
     Change2Lowercase(word);
-	int length = word.length();
-	for (int i = 0; i < length; ++i) {
+	size_t length = word.length();
+	for (size_t i = 0; i < length; ++i) {
 		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
 			word[i] -= 32;
 		}
