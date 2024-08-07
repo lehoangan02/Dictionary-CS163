@@ -93,7 +93,7 @@ class instance
     Button gameModeButton;
     sf::Texture emojiTexture;
     sf::Sprite emojiSprite;
-    int emojiNumber;
+    // int emojiNumber;
 
     // search button
     sf::Texture searchTexDef; 

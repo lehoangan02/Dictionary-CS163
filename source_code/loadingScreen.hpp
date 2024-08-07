@@ -12,7 +12,7 @@ class loadingScreen
     sf::Texture loadingTexture;
     sf::Font magarine;
     sf::Text loadingText;
-    sf::Event event;
+    // sf::Event event;
     sf::Clock clock;
     AnimationVertical loadingAnimation;
     public:

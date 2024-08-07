@@ -54,7 +54,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
                 ++count4Def;
                 wordFourDef.push_back(previousWord);
             }
-            for (int i = 0; i < definitionVec.size(); ++i)
+            for (int i = 0; i < static_cast<int>(definitionVec.size()); ++i)
             {
                 // std::cout << "[DEBUG]" << previousWord << " ";
                 // std::cout << definitionVec[i].first << " ";

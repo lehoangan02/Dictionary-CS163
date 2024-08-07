@@ -520,7 +520,7 @@ bool correction(std::string& correctWord, trieNode*& pRoot)
 		return true;
 
 	// case 3: camel case
-	for (int i = 0; i < correctWord.size() - 1; i++)
+	for (unsigned long i = 0; i < correctWord.size() - 1; i++)
 	{
 		if (correctWord[i] == ' ')
 		{

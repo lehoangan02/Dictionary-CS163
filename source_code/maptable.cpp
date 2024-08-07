@@ -602,7 +602,13 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 	}
 }
 
-//What is this function used for???
+/// @brief this is unused, maybe it can be useful later
+/// @param word 
+/// @param pos 
+/// @param definition 
+/// @param pRoot 
+/// @param invertedIndex 
+/// @param word4Def 
 void addWord(std::string& word, std::string& pos, std::string& definition, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
     // If this is the 4th definition of word, add it to word4Def
@@ -611,7 +617,7 @@ void addWord(std::string& word, std::string& pos, std::string& definition, trieN
     
     // Insert word to trie
     
-   // insert(pRoot, word, pos, definition);
+   insert(pRoot, word, pos, definition, word4Def);
 
     // Inverted Indexing word
     invertedIndex.insertWordDef(word, definition);

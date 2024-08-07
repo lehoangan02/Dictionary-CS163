@@ -553,6 +553,7 @@ void instance::operatePage1()
 				{
 					printf("[DEBUG] suggestion panels on\n");
 					suggestionPanels.display = true;
+					showCorrection = false;
 				}
 				if (mouseControl)
 				{
@@ -569,6 +570,7 @@ void instance::operatePage1()
 							history.push_back(temp);
 							writeHistory(temp);
 							handleSearchSignal(temp);
+							headWordString = temp;
 							break;
 						}
 					}
@@ -605,6 +607,7 @@ void instance::operatePage1()
 				{
 					printf("[DEBUG] suggestion panels on\n");
 					suggestionPanels.display = true;
+					showCorrection = false;
 				}
 				// std::cout << "Search box: " << searchBox.getString(false) << std::endl;
 			}
@@ -1007,8 +1010,8 @@ void instance::operatePage4()
 				std::string newPOS = POSBox.getString();
 				std::string newDescription = descriptionBox.getString();
 				unwrapText(newDescription);
-				addWord(newHeadword, newPOS, newDescription, pRoot, invertedIndex, word4Def);
 				insert(pRoot, newHeadword, newPOS, newDescription, word4Def);
+				invertedIndex.insertWordDef(newHeadword, newDescription);
 				if (autoSave)
 				{
 					std::atomic<bool> controlLoaded(false);
@@ -1018,6 +1021,7 @@ void instance::operatePage4()
 					printf("[DEBUG] done loading!\n");
 					loadingAnimationThread.join();
 				}
+				mouseControl = true;
 			}
 		}
 		break;
@@ -2124,10 +2128,10 @@ void instance::setUpGameModeAnimation()
 	gameMode1st.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Random Word", 24);
 	gameMode1st.setTextFillColor(sf::Color::Black);
 	gameMode1st.setPosition(sf::Vector2u(720, 105));
-	gameMode2nd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Game Mode 2", 24);
+	gameMode2nd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Word 4 Def", 24);
 	gameMode2nd.setTextFillColor(sf::Color::Black);
 	gameMode2nd.setPosition(sf::Vector2u(720, 190));
-	gameMode3rd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Game Mode 3", 24);
+	gameMode3rd.setUpHoverText(gameModeDef, gameModeDef, PatuaOne, "Pick a Choice", 24);
 	gameMode3rd.setTextFillColor(sf::Color::Black);
 	gameMode3rd.setPosition(sf::Vector2u(720, 275));
 

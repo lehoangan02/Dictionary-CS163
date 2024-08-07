@@ -55,7 +55,7 @@ void SuggestionPanels::update(const sf::Event& event, std::string input, trieNod
     if (suggestingSize >= 3)
     {
         numberOfButtons = 3;
-        for (int i = 0; i < 3; ++i)
+        // for (int i = 0; i < 3; ++i)
         // {
         //     bool shadow = false;
         //     if (i == 2) shadow = true;
