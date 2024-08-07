@@ -33,9 +33,11 @@ void loadingScreen::operate(sf::RenderWindow& window, std::atomic<bool>& control
         window.draw(loadingText);
         window.display();
     }
+    window.setActive(false);
 }
 void loadingWrapper(sf::RenderWindow& window, std::atomic<bool>& control)
 {
+    window.setActive(true);
     loadingScreen thisLoadingScreen;
     thisLoadingScreen.operate(window, control);
 }

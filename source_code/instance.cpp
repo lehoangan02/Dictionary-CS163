@@ -703,6 +703,7 @@ void instance::operatePage2()
 
 
 				std::atomic<bool> controlLoaded(false);
+				windowInstance.setActive(false);
 				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 
 
@@ -765,6 +766,7 @@ void instance::operatePage2()
 				controlLoaded.store(true);
 				printf("[DEBUG] done loading!\n");
 				loadingAnimationThread.join();
+				windowInstance.setActive(true);
 
 
 
@@ -819,12 +821,14 @@ void instance::operatePage3()
 
 		// DO NOT DELETE this is another approach
 		std::atomic<bool> controlLoaded(false);
+		windowInstance.setActive(false);
 		std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 		invertedIndex.clear();
 		invertIndexTrie(pRoot, invertedIndex);
 		controlLoaded.store(true);
 		printf("[DEBUG] done loading!\n");
 		loadingAnimationThread.join();
+		windowInstance.setActive(true);
 		loadDefinition = true;
 
 
@@ -1016,11 +1020,13 @@ void instance::operatePage4()
 				if (autoSave)
 				{
 					std::atomic<bool> controlLoaded(false);
+					windowInstance.setActive(false);
 					std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 					serializeBinaryWrapper(pRoot);
 					controlLoaded.store(true);
 					printf("[DEBUG] done loading!\n");
 					loadingAnimationThread.join();
+					windowInstance.setActive(true);
 				}
 				mouseControl = true;
 			}
@@ -1094,11 +1100,13 @@ void instance::operatePage5()
 					{
 						std::cout << "auto-saving\n";
 						std::atomic<bool> controlLoaded(false);
+						windowInstance.setActive(false);
 						std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 						serializeBinaryWrapper(pRoot);
 						controlLoaded.store(true);
 						printf("[DEBUG] done loading!\n");
 						loadingAnimationThread.join();
+						windowInstance.setActive(true);
 					}
 				}
 			}
@@ -1170,11 +1178,13 @@ void instance::operatePage6()
 				if (autoSave)
 				{
 					std::atomic<bool> controlLoaded(false);
+					windowInstance.setActive(false);
 					std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 					serializeBinaryWrapper(pRoot);
 					controlLoaded.store(true);
 					printf("[DEBUG] done loading!\n");
 					loadingAnimationThread.join();
+					windowInstance.setActive(true);
 				}
 			}
 		}
@@ -1230,12 +1240,13 @@ void instance::operatePage7()
 
 
 				std::atomic<bool> controlLoaded(false);
+				windowInstance.setActive(false);
 				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 				serializeBinaryWrapper(pRoot);
 				controlLoaded.store(true);
 				printf("[DEBUG] done loading!\n");
 				loadingAnimationThread.join();
-
+				windowInstance.setActive(true);
 
 			}
 		}
@@ -1284,12 +1295,14 @@ void instance::operatePage8()
 
 
 				std::atomic<bool> controlLoaded(false);
+				windowInstance.setActive(false);
 				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 				deleteWholeTrie(pRoot);
 				deserializeBinaryWrapper(pRoot, word4Def);
 				controlLoaded.store(true);
 				printf("[DEBUG] done loading!\n");
 				loadingAnimationThread.join();
+				windowInstance.setActive(true);
 				loadDefinition = false;
 
 
