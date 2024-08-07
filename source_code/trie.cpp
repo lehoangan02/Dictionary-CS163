@@ -31,7 +31,7 @@ void Change2Uppercase(std::string& word)
 bool checkingExistance(std::string s1, std::string s2)
 {
 	if (s1.size() != s2.size()) return false;
-	for (int i = 0; i < s1.size(); ++i)
+	for (int i = 0; i < (int)s1.size(); ++i)
 	{
 		if (s1[i] != s2[i]) return false;
 	}
@@ -478,7 +478,7 @@ std::string randomWord4Def(std::vector<std::string> &word4Def)
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, word4Def.size() - 1);
 	int random_number = dist(rng);
-    std::cout << random_number << std::endl;
+    std::cout << "[DEBUG] word number:" << random_number << std::endl;
 	std::string word = word4Def[random_number];
 	// will return the vector of definitions if found, or else return a blank vector (maybe the word has been deleted)
 	return word;

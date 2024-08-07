@@ -51,6 +51,7 @@ public:
     std::string getString(bool deselectBox = true);
     virtual void clear();
     bool isSelected() const;
+    void setString(std::string input);
 protected:
     virtual void insertChar(char newInput);
     virtual void deleteChar();

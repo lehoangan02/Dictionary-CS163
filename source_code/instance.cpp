@@ -571,6 +571,7 @@ void instance::operatePage1()
 							writeHistory(temp);
 							handleSearchSignal(temp);
 							headWordString = temp;
+							searchBox.setString(suggestionPanels.buttonStrings[i]);
 							break;
 						}
 					}
@@ -1946,10 +1947,10 @@ void instance::drawLoadingPage()
 void instance::handleSearchSignal(std::string input)
 {
 	resetSearchResult();
-	std::cout << input << std::endl;
+	std::cout << "[DEBUG] searching: " << input << std::endl;
 	searchResult = Search(pRoot, input);
 	numberOfResult = (int)searchResult.size();
-	std::cout << "[DEBUG] - number of result is " << numberOfResult << std::endl;
+	std::cout << "[DEBUG] number of result is " << numberOfResult << std::endl;
 	if (numberOfResult > 0)
 	{
 		headWordString = input;
