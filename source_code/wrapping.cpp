@@ -15,7 +15,7 @@ bool wrapText(sf::Text& inputText, int width, int lineLimit)
     int space = -1; // index for the space bar
     int hyphen_and_newline = 0;
     int numLine = 0;
-    for (int i = 0; i < str.size(); i++)
+    for (unsigned long i = 0; i < str.size(); i++)
     {
         if (str[i] == ' ') space = i + hyphen_and_newline;
         result.push_back(str[i]);
@@ -69,7 +69,7 @@ int countNewLines(const std::string& input)
 
 void unwrapText(std::string& text)
 {
-    for (int i = 0; i < text.size(); i++)
+    for (size_t i = 0; i < text.size(); i++)
     {
         if (text[i] == '\n')
         {

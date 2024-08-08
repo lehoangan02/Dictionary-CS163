@@ -131,6 +131,7 @@ void Button::centerText()
 void Button::setText(std::string text)
 {
     this -> buttonText.setString(text);
+    std::cout << "setting suggestion text: " << text << std::endl;
     centerText();
 }
 void Button::select(bool mode)
@@ -319,4 +320,42 @@ void spongyButton::click(sf::RenderWindow& window)
     return;
 }
 
+void suggestionButton::centerText()
+{
+    if (shadow)
+        {
+            buttonText.setPosition(positionLeft + 20,
+        (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - SHADOWVER - characterSize) / 2 - SFMLTEXPADDING));
+        }
+        else
+        {
+            buttonText.setPosition(positionLeft + 20,
+        (int)(buttonPosition.y + (buttonSprite.getGlobalBounds().height - characterSize) / 2 - SFMLTEXPADDING));
+        }
+}
+
+void suggestionButton::setPosition(sf::Vector2u position)
+{
+    buttonPosition = position;
+    buttonSprite.setPosition((float)position.x, (float)position.y);
+    centerText();
+    positionLeft = position.x;
+}
+
+void suggestionButton::setTexture(sf::Texture& textureDef, sf::Texture& textureHov, bool shadow)
+{
+    this -> textureDefault = textureDef;
+    this -> textureHover = textureHov;
+    buttonSprite.setTexture(textureDefault, true);
+    if (shadow) 
+    {
+        buttonSprite.setPosition(positionLeft - SHADOWHOR, buttonPosition.y);
+    }
+    else 
+    {
+        buttonSprite.setPosition(positionLeft, buttonPosition.y);
+    }
+    this -> shadow = shadow;
+    centerText();
+}
 

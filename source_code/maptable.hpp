@@ -80,12 +80,16 @@ struct HashMap // Designed after unordered_map<string, unordered_set<string>>
     // Resizing
     void rehash(const size_t& newNumBucket);
     void insert(MapBlock*& block);
+
+    // For Inverted Index
+    void insertWordDef(const std::string& word, const std::string& definition);
+    void removeWordDef(const std::string& word, const std::string& definition);
 };
 
 // Utility functions
 
 bool isAlphabetic(const char& c);
-std::vector<std::string> tokenize(std::string& input);
+std::vector<std::string> tokenize(const std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
 void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);

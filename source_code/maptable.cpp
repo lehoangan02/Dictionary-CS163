@@ -125,7 +125,7 @@ void HashTable::copy(const HashTable& source)
     this->numBucket = source.numBucket;
     this->size = source.size;
     buckets = new TableBlock*[source.numBucket] {nullptr};
-    for (int i = 0; i < source.numBucket; ++i)
+    for (size_t i = 0; i < source.numBucket; ++i)
     {
         if (source.buckets[i])
         {
@@ -145,7 +145,7 @@ void HashTable::copy(const HashTable& source)
 // Empty HashTable
 void HashTable::clear()
 {
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
     this->size = 0;
 }
@@ -167,7 +167,7 @@ void HashTable::rehash(const size_t& newNumBucket)
     if (newNumBucket <= this->numBucket)
         return;
     HashTable tempTable(newNumBucket);
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
     {
         while (this->buckets[i])
         {
@@ -308,7 +308,7 @@ void HashMap::remove(const std::string& key)
 // Empty HashMap
 void HashMap::clear()
 {
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
         this->deleteLL(buckets[i]);
     this->size = 0;
 }
@@ -338,8 +338,7 @@ void HashMap::rehash(const size_t& newNumBucket)
     if (newNumBucket <= this->numBucket)
         return;
     HashMap tempMap(newNumBucket);
-    //Move elements to the new table:
-    for (int i = 0; i < this->numBucket; ++i)
+    for (size_t i = 0; i < this->numBucket; ++i)
     {
         while (this->buckets[i])
         {
@@ -364,6 +363,36 @@ void HashMap::insert(MapBlock*& block)
     this->buckets[pos] = block;
 }
 
+// Insert word and its definition into HashMap (for Inverted Index)
+void HashMap::insertWordDef(const std::string& word, const std::string& definition)
+{
+    std::vector<std::string> tokens = tokenize(definition);
+
+    for (std::string& t : tokens)
+    {
+        Change2Lowercase(t);
+        this->access(t).insert(word);
+    }
+}
+
+// Remove word and its definition from HashMap (for Inverted Index)
+void HashMap::removeWordDef(const std::string& word, const std::string& definition)
+{
+    std::vector<std::string> tokens = tokenize(definition);
+
+    for (std::string& t : tokens)
+    {
+        Change2Lowercase(t);
+        HashTable* find = this->find(t);
+        if (find)
+        {
+            find->remove(word);
+            if (find->isEmpty())
+                this->remove(t);
+        }
+    }
+}
+
 // Check if character is alphabetic
 bool isAlphabetic(const char& c)
 {
@@ -371,13 +400,13 @@ bool isAlphabetic(const char& c)
 }
 
 // Tokenize a long string (tokens are separated by non-alphabetic characters)
-std::vector<std::string> tokenize(std::string& input) 
+std::vector<std::string> tokenize(const std::string& input) 
 {
     std::vector<std::string> res;
     res.reserve(1000);  // Reserve space to avoid multiple allocations
 
-    int head = 0, tail = 0;
-    int l = input.length();
+    size_t head = 0, tail = 0;
+    size_t l = input.length();
 
     while (tail < l) 
     {
@@ -403,7 +432,7 @@ std::vector<std::string> tokenize(std::string& input)
 HashTable getIntersection(HashTable& t1, HashTable& t2)
 {
     HashTable res;
-    for (int i = 0; i < t1.numBucket; ++i)
+    for (size_t i = 0; i < t1.numBucket; ++i)
     {
         TableBlock* pCur = t1.buckets[i];
         while (pCur)
@@ -420,7 +449,7 @@ HashTable getIntersection(HashTable& t1, HashTable& t2)
 std::vector<std::string> getVector(HashTable& table)
 {
     std::vector<std::string> res;
-    for (int i = 0; i < table.numBucket; ++i)
+    for (size_t i = 0; i < table.numBucket; ++i)
     {
         TableBlock* pCur = table.buckets[i];
         while (pCur)
@@ -443,21 +472,31 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
 
     // Find all words containing tokens in their definition
     HashTable res;
-    size_t i = 0;
     HashTable* findInit = nullptr;
+    size_t i = 0;
+
     while (!findInit && i < tokens.size())
     {
         findInit = invertedIndex.find(tokens[i]);
         ++i;
     }
+
     if (findInit)
         res = *findInit;
+
     for (; i < tokens.size(); ++i)
     {
         HashTable* found = invertedIndex.find(tokens[i]);
+
         if (found)
-            res = getIntersection(res, *found);
+        {
+            HashTable intersect = getIntersection(res, *found);
+
+            if (!intersect.isEmpty())
+                res = intersect;
+        }
     }
+
     return getVector(res);
 }
 
@@ -477,18 +516,13 @@ void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::str
 {
     if (!pRoot)
         return;
+
     if (pRoot->wordExisted)
     {
         for (auto& s : pRoot->definitions)
-        {
-            std::vector<std::string> tokens = tokenize(s.second);
-            for (auto& t : tokens)
-            {
-                Change2Lowercase(t);
-                invertedIndex.access(t).insert(curWord);
-            }
-        }
+            invertedIndex.insertWordDef(curWord, s.second);
     }
+
     for (int i = 0; i < ascii; ++i)
     {
         curWord.push_back(static_cast<char>(i + 32));
@@ -504,31 +538,14 @@ void editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
     {
         if (!pRoot)
             return;
-        int indexNext = int(word[i]) - 32;
+        int indexNext = static_cast<int>(word[i]) - 32;
         pRoot = pRoot->childNode[indexNext];
         ++i;
     }
     if (pRoot->wordExisted && definitionNum < pRoot->definitions.size())
     {
-        std::vector<std::string> tokens = tokenize(pRoot->definitions[definitionNum].second);
-        for (auto& t : tokens)
-        {
-            Change2Lowercase(t);
-            HashTable* find = invertedIndex.find(t);
-            if (find)
-            {
-                find->remove(word);
-                if (find->isEmpty())
-                    invertedIndex.remove(t);
-            }
-        }
-        
-        std::vector<std::string> newTokens = tokenize(newDef.second);
-        for (auto& t : newTokens)
-        {
-            Change2Lowercase(t);
-            invertedIndex.access(t).insert(word);
-        }
+        invertedIndex.removeWordDef(word, pRoot->definitions[definitionNum].second);
+        invertedIndex.insertWordDef(word, newDef.second);
 
         pRoot->definitions[definitionNum] = newDef;
     }
@@ -563,20 +580,7 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 
 			// Remove word from Inverted Index
 			for (auto& def : pRoot->definitions)
-			{
-				std::vector<std::string> tokens = tokenize(def.second);
-				for (auto& t : tokens)
-				{
-					Change2Lowercase(t);
-					HashTable* find = invertedIndex.find(t);
-                    if (find)
-                    {
-                        find->remove(word);
-                        if (find->isEmpty())
-                            invertedIndex.remove(t);
-                    }
-				}
-			}
+                invertedIndex.removeWordDef(word, def.second);
 
 			// Remove word from Trie
 			pRoot->wordExisted = false;
@@ -602,7 +606,13 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 	}
 }
 
-//What is this function used for???
+/// @brief this is unused, maybe it can be useful later
+/// @param word 
+/// @param pos 
+/// @param definition 
+/// @param pRoot 
+/// @param invertedIndex 
+/// @param word4Def 
 void addWord(std::string& word, std::string& pos, std::string& definition, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
     // If this is the 4th definition of word, add it to word4Def
@@ -611,23 +621,18 @@ void addWord(std::string& word, std::string& pos, std::string& definition, trieN
     
     // Insert word to trie
     
-   // insert(pRoot, word, pos, definition);
+   insert(pRoot, word, pos, definition, word4Def);
 
     // Inverted Indexing word
-    std::vector<std::string> tokens = tokenize(definition);
-    for (auto& t : tokens)
-    {
-        Change2Lowercase(t);
-        invertedIndex.access(t).insert(word);
-    }
+    invertedIndex.insertWordDef(word, definition);
 }
 void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex)
 {
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase
     printf("removing\n");
     Change2Lowercase(word);
-	int length = word.length();
-	for (int i = 0; i < length; ++i) {
+	size_t length = word.length();
+	for (size_t i = 0; i < length; ++i) {
 		if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
 			word[i] -= 32;
 		}
