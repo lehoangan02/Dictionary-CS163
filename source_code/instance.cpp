@@ -708,6 +708,7 @@ void instance::operatePage2()
 
 
 				deleteWholeTrie(pRoot);
+				word4Def.clear();
 				if (CSVButton.getSelected())
 				{
 					if (readDatasetCSV(filepath, pRoot, word4Def))
@@ -1167,7 +1168,7 @@ void instance::operatePage6()
 				printf("2. "); POSBox.clear();
 				printf("3. "); descriptionBox.clear();
 			}
-			else if (saveButton.isClicked(windowInstance) && mouseControl)
+			else if (saveButton.isClicked(windowInstance) && mouseControl && headWordString != "")
 			{
 				std::string newDescription = descriptionBox.getString();
 				unwrapText(newDescription);
@@ -1298,6 +1299,7 @@ void instance::operatePage8()
 				windowInstance.setActive(false);
 				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 				deleteWholeTrie(pRoot);
+				word4Def.clear();
 				deserializeBinaryWrapper(pRoot, word4Def);
 				controlLoaded.store(true);
 				printf("[DEBUG] done loading!\n");
