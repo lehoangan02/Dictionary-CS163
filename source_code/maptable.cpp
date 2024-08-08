@@ -331,11 +331,14 @@ void HashMap::deleteLL(MapBlock*& pHead)
 }
 
 // Rehash (resize) HashMap to new numBucket, used when HashMap contains too many elements
+//This process involves creating a new hash table with the desired number of buckets, 
+// then moving all the elements from the current hash table to the new one.
 void HashMap::rehash(const size_t& newNumBucket)
 {
     if (newNumBucket <= this->numBucket)
         return;
     HashMap tempMap(newNumBucket);
+    //Move elements to the new table:
     for (int i = 0; i < this->numBucket; ++i)
     {
         while (this->buckets[i])
@@ -345,6 +348,7 @@ void HashMap::rehash(const size_t& newNumBucket)
             tempMap.insert(pCurBlock);
         }
     }
+    //Release the old table
     delete[] this->buckets;
     this->buckets = tempMap.buckets;
     this->numBucket = newNumBucket;
@@ -355,6 +359,7 @@ void HashMap::rehash(const size_t& newNumBucket)
 void HashMap::insert(MapBlock*& block)
 {
     auto pos = this->hash(block->key);
+    //Inserting at the head of the linked list
     block->pNext = this->buckets[pos];
     this->buckets[pos] = block;
 }
