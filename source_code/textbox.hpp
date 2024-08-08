@@ -48,9 +48,10 @@ public:
     void setPosition(sf::Vector2u position);
     virtual void handleInputLogic(const sf::Event envent, sf::RenderWindow& window);
     void draw(sf::RenderWindow &window);
-    std::string getString();
+    std::string getString(bool deselectBox = true);
     virtual void clear();
-
+    bool isSelected() const;
+    void setString(std::string input);
 protected:
     virtual void insertChar(char newInput);
     virtual void deleteChar();

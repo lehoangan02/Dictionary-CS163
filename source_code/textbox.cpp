@@ -135,7 +135,7 @@ void textbox::select()
             printf("[DEBUG] resetting\n");
             textStream.str("");
         }
-        textStream << textCursor;
+        textStream.str(textStream.str() + textCursor);
     }
 }
 void textbox::deselect()
@@ -223,14 +223,17 @@ void textbox::setLimit(int limit)
 {
     this -> limit = limit;
 }
-std::string textbox::getString()
+std::string textbox::getString(bool deselectBox)
 {
     if (textStream.str() == guideString)
     {
         return "";
     }
-    deselect();
-    return textStream.str();
+    if (deselectBox) deselect();
+    if (active && !full)
+        return textStream.str().substr(0, textStream.str().size()- 1);
+    else
+        return textStream.str();
 }
 void textbox::clear()
 {
@@ -245,6 +248,7 @@ void textbox::clear()
     return;
 }
 
+
 largeTextbox::largeTextbox(sf::Texture& textboxTexture, sf::Font& font, int characterSize, int lineLimit, int width, sf::Vector2u position) :
     textbox(textboxTexture, font, characterSize, std::numeric_limits<int>::max(), position)
     {
@@ -252,6 +256,10 @@ largeTextbox::largeTextbox(sf::Texture& textboxTexture, sf::Font& font, int char
         this  -> lineLimit = lineLimit;
         displayText.setPosition(position.x + 20, position.y + 10);
     }
+bool textbox::isSelected() const
+{
+    return active;
+}
 
 /// @brief the only difference with the base class function is the displayText.setString at the end
 void largeTextbox::select() 
@@ -273,6 +281,21 @@ void largeTextbox::select()
         textStream.str(temp + textCursor);
         displayText.setString(textStream.str());
     }
+}
+
+void textbox::setString(std::string input)
+{
+    if ((int)input.size() > limit) return;
+    textStream.str(input);
+    numChar = (int)input.size();
+    std::cout << textStream.str() << std::endl;
+
+    // select and deselect prematurely (compared to the main event loop) 
+    // to ensure textcursor and coloring is handled
+    select();
+    // std::cout << textStream.str() << std::endl;
+    deselect();
+    // std::cout << textStream.str() << std::endl;
 }
 
 /// @brief the only difference with the base class function is the displayText.setString at the end

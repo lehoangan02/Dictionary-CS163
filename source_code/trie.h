@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <fstream>
 
+// #include "wrapping.hpp"
+
 const int ascii = 96; //32-127
 
 struct trieNode
@@ -80,3 +82,5 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 std::string randomWord4Def(std::vector<std::string>& word4Def);
 bool CheckWords(const std::string& word1, const std::string& word2);
 void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<trieNode*, std::string>& rdword);
+
+bool correction(std::string &correctWord, trieNode* &pRoot);

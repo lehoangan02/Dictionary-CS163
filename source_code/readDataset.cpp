@@ -25,7 +25,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         
         // read the keyword
         getline(tempStream, word, ',');
-        std::cout << "[DEBUG]" << word << " ";
+        // std::cout << "[DEBUG]" << word << " ";
 
         // read the count (not used in our dictionary)
         getline(tempStream, tempString, ',');
@@ -34,14 +34,14 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         getline(tempStream, POS, ',');
         if (POS.length() >= 6 && filename != "UnicodeEmoji")
             POS = POS.substr(3, POS.length() - 6);
-        std::cout << POS << " ";
+        // std::cout << POS << " ";
 
         // read the description
         getline(tempStream, description, ',');
         if (description.length() >= 6 && filename != "UnicodeEmoji")
             description = description.substr(3, description.length() - 7);
         removeQuotationMarkDuplicate(description);
-        std::cout << description << std::endl;
+        // std::cout << description << std::endl;
 
         // if word is the same, insert the word into vector
         // if word is new, then insert the vector (which contain the previous word)
@@ -54,7 +54,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
                 ++count4Def;
                 wordFourDef.push_back(previousWord);
             }
-            for (int i = 0; i < definitionVec.size(); ++i)
+            for (int i = 0; i < static_cast<int>(definitionVec.size()); ++i)
             {
                 // std::cout << "[DEBUG]" << previousWord << " ";
                 // std::cout << definitionVec[i].first << " ";

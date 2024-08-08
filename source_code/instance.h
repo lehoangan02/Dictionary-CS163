@@ -20,7 +20,8 @@
 #include "SerializeDeserialize.h"
 #include "maptable.hpp"
 #include "wrapping.hpp"
-//#include "desiredsearch.h"
+#include "suggestionPanels.hpp"
+
 
 #define SHADOWHOR 4
 #define SHADOWVER 8
@@ -92,7 +93,7 @@ class instance
     Button gameModeButton;
     sf::Texture emojiTexture;
     sf::Sprite emojiSprite;
-    int emojiNumber;
+    // int emojiNumber;
 
     // search button
     sf::Texture searchTexDef; 
@@ -118,9 +119,6 @@ class instance
     sf::Texture importTexClick;
     Button importButton;
 
-    //suggested search words
-//    desiredsearch suggestedcontent;
-
     // "import file path" text
     sf::Texture importPromptTexture;
     sf::Sprite importPromptSprite;
@@ -133,6 +131,9 @@ class instance
     // search box
     sf::Texture searchBoxTexture;
     textbox searchBox;
+
+    // suggestion panels
+    SuggestionPanels suggestionPanels;
 
     // import box
     sf::Texture importBoxTexture;
@@ -175,7 +176,6 @@ class instance
     Button deserializeModeButton;
 
     // Definition elements
-    // std::string originalWord = "";
     std::string headWordString = "";
     std::string POSString = "";
     std::string descriptionString = "";
@@ -209,6 +209,14 @@ class instance
     sf::Texture  bookmarkTextureDef;
     sf::Texture  bookmarkTextureClick;
     switchButton bookmarkButton;
+
+    // correct the user input
+    bool showCorrection = false;
+    sf::Texture selectCorrectionTexDef;
+    sf::Texture selectCorrectionTexHov;
+    Button selectCorrectionButton;
+    sf::Text correctUserInput;
+    sf::String correctUserInputString;
 
     // serialize button
     std::string serializeString = "Serialize";

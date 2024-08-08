@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <chrono>
-#include <unordered_set>
 
 #include "trie.h"
 #include "readDataset.hpp"
