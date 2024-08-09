@@ -222,7 +222,7 @@ instance::instance() :
 	description.setString(descriptionString);
 	description.setPosition(73.0f, 505.0f);
 	emojiSprite.setScale(0.76923076923, 0.76923076923);
-	emojiSprite.setPosition(455, 405);
+	emojiSprite.setPosition(455, 495);
 	selectCorrectionButton.setPosition(sf::Vector2u(145 - SHADOWVER, 125));
 	correctUserInput.setFont(SourceSans3);
 	correctUserInput.setFillColor(sf::Color::White);
