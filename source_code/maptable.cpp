@@ -462,11 +462,8 @@ std::vector<std::string> getVector(HashTable& table)
 }
 
 // Search key words by definition
-std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIndex)
+std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& invertedIndex)
 {
-    // Tokenize user's input
-    std::vector<std::string> tokens = tokenize(userInput);
-
     for (size_t i = 0; i < tokens.size(); ++i)
         Change2Lowercase(tokens[i]);
 
@@ -498,6 +495,56 @@ std::vector<std::string> searchByDef(std::string& userInput, HashMap& invertedIn
     }
 
     return getVector(res);
+}
+
+std::string PrioritizeWord(trieNode* pRoot, const std::vector<std::string>& getVector, const std::vector<std::string>& tokens) {
+    int size = getVector.size();
+    std::string top = getVector[0];
+    int min = std::numeric_limits<int>::max(); // Use maximum int value for clarity
+
+    for (int i = 0; i < size; ++i) {
+        std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, getVector[i]);
+        int minCount = std::numeric_limits<int>::max(); // Use maximum int value for clarity
+        bool allTokensPresent = false;
+
+        for (const auto& pair : temp) {
+            std::vector<std::string> tempVec = tokenize(pair.second);
+            int countdist = 0;
+            int num = 0;
+
+            // Check if all tokens are present
+            for (auto token : tokens) {
+                bool found = false; //used for checking existance of each token in temp[i].second
+                for (int j = 0; j < tempVec.size(); ++j) {
+                    std::string temptoken = token;
+                    if (temptoken[0] > 'a' && temptoken[0] < 'z') temptoken[0] -= 32;
+                    if (tempVec[j] == token || tempVec[j] == temptoken) {
+                        countdist += j;
+                        found = true;
+                        break; // Stop searching for this token once found
+                    }
+                }
+                if (!found) {
+                    countdist = std::numeric_limits<int>::max(); // Invalidate this option
+                    break;
+                }
+            }
+
+            // If all tokens are found, consider this candidate
+            if (countdist < minCount) {
+                minCount = countdist;
+                allTokensPresent = true;
+            }
+        }
+
+        // Update top if this is the best valid candidate
+        if (allTokensPresent && minCount < min) {
+            min = minCount;
+            top = getVector[i];
+        }
+    }
+
+    return top;
 }
 
 void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded)

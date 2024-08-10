@@ -861,7 +861,9 @@ void instance::operatePage3()
 			{
 				std::string temp = searchBox.getString();
 				printf("%s\n", temp.c_str());
-				std::vector<std::string> result = searchByDef(temp, invertedIndex);
+				// Tokenize user's input
+				std::vector<std::string> tokens = tokenize(temp);
+				std::vector<std::string> result = searchByDef(tokens, invertedIndex);
 				sortByDefLength(result, pRoot);
 				std::cout << "SORTED" << std::endl;
 				for (auto word : result)
@@ -940,15 +942,21 @@ void instance::operatePage3()
 			if (event.key.code == sf::Keyboard::Return)
 			{
 				std::string temp = searchBox.getString();
-				std::vector<std::string> result = searchByDef(temp, invertedIndex);
+				// Tokenize user's input
+				std::vector<std::string> tokens = tokenize(temp);
+				std::vector<std::string> result = searchByDef(tokens, invertedIndex);
 				sortByDefLength(result, pRoot);
 				std::cout << "SORTED" << std::endl;
 				for (auto word : result)
 				{
 					std::cout << word << std::endl;
 				}
-				if (result.size() > 0)
+				if (result.size() > 1)
 				{
+					std::string top = PrioritizeWord(pRoot, result, tokens);
+					handleSearchSignal(top);
+				}
+				else if (result.size() == 1) {
 					handleSearchSignal(result[0]);
 				}
 			}
