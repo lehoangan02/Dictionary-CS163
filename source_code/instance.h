@@ -65,11 +65,18 @@ class instance
 
     // SFML
     sf::RenderWindow windowInstance;
+    sf::View definitionView;
+    private:
+    int scrollOffset = 0;
+    int maxScrollOffset = std::numeric_limits<int>::max();
+
     int page = 1; bool pageChange = false;
     bool mouseControl = true;
     bool loadedSave = false;
     bool loadGameMode = false;
     sf::Event event;
+
+    // background (base)
     sf::Texture baseLayer; 
     sf::Sprite baseLayerSprite;
 

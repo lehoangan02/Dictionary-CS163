@@ -348,7 +348,8 @@ void largeTextbox::insertChar(char newInput)
     ++numChar;
     // wrap the text
     displayText.setString(textStream.str());
-    lineLimitReached = wrapText(displayText, width, 6) ? true : false;
+    int numLine = 0;
+    lineLimitReached = wrapText(displayText, width, 6, numLine) ? true : false;
     temp = displayText.getString();
     textStream.str(temp);
     manageFullness();
@@ -373,7 +374,8 @@ void largeTextbox::deleteChar()
         temp.pop_back();
         temp.pop_back();
     }
-    lineLimitReached = wrapText(displayText, width, 6) ? true : false;
+    int numLine = 0;
+    lineLimitReached = wrapText(displayText, width, 6, numLine) ? true : false;
     manageFullness();
     if (!full)
         textStream.str(temp + textCursor);

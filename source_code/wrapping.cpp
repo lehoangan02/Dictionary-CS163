@@ -8,7 +8,7 @@
 /// @param width 
 /// @param lineLimit 
 /// @return true if linelimit is  achieved, false if otherwise
-bool wrapText(sf::Text& inputText, int width, int lineLimit)
+bool wrapText(sf::Text& inputText, int width, int lineLimit, int& numLineReturn)
 {
     std::string str = inputText.getString();
     std::string result;
@@ -47,11 +47,13 @@ bool wrapText(sf::Text& inputText, int width, int lineLimit)
         // printf("[DEBUG] numLine: %d\n", numLine);
         if (numLine == lineLimit) 
         {
+            numLineReturn = numLine;
             printf("[DEBUG] limit reached\n");
             inputText.setString(result);
             return true;
         }
     }
+    numLineReturn = numLine;
     inputText.setString(result);
     return false;
 }
