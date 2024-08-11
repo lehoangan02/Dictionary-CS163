@@ -1,3 +1,4 @@
+#include <limits>
 #include "maptable.hpp"
 
 // Initialize empty HashTable, default number of buckets (linked list)
