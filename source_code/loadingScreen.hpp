@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include <atomic>
 #include "animation.hpp"
 
 void loadingWrapper(sf::RenderWindow& window, std::atomic<bool>& control);
