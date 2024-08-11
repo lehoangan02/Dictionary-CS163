@@ -30,7 +30,7 @@ struct HashTable // Designed after unordered_set<string>
 
     // Basic methods
     void insert(const std::string& key);
-    std::string* find(const std::string& key);
+    const std::string* find(const std::string& key);
     void remove(const std::string& key);
     void clear();
     bool isEmpty();
