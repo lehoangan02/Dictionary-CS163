@@ -157,7 +157,7 @@ instance::instance() :
 	word4Def.reserve(1000);
 
 	// SFML
-	definitionView.setCenter(DEFINITION_WIDTH / 2, DEFINITION_HEIGHT / 2);
+	definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + description.getGlobalBounds().top);
 	definitionView.setSize(DEFINITION_WIDTH, DEFINITION_HEIGHT);
 	definitionView.setViewport(sf::FloatRect(73.0f / windowInstance.getSize().x,
 	505.0f / windowInstance.getSize().y,
@@ -232,7 +232,7 @@ instance::instance() :
 	description.setCharacterSize(24);
 	description.setFillColor(sf::Color::Black);
 	description.setString(descriptionString);
-	description.setPosition(0.0f, 0.0f); // 73, 505 is the actuall coordinate (it's implemented in the Viewport)
+	description.setPosition(73.0f, 505.0f);
 	emojiSprite.setScale(0.76923076923, 0.76923076923);
 	emojiSprite.setPosition(455, 495);
 	selectCorrectionButton.setPosition(sf::Vector2u(145 - SHADOWVER, 125));
@@ -411,10 +411,11 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					history.push_back(temp);
+					
 					handleSearchSignal(temp);
 					if (searchResult.size() > 0)
 					{
+						history.push_back(temp);
 						writeHistory(temp);
 					}
 					// user input correction
@@ -467,7 +468,9 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
+					std::cout << temp << std::endl;
 					correction(temp, pRoot);
+					std::cout << temp << std::endl;
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
@@ -577,7 +580,7 @@ void instance::operatePage1()
 				{
 					for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
 					{
-						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance))
+						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance) && suggestionPanels.display == true)
 						{
 							showCorrection = false;
 							suggestionPanels.display = false;
@@ -606,10 +609,11 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					history.push_back(temp);
 					handleSearchSignal(temp);
 					if (searchResult.size() > 0)
 					{
+						printf("There are result(s)\n");
+						history.push_back(temp);
 						writeHistory(temp);
 					}
 					// user input correction
@@ -661,7 +665,7 @@ void instance::operatePage1()
 			default:
 				break;
 		}
-		definitionView.setCenter(DEFINITION_WIDTH / 2, DEFINITION_HEIGHT / 2 + scrollOffset);
+		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
 		searchBox.handleInputLogic(event, windowInstance);
 		suggestionPanels.update(event, searchBox.getString(false), pRoot, windowInstance);
 	}
@@ -1017,7 +1021,7 @@ void instance::operatePage3()
 		default:
 			break;
 		}
-		definitionView.setCenter(DEFINITION_WIDTH / 2, DEFINITION_HEIGHT / 2 + scrollOffset);
+		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
 		searchBox.handleInputLogic(event, windowInstance);
 	}
 	handleSwitchModeLogic();
@@ -1653,7 +1657,7 @@ void instance::operatePage9()
 		default:
 			break;
 		}
-		definitionView.setCenter(DEFINITION_WIDTH / 2, DEFINITION_HEIGHT / 2 + scrollOffset);
+		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
 		gameSearchBox.handleInputLogic(event, windowInstance);
 	}
 
