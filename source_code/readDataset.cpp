@@ -32,16 +32,9 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
 
         // read the position of speech
         getline(tempStream, POS, ',');
-        if (POS.length() >= 6 && filename != "UnicodeEmoji")
-            POS = POS.substr(3, POS.length() - 6);
-        // std::cout << POS << " ";
 
         // read the description
         getline(tempStream, description, ',');
-        if (description.length() >= 6 && filename != "UnicodeEmoji")
-            description = description.substr(3, description.length() - 7);
-        removeQuotationMarkDuplicate(description);
-        // std::cout << description << std::endl;
 
         // if word is the same, insert the word into vector
         // if word is new, then insert the vector (which contain the previous word)
@@ -73,12 +66,6 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
     // insert the last vector
     if (word != "")
     {
-        // for (int i = 0; i < definitionVec.size(); ++i)
-        // {
-        //     std::cout << "[DEBUG]" << word << " ";
-        //     std::cout << definitionVec[i].first << " ";
-        //     std::cout << definitionVec[i].second << std::endl;
-        // }
         insert(pRoot, previousWord, definitionVec);
         if (definitionVec.size() >= 4)
         {
@@ -115,4 +102,3 @@ bool readDatasetTXT(const std::string& filename, trieNode*& pRoot, std::vector<s
     fin.close();
     return true;
 }
-
