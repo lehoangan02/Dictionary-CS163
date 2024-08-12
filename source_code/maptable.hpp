@@ -99,7 +99,7 @@ void addWord(std::string& word, std::string& pos, std::string& definition, trieN
 // Search by definition
 
 std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& invertedIndex);
-std::string PrioritizeWord(trieNode* pRoot, const std::vector<std::string>& getVector, const std::vector<std::string>& tokens);
+std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& Inputokens);
 
 // Invert Index the Trie
 // There are 2 overloading functions, the one with an extra boolean

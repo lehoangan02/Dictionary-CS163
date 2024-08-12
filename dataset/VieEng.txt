@@ -326,7 +326,6 @@ Chu Ru|noun|Churu ('Churu people'), an ethnic group of Vietnam
 Chu nhat|noun (noun classifiers: ngay)|Sunday ==> example: '''Chu nhat''' ca nha deu vui vi be ngoan suot tuan. ==> meaning: The whole family rejoices on Sunday as kiddo's been nice this whole week.|Synonyms:* (Sunday) Chua nhat (Christianity)|{{topics|vi|Days of the week}}
 Chu nhat|Alternate forms:* Chu Nhat (dated or Overseas Vietnamese)|* chu nhat (proscribed)|
 Chua|proper noun|(Christianity, Judaism, Islam) God; Lord|> Synonyms: Thien Chua, chua troi, Thuong De|:* Unlike other Sino-Xenic languages, the Christian God is always referred to as Chua (Lord), not *{{m|vi|than|Than|God}}.|{{top|vi|God}}|
-Chua Nhat|noun (noun classifiers: ngay) (noun classifiers: ngay)|noun classifiers: ngay
 Chua nhat|noun (noun classifiers: ngay)|(Christianity) Sunday; the Sabbath ==> example: di le sang '''Chua nhat''' ==> meaning: to attend Sunday morning Mass ==> example: giu ngay '''Chua nhat''' ==> meaning: to keep the Sabbath|Synonyms:* (Sunday) Chu nhat
 Chua nhat|Alternate forms:* Chua Nhat (dated or Overseas Vietnamese)|
 Chung|proper noun|a surname (derived from Sino-Vietnamese)|a male given name from Chinese
@@ -1294,7 +1293,7 @@ TGP|noun|
 THCS|noun|
 THPT|noun|
 TM|noun|
-TP|noun (noun classifiers: cai) (noun classifiers: cai)|noun classifiers: cai
+TP|noun (noun classifiers: cai)|
 TP.HCM|proper noun|Alternate spelling of TPHCM.
 TPHCM|proper noun|Alternate forms:* TP.HCM|* Tp. HCM|topic-cities-in-vietnam
 TS|noun|
@@ -1899,7 +1898,7 @@ atiso|noun|artichoke
 au|adverb|(literary) perhaps, just
 au|noun|small crock|dockyard, shipyard
 au la|conjunction|(literary, archaic) orconjunctions
-au phuc|noun|noun classifiers: bo|(formal, clothing) a suit or a skirt suit|> Synonyms: do tay ==> example: tiem au phuc ==> meaning: a formal wear shop
+au phuc|noun (noun classifiers: bo)|(formal, clothing) a suit or a skirt suit|> Synonyms: do tay ==> example: tiem au phuc ==> meaning: a formal wear shop
 au tho|adjective|of tender age; young ==> example: '''Au tho''' trong toi la... ==> meaning: My childhood is...|anagrams:Alternate forms:* tho au|
 au tri|adjective|(disapproving) childish; infantile; immature
 au trung|noun|larvatopic-baby-animals
@@ -2597,7 +2596,7 @@ bo nhi|noun|(colloquial, slang, often pejorative) young mistress (of an elderly 
 bo nho|noun|(computing) memory (unit); storage|Synonyms:* (memory) vung nho|
 bo nho dem|noun (noun classifiers: cai)|(computing) buffer (portion of memory set aside to store data)|(computing) cache (fast temporary storage)|Synonyms:* (buffer) vung nho dem, bo dem|* (cache) vung nho dem, bo nho dem nhanh|
 bo no|pronoun|(northern Vietnam) you, our child(ren)'s dad|(northern Vietnam) he/him, your child(ren)'s dad
-bo nong|noun|noun classifiers: con|(zoology) pelican|> Synonyms: lenh denhtopic-seabirds
+bo nong|noun (noun classifiers: con)|(zoology) pelican|> Synonyms: lenh denhtopic-seabirds
 bo phan|noun|part; section; component; division
 bo phieu|verb|to cast one's vote; to vote
 bo qua|verb|to bypass; to skip|to let slip; to miss|to ignore; to overlook; to let go
@@ -2811,7 +2810,7 @@ bup be|noun (noun classifiers: con)|a doll (a toy in the form of a human)topic-t
 but|verb|to take off, to pluck
 but bi|noun (noun classifiers: cay)|a ballpoint pentopic-writing-instruments
 but chi|noun (noun classifiers: cay, chiec)|a pencil (graphite writing-instrument)
-but chi bam|noun|noun classifiers: cay, chiec|mechanical pencil|Synonyms:* but chi kim|{{C|vi|Writing instruments}}|
+but chi bam|noun (noun classifiers: cay, chiec)|mechanical pencil|Synonyms:* but chi kim|{{C|vi|Writing instruments}}|
 but chi kim|noun (noun classifiers: cay, chiec)|a mechanical penciltopic-writing-instruments
 but danh|noun|a pen name|> Synonyms: biet hieu, ten chu, ten tu, bieu tu, tutopic-onomastics
 but may|noun (noun classifiers: cay)|fountain pentopic-writing-instruments
@@ -2833,7 +2832,7 @@ ca bong|noun (noun classifiers: con)|gobytopic-cyprinids
 ca bot|noun (noun classifiers: con)|juvenile fish, fry
 ca chach|noun (noun classifiers: con)|loach
 ca chep|noun (noun classifiers: con)|carptopic-cyprinids
-ca chien|noun (noun classifiers: con) (noun classifiers: con)|noun classifiers: con
+ca chien|noun (noun classifiers: con) (noun classifiers: con) (noun classifiers: con)
 ca chinh|noun (noun classifiers: con)|eel|:* ''Ca chinh'' is used to refer to most oceanic eels of the order {{m|mul|Anguilliformes}} (although certain species are referred to as lech/lich/nhech), while {{m|en|swamp eel}} (oder {{m|mul|Synbranchiformes}}) is luon.|{{C|vi|Eels}}|
 ca chon|adverb|(central Vietnam, southern Vietnam) rude, sassy, insolent ==> example: Mr. Bean lai '''ca chon'''. ==> meaning: Mr. Bean drives '''rudely'''.
 ca chua|noun (noun classifiers: cay, trai, qua)|tomato
@@ -2866,7 +2865,7 @@ ca lem|noun|(colloquial) ice cream
 ca linh|noun (noun classifiers: con)|fish in the genus Henicorhynchus
 ca loc|noun (noun classifiers: con)|(southern Vietnam, zoology) snakehead|:Not to be confused with ca noc.
 ca loc|Synonyms:* ca qua|* ca chuoi|* ca trau|
-ca long tong|noun|noun classifiers: con|certain small fishes in Cyprinidae, particularly those in the Luciosoma genus|> Synonyms: long tong
+ca long tong|noun (noun classifiers: con)|certain small fishes in Cyprinidae, particularly those in the Luciosoma genus|> Synonyms: long tong
 ca mang|noun (noun classifiers: con)|Elopichthys bambusa|certain species in the Ecox genus
 ca map|noun (noun classifiers: con)|(zoology) shark (especially the bigger species)|Synonyms:* ca nham|{{C|vi|Fish|Sharks}}|
 ca me|noun (noun classifiers: con)|(fish) barbtopic-cyprinids topic-fish
@@ -2889,7 +2888,7 @@ ca nheo|noun (noun classifiers: con)|a siluridtopic-catfish
 ca nhong|noun (noun classifiers: con)|(zoology) barracudatopic-fish
 ca no|noun (noun classifiers: cai, chiec)|(watercraft) a speedboat
 ca noc|noun (noun classifiers: con)|any member in the Tetraodontiformes order|:Not to be confused with ca loc.|
-ca nong|noun|noun classifiers: khau|cannon
+ca nong|noun (noun classifiers: khau)|cannon
 ca ong|noun (noun classifiers: con)|(central Vietnam) Synonym of ca voi (whale)topic-whales
 ca phao|noun (noun classifiers: qua, trai)|African eggplant, Solanum macrocarpon
 ca phe|noun|coffee ==> example: '''ca phe''' co lien ==> meaning: instant '''coffee''' ==> example: '''ca phe''' dung ngay ==> meaning: instant '''coffee''' ==> example: '''ca phe''' noi ==> meaning: '''coffee''' pot ==> example: may xay '''ca phe''' ==> meaning: '''coffee''' grinder ==> example: tiem '''ca phe''' ==> meaning: cafe
@@ -3174,9 +3173,9 @@ cap do|noun|level; scale; degree; grade
 cap ke|verb|to be inseparable; to accompany closely; to be together (with)
 cap nhat|adjective|(archaic) on time
 cap nhat|verb|(computing) to update|to learn something new continually (such as news, directions)|to bring something new continually (such as news, directions) to someone
-cap nia|noun (noun classifiers: cai) (noun classifiers: cai)|noun classifiers: cai
+cap nia|noun (noun classifiers: cai)|
 cap nia|noun (noun classifiers: con)|short for: ran cap nia ("Malayan krait ('Bungarus candidus')")
-cap nong|noun (noun classifiers: cai) (noun classifiers: cai)|noun classifiers: cai
+cap nong|noun (noun classifiers: cai)|
 cap nong|noun (noun classifiers: con)|short for: ran cap nong ("banded krait")
 cap quang|noun|optical fibre cable
 cap tap|noun|briefcase|Synonyms:* cac-tap|{{cln|vi|terms derived from French}}|
@@ -3369,7 +3368,7 @@ chau|verb|to attend court
 chau A|proper noun|Asia|> Synonyms: A chautopic-asia topic-continents
 chau Au|proper noun|Europe|> Synonyms: Au chautopic-europe topic-continents
 chau bau|noun|treasure; valuables (generally speaking)
-chau chau|noun|noun classifiers: con|a grasshopper (an insect of the order Orthoptera)
+chau chau|noun (noun classifiers: con)|a grasshopper (an insect of the order Orthoptera)
 chau luc|noun|(geography) acontinent", as regards culture, politics, etc.|> Synonyms: chau|:* There are 6 ''chau luc'': chau A (Asia), chau Au (Europe), chau Phi (Africa), chau Mi (the Americas), chau Dai Duong (Oceania) and chau Nam Cuc (Antarctica)|
 chau tho|noun|river delta
 chau van|noun|a form of traditional trance ritual featuring music and dance from northern Vietnam|Synonyms:* hat chau van|
@@ -3608,7 +3607,7 @@ choi|verb|to deny
 choi ac|verb|to play a dirty trick on someone
 choi bo|verb|to deny (any relationship with oneself); to renounce
 choi boi|verb|to play around; to indulge in play; to be a playboy
-choi choi|noun|noun classifiers: con|(zoology) plover
+choi choi|noun (noun classifiers: con)|(zoology) plover
 choi dien tu|verb|to play video gamestopic-video-games
 choi ga|noun|cockfighting
 choi loa|adjective|dazzling; bright|Alternate forms:* choi loa|
@@ -3680,7 +3679,7 @@ chu nghia xa hoi|noun|socialism|> Synonyms: xa hoi chu nghia
 chu nghia xet lai|noun|revisionism
 chu ngu|noun|(grammar) subject
 chu nhan|noun|master, owner; proprietor
-chu nhat|noun (noun classifiers: ngay) (noun classifiers: ngay)|noun classifiers: ngay
+chu nhat|noun (noun classifiers: ngay)|
 chu nhiem|noun|(of an organization/institution's department) a chief
 chu nhiem|verb|(education) to be the chief teacher of a class, i.e. in charge of teaching most subjects of an elementary class, or merely of supervising a middle school or high school class
 chu quan|noun|subjective feeling
@@ -3786,7 +3785,7 @@ chuoc|verb|to pour out (wine) for guests
 chuoc|verb|(rare) to take pains to obtain (something precious)|to bring upon oneself; to seek (something bad) oneself
 chuoi|noun|chain, string, series
 chuon|verb|to blow (to leave), to decamp, to get out, to escape
-chuon chuon|noun|noun classifiers: con|a dragonfly|> Synonyms: vin vin ==> example: '''Chuon chuon''' bay thap thi mua, bay cao thi nang, bay vua thi ram. ==> meaning: It will be sunny if dragonflies fly low, rainy if high, neither if so so.
+chuon chuon|noun (noun classifiers: con)|a dragonfly|> Synonyms: vin vin ==> example: '''Chuon chuon''' bay thap thi mua, bay cao thi nang, bay vua thi ram. ==> meaning: It will be sunny if dragonflies fly low, rainy if high, neither if so so.
 chuon chuon kim|noun (noun classifiers: con)|damselflytopic-dragonflies-and-damselflies
 chuong|verb|to prefer, to like|''chu nghia '''chuong''' Do Thai''|''philosemitism''|'''2017''', for VnEconomy, ''Myanmar, noimade in Vietnam" duoc chuong''|Myanmar, noimade in Vietnam" duoc '''chuong'''|: Myanmar, wheremade in Vietnam" is preferred
 chuong co|noun|(historical) General; a military officer title (2nd rank) during :w:Nguyen lords|Nguyen lords' period, above cai co and below chuong dinh|(historical) Lieutenant Colonel; a military officer title of :w:Nguyen dynasty|Nguyen dynasty, above cai co and below chuong doanh
@@ -3895,7 +3894,7 @@ co khi|adverb|sometimes, once in a while
 co khi hau hoc|noun|palaeoclimatology
 co kinh|adjective|ancient; antique ==> example: Minh rat thich net '''co kinh''' o day, rat hop voi ao dai va khong khi Tet nua. ==> meaning: I like the '''ancient''' style here a lot; it goes really well with ''ao dai'' and the ''Tet'' atmosphere.
 co lap|verb|to stand in isolation; to isolate or be isolated
-co le|noun (noun classifiers: chiec, cai) (noun classifiers: chiec, cai)|noun classifiers: chiec, cai
+co le|noun (noun classifiers: chiec, cai)|
 co len|interjection|go for it; do your best; don't give up|:* ''co len'' is the most typical and commonly used phrase for cheering and encouraging during competitions.|
 co ma|conjunction|(dialectal, colloquial) but; yet|Synonyms:* nhung; nhung ma|conjunctions
 co mat|verb|to be present (at) ==> example: Toi dang '''co mat''' tai Shoreditch, nam o phia dong cua Luan Don. ==> meaning: I'm '''now in''' Shoreditch, in the east of London.|> antonym of vang mat
@@ -5249,7 +5248,7 @@ du do|verb|to entice; to seducetopic-disyllabic words composed of different read
 du doan|verb|to predict; to forecast
 du doan|noun|prediction; forecast
 du doi|adjective|fierce; violent; raging; severe
-du du|noun|noun classifiers: cay, trai, qua|papayatopic-fruits
+du du|noun (noun classifiers: cay, trai, qua)|papayatopic-fruits
 du hanh|verb|to travel
 du hoc|verb|to study abroad
 du hoc sinh|noun|international student
@@ -5453,7 +5452,7 @@ em-xi|Synonyms:* nguoi dan chuong trinh|
 en|noun (noun classifiers: con)|a swallow (bird)|> Synonyms: nhan|(loosely) Synonym of yen (swift) (bird)
 en-no|noun|Synonyms:* en; e-no; no|
 enh|verb|to swell|Synonyms:* enh|
-enh uong|noun|noun classifiers: con|w:Banded bullfrog|banded bullfrogtopic-amphibians
+enh uong|noun (noun classifiers: con)|w:Banded bullfrog|banded bullfrogtopic-amphibians
 ensteni|noun|einsteiniumtopic-eponyms topic-metals
 eo|noun (noun classifiers: cai)|waist
 eo bien|noun|strait
@@ -5477,7 +5476,7 @@ franxi|noun|franciumtopic-alkali-metals
 g|alphabet letter|
 g|noun|Contraction of -uong. ==> example: luong → l'''g''' ==> meaning: work pay|----
 ga|verb|to marry off (your daughter) ==> example: dung vo ga chong ==> meaning: to get your your children married ==> literally: to find [your son] a wife and [your daughter] a husbandtopic-marriage topic-family topic-female
-ga cong nghiep|noun|noun classifiers: con|an industrially raised chicken|(figurative) a child who lacks common sense due to parental protectivenesstopic-chickens topic-children
+ga cong nghiep|noun (noun classifiers: con)|an industrially raised chicken|(figurative) a child who lacks common sense due to parental protectivenesstopic-chickens topic-children
 ga dong|noun|(informal) frog, especially the edible frog|> Synonyms: ech|watercock (''Gallicrex cinerea'')
 ga ra|noun|garage
 ga sao|noun (noun classifiers: con)|helmeted guineafowl
@@ -5918,7 +5917,7 @@ gu|adjective|phonemic reduplicative: gu gu)|humpbacked
 guc|verb|to lower (one's head); to bend down
 gui|verb|(chiefly, northern Vietnam) to send|Synonyms:* (to send) goi|
 gui re|verb|(of a man) to live with the wife's family after marriage; to live with the in-laws
-gung|noun (noun classifiers: cay, cu) (noun classifiers: cay, cu)|noun classifiers: cay, cu
+gung|noun (noun classifiers: cay, cu)|
 gung cang gia cang cay|phrase, idiom or proverb|(literally) the older the ginger, the hotter the spice|(figurative) the older a person is, the wiser they are; a person is more and more experienced as they age
 guoc|noun (noun classifiers: cai, chiec)|a piece of footwear that is usually made of wood, resembles a high-heeled flip-flop|any piece of footwear that resembles this type of footwear; a clog, geta, sabot, etc.|a piece of high-heeled footwear, except a boot; a slingback, mule, pump, stiletto, wedge, platform, kitten heel, etc.|(anatomy) a hooftopic-footwear
 guom|verb|to wait a bit, to wait a minute
@@ -6751,7 +6750,7 @@ ken|noun (noun classifiers: cay)|a traditional double reed shawm of Vietnam
 ken chon|verb|to choose; to select (carefully)
 ken chon|adjective|be picky
 ken fagot|noun|bassoontopic-musical-instruments
-ken ken|noun|noun classifiers: con|vulture|Alternate forms:* ken ken|
+ken ken|noun (noun classifiers: con)|vulture|Alternate forms:* ken ken|
 ken oboa|noun|oboetopic-musical-instruments
 ken tui|noun|bagpipe, bagpipestopic-musical-instruments
 keng|interjection|(onomatopoeia) clank; clang; clink|----interjections
@@ -7161,7 +7160,7 @@ ki huy|verb|Alternate spelling of ki huy.
 ki ket|verb|to sign (a contract, etc.); to ratify|Alternate forms:* ky ket|
 ki la|adjective|strange; odd; weird|anagrams:Alternate forms:* ky la|* la ki|
 ki lan|noun|(Chinese mythology) qilin ==> example: Ngoc Ki Lan Lu Tuan Nghia ==> meaning: Lu Junyi the Jade Qilin|(mythological creature) unicorn|> Synonyms: thu mot sung, ngua mot sung, doc giac thu, nhat giac thu|Alternate forms:* ky lan|
-ki lan bien|noun|noun classifiers: con|narwhal|Alternate forms:* ky lan bien|topic-cetaceans
+ki lan bien|noun (noun classifiers: con)|narwhal|Alternate forms:* ky lan bien|topic-cetaceans
 ki luat|noun|discipline|Alternate forms:* ky luat|
 ki luc|noun|record|Alternate forms:* ky luc|
 ki luong|adjective|careful (not to make mistakes); meticulous; thorough|Alternate forms:* ky luong|
@@ -7337,7 +7336,7 @@ ky huy|verb|Alternate spelling of ki huy.
 ky ket|verb|Alternate spelling of ki ket.
 ky la|adjective|Alternate spelling of ki la.
 ky lan|noun|Alternate spelling of ki lan.
-ky lan bien|noun|noun classifiers: con|Alternate spelling of ki lan bien.
+ky lan bien|noun (noun classifiers: con)|Alternate spelling of ki lan bien.
 ky luat|noun|Alternate spelling of ki luat.
 ky luc|noun|Alternate spelling of ki luc.
 ky luong|adjective|Alternate spelling of ki luong.
@@ -7730,7 +7729,7 @@ lo bich|adjective|preposterous; ludicrous
 lo den|noun|(astronomy) black hole
 lo dien|verb|to make one's appearance; to show one's face
 lo dit|noun|(anatomy, informal) asshole; butthole|Synonyms:* hau mon|
-lo hoi|noun|noun classifiers: cay|aloe|Synonyms:* nha dam|{{C|vi|Plants}}|
+lo hoi|noun (noun classifiers: cay)|aloe|Synonyms:* nha dam|{{C|vi|Plants}}|
 lo lam|verb|Synonym of lam lo (to make a mistake)
 lo lang|verb|to be worried; to worry; to be anxious
 lo lung|verb|to float, hang or dangle in mid-air
@@ -8069,7 +8068,7 @@ man ma|adjective|moderately salty; to one's taste|passionate; enthusiastic|attra
 man nguyen|adjective|satisfied|'''2011''', Pham Lu An, ''Neu biet tram nam la huu han'', Hoi Nha Van|Nhung nguoi thuc su huong thu thi khong ban khoan, ma thuong '''man nguyen'''.|: Those who really enjoy do not worry, but usually feel '''satisfied'''.
 man nhan|adjective|beautiful to behold, nice to look at
 man nong|adjective|passionate; warm; fiery
-man thau|noun|noun classifiers: cai|a mantoutopic-foods
+man thau|noun (noun classifiers: cai)|a mantoutopic-foods
 man tinh|adjective|Alternate form of vi|man tinh
 man tinh|chronic}} (man tinh|
 man troi chieu dat|noun|(idiom) a situation where many people become homeless, especially after a disaster
@@ -9075,7 +9074,7 @@ nha chinh tri|noun|politician|Synonyms:* chinh khach|* chinh tri gia|
 nha choc troi|noun (noun classifiers: toa)|a skyscrapertopic-buildings
 nha chua|noun|brothel
 nha cua|noun|house; housing; dwelling
-nha dam|noun|noun classifiers: cay|aloe|Synonyms:* lo hoi|{{C|vi|Plants}}|
+nha dam|noun (noun classifiers: cay)|aloe|Synonyms:* lo hoi|{{C|vi|Plants}}|
 nha dat|noun|house and land; housing; estate (generally speaking)
 nha dau tu|noun|investor
 nha ga|noun|railway station|airport terminal|Synonyms:* ga|
@@ -9525,7 +9524,7 @@ nong nghiep|noun|agriculturetopic-agriculture
 nong nhan|adjective|leisure or free time away from agricultural work
 nong nhiet|adjective|ardent; fervid; passionate
 nong no|noun|(history) a serf
-nong noc|noun|noun classifiers: con|a tadpole (toad or frog larva)|Alternate forms:* noc noc|
+nong noc|noun (noun classifiers: con)|a tadpole (toad or frog larva)|Alternate forms:* noc noc|
 nong noi|noun|plight; bad situation
 nong phu|noun|peasant, farmer
 nong sot|adjective|very shallow|> antonym of sau hoam
@@ -10468,7 +10467,7 @@ rau cau|noun|(southern Vietnam) jelly (dessert)|Synonyms:* thach|
 rau chan vit|noun|spinach
 rau don|noun|(botany) vegetable fern, Diplazium esculentumtopic-ferns
 rau lang|noun|sweet potato leaves or greens
-rau ma|noun (noun classifiers: cay, la) (noun classifiers: cay, la)|noun classifiers: cay, la
+rau ma|noun (noun classifiers: cay, la)|
 rau mep|noun|moustache, mustache
 rau muong|noun (noun classifiers: cay, cong)|water spinach (''Ipomoea aquatica''), a green leafy vegetable used as a food in several cuisines of East and Southeast Asiatopic-vegetables
 rau ong no cam cam ba kia|phrase, idiom or proverb|(literal) this gentleman's beard transplanted onto that lady's chin|(figurative) a square peg in a round holeidioms topic-hair topic-face topic-people topic-male topic-female
@@ -10514,7 +10513,7 @@ rinh|verb|to ambush, to spy, to lurk
 rinh rap|verb|to lie in wait; to lurk; to stalk|anagrams:Alternate forms:* rap rinh|
 rit|verb|to shriek, to screech
 rit|adjective|frictious
-rit|noun (noun classifiers: con) (noun classifiers: con)|noun classifiers: con
+rit|noun (noun classifiers: con)|
 riu|adjective|entangled, fouled
 ro|verb|(central Vietnam, southern Vietnam) to touch
 ro|noun|Alternate forms:* so|
@@ -10547,7 +10546,7 @@ rong rai|adjective|wide; widespread
 rong ran len may|noun|(literal) dragons and snakes ascends above the clouds|(game) a children's game in which the loser ("it") of a choosing game (such as rock-paper-scissors) tries totag" the person at the tail end of a line formed by the winners who all try to block the loser, after the line hasmarched" around and finished singing the children's song associated with this game (which starts with the phrase rong ran len may); if the loser succeeds intagging" that person, the latter will become the next loser (the nextit")
 rong rinh|adjective|very spacious|(of clothing) very loose|> antonym of chat nich
 rong roc|noun|pulley
-rong rong|noun|noun classifiers: con|(zoology) baby snakehead|Alternate forms:* rong rong|
+rong rong|noun (noun classifiers: con)|(zoology) baby snakehead|Alternate forms:* rong rong|
 rong ruoi|verb|to travel far and wide (to do something)|> Synonyms: ruoi rong|Alternate forms:* giong ruoi|
 rong tuech|adjective|completely hollow, completely empty
 rop|verb|to overshadow
@@ -10743,7 +10742,7 @@ sau dam|adjective|deep; profound; deepfelt
 sau dau|noun|neem
 sau hoam|adjective|very deep|> antonym of nong sot
 sau muon|adjective|melancholy|Synonyms:* buon ba|* buon rau|
-sau rieng|noun|noun classifiers: cay, trai, qua|durian|Nha ai vua chin qua dau.<br>Da nghe gio thoi vuon sau thom lung.<br>La chieu khep ngu ung dung<br>De cung day voi tung bung nang mai.<br>Vang thom sau lop vo gai<br>Mui to, mat ngot cho ai thoa long.<br>Moi co, moi bac an cung<br>'''Sau rieng''' ma hoa vui chung tram nha.|Who's got some freshly ripe fruit?<br>Smellin' the delicious aroma carried by the wind.<br>Evening leaves were sleepin' cavalierly<br>Just to rise awoken with tomorrow's jubilant sunshine.<br>Hidden, yellowish and fragrant, under those thorny husks<br>Big bundles of flesh, just like pleasant honey.<br>Please join the party, everybody<br>"One's sorrow" (durian) turns out to be all's joy.}}topic-fruits topic-trees topic-phono-semantic matchings
+sau rieng|noun (noun classifiers: cay, trai, qua)|durian|Nha ai vua chin qua dau.<br>Da nghe gio thoi vuon sau thom lung.<br>La chieu khep ngu ung dung<br>De cung day voi tung bung nang mai.<br>Vang thom sau lop vo gai<br>Mui to, mat ngot cho ai thoa long.<br>Moi co, moi bac an cung<br>'''Sau rieng''' ma hoa vui chung tram nha.|Who's got some freshly ripe fruit?<br>Smellin' the delicious aroma carried by the wind.<br>Evening leaves were sleepin' cavalierly<br>Just to rise awoken with tomorrow's jubilant sunshine.<br>Hidden, yellowish and fragrant, under those thorny husks<br>Big bundles of flesh, just like pleasant honey.<br>Please join the party, everybody<br>"One's sorrow" (durian) turns out to be all's joy.}}topic-fruits topic-trees topic-phono-semantic matchings
 sau rong|adjective|deep and broad (generally speaking)
 sau sac|adjective|(of idea, notion, influence, etc.) deep; profound
 sau tat ca|adverb|after all
@@ -11266,7 +11265,7 @@ tao hoa|noun|The Creator; nature|Alternate forms:* tao hoa|
 tao lao|adjective|idle; nonsensical
 tao nha|adjective|refined
 tao pho|noun|douhuatopic-foods
-tao ta|noun (noun classifiers: qua, cay) (noun classifiers: qua, cay)|noun classifiers: qua, cay
+tao ta|noun (noun classifiers: qua, cay)|
 tao tau|noun (noun classifiers: qua, cay)|jujube (Ziziphus jujuba)|Synonyms:* (jujube) dai tao, hong tao|
 tao tay|noun (noun classifiers: qua, cay)|apple|Synonyms:* (apple) tao, bom (dialectal), bom (dialectal)|
 tao thanh|verb|to create; to make; to build
@@ -11454,7 +11453,7 @@ than khi|noun|(obsolete) carbon dioxide|> Synonyms: khi cacbonic
 than kinh|noun|(anatomy) nerve|(colloquial) Synonym of tam than (mental disorder)
 than kinh|adjective|(medicine) mental or nervous|(informal) crazy; nuts ==> example: Than kinh a? ==> meaning: Are you out of your mind?
 than kinh hoc|noun|neurology
-than lan|noun|noun classifiers: con|a lizard|(southern Vietnam) common house gecko|> Synonyms: thach sung|certain kinds of prehistoric reptile ==> example: than lan canh ==> meaning: a pterosaur ==> example: than lan ca ==> meaning: an ichthyosaur
+than lan|noun (noun classifiers: con)|a lizard|(southern Vietnam) common house gecko|> Synonyms: thach sung|certain kinds of prehistoric reptile ==> example: than lan canh ==> meaning: a pterosaur ==> example: than lan ca ==> meaning: an ichthyosaur
 than lan bong|noun (noun classifiers: con)|(northern Vietnam) skink|> Synonyms: ran moi
 than mat|adjective|intimate; close; friendly
 than mau|noun|(archaic, formal) mother
@@ -11866,7 +11865,7 @@ thoi khac|noun|(literary) moment|> Synonyms: gio phut
 thoi khoa bieu|noun|(education, for scheduling students' classes) a timetable|Alternate forms:* thoi khoa bieu|
 thoi ki|noun|period of time|Alternate forms:* thoi ky|
 thoi ky|noun|Alternate spelling of thoi ki.
-thoi loi|noun|noun classifiers: con|mudskipper|Synonyms:* ca thoi loi|
+thoi loi|noun (noun classifiers: con)|mudskipper|Synonyms:* ca thoi loi|
 thoi mien|noun|hypnosis
 thoi noi|noun|a child's first birthday celebration
 thoi qua khu|noun|(dated) past tense|> Synonyms: thi qua khu
@@ -11909,7 +11908,7 @@ thong nhat|adjective|united; unified
 thong phong|noun|(disease) Synonym of gut (gout)
 thong qua|verb|to pass; to let through; to approve
 thong quan|verb|to clear (something) through customs
-thong rung la|noun (noun classifiers: caytopic-trees) (noun classifiers: caytopic-trees)|noun classifiers: caytopic-trees
+thong rung la|noun (noun classifiers: caytopic-trees)|
 thong so|noun|parameter; measurements; specifications
 thong suot|verb|(of traffic etc.) to be unobstructed; to be smooth and clear|to understand thoroughly
 thong tan xa|noun|news agency|Synonyms:* TTX|* hang thong tan|* hang tin|
@@ -13060,7 +13059,7 @@ tu giac|noun|(geometry) quadrilateral|Synonyms:* hinh tu giac|{{C|vi|Four|Shapes
 tu hai|noun|Synonym of bon be (the world)|(Chinese mythology) the four major seas ('Four Seas') where the four Dragon Kings reigntopic-four topic-seas
 tu hao|adjective|proud
 tu hop|verb|to gather
-tu hu|noun|noun classifiers: con|koel (genus ''Eudynamys''), especially the Asian koel (''Eudynamys scolopaceus'')topic-cuckoos
+tu hu|noun (noun classifiers: con)|koel (genus ''Eudynamys''), especially the Asian koel (''Eudynamys scolopaceus'')topic-cuckoos
 tu huyet|noun|weak spot (which can cause death when struck)
 tu ket|noun|quarterfinal
 tu khoa|noun|keyword|Alternate forms:* tu khoa|
@@ -13818,7 +13817,7 @@ xa lang|verb|to let go of all restraints
 xa lim|noun|(of prison) a celltopic-rooms
 xa lo|noun|a highway
 xa phong|noun|(northern Vietnam) soap|Synonyms:* xa bong|
-xa po che|noun|noun classifiers: cay, qua, trai|(southern Vietnam) sapodilla (''Manilkara zapota'')|> Synonyms: hong xiem|Alternate forms:* sa po che|topic-sapote-family-plants
+xa po che|noun (noun classifiers: cay, qua, trai)|(southern Vietnam) sapodilla (''Manilkara zapota'')|> Synonyms: hong xiem|Alternate forms:* sa po che|topic-sapote-family-plants
 xa thu|noun|a professional athletic shooter
 xa tri|noun|radiotherapy
 xa xi|noun|root beertopic-beverages
@@ -13921,7 +13920,7 @@ xe may|noun|(southern Vietnam) motorcycle; motorbike ==> example: chay '''xe may
 xe mo to|noun|motorcycle
 xe om|noun|motorcycle taxi
 xe rua|noun (noun classifiers: cai, chiec)|a wheelbarrowtopic-tools
-xe tac xi|noun|noun classifiers: chiec|taxi, cab ==> example: goi '''xe tac xi'''> meaning: to call a cabtopic-vehicles
+xe tac xi|noun (noun classifiers: chiec)|taxi, cab ==> example: goi '''xe tac xi'''> meaning: to call a cabtopic-vehicles
 xe tai|noun|truck/lorry|Synonyms:* xe cam-nhong|{{C|vi|Vehicles}}|
 xe tang|noun|a tank (military vehicle)topic-military-vehicles
 xe xich lo|noun|pedicab, rickshaw, cyclo, velotaxitopic-vehicles

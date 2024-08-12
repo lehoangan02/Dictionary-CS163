@@ -498,23 +498,23 @@ std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& i
     return getVector(res);
 }
 
-std::string PrioritizeWord(trieNode* pRoot, const std::vector<std::string>& getVector, const std::vector<std::string>& tokens) {
-    int size = getVector.size();
-    std::string top = getVector[0];
+std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& Inputokens) {
+    int size = LengthSort.size();
+    std::string top = LengthSort[0];
     int min = std::numeric_limits<int>::max(); // Use maximum int value for clarity
 
-    for (int i = 0; i < size; ++i) {
-        std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, getVector[i]);
+    for (int i = 0; i < size; ++i) { //for every element in vector after operating lengthsort
+        std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, LengthSort[i]);
         int minCount = std::numeric_limits<int>::max(); // Use maximum int value for clarity
         bool allTokensPresent = false;
 
-        for (const auto& pair : temp) {
+        for (const auto& pair : temp) { //for every definition in defvec of words
             std::vector<std::string> tempVec = tokenize(pair.second);
             int countdist = 0;
             int num = 0;
 
             // Check if all tokens are present
-            for (auto token : tokens) {
+            for (auto token : Inputokens) { //for every token in InputTokens
                 bool found = false; //used for checking existance of each token in temp[i].second
                 for (int j = 0; j < tempVec.size(); ++j) {
                     std::string temptoken = token;
@@ -541,7 +541,7 @@ std::string PrioritizeWord(trieNode* pRoot, const std::vector<std::string>& getV
         // Update top if this is the best valid candidate
         if (allTokensPresent && minCount < min) {
             min = minCount;
-            top = getVector[i];
+            top = LengthSort[i];
         }
     }
 
