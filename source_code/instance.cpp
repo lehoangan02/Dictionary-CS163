@@ -1,5 +1,10 @@
 #include "instance.h"
 #include "random.h"
+
+#define WINDOW_HEIGHT 720
+#define WINDOW_WIDTH 960
+#define DEFINITION_HEIGHT 125
+#define DEFINITION_WIDTH 814
 //line 286
 //line 501
 //line 548
@@ -152,6 +157,13 @@ instance::instance() :
 	word4Def.reserve(1000);
 
 	// SFML
+	definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + description.getGlobalBounds().top);
+	definitionView.setSize(DEFINITION_WIDTH, DEFINITION_HEIGHT);
+	definitionView.setViewport(sf::FloatRect(73.0f / windowInstance.getSize().x,
+	505.0f / windowInstance.getSize().y,
+	(float)DEFINITION_WIDTH / windowInstance.getSize().x,
+	(float)DEFINITION_HEIGHT / windowInstance.getSize().y));
+
 	std::ifstream fin; fin.open("note.txt");
 	if (!fin.is_open()) printf("[DEBUG] no file found\n");
 	// Base layer
@@ -399,9 +411,13 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					history.push_back(temp);
-					writeHistory(temp);
+					
 					handleSearchSignal(temp);
+					if (searchResult.size() > 0)
+					{
+						history.push_back(temp);
+						writeHistory(temp);
+					}
 					// user input correction
 					std::string corrected = temp;
 					if (correction(corrected, pRoot) && numberOfResult == 0)
@@ -431,6 +447,7 @@ void instance::operatePage1()
 						descriptionString = searchResult[definitionNum].second;
 						description.setString(descriptionString);
 						wrappedDescription = false;
+						scrollOffset = 0;
 					}
 				}
 				else if (prevPageButton.isClicked(windowInstance))
@@ -442,6 +459,7 @@ void instance::operatePage1()
 						descriptionString = searchResult[definitionNum].second;
 						description.setString(descriptionString);
 						wrappedDescription = false;
+						scrollOffset = 0;
 					}
 				}
 				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance))
@@ -450,7 +468,9 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
+					std::cout << temp << std::endl;
 					correction(temp, pRoot);
+					std::cout << temp << std::endl;
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
@@ -560,7 +580,7 @@ void instance::operatePage1()
 				{
 					for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
 					{
-						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance))
+						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance) && suggestionPanels.display == true)
 						{
 							showCorrection = false;
 							suggestionPanels.display = false;
@@ -589,9 +609,13 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					history.push_back(temp);
-					writeHistory(temp);
 					handleSearchSignal(temp);
+					if (searchResult.size() > 0)
+					{
+						printf("There are result(s)\n");
+						history.push_back(temp);
+						writeHistory(temp);
+					}
 					// user input correction
 					std::string corrected = temp;
 					if (correction(corrected, pRoot) && numberOfResult == 0)
@@ -614,6 +638,20 @@ void instance::operatePage1()
 				// std::cout << "Search box: " << searchBox.getString(false) << std::endl;
 			}
 			break;
+			case sf::Event::MouseWheelScrolled:
+			{
+				scrollOffset -= event.mouseWheelScroll.delta * 2;
+				if (scrollOffset < 0 || maxScrollOffset < 0)
+				{
+					scrollOffset = 0;
+				}
+				else if (scrollOffset > maxScrollOffset && maxScrollOffset > 0)
+				{
+					scrollOffset = maxScrollOffset;
+					// printf("[DEBUG] offset: %d\n", scrollOffset);
+				}
+			}
+			break;
 			case sf::Event::LostFocus:
 			{
 				std::cout << "[DEBUG] lost focus" << std::endl;
@@ -627,6 +665,7 @@ void instance::operatePage1()
 			default:
 				break;
 		}
+		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
 		searchBox.handleInputLogic(event, windowInstance);
 		suggestionPanels.update(event, searchBox.getString(false), pRoot, windowInstance);
 	}
@@ -866,10 +905,10 @@ void instance::operatePage3()
 				std::vector<std::string> result = searchByDef(tokens, invertedIndex);
 				sortByDefLength(result, pRoot);
 				std::cout << "SORTED" << std::endl;
-				for (auto word : result)
-				{
-					std::cout << word << std::endl;
-				}
+				// for (auto word : result)
+				// {
+				// 	std::cout << word << std::endl;
+				// }
 				if (result.size() > 0)
 				{
 					std::cout << result[0] << std::endl;
@@ -885,6 +924,7 @@ void instance::operatePage3()
 					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
+					scrollOffset = 0;
 				}
 			}
 			else if (prevPageButton.isClicked(windowInstance))
@@ -896,6 +936,7 @@ void instance::operatePage3()
 					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
+					scrollOffset = 0;
 				}
 			}
 			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
@@ -937,6 +978,21 @@ void instance::operatePage3()
 			}
 		}
 		break;
+		case sf::Event::MouseWheelScrolled:
+		{
+			scrollOffset -= event.mouseWheelScroll.delta * 2;
+			if (scrollOffset < 0 || maxScrollOffset < 0)
+			{
+				scrollOffset = 0;
+			}
+			else if (scrollOffset > maxScrollOffset && maxScrollOffset > 0)
+			{
+				scrollOffset = maxScrollOffset;
+				printf("[DEBUG] offset: %d\n", scrollOffset);
+				// std::cout << searchResult[definitionNum].second << std::endl;
+			}
+		}
+		break;
 		case sf::Event::KeyPressed:
 		{
 			if (event.key.code == sf::Keyboard::Return)
@@ -947,10 +1003,10 @@ void instance::operatePage3()
 				std::vector<std::string> result = searchByDef(tokens, invertedIndex);
 				sortByDefLength(result, pRoot);
 				std::cout << "SORTED" << std::endl;
-				for (auto word : result)
-				{
-					std::cout << word << std::endl;
-				}
+				// for (auto word : result)
+				// {
+				// 	std::cout << word << std::endl;
+				// }
 				if (result.size() > 1)
 				{
 					std::string top = PrioritizeWord(pRoot, result, tokens);
@@ -965,6 +1021,7 @@ void instance::operatePage3()
 		default:
 			break;
 		}
+		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
 		searchBox.handleInputLogic(event, windowInstance);
 	}
 	handleSwitchModeLogic();
@@ -1519,6 +1576,7 @@ void instance::operatePage9()
 					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
+					scrollOffset = 0;
 				}
 			}
 			else if (prevPageButton.isClicked(windowInstance))
@@ -1530,6 +1588,7 @@ void instance::operatePage9()
 					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
+					scrollOffset = 0;
 				}
 			}
 			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
@@ -1572,6 +1631,20 @@ void instance::operatePage9()
 
 		}
 		break;
+		case sf::Event::MouseWheelScrolled:
+		{
+			scrollOffset -= event.mouseWheelScroll.delta * 2;
+			if (scrollOffset < 0 || maxScrollOffset < 0)
+			{
+				scrollOffset = 0;
+			}
+			else if (scrollOffset > maxScrollOffset && maxScrollOffset > 0)
+			{
+				scrollOffset = maxScrollOffset;
+				// printf("[DEBUG] offset: %d\n", scrollOffset);
+			}
+		}
+		break;
 		case sf::Event::KeyPressed:
 		{
 			if (event.key.code == sf::Keyboard::Return)
@@ -1584,6 +1657,7 @@ void instance::operatePage9()
 		default:
 			break;
 		}
+		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
 		gameSearchBox.handleInputLogic(event, windowInstance);
 	}
 
@@ -1816,6 +1890,7 @@ void instance::switchPage()
 		historyIndex = 0;
 		pCurrentFavourite = pRootFavourite;
 		gameMode = 0;
+		scrollOffset = 0;
 	}
 }
 
@@ -1870,19 +1945,24 @@ void instance::drawDefinition()
 	if (!wrappedDescription)
 	{
 		printf("[DEBUG] wrapping\n");
-		if (wrapText(description, 814, 4))
+		int numLine = 0;
+		if (wrapText(description, 814, 99, numLine))
 		{
 			std::string temp = description.getString();
 			temp = temp + "... For more information, refer to the dataset.";
 			description.setString(temp);
 		}
+		maxScrollOffset = description.getGlobalBounds().height - 125 + SFMLTEXPADDING;
+		printf("[DEBUG] max offset: %d\n", maxScrollOffset);
 		wrappedDescription = true;
 		printf("[DEBUG] wrapped\n");
 	}
 	if (gameMode != 2 && gameMode != 3)
 		windowInstance.draw(headword);
 	windowInstance.draw(POS);
+	windowInstance.setView(definitionView);
 	windowInstance.draw(description);
+	windowInstance.setView(windowInstance.getDefaultView());
 	if (loadEmojiImage && POSString.substr(0, 14) == "emoji number: ")
 	{
 		windowInstance.draw(emojiSprite);
@@ -2181,8 +2261,6 @@ void instance::setUpGameModeAnimation()
 	gameSearchBoxTexture.loadFromFile("assets/images/gameSearchBox.png");
 	gameSearchBox.setUp(gameSearchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(30 - SHADOWHOR, 20));
 }
-
-
 
 instance::~instance()
 {

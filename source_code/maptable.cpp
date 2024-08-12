@@ -1,3 +1,4 @@
+#include <limits>
 #include "maptable.hpp"
 
 // Initialize empty HashTable, default number of buckets (linked list)
@@ -79,7 +80,7 @@ void HashTable::insert(const std::string& key) //the actual word
 
 // Return pointer to element 'key'(word) in HashTable
 // Return nullptr if not found
-std::string* HashTable::find(const std::string& key)
+const std::string* HashTable::find(const std::string& key)
 {
     auto pos = this->hash(key);
     TableBlock* pCur = buckets[pos];
