@@ -118,7 +118,7 @@ void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 	if (!checkexist) cur->definitions.push_back({ pos, def });
 
-	Change2Lowercase(word);
+	//Change2Lowercase(word);
 
 	if (shouldAddWord(word4Def, word, pRoot)) {
 		word4Def.push_back(word);
