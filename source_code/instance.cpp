@@ -1238,6 +1238,8 @@ void instance::operatePage6()
 	}
 	if (!getWordToEdit)
 	{
+		std::cout << "[DEBUG] Current word is: " << headWordString << std::endl;
+		std::cout << "Current definition num: " << definitionNum << std::endl;
 		if (headWordString != "")
 		{
 			currentWordText.setString("Current word: " + headWordString);
@@ -1268,21 +1270,20 @@ void instance::operatePage6()
 			}
 			else if (saveButton.isClicked(windowInstance) && mouseControl && headWordString != "")
 			{
-				if (headWordString == "")
-				{
-					changedFailed = true;
-					changedSuccessful = false;
-				}
-				else
-				{
-					changedSuccessful = true;
-					changedFailed =false;
-				}
 				std::string newDescription = descriptionBox.getString();
 				unwrapText(newDescription);
 				std::pair<std::string, std::string> newDefinition = make_pair(POSBox.getString(), newDescription);
 				// edit word here
-				editDefinition(headWordString, definitionNum, newDefinition, pRoot, invertedIndex);
+				if (editDefinition(headWordString, definitionNum, newDefinition, pRoot, invertedIndex))
+				{
+					changedSuccessful = true;
+					changedFailed =false;
+				}
+				else
+				{
+					changedFailed = true;
+					changedSuccessful = false;
+				}
 				//
 				if (autoSave)
 				{
@@ -1912,12 +1913,13 @@ void instance::switchPage()
 				currentWordText.setPosition(205, 73);
 				POSBox.clear();
 				descriptionBox.clear();
-				printf("[DEBUG changing to page 6\n]");
+				printf("[DEBUG] changing to page 6\n");
 				page = 6;
+				getWordToEdit = false;
 				pageChange = true;
 
-				changedFailedSprite.setPosition(439.0f, 493.0f);
-				changedSuccessfulSprite.setPosition(430.0f, 493.0f);
+				changedFailedSprite.setPosition(439.0f, 532.0f);
+				changedSuccessfulSprite.setPosition(430.0f, 532.0f);
 			}
 		}
 	}
@@ -1940,7 +1942,6 @@ void instance::switchPage()
 		searchBox.clear();
 		importBox.clear();
 		pageChange = false;
-		definitionNum = 0;
 		historyIndex = 0;
 		pCurrentFavourite = pRootFavourite;
 		gameMode = 0;
@@ -2150,6 +2151,7 @@ void instance::handleHistory()
 		printf("[DEBUG] current history word is: %s\n", temp.c_str());
 		handleSearchSignal(temp);
 		headWordString = temp;
+		std::cout << headWordString << std::endl;
 	}
 }
 

@@ -92,7 +92,7 @@ bool isAlphabetic(const char& c);
 std::vector<std::string> tokenize(const std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
-void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);
+bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);
 void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 void addWord(std::string& word, std::string& pos, std::string& definition, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 

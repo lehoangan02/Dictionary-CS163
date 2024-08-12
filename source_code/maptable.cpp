@@ -579,13 +579,13 @@ void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::str
     }
 }
 
-void editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex)
+bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex)
 {
     size_t i = 0;
     while (i < word.length())
     {
         if (!pRoot)
-            return;
+            return false;
         int indexNext = static_cast<int>(word[i]) - 32;
         pRoot = pRoot->childNode[indexNext];
         ++i;
@@ -597,6 +597,7 @@ void editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
 
         pRoot->definitions[definitionNum] = newDef;
     }
+    return true;
 }
 
 void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
