@@ -237,7 +237,6 @@ int main()
 				std::cout << "\n- Please enter your word: "; cin.ignore();
 				std::string guess;
 				getline(cin, guess);
-				Change2Lowercase(guess);
 				if (!CheckWords(rdword, guess)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
 				std::cout << endl;
 			}
@@ -273,6 +272,7 @@ int main()
 			if (!rd.first) cout << "NULLPTR!" << std::endl;
 			else std::cout << rd.second << std::endl;
 		}
+		break;
 		case 14:
 		{
 			std::cout << "Input words for showing size: "; cin.ignore();
