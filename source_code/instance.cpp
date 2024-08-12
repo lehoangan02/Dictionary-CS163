@@ -307,6 +307,15 @@ instance::instance() :
 	loadTexture("assets/images/SingleSuggestionPanelHov.png"),
 	SourceSans3);
 	suggestionPanels.setPosition(sf::Vector2u(145 - SHADOWHOR, 125));
+
+	// prompts in add word (4) and edit word modes (6)
+	changedFailedTexture.loadFromFile("assets/images/Failed!.png");
+	changedSuccessfulTexture.loadFromFile("assets/images/Success!.png");
+	changedFailedSprite.setTexture(changedFailedTexture);
+	changedSuccessfulSprite.setTexture(changedSuccessfulTexture);
+	changedFailedSprite.setPosition(439.0f, 532.0f);
+	changedSuccessfulSprite.setPosition(430.0f, 532.0f);
+
 }
 void instance::operate()
 {
@@ -1089,6 +1098,16 @@ void instance::operatePage4()
 				std::string newPOS = POSBox.getString();
 				std::string newDescription = descriptionBox.getString();
 				unwrapText(newDescription);
+				if (newHeadword == "")
+				{
+					changedFailed = true;
+					changedSuccessful = false;
+				}
+				else
+				{
+					changedSuccessful = true;
+					changedFailed =false;
+				}
 				insert(pRoot, newHeadword, newPOS, newDescription, word4Def);
 				invertedIndex.insertWordDef(newHeadword, newDescription);
 				if (autoSave)
@@ -1128,6 +1147,10 @@ void instance::drawPage4()
 	descriptionBox.draw(windowInstance);
 	cancelButton.draw(windowInstance);
 	addButton.draw(windowInstance);
+	if (changedFailed)
+		windowInstance.draw(changedFailedSprite);
+	else if (changedSuccessful)
+		windowInstance.draw(changedSuccessfulSprite);
 	drawSwitchMode();
 	drawSubModes();
 	windowInstance.display();
@@ -1243,6 +1266,16 @@ void instance::operatePage6()
 			}
 			else if (saveButton.isClicked(windowInstance) && mouseControl && headWordString != "")
 			{
+				if (headWordString == "")
+				{
+					changedFailed = true;
+					changedSuccessful = false;
+				}
+				else
+				{
+					changedSuccessful = true;
+					changedFailed =false;
+				}
 				std::string newDescription = descriptionBox.getString();
 				unwrapText(newDescription);
 				std::pair<std::string, std::string> newDefinition = make_pair(POSBox.getString(), newDescription);
@@ -1270,7 +1303,8 @@ void instance::operatePage6()
 		descriptionBox.handleInputLogic(event, windowInstance);
 	}
 	cancelButton.hoverSwitchTexture(windowInstance);
-	saveButton.hoverSwitchTexture(windowInstance);
+	if (headWordString != "")
+		saveButton.hoverSwitchTexture(windowInstance);
 	hoverSubModes();
 	handleSwitchModeLogic();
 	switchPage();
@@ -1283,7 +1317,12 @@ void instance::drawPage6()
 	POSBox.draw(windowInstance);
 	descriptionBox.draw(windowInstance);
 	cancelButton.draw(windowInstance);
-	saveButton.draw(windowInstance);
+	if (headWordString != "")
+		saveButton.draw(windowInstance);
+	if (changedFailed)
+		windowInstance.draw(changedFailedSprite);
+	else if (changedSuccessful)
+		windowInstance.draw(changedSuccessfulSprite);
 	drawSwitchMode();
 	drawSubModes();
 	windowInstance.display();
@@ -1859,6 +1898,9 @@ void instance::switchPage()
 				printf("[DEBUG changing to page 4\n]");
 				page = 4;
 				pageChange = true;
+
+				changedFailedSprite.setPosition(439.0f, 532.0f);
+				changedSuccessfulSprite.setPosition(430.0f, 532.0f);
 			}
 		}
 		else if (editModeButton.isClicked(windowInstance) && mouseControl)
@@ -1871,6 +1913,9 @@ void instance::switchPage()
 				printf("[DEBUG changing to page 6\n]");
 				page = 6;
 				pageChange = true;
+
+				changedFailedSprite.setPosition(439.0f, 493.0f);
+				changedSuccessfulSprite.setPosition(430.0f, 493.0f);
 			}
 		}
 	}
@@ -1898,6 +1943,8 @@ void instance::switchPage()
 		pCurrentFavourite = pRootFavourite;
 		gameMode = 0;
 		scrollOffset = 0;
+		changedFailed = false;
+		changedSuccessful = false;
 	}
 }
 

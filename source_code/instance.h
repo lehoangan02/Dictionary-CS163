@@ -273,7 +273,13 @@ class instance
     Button addButton;
     sf::Texture saveTexDef;
     sf::Texture saveTexHov;
-    Button saveButton;
+    Button saveButton; // for saving edited words
+    sf::Texture changedSuccessfulTexture;
+    sf::Texture changedFailedTexture;
+    sf::Sprite changedSuccessfulSprite;
+    sf::Sprite changedFailedSprite;
+    bool changedSuccessful = false;
+    bool changedFailed = false;
 
     // Game mode
     int gameMode = 0; // 1 for random word, 2 for random word4Def
