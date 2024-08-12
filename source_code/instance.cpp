@@ -903,6 +903,7 @@ void instance::operatePage3()
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
 				std::vector<std::string> result = searchByDef(tokens, invertedIndex);
+
 				sortByDefLength(result, pRoot);
 				std::cout << "SORTED" << std::endl;
 				// for (auto word : result)
@@ -1001,15 +1002,16 @@ void instance::operatePage3()
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
 				std::vector<std::string> result = searchByDef(tokens, invertedIndex);
-				sortByDefLength(result, pRoot);
-				std::cout << "SORTED" << std::endl;
-				// for (auto word : result)
-				// {
-				// 	std::cout << word << std::endl;
-				// }
+				//sortByDefLength(result, pRoot) to get top 6;
+				 std::cout << "SORTED" << std::endl;
+				 for (auto word : result)
+				 {
+				 	std::cout << word << std::endl;
+				 }
+				 result.resize(6);
 				if (result.size() > 1)
 				{
-					std::string top = PrioritizeWord(pRoot, result, tokens);
+					std::string top = sortBySumPosition(pRoot, result, tokens);
 					handleSearchSignal(top);
 				}
 				else if (result.size() == 1) {
