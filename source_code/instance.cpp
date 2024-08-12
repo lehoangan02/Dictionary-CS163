@@ -476,9 +476,8 @@ void instance::operatePage1()
 					displayHistory = false;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					std::cout << temp << std::endl;
 					correction(temp, pRoot);
-					std::cout << temp << std::endl;
+					headWordString = temp;
 					history.push_back(temp);
 					writeHistory(temp);
 					handleSearchSignal(temp);
@@ -2101,6 +2100,7 @@ void instance::handleHistory()
 		std::string temp = history[history.size() - historyIndex - 1];
 		printf("[DEBUG] current history word is: %s\n", temp.c_str());
 		handleSearchSignal(temp);
+		headWordString = temp;
 	}
 }
 
@@ -2114,6 +2114,7 @@ void instance::handleFavourite()
 			std::string temp = pCurrentFavourite->data;
 			printf("[DEBUG] current favourite word is: %s\n", temp.c_str());
 			handleSearchSignal(temp);
+			headWordString = temp;
 		}
 		else
 		{
