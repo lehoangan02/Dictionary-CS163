@@ -218,25 +218,32 @@ int main()
 		}
 		case 11:
 		{
-			/*for (auto word : word4Def)
+			std::cout << "Some words which have 4 definitions: " << std::endl;
+			for (auto word : word4Def)
 			{
 				std::cout << word << std::endl;
-			}*/
-			std::string rdword = randomWord4Def(word4Def);
-			std::cout << "\n- The random word is: " << rdword << std::endl;
-			std::cout << "\nHere are 4 definitions for guessing: " << std::endl;
-			std::vector < std::pair<std::string, std::string>> DefList = traverseToSearch(pRoot, rdword);
-			for (int i = 0; i < 4; ++i)
-			{
-				std::cout << i + 1 << ". (" << DefList[i].first << ") " << DefList[i].second << std::endl;
 			}
-			std::cout << "\n- Please enter your word: "; cin.ignore();
-			std::string guess;
-			getline(cin, guess);
-			Change2Lowercase(guess);
-			if (!CheckWords(rdword, guess)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
-			std::cout << endl;
+			std::cout << std::endl;
+			if (word4Def.size() != 0)
+			{
+				std::string rdword = randomWord4Def(word4Def);
+				std::cout << "\n- The random word is: " << rdword << std::endl;
+				std::cout << "\nHere are 4 definitions for guessing: " << std::endl;
+				std::vector < std::pair<std::string, std::string>> DefList = traverseToSearch(pRoot, rdword);
+				for (int i = 0; i < 4; ++i)
+				{
+					std::cout << i + 1 << ". (" << DefList[i].first << ") " << DefList[i].second << std::endl;
+				}
+				std::cout << "\n- Please enter your word: "; cin.ignore();
+				std::string guess;
+				getline(cin, guess);
+				Change2Lowercase(guess);
+				if (!CheckWords(rdword, guess)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
+				std::cout << endl;
+			}
+			else std::cout << "NO WORD" << std::endl;
 		}
+		break;
 		case 12:
 		{
 			std::pair<trieNode*, std::string> rdword;
@@ -255,6 +262,7 @@ int main()
 			if (!CheckWords(answer, rdword.second)) std::cout << "=> Correct !"; else cout << "=> Incorrect !";
 			std::cout << endl;
 		}
+		break;
 		case 13:
 		{
 			std::cout << pRoot->countchildren << std::endl;
@@ -265,9 +273,18 @@ int main()
 			if (!rd.first) cout << "NULLPTR!" << std::endl;
 			else std::cout << rd.second << std::endl;
 		}
+		case 14:
+		{
+			std::cout << "Input words for showing size: "; cin.ignore();
+			std::string word;
+			getline(cin, word);
+			std::cout << "size is: " << traverseToSearch(pRoot, word).size() << std::endl;
+		}
+		break;
 		default:
 			break;
 		}
+		
 	}
 	deleteWholeTrie(pRoot);
 	return 0;
