@@ -384,7 +384,8 @@ void instance::operatePage1()
 	if (!loadedSave)
 	{
 		deleteWholeTrie(pRoot);
-		deserializeBinaryWrapper(pRoot, word4Def);
+		if (autoSave)
+			deserializeBinaryWrapper(pRoot, word4Def);
 		readFavourite(pRootFavourite);
 		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;

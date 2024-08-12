@@ -39,7 +39,28 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
         // read the description
         getline(tempStream, description, ',');
         if (description.length() >= 6 && filename != "UnicodeEmoji")
-            description = description.substr(3, description.length() - 7);
+        {
+            printf("%s\n", word.c_str());
+            if (description[description.back()] == '\r')
+            {
+                printf("[DEBUG] it's r last\n");
+                // description.pop_back();
+            }
+            if (description[description.back()] == '\n')
+            {
+                printf("[DEBUG] it's n last\n");
+            }
+            if (description[description.back() - 1] == '\r')
+            {
+                printf("[DEBUG] it's r apchotlast\n");
+            }
+            if (description[description.back() - 1] == '\n')
+            {
+                printf("[DEBUG] it's n apchotlast\n");
+            }
+            description = description.substr(3, description.length() - 6);
+            
+        }
         removeQuotationMarkDuplicate(description);
         // std::cout << description << std::endl;
 
