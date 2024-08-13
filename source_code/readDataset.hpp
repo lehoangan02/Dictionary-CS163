@@ -7,5 +7,5 @@
 #include <vector>
 
 #include "trie.h"
-bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::string>& wordFourDef);
-bool readDatasetTXT(const std::string& filename, trieNode*& pRoot, std::vector<std::string>& word4Def);
+bool readDatasetCSV(std::string filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef);
+bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& word4Def);

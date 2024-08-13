@@ -1,4 +1,5 @@
 #include "button.hpp"
+#include "instance.h"
 // for non-text, non-hover buttons
 Button::Button(const sf::Texture& texture)
     {
@@ -360,7 +361,7 @@ void suggestionButton::setTexture(sf::Texture& textureDef, sf::Texture& textureH
     centerText();
 }
 
-void incrementalButton::setTexture(const sf::Texture& textureDef1, const sf::Texture& textureDef2, const sf::Texture& textureDef3,
+void instance::incrementalButton::setTexture(const sf::Texture& textureDef1, const sf::Texture& textureDef2, const sf::Texture& textureDef3,
     const sf::Texture& textureDef4, const sf::Texture& textureDef5, const sf::Texture& textureDef6,
     const sf::Texture& textureHov1, const sf::Texture& textureHov2, const sf::Texture& textureHov3,
     const sf::Texture& textureHov4, const sf::Texture& textureHov5, const sf::Texture& textureHov6)
@@ -375,35 +376,34 @@ void incrementalButton::setTexture(const sf::Texture& textureDef1, const sf::Tex
         buttonSprite.setTexture(textureDefault[0]);
     }
 
-void incrementalButton::hoverSwitchTexture(const sf::RenderWindow& window)
+void instance::incrementalButton::hoverSwitchTexture(const sf::RenderWindow& window)
 {
     if (isHovering(window))
     {
-        buttonSprite.setTexture(textureHover[incrementTracker]);
+        buttonSprite.setTexture(textureHover[curDataset]);
     }
     else
     {
-        buttonSprite.setTexture(textureDefault[incrementTracker]);
+        buttonSprite.setTexture(textureDefault[curDataset]);
     }
 }
 
-void incrementalButton::handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window)
+bool instance::incrementalButton::handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window)
 {
+    hoverSwitchTexture(window);
+
     if (event.type == sf::Event::MouseButtonPressed && isClicked(window))
     {
-        if (incrementTracker < 5)
-        {
-            ++incrementTracker;
-        }
+        if (curDataset < 5)
+            ++curDataset;
         else
-        {
-            incrementTracker = 0;
-        }
+            curDataset = 0;
+        return true;
     }
-    hoverSwitchTexture(window);
+    return false;
 }
 
-int incrementalButton::getNumber()
+int instance::incrementalButton::getNumber()
 {
-    return incrementTracker;
+    return curDataset;
 }

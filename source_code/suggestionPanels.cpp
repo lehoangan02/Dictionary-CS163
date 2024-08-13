@@ -46,7 +46,7 @@ void SuggestionPanels::hoverswitchTexture(sf::RenderWindow& window)
     }
 }
 
-void SuggestionPanels::update(const sf::Event& event, std::string input, trieNode*& pRoot, sf::RenderWindow& window)
+void SuggestionPanels::update(const sf::Event& event, std::string input, TrieNode*& pRoot, sf::RenderWindow& window)
 {
     if (event.type != sf::Event::KeyPressed && event.type != sf::Event::TextEntered) return;
     std::vector<std::string> suggestingWords = SuggestingWords(input, pRoot);

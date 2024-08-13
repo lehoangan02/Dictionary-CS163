@@ -27,15 +27,19 @@
 #define SHADOWVER 8
 class instance
 {
-    public:
+public:
     instance();
     ~instance();
     void operate();
-    private:
-    trieNode* pRoot = nullptr;
+
+private:
+    TrieNode* trieRoot[6]{nullptr};
+    HashMap invertedIndex[6];
+    std::vector<std::string> word4Def[6];
+
     bool loadAutoSave = false;
     bool autoSave = true;
-    int definitionNum = 0;
+    int definitionNum[6]{0};
     std::vector<std::pair<std::string, std::string>> searchResult;
     
     // for use later
@@ -49,10 +53,9 @@ class instance
     std::vector<std::string> history;
     linkedListNode* pRootFavourite = nullptr;
     linkedListNode* pCurrentFavourite = nullptr;
-    HashMap invertedIndex;
-    std::vector<std::string> word4Def;
 
-    enum dataset
+
+    enum Dataset
     {
         ENG_ENG,
         VIE_ENG,
@@ -62,18 +65,17 @@ class instance
         OTHER
     };
 
+    static int curDataset;
+
     // boolean to control loading
-    bool loadDefinition = false;
+    bool loadDefinition[6]{false};
     bool loadHistory = false;
     long historyIndex = 0;
     bool displayHistory = false;
     bool displayFavourite = false;
     bool loadEmojiImage = false;
-    bool getWordToDelete = false;
-    bool getWordToEdit = false;
-
-    // definition hashmap of hashsets data structure
-    HashMap definitionMap;
+    bool getWordToDelete[6]{false};
+    bool getWordToEdit[6]{false};
 
     // SFML
     sf::RenderWindow windowInstance;
@@ -115,6 +117,24 @@ class instance
     // int emojiNumber;
 
     // dataset option button
+    class incrementalButton : public Button
+    {
+    private:
+        sf::Texture textureDefault[6];
+        sf::Texture textureHover[6];
+        
+    private:
+        void hoverSwitchTexture(const sf::RenderWindow& window) override;
+
+    public:
+        void setTexture(const sf::Texture& textureDef1, const sf::Texture& textureDef2, const sf::Texture& textureDef3,
+        const sf::Texture& textureDef4, const sf::Texture& textureDef5, const sf::Texture& textureDef6,
+        const sf::Texture& textureHov1, const sf::Texture& textureHov2, const sf::Texture& textureHov3,
+        const sf::Texture& textureHov4, const sf::Texture& textureHov5, const sf::Texture& textureHov6);
+        int getNumber();
+        bool handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window);
+    };
+
     incrementalButton datasetButton;
 
     // search button
@@ -198,9 +218,9 @@ class instance
     Button deserializeModeButton;
 
     // Definition elements
-    std::string headWordString = "";
-    std::string POSString = "";
-    std::string descriptionString = "";
+    std::string headWordString[6];
+    std::string POSString[6];
+    std::string descriptionString[6];
     bool displayDef = false; // control boolean
     int numberOfResult = 0;
     sf::Texture definitionBackground;
@@ -319,10 +339,12 @@ class instance
     AnimationVertical congratulationsAnimation;
     sf::Texture wrongAnswerTexture;
     sf::Sprite wrongAnswerSprite;
-    public:
+
+public:
     void moveKnight();
     void resetGameMode(int mode);
-    private:
+    
+private:
     // Buttons
     sf::Texture answerButtonTexture;
     Button answerButton1st;
@@ -340,7 +362,8 @@ class instance
     Button gameMode3rd;
     sf::Texture exitTexture;
     Button exitButton;
-    private:
+
+private:
     sf::Texture loadTexture(const std::string& filepath)
     {
         sf::Texture texture;

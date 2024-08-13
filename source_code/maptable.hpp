@@ -92,27 +92,27 @@ bool isAlphabetic(const char& c);
 std::vector<std::string> tokenize(const std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
-bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex);
-void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
-void addWord(std::string& word, std::string& pos, std::string& definition, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
+bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, TrieNode* pRoot, HashMap& invertedIndex);
+void removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
+void addWord(std::string& word, std::string& pos, std::string& definition, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 
 // Search by definition
 
 std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& invertedIndex);
-std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
+std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
 
 // Invert Index the Trie
 // There are 2 overloading functions, the one with an extra boolean
 // passed by reference is used in multi-threading executions,
 // it provides a mechianism to control other parallel processes (animation)
-void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded);
-void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex);
+void invertIndexTrie(TrieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded);
+void invertIndexTrie(TrieNode*& pRoot, HashMap& invertedIndex);
 
 
 // Helper(s)
 
-void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
-void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
+void invertIndexTrieRecursive(TrieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
+void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 
 
 
@@ -121,4 +121,4 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 /// @param pRoot 
 /// @param word4Def 
 /// @param invertedIndex 
-void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex);
+void removeAllCase(std::string word, TrieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex);
