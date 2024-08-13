@@ -316,7 +316,7 @@ instance::instance() :
 	loadTexture("assets/images/SingleSuggestionPanelDef.png"),
 	loadTexture("assets/images/SingleSuggestionPanelHov.png"),
 	SourceSans3);
-	suggestionPanels.setPosition(sf::Vector2u(145 - SHADOWHOR, 125));
+	suggestionPanels.setPosition(sf::Vector2u(130 - SHADOWHOR, 125));
 
 	// prompts in add word (4) and edit word modes (6)
 	changedFailedTexture.loadFromFile("assets/images/Failed!.png");
