@@ -2202,6 +2202,9 @@ antibiosis|danh tu|su khang sinh.
 antibiotic|danh tu|khang sinh; thuoc khang sinh.
 antibody|danh tu so nhieu|the khang.
 antic|danh tu|((thuong) so nhieu) tro he, tro cuoi (to play (ferform) one's antics + lam tro he); (tu co,nghia co) anh he; nguoi hay khoi hai.
+antic|tinh tu|cu, do co, so le, tuyet voi, huyen ao, ky cuc, lo bich.
+antic|ngoai dong tu|lam ra ve nhu mot ga he.
+antic|noi dong tu|thuc hien nhung tro he.
 anticatholic|danh tu|chong dao Thien chua; nguoi chong dao Thien chua.
 anticholeraic|danh tu|phong chong benh ta, tru ta; thuoc tru ta.
 antichrist|danh tu|ke chong Gie-xu, ke thu cua Gie-xu.
@@ -2923,6 +2926,9 @@ artichoke|danh tu|(thuc vat hoc) cay atiso.
 article|ngoai dong tu|bai bao (leading article + bai xa luan); dieu khoan, muc (articles of apprenticeship + dieu khoan hoc viec (trong giao keo)) (article of faith + tin dieu); do, thuc, vat pham; hang (articles of daily necessity + nhung thuc can thiet cho doi song hang ngay) (an article of food + do an) (an article of clothing + do mac) (article of luxury + hang xa xi); (ngon ngu hoc) mao tu (definite article + mao tu han dinh) (indefinite article + mao tu bat dinh); luc chet, luc tat tho; dat thanh dieu khoan, dat thanh muc; cho hoc viec theo nhung dieu khoan trong giao keo (articled apprentice + nguoi hoc viec theo giao keo); (phap ly) buoc toi; to cao (to article against someone for something + to giac ai ve viec gi; buoc toi ai ve cai gi).
 articular|tinh tu|(thuoc) khop.
 articulate|dong tu|co khop, co dot; doc ro rang, phat am ro rang; (ky thuat) co ban le; co khop noi; noi bang khop; khop lai voi nhau; doc ro rang; phat am ro rang, noi ro rang.
+articulate|danh tu|mot loai dong vat thuoc Tieu Vuong Quoc Articular.
+articular|noi dong tu|phat ra nhung am thanh ro rang; de xu ly hoac dua ra cac dieu khoan.
+articular|ngoai dong tu|the hien ro rang, dua ra loi phat bieu.
 articulation|danh tu|(giai phau) khop; su noi bang khop; su khop lai voi nhau; cach doc ro rang; cach phat am ro rang; phu am; (ky thuat) truc ban le.
 artifice|danh tu|meo, muu meo, gian ngoan, ngon gian xao; tai kheo leo, ky xao; cai duoc sang che ra mot cach tai tinh; cai duoc sang che tinh xao.
 artificer|danh tu|nguoi sang che, nguoi phat minh; tho thu cong, tho kheo; (quan su) tho sua chua vu khi; (hang hai) tho may.
