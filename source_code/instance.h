@@ -39,8 +39,8 @@ private:
 
     bool loadAutoSave = false;
     bool autoSave = true;
-    int definitionNum[6]{0};
-    std::vector<std::pair<std::string, std::string>> searchResult;
+    static int definitionNum[6];
+    static std::vector<std::pair<std::string, std::string>> searchResult;
     
     // for use later
     /* import mode error code
@@ -71,8 +71,8 @@ private:
     bool loadDefinition[6]{false};
     bool loadHistory = false;
     long historyIndex = 0;
-    bool displayHistory = false;
-    bool displayFavourite = false;
+    // bool displayHistory = false;
+    // bool displayFavourite = false;
     bool loadEmojiImage = false;
     bool getWordToDelete[6]{false};
     bool getWordToEdit[6]{false};
@@ -132,10 +132,19 @@ private:
         const sf::Texture& textureHov1, const sf::Texture& textureHov2, const sf::Texture& textureHov3,
         const sf::Texture& textureHov4, const sf::Texture& textureHov5, const sf::Texture& textureHov6);
         int getNumber();
-        bool handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window);
+        void handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window);
     };
 
     incrementalButton datasetButton;
+
+    enum DisplayMode
+    {
+        SEARCH,
+        HISTORY,
+        FAVOURITE
+    };
+
+    static DisplayMode displayMode;
 
     // search button
     sf::Texture searchTexDef; 
@@ -218,11 +227,11 @@ private:
     Button deserializeModeButton;
 
     // Definition elements
-    std::string headWordString[6];
-    std::string POSString[6];
-    std::string descriptionString[6];
-    bool displayDef = false; // control boolean
-    int numberOfResult = 0;
+    static std::string headWordString;
+    static std::string POSString;
+    static std::string descriptionString;
+    static bool displayDef; // control boolean
+    static int numberOfResult;
     sf::Texture definitionBackground;
     sf::Sprite definitionBackgroundSprite;
     sf::Text headword;
@@ -423,7 +432,7 @@ private:
     void drawDefinition();
     void loadAutoSaveSetting();
     void saveAutoSaveSetting();
-    void resetSearchResult();
+    static void resetSearchResult();
     void drawLoadingPage();
     void handleSearchSignal(std::string input);
     void handleHistory();
