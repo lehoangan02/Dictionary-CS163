@@ -498,7 +498,7 @@ std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& i
     return getVector(res);
 }
 
-std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& Inputokens) {
+std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens) {
     int size = LengthSort.size();
     std::string top = LengthSort[0];
     int min = std::numeric_limits<int>::max(); // Use maximum int value for clarity
@@ -514,7 +514,7 @@ std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& L
             int num = 0;
 
             // Check if all tokens are present
-            for (auto token : Inputokens) { //for every token in InputTokens
+            for (auto token : InputTokens) { //for every token in InputTokens
                 bool found = false; //used for checking existance of each token in temp[i].second
                 for (int j = 0; j < tempVec.size(); ++j) {
                     std::string temptoken = token;
