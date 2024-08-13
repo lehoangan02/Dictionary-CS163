@@ -56,7 +56,7 @@ instance::instance() :
 	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
-	searchBox(searchBoxTexture, SourceSans3, 24, 34, sf::Vector2u(145 - SHADOWVER, 40)),
+	searchBox(searchBoxTexture, SourceSans3, 24, 37, sf::Vector2u(130 - SHADOWVER, 40)),
 	// importbox
 	importBoxTexture(loadTexture("assets/images/ImportBox.png")),
 	importBox(importBoxTexture, SourceSans3, 24, 30, sf::Vector2u(145 - SHADOWVER, 125)),
@@ -596,9 +596,18 @@ void instance::operatePage1()
 						}
 					}
 				}
+				else if (datasetButton.isClicked(windowInstance))
+				{
+					if (!displayHistory && !displayFavourite)
+					{
+						displayDef = false;
+						headWordString = "";
+						searchBox.clear();
+					}
+				}
 				else if (searchBox.isSelected() && searchBox.getString().size() > 0)
 				{
-					printf("[DEBUG] suggestion panels on\n");
+					// printf("[DEBUG] suggestion panels on\n");
 					suggestionPanels.display = true;
 					showCorrection = false;
 				}
@@ -1004,6 +1013,12 @@ void instance::operatePage3()
 					writeFavourite(pRootFavourite);
 					// handleFavourite();
 				}
+			}
+			else if (datasetButton.isClicked(windowInstance))
+			{
+				displayDef = false;
+				headWordString = "";
+				searchBox.clear();
 			}
 		}
 		break;
