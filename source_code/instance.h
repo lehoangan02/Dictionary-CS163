@@ -51,6 +51,18 @@ class instance
     linkedListNode* pCurrentFavourite = nullptr;
     HashMap invertedIndex;
     std::vector<std::string> word4Def;
+
+    enum dataset
+    {
+        ENG_ENG,
+        VIE_ENG,
+        ENG_VIE,
+        UNICODE_EMOJI,
+        SLANG,
+        OTHER
+    };
+
+    // boolean to control loading
     bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
@@ -101,6 +113,9 @@ class instance
     sf::Texture emojiTexture;
     sf::Sprite emojiSprite;
     // int emojiNumber;
+
+    // dataset option button
+    incrementalButton datasetButton;
 
     // search button
     sf::Texture searchTexDef; 

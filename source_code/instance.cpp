@@ -56,7 +56,7 @@ instance::instance() :
 	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
-	searchBox(searchBoxTexture, SourceSans3, 24, 40, sf::Vector2u(145 - SHADOWVER, 40)),
+	searchBox(searchBoxTexture, SourceSans3, 24, 34, sf::Vector2u(145 - SHADOWVER, 40)),
 	// importbox
 	importBoxTexture(loadTexture("assets/images/ImportBox.png")),
 	importBox(importBoxTexture, SourceSans3, 24, 30, sf::Vector2u(145 - SHADOWVER, 125)),
@@ -180,6 +180,16 @@ instance::instance() :
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 	historyButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 125));
 	favouriteButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 210));
+
+	// set up dataset option button
+	datasetButton.setTexture(loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
+	loadTexture("assets/images/EVDefault.png"), loadTexture("assets/images/EMDefault.png"),
+	loadTexture("assets/images/SLDefault.png"), loadTexture("assets/images/OTDefault.png"),
+	loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
+	loadTexture("assets/images/EVDefault.png"), loadTexture("assets/images/EMDefault.png"),
+	loadTexture("assets/images/SLDefault.png"), loadTexture("assets/images/OTDefault.png"));
+	datasetButton.setPosition(sf::Vector2u(770 - SHADOWHOR, 40));
+
 
 	// Set up fonts
 	SourceSans3.setSmooth(false);
@@ -682,6 +692,7 @@ void instance::operatePage1()
 				break;
 		}
 		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
+		datasetButton.handleIncrementLogic(event, windowInstance);
 		searchBox.handleInputLogic(event, windowInstance);
 		suggestionPanels.update(event, searchBox.getString(false), pRoot, windowInstance);
 	}
@@ -722,6 +733,7 @@ void instance::drawPage1()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
+	datasetButton.draw(windowInstance);
 	searchButton.draw(windowInstance);
 	suggestionPanels.draw(windowInstance);
 	historyButton.draw(windowInstance);
@@ -1696,11 +1708,11 @@ void instance::operatePage9()
 		break;
 		case sf::Event::KeyPressed:
 		{
-			if (event.key.code == sf::Keyboard::Return)
-			{
-				correctAnswer = !correctAnswer;
-				if (correctAnswer) congratulationsAnimation.resetAnimation();
-			}
+			// if (event.key.code == sf::Keyboard::Return)
+			// {
+			// 	correctAnswer = !correctAnswer;
+			// 	if (correctAnswer) congratulationsAnimation.resetAnimation();
+			// }
 		}
 		break;
 		default:

@@ -71,7 +71,7 @@ void Button::draw(sf::RenderWindow& window)
     window.draw(buttonSprite);
     window.draw(buttonText);
 }
-bool Button::isClicked(sf::RenderWindow& window)
+bool Button::isClicked(const sf::RenderWindow& window)
 {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)
@@ -116,6 +116,7 @@ void Button::hoverSwitchTexture(const sf::RenderWindow& window)
 }
 void Button::centerText()
     {
+        if (!haveText) return;
         if (shadow)
         {
             buttonText.setPosition((int)(buttonPosition.x + (buttonSprite.getGlobalBounds().width - buttonText.getGlobalBounds().width) / 2),
@@ -359,3 +360,50 @@ void suggestionButton::setTexture(sf::Texture& textureDef, sf::Texture& textureH
     centerText();
 }
 
+void incrementalButton::setTexture(const sf::Texture& textureDef1, const sf::Texture& textureDef2, const sf::Texture& textureDef3,
+    const sf::Texture& textureDef4, const sf::Texture& textureDef5, const sf::Texture& textureDef6,
+    const sf::Texture& textureHov1, const sf::Texture& textureHov2, const sf::Texture& textureHov3,
+    const sf::Texture& textureHov4, const sf::Texture& textureHov5, const sf::Texture& textureHov6)
+    {
+        textureDefault[0] = textureDef1; textureHover[0] = textureHov1;
+        textureDefault[1] = textureDef2; textureHover[1] = textureHov2;
+        textureDefault[2] = textureDef3; textureHover[2] = textureHov3;
+        textureDefault[3] = textureDef4; textureHover[3] = textureHov4;
+        textureDefault[4] = textureDef5; textureHover[4] = textureHov5;
+        textureDefault[5] = textureDef6; textureHover[5] = textureHov6;
+
+        buttonSprite.setTexture(textureDefault[0]);
+    }
+
+void incrementalButton::hoverSwitchTexture(const sf::RenderWindow& window)
+{
+    if (isHovering(window))
+    {
+        buttonSprite.setTexture(textureHover[incrementTracker]);
+    }
+    else
+    {
+        buttonSprite.setTexture(textureDefault[incrementTracker]);
+    }
+}
+
+void incrementalButton::handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window)
+{
+    if (event.type == sf::Event::MouseButtonPressed && isClicked(window))
+    {
+        if (incrementTracker < 5)
+        {
+            ++incrementTracker;
+        }
+        else
+        {
+            incrementTracker = 0;
+        }
+    }
+    hoverSwitchTexture(window);
+}
+
+int incrementalButton::getNumber()
+{
+    return incrementTracker;
+}
