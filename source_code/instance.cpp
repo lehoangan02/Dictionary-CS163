@@ -185,9 +185,9 @@ instance::instance() :
 	datasetButton.setTexture(loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
 	loadTexture("assets/images/EVDefault.png"), loadTexture("assets/images/EMDefault.png"),
 	loadTexture("assets/images/SLDefault.png"), loadTexture("assets/images/OTDefault.png"),
-	loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
-	loadTexture("assets/images/EVDefault.png"), loadTexture("assets/images/EMDefault.png"),
-	loadTexture("assets/images/SLDefault.png"), loadTexture("assets/images/OTDefault.png"));
+	loadTexture("assets/images/EEHover.png"), loadTexture("assets/images/VEHover.png"),
+	loadTexture("assets/images/EVHover.png"), loadTexture("assets/images/EMHover.png"),
+	loadTexture("assets/images/SLHover.png"), loadTexture("assets/images/OTHover.png"));
 	datasetButton.setPosition(sf::Vector2u(770 - SHADOWHOR, 40));
 
 
