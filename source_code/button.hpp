@@ -86,19 +86,3 @@ class suggestionButton : public Button
     void setPosition(sf::Vector2u position) override;
     void setTexture(sf::Texture& textureDef, sf::Texture& textureHov, bool shadow);
 };
-class incrementalButton : public Button
-{
-    private:
-    int incrementTracker = 0;
-    sf::Texture textureDefault[6];
-    sf::Texture textureHover[6];
-    private:
-    void hoverSwitchTexture(const sf::RenderWindow& window) override;
-    public:
-    void setTexture(const sf::Texture& textureDef1, const sf::Texture& textureDef2, const sf::Texture& textureDef3,
-    const sf::Texture& textureDef4, const sf::Texture& textureDef5, const sf::Texture& textureDef6,
-    const sf::Texture& textureHov1, const sf::Texture& textureHov2, const sf::Texture& textureHov3,
-    const sf::Texture& textureHov4, const sf::Texture& textureHov5, const sf::Texture& textureHov6);
-    int getNumber();
-    void handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window);
-};

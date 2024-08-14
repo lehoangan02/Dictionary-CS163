@@ -8,13 +8,13 @@
 
 const int ascii = 96; //32-127
 
-struct trieNode
+struct TrieNode
 {
 	bool wordExisted = false;
-	trieNode* childNode[96];
+	TrieNode* childNode[96];
 	int countchildren = 0;
 	std::vector<std::pair<std::string, std::string>> definitions;
-	trieNode()
+	TrieNode()
 	{
 		// 0->25: letters
 		// 26: space (' ')
@@ -50,37 +50,37 @@ bool checkingExistance(std::string s1, std::string s2);
 /// @param pRoot 
 /// @param word 
 /// @param definitions 
-void insert(trieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions);
+void insert(TrieNode*& pRoot, std::string word, std::vector<std::pair<std::string, std::string>> definitions);
 /// @brief the new insert function, you should use this in instance.cpp
-void insert(trieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def);
-bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, trieNode* pRoot);
-void ChangeCountChild(trieNode*& pRoot, std::string word);
+void insert(TrieNode*& pRoot, std::string& word, const std::string& pos, const std::string& def, std::vector<std::string>& word4Def);
+bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, TrieNode* pRoot);
+void ChangeCountChild(TrieNode*& pRoot, std::string word);
 
-std::vector<std::pair<std::string, std::string>> traverseToSearch(trieNode* pRoot, std::string word);
+std::vector<std::pair<std::string, std::string>> traverseToSearch(TrieNode* pRoot, std::string word);
 
-std::vector<std::pair<std::string, std::string>> Search(trieNode* pRoot, std::string word);
+std::vector<std::pair<std::string, std::string>> Search(TrieNode* pRoot, std::string word);
 
-bool isLeaf(trieNode* pRoot);
+bool isLeaf(TrieNode* pRoot);
 
-void RemoveAWord(trieNode*& pRoot, std::string word);
+void RemoveAWord(TrieNode*& pRoot, std::string word);
 
-void deleteWholeTrie(trieNode*& pRoot);
+void deleteWholeTrie(TrieNode*& pRoot);
 
-std::pair<trieNode*, std::string> pickarandomword(trieNode* pRoot);
+std::pair<TrieNode*, std::string> pickarandomword(TrieNode* pRoot);
 
-std::pair<trieNode*, std::string> findtheKthword(trieNode* pRoot, int k);
+std::pair<TrieNode*, std::string> findtheKthword(TrieNode* pRoot, int k);
 
-std::vector <std::string> SuggestingWords(std::string word, trieNode* pRoot);
+std::vector <std::string> SuggestingWords(std::string word, TrieNode* pRoot);
 
-void SuggestHelper(std::string prefix, trieNode* pRoot, int& count, std::vector<std::string>& collection);
+void SuggestHelper(std::string prefix, TrieNode* pRoot, int& count, std::vector<std::string>& collection);
 
-double getDefLength(std::string& word, trieNode*& pRoot);
-void sortByDefLength(std::vector<std::string>& keyWords, trieNode*& pRoot);
+double getDefLength(std::string& word, TrieNode*& pRoot);
+void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot);
 void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<double>& defLength);
 void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<double>& defLength);
 
 std::string randomWord4Def(std::vector<std::string>& word4Def);
 bool CheckWords(const std::string& word1, const std::string& word2);
-void RandomDef(trieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<trieNode*, std::string>& rdword);
+void RandomDef(TrieNode* pRoot, std::unordered_set<std::string>& WordList, std::pair<TrieNode*, std::string>& rdword);
 
-bool correction(std::string &correctWord, trieNode* &pRoot);
+bool correction(std::string &correctWord, TrieNode* &pRoot);

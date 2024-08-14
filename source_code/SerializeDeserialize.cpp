@@ -1,12 +1,12 @@
 #include "SerializeDeserialize.h"
 
 // serialization of the existing trie (compatibility mode)
-void serializeWrapper(trieNode* pRoot)
+void serializeWrapper(TrieNode* pRoot)
 {
 	std::ofstream fout; fout.open("serialized.txt");
 	serialize(pRoot, fout, "");
 }
-void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
+void serialize(TrieNode* pRoot, std::ofstream& fout, std::string word)
 {
 	if (!pRoot)
 	{ 
@@ -33,7 +33,7 @@ void serialize(trieNode* pRoot, std::ofstream& fout, std::string word)
 }
 
 // deserialization of the saved trie (compatibility mode)
-bool deserializeWrapper(trieNode*& pRoot)
+bool deserializeWrapper(TrieNode*& pRoot)
 {
 	deleteWholeTrie(pRoot);
 	std::ifstream fin; fin.open("serialized.txt");
@@ -45,7 +45,7 @@ bool deserializeWrapper(trieNode*& pRoot)
 	deserialize(pRoot, fin, "");
     return true;
 }
-void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
+void deserialize(TrieNode*& pRoot, std::ifstream& fin, std::string word)
 {
 	int temp = 0;
 	fin >> temp;
@@ -56,7 +56,7 @@ void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 		pRoot = nullptr;
 		return;
 	}
-	pRoot = new trieNode;
+	pRoot = new TrieNode;
 	pRoot -> wordExisted = temp;
 	std::string tempString = "";
 	std::getline(fin, tempString);
@@ -84,13 +84,14 @@ void deserialize(trieNode*& pRoot, std::ifstream& fin, std::string word)
 }
 
 // serialization of the existing trie (compatibility mode)
-void serializeBinaryWrapper(trieNode* pRoot)
+void serializeBinaryWrapper(TrieNode* pRoot, const int& fileNum)
 {
-	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::out | std::ios::trunc);
+	std::string fileName = "serialized" + std::to_string(fileNum) + ".bin";
+	std::fstream f; f.open(fileName, std::ios::binary | std::ios::out | std::ios::trunc);
 	std::string temp = "";
 	serializeBinary(pRoot, f, temp);
 }
-void serializeBinary(trieNode* pRoot, std::fstream& f, std::string& word)
+void serializeBinary(TrieNode* pRoot, std::fstream& f, std::string& word)
 {
 	int temp = 0;
 	if (!pRoot)
@@ -129,9 +130,12 @@ void serializeBinary(trieNode* pRoot, std::fstream& f, std::string& word)
 }
 
 // deserialization of the saved trie (compatibility mode)
-bool deserializeBinaryWrapper(trieNode*& pRoot, std::vector<std::string>& word4Def)
+bool deserializeBinaryWrapper(TrieNode*& pRoot, std::vector<std::string>& word4Def, const int& fileNum)
 {
-	std::fstream f; f.open("serialized.bin", std::ios::binary | std::ios::in);
+	std::cout << "[DEBUG] deserializing file " << fileNum << std::endl;
+	std::fstream f; 
+	std::string fileName = "serialized" + std::to_string(fileNum) + ".bin";
+	f.open(fileName, std::ios::binary | std::ios::in);
 	if (!f.is_open())
 	{
 		std::cout << "[DEBUG] no file found to deserialize!\n";
@@ -141,7 +145,7 @@ bool deserializeBinaryWrapper(trieNode*& pRoot, std::vector<std::string>& word4D
 	deserializeBinary(pRoot, f, temp, word4Def);
 	return true;
 }
-void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word, std::vector<std::string>& word4Def)
+void deserializeBinary(TrieNode*& pRoot, std::fstream& f, std::string& word, std::vector<std::string>& word4Def)
 {
 	int temp = 0;
 	f.read((char*)&temp, sizeof(int));
@@ -151,7 +155,7 @@ void deserializeBinary(trieNode*& pRoot, std::fstream& f, std::string& word, std
 		pRoot = nullptr;
 		return;
 	}
-	pRoot = new trieNode;
+	pRoot = new TrieNode;
 	bool wordExisted = false;
 	f.read((char*)&wordExisted, sizeof(bool));
 	pRoot -> wordExisted = wordExisted;

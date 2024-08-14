@@ -15,12 +15,12 @@ loadingScreen::loadingScreen() :
     loadingText.setPosition((int)((960 - loadingText.getGlobalBounds().width) / 2 - 5), 500.0f);
 }
 sf::Texture loadTexture(const std::string& filepath)
-    {
-        sf::Texture texture;
-        texture.loadFromFile(filepath);
-        texture.setSmooth(false);
-        return texture;
-    }
+{
+    sf::Texture texture;
+    texture.loadFromFile(filepath);
+    texture.setSmooth(false);
+    return texture;
+}
 void loadingScreen::operate(sf::RenderWindow& window, std::atomic<bool>& controlLoaded)
 {
     while (window.isOpen() && controlLoaded.load() == false)

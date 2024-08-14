@@ -498,7 +498,7 @@ std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& i
     return getVector(res);
 }
 
-std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens) {
+std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens) {
     int size = LengthSort.size();
     std::string top = LengthSort[0];
     int min = std::numeric_limits<int>::max(); // Use maximum int value for clarity
@@ -548,19 +548,19 @@ std::string sortBySumPosition(trieNode* pRoot, const std::vector<std::string>& L
     return top;
 }
 
-void invertIndexTrie(trieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded)
+void invertIndexTrie(TrieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded)
 {
     std::string curWord;
     invertIndexTrieRecursive(pRoot, invertedIndex, curWord);
     controlLoaded = true;
 }
-void invertIndexTrie(trieNode*& pRoot, HashMap& invertedIndex)
+void invertIndexTrie(TrieNode*& pRoot, HashMap& invertedIndex)
 {
     std::string curWord;
     invertIndexTrieRecursive(pRoot, invertedIndex, curWord);
 }
 
-void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::string& curWord)
+void invertIndexTrieRecursive(TrieNode*& pRoot, HashMap& invertedIndex, std::string& curWord)
 {
     if (!pRoot)
         return;
@@ -579,7 +579,7 @@ void invertIndexTrieRecursive(trieNode*& pRoot, HashMap& invertedIndex, std::str
     }
 }
 
-bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, trieNode* pRoot, HashMap& invertedIndex)
+bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, TrieNode* pRoot, HashMap& invertedIndex)
 {
     size_t i = 0;
     while (i < word.length())
@@ -600,12 +600,12 @@ bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
     return true;
 }
 
-void removeWord(std::string& word, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+void removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
 	removeWordRecursive(word, 0, pRoot, invertedIndex, word4Def);
 }
 
-void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
 	//base case
 	if (!pRoot)
@@ -662,7 +662,7 @@ void removeWordRecursive(std::string& word, size_t curIndex, trieNode*& pRoot, H
 /// @param pRoot 
 /// @param invertedIndex 
 /// @param word4Def 
-void addWord(std::string& word, std::string& pos, std::string& definition, trieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+void addWord(std::string& word, std::string& pos, std::string& definition, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
     // If this is the 4th definition of word, add it to word4Def
     if (traverseToSearch(pRoot, word).size() == 3)
@@ -675,7 +675,7 @@ void addWord(std::string& word, std::string& pos, std::string& definition, trieN
     // Inverted Indexing word
     invertedIndex.insertWordDef(word, definition);
 }
-void removeAllCase(std::string word, trieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex)
+void removeAllCase(std::string word, TrieNode*& pRoot, std::vector<std::string>& word4Def, HashMap& invertedIndex)
 {
 	//first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase
     printf("removing\n");

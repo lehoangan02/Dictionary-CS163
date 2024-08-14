@@ -2,7 +2,7 @@
 #include "readDataset.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
 
-bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::string>& wordFourDef)
+bool readDatasetCSV(std::string filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef)
 {
     int count4Def = 0;
     std::ifstream inputStream;
@@ -77,7 +77,7 @@ bool readDatasetCSV(std::string filename, trieNode*& pRoot, std::vector<std::str
     return true;
 }
 
-bool readDatasetTXT(const std::string& filename, trieNode*& pRoot, std::vector<std::string>& word4Def)
+bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& word4Def)
 {
     std::ifstream fin;
     fin.open("dataset/" + filename + ".txt");
