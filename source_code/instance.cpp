@@ -434,11 +434,12 @@ void instance::operatePage1()
 			loadAutoSaveSetting();
 			loadAutoSave = true;
 		}
+
+		std::atomic<bool> controlLoaded(false);
+		windowInstance.setActive(false);
+
 		if (autoSave)
 		{
-			std::atomic<bool> controlLoaded(false);
-			windowInstance.setActive(false);
-
 			std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 			std::thread deserializeThread[6] = {
 				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0),
@@ -453,9 +454,26 @@ void instance::operatePage1()
 				deserializeThread[i].join();
 			controlLoaded.store(true);
 			loadAnimationThread.join();
-			
-			windowInstance.setActive(true);
 		}
+		else
+		{
+			std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+			std::thread deserializeThread[5] = {
+				std::thread(readDatasetCSV, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0])),
+				std::thread(readDatasetTXT, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1])),
+				std::thread(readDatasetTXT, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2])),
+				std::thread(readDatasetCSV, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3])),
+				std::thread(readDatasetTXT, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4])),
+			};
+
+			for (int i = 0; i < 5; ++i)
+				deserializeThread[i].join();
+			controlLoaded.store(true);
+			loadAnimationThread.join();
+		}
+
+		windowInstance.setActive(true);
+
 		readFavourite(pRootFavourite);
 		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
