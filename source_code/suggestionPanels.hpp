@@ -13,7 +13,7 @@ public:
     sf::Texture singlePanelTextureDef, sf::Texture singlePanelTextureHov, sf::Font& font);
     void hoverswitchTexture(sf::RenderWindow& window);
     void setPosition(sf::Vector2u position);
-    void update(const sf::Event& event, std::string input, TrieNode*& pRoot, sf::RenderWindow& window);
+    void update(const sf::Event& event, std::string input, TrieNode*& pRoot, sf::RenderWindow& window, bool& switchedDataset);
     void draw(sf::RenderWindow& window);
 
 private:

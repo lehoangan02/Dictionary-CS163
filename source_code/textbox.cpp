@@ -43,11 +43,30 @@ void textbox::setPosition(sf::Vector2u position)
     displayTextPosition.y = (float)(int)(textboxSprite.getPosition().y + (textboxSprite.getGlobalBounds().height - SHADOWVER - (float)characterSize) / 2 - SFMLTEXPADDING);
     this -> displayText.setPosition(displayTextPosition);
 }
+
 void textbox::draw(sf::RenderWindow &window)
 {
     window.draw(textboxSprite);
     window.draw(displayText);
 }
+
+bool textbox::isClicked(const sf::RenderWindow& window)
+{
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+    if (mousePosition.y > textboxSprite.getPosition().y
+        && mousePosition.y < textboxSprite.getPosition().y + textboxSprite.getGlobalBounds().height - SHADOWVER
+        && mousePosition.x > textboxSprite.getPosition().x + SHADOWHOR
+        && mousePosition.x < textboxSprite.getPosition().x + textboxSprite.getGlobalBounds().width - SHADOWHOR)
+        {
+            // std::cout << "[DEBUG] clicked in textbox\n";
+            return true;
+        }
+    else
+    {
+        return false;
+    }
+}
+
 void textbox::handleInputLogic(const sf::Event event, sf::RenderWindow& window)
 {
     if (active)
@@ -94,6 +113,7 @@ void textbox::handleInputLogic(const sf::Event event, sf::RenderWindow& window)
         }
         else
         {
+            std::cout << "[DEBUG] clicked out of textbox\n";
             deselect();
         }
     }

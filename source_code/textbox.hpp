@@ -52,12 +52,13 @@ public:
     virtual void clear();
     bool isSelected() const;
     void setString(std::string input);
+    bool isClicked(const sf::RenderWindow& window);
+    virtual void select();
+    virtual void deselect();
 protected:
     virtual void insertChar(char newInput);
     virtual void deleteChar();
     void handleColor();
-    virtual void select();
-    virtual void deselect();
     virtual void manageFullness();
     void setLimit(int limit);
 };

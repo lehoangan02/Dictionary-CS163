@@ -672,11 +672,18 @@ void instance::operatePage1()
 					}
 					}
 				}
-				else if (searchBox.isSelected() && searchBox.getString().size() > 0)
+				else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
 				{
-					// printf("[DEBUG] suggestion panels on\n");
+					printf("[DEBUG] suggestion panels on 2\n");
 					suggestionPanels.display = true;
 					showCorrection = false;
+					mouseControl = false;
+				}
+				else if (!searchBox.isClicked(windowInstance) && mouseControl)
+				{
+					printf("[DEBUG] suggestion panels off la asdfasdf\n");
+					suggestionPanels.display = false;
+					mouseControl = false;
 				}
 				if (mouseControl)
 				{
@@ -700,8 +707,9 @@ void instance::operatePage1()
 						}
 					}
 				}
+				break;
 			}
-			case sf::Event::KeyPressed:
+			case sf::Event::EventType::KeyPressed:
 			{
 				if (event.key.code == sf::Keyboard::Return)
 				{
@@ -735,11 +743,11 @@ void instance::operatePage1()
 				}
 				else if (searchBox.isSelected())
 				{
-					printf("[DEBUG] suggestion panels on\n");
+					printf("[DEBUG] key pressed and suggestion panels on 1\n");
 					suggestionPanels.display = true;
 					showCorrection = false;
 				}
-				// std::cout << "Search box: " << searchBox.getString(false) << std::endl;
+				break;
 			}
 			break;
 			case sf::Event::MouseWheelScrolled:
@@ -770,9 +778,9 @@ void instance::operatePage1()
 				break;
 		}
 		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
-		datasetButton.handleIncrementLogic(event, windowInstance);
+		datasetButton.handleIncrementLogic(event, windowInstance, switchedDataset);
 		searchBox.handleInputLogic(event, windowInstance);
-		suggestionPanels.update(event, searchBox.getString(false), trieRoot[curDataset], windowInstance);
+		suggestionPanels.update(event, searchBox.getString(false), trieRoot[curDataset], windowInstance, switchedDataset);
 	}
 	handleSwitchModeLogic();
 	searchButton.hoverSwitchTexture(windowInstance);
@@ -1132,7 +1140,7 @@ void instance::operatePage3()
 			break;
 		}
 		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
-		datasetButton.handleIncrementLogic(event, windowInstance);
+		datasetButton.handleIncrementLogic(event, windowInstance, switchedDataset);
 		searchBox.handleInputLogic(event, windowInstance);
 	}
 	handleSwitchModeLogic();
@@ -2463,7 +2471,7 @@ void instance::incrementalButton::hoverSwitchTexture(const sf::RenderWindow& win
     }
 }
 
-void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window)
+void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window, bool& switchedDataset)
 {
     if (event.type == sf::Event::MouseButtonPressed && isClicked(window))
     {
@@ -2475,6 +2483,7 @@ void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, c
         resetSearchResult();
 		displayMode = SEARCH;
 		displayDef = false;
+		switchedDataset = true;
     }
     
     hoverSwitchTexture(window);

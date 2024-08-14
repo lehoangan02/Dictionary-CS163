@@ -46,9 +46,11 @@ void SuggestionPanels::hoverswitchTexture(sf::RenderWindow& window)
     }
 }
 
-void SuggestionPanels::update(const sf::Event& event, std::string input, TrieNode*& pRoot, sf::RenderWindow& window)
+void SuggestionPanels::update(const sf::Event& event, std::string input, TrieNode*& pRoot, sf::RenderWindow& window, bool& switchedDataset)
 {
-    if (event.type != sf::Event::KeyPressed && event.type != sf::Event::TextEntered) return;
+    if (event.type != sf::Event::KeyPressed && event.type != sf::Event::TextEntered && !switchedDataset) return;
+    switchedDataset = false;
+    printf("UPDATE\n");
     std::vector<std::string> suggestingWords = SuggestingWords(input, pRoot);
     int suggestingSize = (int)suggestingWords.size();
     printf("number of suggestions are: %d\n", (int)suggestingWords.size());

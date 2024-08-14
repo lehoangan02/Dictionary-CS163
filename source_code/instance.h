@@ -36,6 +36,7 @@ private:
     TrieNode* trieRoot[6]{nullptr};
     HashMap invertedIndex[6];
     std::vector<std::string> word4Def[6];
+    bool switchedDataset = false;
 
     bool loadAutoSave = false;
     bool autoSave = true;
@@ -132,7 +133,7 @@ private:
         const sf::Texture& textureHov1, const sf::Texture& textureHov2, const sf::Texture& textureHov3,
         const sf::Texture& textureHov4, const sf::Texture& textureHov5, const sf::Texture& textureHov6);
         int getNumber();
-        void handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window);
+        void handleIncrementLogic(const sf::Event& event, const sf::RenderWindow& window, bool& switchedDataset);
     };
 
     incrementalButton datasetButton;
