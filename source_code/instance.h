@@ -39,7 +39,7 @@ private:
 
     bool loadAutoSave = false;
     bool autoSave = true;
-    static int definitionNum[6];
+    static int definitionNum;
     static std::vector<std::pair<std::string, std::string>> searchResult;
     
     // for use later

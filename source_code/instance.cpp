@@ -13,7 +13,7 @@
 // Static members
 int instance::curDataset = 0;
 instance::DisplayMode instance::displayMode = DisplayMode::SEARCH;
-int instance::definitionNum[6] = { 0, 0, 0, 0, 0, 0 };
+int instance::definitionNum = 0;
 int instance::numberOfResult = 0;
 std::vector<std::pair<std::string, std::string>> instance::searchResult;
 std::string instance::headWordString;
@@ -436,6 +436,10 @@ void instance::operatePage1()
 		}
 		if (autoSave)
 		{
+			std::atomic<bool> controlLoaded(false);
+			windowInstance.setActive(false);
+
+			std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 			std::thread deserializeThread[6] = {
 				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0),
 				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1),
@@ -444,8 +448,13 @@ void instance::operatePage1()
 				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4),
 				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5)
 			};
+
 			for (int i = 0; i < 6; ++i)
 				deserializeThread[i].join();
+			controlLoaded.store(true);
+			loadAnimationThread.join();
+			
+			windowInstance.setActive(true);
 		}
 		readFavourite(pRootFavourite);
 		pCurrentFavourite = pRootFavourite;
@@ -504,11 +513,11 @@ void instance::operatePage1()
 				}
 				else if (nextPageButton.isClicked(windowInstance))
 				{
-					if (definitionNum[curDataset] < (int)searchResult.size() - 1)
+					if (definitionNum < (int)searchResult.size() - 1)
 					{
-						++definitionNum[curDataset];
-						POSString = searchResult[definitionNum[curDataset]].first;
-						descriptionString = searchResult[definitionNum[curDataset]].second;
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
 						description.setString(descriptionString);
 						wrappedDescription = false;
 						scrollOffset = 0;
@@ -516,11 +525,11 @@ void instance::operatePage1()
 				}
 				else if (prevPageButton.isClicked(windowInstance))
 				{
-					if (definitionNum[curDataset] > 0)
+					if (definitionNum > 0)
 					{
-						--definitionNum[curDataset];
-						POSString = searchResult[definitionNum[curDataset]].first;
-						descriptionString = searchResult[definitionNum[curDataset]].second;
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
 						description.setString(descriptionString);
 						wrappedDescription = false;
 						scrollOffset = 0;
@@ -993,11 +1002,11 @@ void instance::operatePage3()
 			}
 			else if (nextPageButton.isClicked(windowInstance))
 			{
-				if (definitionNum[curDataset] < (int)searchResult.size() - 1)
+				if (definitionNum < (int)searchResult.size() - 1)
 				{
-					++definitionNum[curDataset];
-					POSString = searchResult[definitionNum[curDataset]].first;
-					descriptionString = searchResult[definitionNum[curDataset]].second;
+					++definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
 					scrollOffset = 0;
@@ -1005,11 +1014,11 @@ void instance::operatePage3()
 			}
 			else if (prevPageButton.isClicked(windowInstance))
 			{
-				if (definitionNum[curDataset] > 0)
+				if (definitionNum > 0)
 				{
-					--definitionNum[curDataset];
-					POSString = searchResult[definitionNum[curDataset]].first;
-					descriptionString = searchResult[definitionNum[curDataset]].second;
+					--definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
 					scrollOffset = 0;
@@ -1066,7 +1075,7 @@ void instance::operatePage3()
 			{
 				scrollOffset = maxScrollOffset;
 				printf("[DEBUG] offset: %d\n", scrollOffset);
-				// std::cout << searchResult[definitionNum[curDataset]].second << std::endl;
+				// std::cout << searchResult[definitionNum].second << std::endl;
 			}
 		}
 		break;
@@ -1305,7 +1314,7 @@ void instance::operatePage6()
 	if (!getWordToEdit[curDataset])
 	{
 		std::cout << "[DEBUG] Current word is: " << headWordString << std::endl;
-		std::cout << "Current definition num: " << definitionNum[curDataset] << std::endl;
+		std::cout << "Current definition num: " << definitionNum << std::endl;
 		if (headWordString != "")
 		{
 			currentWordText.setString("Current word: " + headWordString);
@@ -1340,7 +1349,7 @@ void instance::operatePage6()
 				unwrapText(newDescription);
 				std::pair<std::string, std::string> newDefinition = make_pair(POSBox.getString(), newDescription);
 				// edit word here
-				if (editDefinition(headWordString, definitionNum[curDataset], newDefinition, trieRoot[curDataset], invertedIndex[curDataset]))
+				if (editDefinition(headWordString, definitionNum, newDefinition, trieRoot[curDataset], invertedIndex[curDataset]))
 				{
 					changedSuccessful = true;
 					changedFailed =false;
@@ -1684,11 +1693,11 @@ void instance::operatePage9()
 			}
 			else if (nextPageButton.isClicked(windowInstance))
 			{
-				if (definitionNum[curDataset] < (int)searchResult.size() - 1)
+				if (definitionNum < (int)searchResult.size() - 1)
 				{
-					++definitionNum[curDataset];
-					POSString = searchResult[definitionNum[curDataset]].first;
-					descriptionString = searchResult[definitionNum[curDataset]].second;
+					++definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
 					scrollOffset = 0;
@@ -1696,11 +1705,11 @@ void instance::operatePage9()
 			}
 			else if (prevPageButton.isClicked(windowInstance))
 			{
-				if (definitionNum[curDataset] > 0)
+				if (definitionNum > 0)
 				{
-					--definitionNum[curDataset];
-					POSString = searchResult[definitionNum[curDataset]].first;
-					descriptionString = searchResult[definitionNum[curDataset]].second;
+					--definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
 					description.setString(descriptionString);
 					wrappedDescription = false;
 					scrollOffset = 0;
@@ -2094,8 +2103,8 @@ void instance::drawDefinition()
 	{
 		windowInstance.draw(emojiSprite);
 	}
-	if (definitionNum[curDataset] > 0)	prevPageButton.draw(windowInstance);
-	if (definitionNum[curDataset] < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
+	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
+	if (definitionNum < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
 	if (displayDef)	bookmarkButton.draw(windowInstance);
 	// page up/page down and error message for history and favourite
 	switch (displayMode)
@@ -2164,7 +2173,7 @@ void instance::resetSearchResult()
 {
 	searchResult.clear();
 	numberOfResult = 0;
-	definitionNum[curDataset] = 0;
+	definitionNum = 0;
 	headWordString = "";
 	POSString = "";
 	descriptionString = "";
@@ -2188,8 +2197,8 @@ void instance::handleSearchSignal(std::string input)
 	if (numberOfResult > 0)
 	{
 		headWordString = input;
-		POSString = searchResult[definitionNum[curDataset]].first;
-		descriptionString = searchResult[definitionNum[curDataset]].second;
+		POSString = searchResult[definitionNum].first;
+		descriptionString = searchResult[definitionNum].second;
 		description.setString(descriptionString);
 		displayDef = true;
 		wrappedDescription = false;
