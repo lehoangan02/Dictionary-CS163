@@ -10,7 +10,7 @@
 //line 548
 //Please identify the correct form of serialize and deserialize
 
-// Static members
+// Static members (Can be modified by datasetButton)
 int instance::curDataset = 0;
 instance::DisplayMode instance::displayMode = DisplayMode::SEARCH;
 int instance::definitionNum = 0;
@@ -19,7 +19,9 @@ std::vector<std::pair<std::string, std::string>> instance::searchResult;
 std::string instance::headWordString;
 std::string instance::POSString;
 std::string instance::descriptionString;
+SuggestionPanels instance::suggestionPanels;
 bool instance::displayDef = false;
+bool instance::showCorrection = false;
 
 instance::instance() :
 	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
@@ -334,15 +336,17 @@ instance::instance() :
 	saveButton.setPosition(sf::Vector2u(663, 527));
 
 	// Set up suggestion panels
-	suggestionPanels.setUp(loadTexture("assets/images/1stInTrioSuggestionPanelDef.png"),
-	loadTexture("assets/images/1stInTrioSuggestionPanelHov.png"), 
-	loadTexture("assets/images/2ndInTrioSuggestionPanelDef.png"),
-	loadTexture("assets/images/2ndInTrioSuggestionPanelHov.png"),
-	loadTexture("assets/images/3rdInTrioSuggestionPanelDef.png"),
-	loadTexture("assets/images/3rdInTrioSuggestionPanelHov.png"),
-	loadTexture("assets/images/SingleSuggestionPanelDef.png"),
-	loadTexture("assets/images/SingleSuggestionPanelHov.png"),
-	SourceSans3);
+	suggestionPanels.setUp(
+		loadTexture("assets/images/1stInTrioSuggestionPanelDef.png"),
+		loadTexture("assets/images/1stInTrioSuggestionPanelHov.png"), 
+		loadTexture("assets/images/2ndInTrioSuggestionPanelDef.png"),
+		loadTexture("assets/images/2ndInTrioSuggestionPanelHov.png"),
+		loadTexture("assets/images/3rdInTrioSuggestionPanelDef.png"),
+		loadTexture("assets/images/3rdInTrioSuggestionPanelHov.png"),
+		loadTexture("assets/images/SingleSuggestionPanelDef.png"),
+		loadTexture("assets/images/SingleSuggestionPanelHov.png"),
+		SourceSans3
+	);
 	suggestionPanels.setPosition(sf::Vector2u(130 - SHADOWHOR, 125));
 
 	// prompts in add word (4) and edit word modes (6)
@@ -2195,6 +2199,8 @@ void instance::resetSearchResult()
 	headWordString = "";
 	POSString = "";
 	descriptionString = "";
+	showCorrection = false;
+	suggestionPanels.display = false;
 }
 
 /// use this before potential heavy loading functions

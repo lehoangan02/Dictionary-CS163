@@ -6,7 +6,7 @@
 
 class SuggestionPanels
 {
-    public:
+public:
     void setUp(sf::Texture firstTrioPanelTextureDef, sf::Texture firstTrioPanelTextureHov,
     sf::Texture secondTrioPanelTextureDef, sf::Texture secondTrioPanelTextureHov,
     sf::Texture thirdTrioPanelTextureDef, sf::Texture thirdTrioPanelTextureHov,
@@ -15,14 +15,16 @@ class SuggestionPanels
     void setPosition(sf::Vector2u position);
     void update(const sf::Event& event, std::string input, TrieNode*& pRoot, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
-    private:
+
+private:
     sf::Texture trioPanelTextureDef[3];
     sf::Texture trioPanelTextureHov[3];
     sf::Texture duoPanelTextureDef[2];
     sf::Texture duoPanelTextureHov[2];
     sf::Texture singlePanelTextureDef[1];
     sf::Texture singlePanelTextureHov[1];
-    public:
+    
+public:
     bool display = false;
     suggestionButton ButtonArray[3];
     int numberOfButtons = 0;

@@ -184,7 +184,7 @@ private:
     textbox searchBox;
 
     // suggestion panels
-    SuggestionPanels suggestionPanels;
+    static SuggestionPanels suggestionPanels;
 
     // import box
     sf::Texture importBoxTexture;
@@ -262,7 +262,7 @@ private:
     switchButton bookmarkButton;
 
     // correct the user input
-    bool showCorrection = false;
+    static bool showCorrection;
     sf::Texture selectCorrectionTexDef;
     sf::Texture selectCorrectionTexHov;
     Button selectCorrectionButton;
