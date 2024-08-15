@@ -77,6 +77,7 @@ instance::instance() :
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
 	searchBox(searchBoxTexture, SourceSans3, 24, 37, sf::Vector2u(130 - SHADOWVER, 40)),
+
 	// importbox
 	importBoxTexture(loadTexture("assets/images/ImportBox.png")),
 	importBox(importBoxTexture, SourceSans3, 24, 30, sf::Vector2u(145 - SHADOWVER, 125)),
@@ -176,12 +177,10 @@ instance::instance() :
 	selectCorrectionTexHov(loadTexture("assets/images/selectCorrectionHov.png")),
 	selectCorrectionButton(selectCorrectionTexDef, selectCorrectionTexHov)
 
-
-
-
-
 {
-	// reserve word4Def[curDataset] for faster insert at the beginning
+	windowInstance.setFramerateLimit(60);
+	
+	// reserve word4Def[i] for faster insert at the beginning
 	for (int i = 0; i < 5; ++i)
 		word4Def[i].reserve(1000);
 
@@ -364,6 +363,98 @@ void instance::operate()
 	std::cout << "MAX: " << sf::Texture::getMaximumSize() << std::endl;
 	while (windowInstance.isOpen())
 	{
+		if (!loadedSave)
+		{
+			auto startTime = std::chrono::high_resolution_clock::now();
+			
+			for (int i = 0; i < 6; ++i)
+				deleteWholeTrie(trieRoot[i]);
+			if (!loadAutoSave)
+			{
+				loadAutoSaveSetting();
+				loadAutoSave = true;
+			}
+
+			std::atomic<bool> controlLoaded(false);
+			windowInstance.setActive(false);
+
+			if (autoSave)
+			{
+				std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+
+				std::thread deserializeThread[6] = {
+					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0),
+					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1),
+					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2),
+					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3),
+					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4),
+					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5)
+				};
+
+				for (int i = 0; i < 6; ++i)
+					deserializeThread[i].join();
+
+				controlLoaded.store(true);
+				loadAnimationThread.join();
+			}
+			else
+			{
+				std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				
+				std::atomic<bool> controlThread[5]{false};
+
+				bool (*readCSVMultiThread)(const std::string&, TrieNode*&, std::vector<std::string>&, std::atomic<bool>&) = readDatasetCSV;
+				bool (*readTXTMultiThread)(const std::string&, TrieNode*&, std::vector<std::string>&, std::atomic<bool>&) = readDatasetTXT;
+
+				std::thread readDatasetThread[5] = {
+					std::thread(readCSVMultiThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(controlThread[0])),
+					std::thread(readTXTMultiThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(controlThread[1])),
+					std::thread(readTXTMultiThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(controlThread[2])),
+					std::thread(readCSVMultiThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(controlThread[3])),
+					std::thread(readTXTMultiThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(controlThread[4]))
+				};
+
+				while (!loadedSave) 
+				{
+					sf::Event event;
+					while (windowInstance.pollEvent(event)) 
+					{
+						if (event.type == sf::Event::Closed) 
+						{
+							windowInstance.close();
+							controlLoaded.store(true);
+						}
+					}
+
+					loadedSave = true;
+					for (int i = 0; i < 5; ++i)
+					{
+						if (controlThread[i] == false)
+						{
+							loadedSave = false;
+							break;
+						}
+					}
+				}
+
+				for (int i = 0; i < 5; ++i)
+					readDatasetThread[i].join();
+
+				controlLoaded.store(true);
+				loadAnimationThread.join();
+			}
+
+			windowInstance.setActive(true);
+
+			readFavourite(pRootFavourite);
+			pCurrentFavourite = pRootFavourite;
+			loadedSave = true;
+
+			auto endTime = std::chrono::high_resolution_clock::now();
+			auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+			std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+		}
+
 		deltaTime = clock.restart().asSeconds();
 		switch (page)
 		{
@@ -429,60 +520,7 @@ void instance::operate()
 
 void instance::operatePage1()
 {
-	if (!loadedSave)
-	{
-		for (int i = 0; i < 6; ++i)
-			deleteWholeTrie(trieRoot[i]);
-		if (!loadAutoSave)
-		{
-			loadAutoSaveSetting();
-			loadAutoSave = true;
-		}
-
-		std::atomic<bool> controlLoaded(false);
-		windowInstance.setActive(false);
-
-		if (autoSave)
-		{
-			std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-			std::thread deserializeThread[6] = {
-				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0),
-				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1),
-				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2),
-				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3),
-				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4),
-				std::thread(deserializeBinaryWrapper, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5)
-			};
-
-			for (int i = 0; i < 6; ++i)
-				deserializeThread[i].join();
-			controlLoaded.store(true);
-			loadAnimationThread.join();
-		}
-		else
-		{
-			std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-			std::thread deserializeThread[5] = {
-				std::thread(readDatasetCSV, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0])),
-				std::thread(readDatasetTXT, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1])),
-				std::thread(readDatasetTXT, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2])),
-				std::thread(readDatasetCSV, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3])),
-				std::thread(readDatasetTXT, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4])),
-			};
-
-			for (int i = 0; i < 5; ++i)
-				deserializeThread[i].join();
-			controlLoaded.store(true);
-			loadAnimationThread.join();
-		}
-
-		windowInstance.setActive(true);
-
-		readFavourite(pRootFavourite);
-		pCurrentFavourite = pRootFavourite;
-		loadedSave = true;
-	}
-	std::string temp;
+	// std::string temp;
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -490,6 +528,7 @@ void instance::operatePage1()
 			case sf::Event::Closed:
 			{
 				windowInstance.close();
+				break;
 			}
 			case sf::Event::MouseButtonPressed:
 			{
@@ -533,30 +572,6 @@ void instance::operatePage1()
 					displayMode = DisplayMode::HISTORY;
 					handleHistory();
 				}
-				else if (nextPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum < (int)searchResult.size() - 1)
-					{
-						++definitionNum;
-						POSString = searchResult[definitionNum].first;
-						descriptionString = searchResult[definitionNum].second;
-						description.setString(descriptionString);
-						wrappedDescription = false;
-						scrollOffset = 0;
-					}
-				}
-				else if (prevPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum > 0)
-					{
-						--definitionNum;
-						POSString = searchResult[definitionNum].first;
-						descriptionString = searchResult[definitionNum].second;
-						description.setString(descriptionString);
-						wrappedDescription = false;
-						scrollOffset = 0;
-					}
-				}
 				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance))
 				{
 					showCorrection = false;
@@ -586,92 +601,6 @@ void instance::operatePage1()
 					}
 					// displayHistory = false;
 				}
-				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
-				{
-					showCorrection = false;
-					if (existInList(pRootFavourite, headWordString))
-					{
-						printf("turning off\n");
-						bookmarkButton.setMode(false);
-                        if (pCurrentFavourite && pCurrentFavourite -> pNext)
-						{
-                            printf("[DEBUG] moving to favourite down\n");
-							pCurrentFavourite = pCurrentFavourite -> pNext;
-						}
-						else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
-						{
-							printf("[DEBUG] moving to favourite up\n");
-							pCurrentFavourite = pCurrentFavourite -> pPrev;
-						}
-						deleteNode(pRootFavourite, headWordString);
-						pCurrentFavourite = pRootFavourite;
-						writeFavourite(pRootFavourite);
-						if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
-						{
-							printf("[DEBUG] end displaying favourite\n");
-							displayDef = false;
-							// displayFavourite = false;
-						}
-						if (displayMode == DisplayMode::FAVOURITE)	
-							handleFavourite();
-					}
-					else
-					{
-						bookmarkButton.setMode(true);
-						printf("[DEBUG] new favourite\n");
-						insertLinkedList(pRootFavourite, headWordString);
-						pCurrentFavourite = pRootFavourite;
-						writeFavourite(pRootFavourite);
-						// handleFavourite();
-					}
-				}
-				else if (displayDef)
-				{
-					switch (displayMode)
-					{
-					case DisplayMode::HISTORY:
-					{
-						if (pageUpButton.isClicked(windowInstance))
-						{
-							if (historyIndex > 0)
-							{
-								--historyIndex;
-								handleHistory();
-							}
-						}
-						else if (pageDownButton.isClicked(windowInstance))
-						{
-							if (historyIndex < (int)history.size() - 1)
-							{
-								++historyIndex;
-								handleHistory();
-							}
-						}
-						break;
-					}
-
-					case DisplayMode::FAVOURITE:
-					{
-						if (pageUpButton.isClicked(windowInstance))
-						{
-							if (pCurrentFavourite -> pPrev)
-							{
-								pCurrentFavourite = pCurrentFavourite -> pPrev;
-								handleFavourite();
-							}
-						}
-						else if (pageDownButton.isClicked(windowInstance))
-						{
-							if (pCurrentFavourite -> pNext)
-							{
-								pCurrentFavourite = pCurrentFavourite -> pNext;
-								handleFavourite();
-							}
-						}
-						break;
-					}
-					}
-				}
 				else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
 				{
 					printf("[DEBUG] suggestion panels on 2\n");
@@ -681,18 +610,12 @@ void instance::operatePage1()
 				}
 				else if (!searchBox.isClicked(windowInstance) && mouseControl)
 				{
-					printf("[DEBUG] suggestion panels off la asdfasdf\n");
-					suggestionPanels.display = false;
-					mouseControl = false;
-				}
-				if (mouseControl)
-				{
 					for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
 					{
 						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance) && suggestionPanels.display == true)
 						{
 							showCorrection = false;
-							suggestionPanels.display = false;
+							// suggestionPanels.display = false;
 							printf("[DEBUG] suggestion panels off\n");
 							displayMode = DisplayMode::SEARCH;
 							// displayHistory = false;
@@ -703,6 +626,125 @@ void instance::operatePage1()
 							handleSearchSignal(temp);
 							headWordString = temp;
 							searchBox.setString(suggestionPanels.buttonStrings[i]);
+							break;
+						}
+					}
+					printf("[DEBUG] suggestion panels off la asdfasdf\n");
+					suggestionPanels.display = false;
+					mouseControl = false;
+				}
+				if (displayDef)
+				{
+					if (bookmarkButton.isClicked(windowInstance))
+					{
+						showCorrection = false;
+						if (existInList(pRootFavourite, headWordString))
+						{
+							printf("turning off\n");
+							bookmarkButton.setMode(false);
+							if (pCurrentFavourite && pCurrentFavourite -> pNext)
+							{
+								printf("[DEBUG] moving to favourite down\n");
+								pCurrentFavourite = pCurrentFavourite -> pNext;
+							}
+							else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+							{
+								printf("[DEBUG] moving to favourite up\n");
+								pCurrentFavourite = pCurrentFavourite -> pPrev;
+							}
+							deleteNode(pRootFavourite, headWordString);
+							pCurrentFavourite = pRootFavourite;
+							writeFavourite(pRootFavourite);
+							if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+							{
+								printf("[DEBUG] end displaying favourite\n");
+								displayDef = false;
+								// displayFavourite = false;
+							}
+							if (displayMode == DisplayMode::FAVOURITE)	
+								handleFavourite();
+						}
+						else
+						{
+							bookmarkButton.setMode(true);
+							printf("[DEBUG] new favourite\n");
+							insertLinkedList(pRootFavourite, headWordString);
+							pCurrentFavourite = pRootFavourite;
+							writeFavourite(pRootFavourite);
+							// handleFavourite();
+						}
+					}
+					if (nextPageButton.isClicked(windowInstance))
+					{
+						if (definitionNum < (int)searchResult.size() - 1)
+						{
+							++definitionNum;
+							POSString = searchResult[definitionNum].first;
+							descriptionString = searchResult[definitionNum].second;
+							description.setString(descriptionString);
+							wrappedDescription = false;
+							scrollOffset = 0;
+						}
+					}
+					else if (prevPageButton.isClicked(windowInstance))
+					{
+						if (definitionNum > 0)
+						{
+							--definitionNum;
+							POSString = searchResult[definitionNum].first;
+							descriptionString = searchResult[definitionNum].second;
+							description.setString(descriptionString);
+							wrappedDescription = false;
+							scrollOffset = 0;
+						}
+					}
+					else
+					{
+						switch (displayMode)
+						{
+						case DisplayMode::HISTORY:
+						{
+							if (pageUpButton.isClicked(windowInstance))
+							{
+								if (historyIndex > 0)
+								{
+									--historyIndex;
+									handleHistory();
+								}
+							}
+							else if (pageDownButton.isClicked(windowInstance))
+							{
+								if (historyIndex < (int)history.size() - 1)
+								{
+									++historyIndex;
+									handleHistory();
+								}
+							}
+							break;
+						}
+
+						case DisplayMode::FAVOURITE:
+						{
+							if (pageUpButton.isClicked(windowInstance))
+							{
+								if (pCurrentFavourite -> pPrev)
+								{
+									pCurrentFavourite = pCurrentFavourite -> pPrev;
+									handleFavourite();
+								}
+							}
+							else if (pageDownButton.isClicked(windowInstance))
+							{
+								if (pCurrentFavourite -> pNext)
+								{
+									pCurrentFavourite = pCurrentFavourite -> pNext;
+									handleFavourite();
+								}
+							}
+							break;
+						}
+
+						default:
 							break;
 						}
 					}
@@ -2133,9 +2175,11 @@ void instance::drawDefinition()
 	{
 		windowInstance.draw(emojiSprite);
 	}
-	if (definitionNum > 0)	prevPageButton.draw(windowInstance);
-	if (definitionNum < (int)searchResult.size() - 1)	nextPageButton.draw(windowInstance);
-	if (displayDef)	bookmarkButton.draw(windowInstance);
+	if (definitionNum > 0)	
+		prevPageButton.draw(windowInstance);
+	if (definitionNum < (int)searchResult.size() - 1)	
+		nextPageButton.draw(windowInstance);
+	bookmarkButton.draw(windowInstance);
 	// page up/page down and error message for history and favourite
 	switch (displayMode)
 	{
@@ -2175,6 +2219,9 @@ void instance::drawDefinition()
 		}
 		break;
 	}
+
+	default:
+		break;
 	}
 }
 

@@ -2,7 +2,7 @@
 #include "readDataset.hpp"
 #include "removeQuotationMarkDuplicate.hpp"
 
-bool readDatasetCSV(std::string filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef)
+bool readDatasetCSV(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef)
 {
     int count4Def = 0;
     std::ifstream inputStream;
@@ -77,6 +77,14 @@ bool readDatasetCSV(std::string filename, TrieNode*& pRoot, std::vector<std::str
     return true;
 }
 
+bool readDatasetCSV(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef, std::atomic<bool>& finished)
+{
+    bool readSuccess = readDatasetCSV(filename, pRoot, wordFourDef);
+    finished.store(true);
+
+    return readSuccess;
+}
+
 bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& word4Def)
 {
     std::ifstream fin;
@@ -101,4 +109,12 @@ bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<s
     std::cout << "File imported successfully!" << std::endl;
     fin.close();
     return true;
+}
+
+bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& word4Def, std::atomic<bool>& finished)
+{
+    bool readSuccess = readDatasetTXT(filename, pRoot, word4Def);
+    finished.store(true);
+
+    return readSuccess;
 }
