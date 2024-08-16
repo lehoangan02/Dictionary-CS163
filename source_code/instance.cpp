@@ -540,15 +540,12 @@ void instance::operatePage1()
                         readHistory(history);
                         loadHistory = true;
                     }
-					// displayHistory = true;
-					// displayFavourite = false;
 					displayMode = DisplayMode::HISTORY;
 					handleHistory();
 				}
 				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance))
 				{
 					showCorrection = false;
-					// displayHistory = false;
 					displayMode = DisplayMode::SEARCH;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
@@ -556,6 +553,7 @@ void instance::operatePage1()
 					headWordString = temp;
 					history.push_back(temp);
 					writeHistory(temp);
+					searchBox.setString(temp);
 					handleSearchSignal(temp);
 				}
 				else if (favouriteButton.isClicked(windowInstance))
@@ -563,16 +561,13 @@ void instance::operatePage1()
 					printf("[DEBUG] trying to display favourite\n");
 					if (pCurrentFavourite) 
 					{
-						// displayFavourite = true;
 						displayMode = DisplayMode::FAVOURITE;
 						handleFavourite();
 					}
 					else	
 					{
-						// displayFavourite = false;
 						displayDef = false;
 					}
-					// displayHistory = false;
 				}
 				else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
 				{
@@ -581,25 +576,24 @@ void instance::operatePage1()
 					showCorrection = false;
 					mouseControl = false;
 				}
-				else if (!searchBox.isClicked(windowInstance) && mouseControl)
+				else if (mouseControl)
 				{
 					for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
 					{
 						if (suggestionPanels.ButtonArray[i].isClicked(windowInstance) && suggestionPanels.display == true)
 						{
 							showCorrection = false;
-							// suggestionPanels.display = false;
+							suggestionPanels.display = false;
 							printf("[DEBUG] suggestion panels off\n");
 							displayMode = DisplayMode::SEARCH;
-							// displayHistory = false;
 							historyIndex = 0;
 							std::string temp = suggestionPanels.buttonStrings[i];
 							history.push_back(temp);
 							writeHistory(temp);
 							handleSearchSignal(temp);
 							headWordString = temp;
-							searchBox.setString(suggestionPanels.buttonStrings[i]);
-							break;
+							searchBox.deselect();
+							searchBox.setString(temp);
 						}
 					}
 					printf("[DEBUG] suggestion panels off la asdfasdf\n");
@@ -751,10 +745,6 @@ void instance::operatePage1()
 						correctUserInputString = "Did you mean: " + corrected;
 						correctUserInput.setString(correctUserInputString);
 					}
-				}
-				else if (event.key.code == sf::Keyboard::R)
-				{
-
 				}
 				else if (searchBox.isSelected())
 				{

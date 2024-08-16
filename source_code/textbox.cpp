@@ -57,10 +57,10 @@ bool textbox::isClicked(const sf::RenderWindow& window)
         && mousePosition.y < textboxSprite.getPosition().y + textboxSprite.getGlobalBounds().height - SHADOWVER
         && mousePosition.x > textboxSprite.getPosition().x + SHADOWHOR
         && mousePosition.x < textboxSprite.getPosition().x + textboxSprite.getGlobalBounds().width - SHADOWHOR)
-        {
-            // std::cout << "[DEBUG] clicked in textbox\n";
-            return true;
-        }
+    {
+        // std::cout << "[DEBUG] clicked in textbox\n";
+        return true;
+    }
     else
     {
         return false;
@@ -108,7 +108,7 @@ void textbox::handleInputLogic(const sf::Event event, sf::RenderWindow& window)
         && mousePosition.x > textboxSprite.getPosition().x + SHADOWHOR
         && mousePosition.x < textboxSprite.getPosition().x + textboxSprite.getGlobalBounds().width - SHADOWHOR)
         {
-            // std::cout << "[DEBUG] clicked in textbox\n";
+            std::cout << "[DEBUG] clicked in textbox\n";
             select();
         }
         else
@@ -166,13 +166,8 @@ void textbox::deselect()
         if (!full && textStream.str() != guideString) // remove cursor
         {
             std::string temp = textStream.str();
-            textStream.str("");
-//            std::cout << "[DEBUG] " << (temp.empty()) << std::endl;
-//            std::cout << "[DEBUG] " << temp.length() << std::endl;
-            for (int i = 0; i < (int)temp.length() - 1; ++i)
-            {
-                textStream << temp[i];
-            }
+            temp.pop_back();
+            textStream.str(temp);
         }
     }
 }
@@ -308,14 +303,14 @@ void textbox::setString(std::string input)
     if ((int)input.size() > limit) return;
     textStream.str(input);
     numChar = (int)input.size();
-    std::cout << textStream.str() << std::endl;
+    std::cout << "Current word: " << textStream.str() << std::endl;
 
     // select and deselect prematurely (compared to the main event loop) 
-    // to ensure textcursor and coloring is handled
+    // to ensure textcursor and coloring is handled correctly
     select();
-    // std::cout << textStream.str() << std::endl;
+    std::cout << textStream.str() << std::endl;
     deselect();
-    // std::cout << textStream.str() << std::endl;
+    std::cout << textStream.str() << std::endl;
 }
 
 /// @brief the only difference with the base class function is the displayText.setString at the end
@@ -329,13 +324,8 @@ void largeTextbox::deselect()
         if (!full && textStream.str() != guideString) // remove cursor
         {
             std::string temp = textStream.str();
-            textStream.str("");
-//            std::cout << "[DEBUG] " << (temp.empty()) << std::endl;
-//            std::cout << "[DEBUG] " << temp.length() << std::endl;
-            for (int i = 0; i < (int)temp.length() - 1; ++i)
-            {
-                textStream << temp[i];
-            }
+            temp.pop_back();
+            textStream.str(temp);
         }
         displayText.setString(textStream.str());
     }
