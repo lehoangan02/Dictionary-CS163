@@ -1320,6 +1320,11 @@ void instance::operatePage5()
 				{
 					// removeAllCase(headWordString, trieRoot[curDataset], word4Def[curDataset], invertedIndex[curDataset]);
 					removeWord(headWordString, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
+					headWordString = "";
+					definitionNum = 0;
+					currentWordText.setString("No current word!");
+					getWordToDelete[curDataset] = false;
+					
 					if (autoSave)
 					{
 						std::cout << "[DEBUG] auto save\n";
