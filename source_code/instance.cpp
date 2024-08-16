@@ -178,7 +178,8 @@ instance::instance() :
 	selectCorrectionButton(selectCorrectionTexDef, selectCorrectionTexHov)
 
 {
-	windowInstance.setFramerateLimit(60);
+	// Try to set framerate limit but seems to be slower
+	// windowInstance.setFramerateLimit(60);
 	
 	// reserve word4Def[i] for faster insert at the beginning
 	for (int i = 0; i < 5; ++i)
@@ -857,91 +858,87 @@ void instance::operatePage2()
 		case sf::Event::Closed:
 		{
 			windowInstance.close();
+			break;
 		}
-		break;
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
 			// printf("[DEBUG] mouse button pressed\n");
+
 			if (importButton.isClicked(windowInstance))
 			{
 				displayStatus = true;
 				std::string filepath = importBox.getString();
 				std::cout << filepath << std::endl;
 
+				windowInstance.setActive(false);
 
-				// std::atomic<bool> controlLoaded(false);
-				// windowInstance.setActive(false);
-				// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				deleteWholeTrie(trieRoot[5]);
+				word4Def[5].clear();
 
+				std::atomic<bool> loadFinished[1]{false};
 
-				// deleteWholeTrie(trieRoot[5]);
-				// word4Def[5].clear();
-				// if (CSVButton.getSelected())
-				// {
-				// 	if (readDatasetCSV(filepath, trieRoot[5], word4Def[5]))
-				// 	{
-				// 		std::cout << "[DEBUG] import successful\n";
-				// 		importStatus.setFillColor(sf::Color(128, 255, 0));
-				// 		importStatus.setString("Import Successful\n");
-				// 		if (filepath == "UnicodeEmoji")
-				// 		{
-				// 			loadEmojiImage = true;
-				// 		}
-				// 		else
-				// 		{
-				// 			loadEmojiImage = false;
-				// 		}
-				// 	}
-				// 	else
-				// 	{
-				// 		std::cout << "[DEBUG] import failed\n";
-				// 		importStatus.setFillColor(sf::Color(255, 153, 0));
-				// 		importStatus.setString("Import Failed\n");
-				// 	}
-				// }
-				// else if (TXTButton.getSelected())
-				// {
-				// 	if (readDatasetTXT(filepath, trieRoot[5], word4Def[5]))
-				// 	{
-				// 		std::cout << "[DEBUG] import successful\n";
-				// 		importStatus.setFillColor(sf::Color(128, 255, 0));
-				// 		importStatus.setString("Import Successful\n");
-				// 	}
-				// 	else
-				// 	{
-				// 		std::cout << "[DEBUG] import failed\n";
-				// 		importStatus.setFillColor(sf::Color(255, 153, 0));
-				// 		importStatus.setString("Import Failed\n");
-				// 	}
-				// 	if (filepath == "UnicodeEmoji")
-				// 	{
-				// 		printf("[DEBUG] EMOJI\n");
-				// 		loadEmojiImage = true;
-				// 		std::cout << Search(trieRoot[6], "U+1F600")[0].second << std::endl;
-				// 	}
-				// 	else
-				// 	{
-				// 		loadEmojiImage = false;
-				// 	}
-				// }
-				// else
-				// {
-				// 	importStatus.setFillColor(sf::Color(255, 153, 0));
-				// 	importStatus.setString("Import Failed - Format not chosen\n");
-				// 	loadEmojiImage = false;
-				// }
+				// Create thread using lambda function
+				std::thread loadThread([&]() 
+				{
+					if (CSVButton.getSelected())
+					{
+						if (readDatasetCSV(filepath, trieRoot[5], word4Def[5]))
+						{
+							std::cout << "[DEBUG] import successful\n";
+							importStatus.setFillColor(sf::Color(128, 255, 0));
+							importStatus.setString("Import Successful\n");
+							loadEmojiImage = (filepath == "UnicodeEmoji");
 
-				// controlLoaded.store(true);
-				// printf("[DEBUG] done loading!\n");
-				// loadingAnimationThread.join();
-				// windowInstance.setActive(true);
+							if (autoSave)
+								serializeBinaryWrapper(trieRoot[5], 5);
+						}
+						else
+						{
+							std::cout << "[DEBUG] import failed\n";
+							importStatus.setFillColor(sf::Color(255, 153, 0));
+							importStatus.setString("Import Failed\n");
+						}
+					}
+					else if (TXTButton.getSelected())
+					{
+						if (readDatasetTXT(filepath, trieRoot[5], word4Def[5]))
+						{
+							std::cout << "[DEBUG] import successful\n";
+							importStatus.setFillColor(sf::Color(128, 255, 0));
+							importStatus.setString("Import Successful\n");
+							loadEmojiImage = (filepath == "UnicodeEmoji");
 
-				// loadDefinition[5] = false;
+							if (autoSave)
+								serializeBinaryWrapper(trieRoot[5], 5);
+						}
+						else
+						{
+							std::cout << "[DEBUG] import failed\n";
+							importStatus.setFillColor(sf::Color(255, 153, 0));
+							importStatus.setString("Import Failed\n");
+						}
+					}
+					else
+					{
+						importStatus.setFillColor(sf::Color(255, 153, 0));
+						importStatus.setString("Import Failed - Format not chosen\n");
+						loadEmojiImage = false;
+					}
+
+					loadFinished[0].store(true);
+				});
+
+				loadingWrapper(windowInstance, loadFinished, 1);
+
+				loadThread.join();
+				windowInstance.setActive(true);
+
+				loadDefinition = false;
+				std::cout << "[DEBUG] done loading!\n";
 			}
 			break;
 		}
-		break;
 		case sf::Event::KeyPressed:
 		{
 			if (event.key.code == sf::Keyboard::Return)
@@ -949,8 +946,8 @@ void instance::operatePage2()
 				printf("[DEBUG] enter pressed\n");
 				std::cout << importBox.getString() << std::endl;
 			}
+			break;
 		}
-		break;
 		default:
 			break;
 		}
@@ -986,7 +983,7 @@ void instance::operatePage3()
 	{
 		for (int i = 0; i < 6; ++i)
 			invertedIndex[i].clear();
-			
+
 		std::atomic<bool> controlLoaded[6]{false};
 		windowInstance.setActive(false);
 
@@ -1259,15 +1256,6 @@ void instance::operatePage4()
 					serializeThread.join();
 					windowInstance.setActive(true);
 					printf("[DEBUG] done loading!\n");
-
-					// std::atomic<bool> controlLoaded(false);
-					// windowInstance.setActive(false);
-					// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-					// serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-					// controlLoaded.store(true);
-					// printf("[DEBUG] done loading!\n");
-					// loadingAnimationThread.join();
-					// windowInstance.setActive(true);
 				}
 				mouseControl = true;
 			}
@@ -1330,8 +1318,8 @@ void instance::operatePage5()
 		case sf::Event::Closed:
 		{
 			windowInstance.close();
+			break;
 		}
-		break;
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
@@ -1354,20 +1342,11 @@ void instance::operatePage5()
 
 						serializeThread.join();
 						windowInstance.setActive(true);
-
-					// 	std::atomic<bool> controlLoaded(false);
-					// 	windowInstance.setActive(false);
-					// 	std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-					// 	serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-					// 	controlLoaded.store(true);
-					// 	printf("[DEBUG] done loading!\n");
-					// 	loadingAnimationThread.join();
-					// 	windowInstance.setActive(true);
 					}
 				}
 			}
+			break;
 		}
-		break;
 		default:
 			break;
 		}
@@ -1415,8 +1394,8 @@ void instance::operatePage6()
 		case sf::Event::Closed:
 		{
 			windowInstance.close();
+			break;
 		}
-		break;
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
@@ -1444,6 +1423,8 @@ void instance::operatePage6()
 				}
 				if (autoSave)
 				{
+					std::cout << "[DEBUG] auto save\n";
+
 					std::atomic<bool> controlLoaded[1]{false};
 					windowInstance.setActive(false);
 
@@ -1452,19 +1433,10 @@ void instance::operatePage6()
 
 					serializeThread.join();
 					windowInstance.setActive(true);
-
-					// std::atomic<bool> controlLoaded(false);
-					// windowInstance.setActive(false);
-					// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-					// serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-					// controlLoaded.store(true);
-					// printf("[DEBUG] done loading!\n");
-					// loadingAnimationThread.join();
-					// windowInstance.setActive(true);
 				}
 			}
+			break;
 		}
-		break;
 		default:
 			break;
 		}
@@ -1541,18 +1513,6 @@ void instance::operatePage7()
 					windowInstance.setActive(true);
 					printf("[DEBUG] done loading!\n");
 				}
-			
-				// std::atomic<bool> controlLoaded(false);
-
-				// windowInstance.setActive(false);
-				// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-
-				// serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-				// controlLoaded.store(true);
-				// printf("[DEBUG] done loading!\n");
-
-				// loadingAnimationThread.join();
-				// windowInstance.setActive(true);
 			}
 			break;
 		}
@@ -1589,8 +1549,8 @@ void instance::operatePage8()
 		case sf::Event::Closed:
 		{
 			windowInstance.close();
+			break;
 		}
-		break;
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
@@ -1629,26 +1589,9 @@ void instance::operatePage8()
 					loadDefinition = false;
 					printf("[DEBUG] done loading!\n");
 				}
-
-				// std::atomic<bool> controlLoaded(false);
-
-				// windowInstance.setActive(false);
-				// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-
-				// deleteWholeTrie(trieRoot[curDataset]);
-				// word4Def[curDataset].clear();
-
-				// deserializeBinaryWrapper(trieRoot[curDataset], word4Def[curDataset], curDataset);
-				// controlLoaded.store(true);
-				// printf("[DEBUG] done loading!\n");
-
-				// loadingAnimationThread.join();
-				// windowInstance.setActive(true);
-
-				// loadDefinition = false;
 			}
+			break;
 		}
-		break;
 		default:
 			break;
 		}
@@ -1681,8 +1624,10 @@ void instance::operatePage9()
 		switch (event.type)
 		{
 		case sf::Event::Closed:
+		{
 			windowInstance.close();
 			break;
+		}
 		case sf::Event::MouseButtonPressed:
 		{
 			if (gameMode1st.isClicked(windowInstance))
@@ -1901,9 +1846,8 @@ void instance::operatePage9()
 					// handleFavourite();
 				}
 			}
-
+			break;
 		}
-		break;
 		case sf::Event::MouseWheelScrolled:
 		{
 			scrollOffset -= event.mouseWheelScroll.delta * 2;
@@ -1916,8 +1860,8 @@ void instance::operatePage9()
 				scrollOffset = maxScrollOffset;
 				// printf("[DEBUG] offset: %d\n", scrollOffset);
 			}
+			break;
 		}
-		break;
 		case sf::Event::KeyPressed:
 		{
 			// if (event.key.code == sf::Keyboard::Return)
@@ -1925,8 +1869,8 @@ void instance::operatePage9()
 			// 	correctAnswer = !correctAnswer;
 			// 	if (correctAnswer) congratulationsAnimation.resetAnimation();
 			// }
+			break;
 		}
-		break;
 		default:
 			break;
 		}
