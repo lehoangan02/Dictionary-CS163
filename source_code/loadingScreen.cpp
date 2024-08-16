@@ -1,3 +1,4 @@
+#include <iostream>
 #include "loadingScreen.hpp"
 
 loadingScreen::loadingScreen() :
@@ -14,6 +15,7 @@ loadingScreen::loadingScreen() :
     loadingText.setOutlineColor(sf::Color(94, 94, 94));
     loadingText.setPosition((int)((960 - loadingText.getGlobalBounds().width) / 2 - 5), 500.0f);
 }
+
 sf::Texture loadTexture(const std::string& filepath)
 {
     sf::Texture texture;
@@ -21,11 +23,31 @@ sf::Texture loadTexture(const std::string& filepath)
     texture.setSmooth(false);
     return texture;
 }
-void loadingScreen::operate(sf::RenderWindow& window, std::atomic<bool>& controlLoaded)
+
+void loadingScreen::operate(sf::RenderWindow& window, std::atomic<bool> controlLoaded[], const size_t& numThreads)
 {
-    while (window.isOpen() && controlLoaded.load() == false)
+    bool allFinished = false;
+    while (window.isOpen() && !allFinished)
     {
-        // printf("%d\n", controlLoaded.load() ? 1 : 0);
+        sf::Event event;
+        while (window.pollEvent(event)) 
+        {
+            // std::cout << "Event\n";
+
+            if (event.type == sf::Event::Closed) 
+                window.close();
+        }
+
+        allFinished = true;
+        for (int i = 0; i < numThreads; ++i)
+        {
+            if (controlLoaded[i] == false)
+            {
+                allFinished = false;
+                break;
+            }
+        }
+
         deltaTime = clock.restart().asSeconds();
         loadingAnimation.updateAnimation(deltaTime);
         window.clear(sf::Color(61, 109, 178));
@@ -33,11 +55,13 @@ void loadingScreen::operate(sf::RenderWindow& window, std::atomic<bool>& control
         window.draw(loadingText);
         window.display();
     }
+
     window.setActive(false);
 }
-void loadingWrapper(sf::RenderWindow& window, std::atomic<bool>& control)
+
+void loadingWrapper(sf::RenderWindow& window, std::atomic<bool> control[], const size_t& numThreads)
 {
     window.setActive(true);
     loadingScreen thisLoadingScreen;
-    thisLoadingScreen.operate(window, control);
+    thisLoadingScreen.operate(window, control, numThreads);
 }

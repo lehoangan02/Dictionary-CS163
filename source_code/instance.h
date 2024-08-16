@@ -69,7 +69,7 @@ private:
     static int curDataset;
 
     // boolean to control loading
-    bool loadDefinition[6]{false};
+    bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
     // bool displayHistory = false;

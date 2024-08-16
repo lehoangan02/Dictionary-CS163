@@ -3,8 +3,10 @@
 #include <atomic>
 #include "animation.hpp"
 
-void loadingWrapper(sf::RenderWindow& window, std::atomic<bool>& control);
+// void loadingWrapper(sf::RenderWindow& window, std::atomic<bool>& control);
+void loadingWrapper(sf::RenderWindow& window, std::atomic<bool> control[], const size_t& numThreads);
 sf::Texture loadTexture(const std::string& filepath);
+
 class loadingScreen
 {
     private:
@@ -17,5 +19,6 @@ class loadingScreen
     AnimationVertical loadingAnimation;
     public:
     loadingScreen();
-    void operate(sf::RenderWindow& window, std::atomic<bool>& controlLoaded);
+    // void operate(sf::RenderWindow& window, std::atomic<bool>& controlLoaded);
+    void operate(sf::RenderWindow& window, std::atomic<bool> controlLoaded[], const size_t& numThreads);
 };

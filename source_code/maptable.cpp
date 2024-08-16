@@ -548,12 +548,12 @@ std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& L
     return top;
 }
 
-void invertIndexTrie(TrieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded)
+void invertIndexTrieThread(TrieNode* pRoot, HashMap& invertedIndex, std::atomic<bool>& controlLoaded)
 {
-    std::string curWord;
-    invertIndexTrieRecursive(pRoot, invertedIndex, curWord);
-    controlLoaded = true;
+    invertIndexTrie(pRoot, invertedIndex);
+    controlLoaded.store(true);
 }
+
 void invertIndexTrie(TrieNode*& pRoot, HashMap& invertedIndex)
 {
     std::string curWord;

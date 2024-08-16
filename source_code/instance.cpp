@@ -360,101 +360,73 @@ instance::instance() :
 
 void instance::operate()
 {
+	if (!loadedSave)
+	{
+		auto startTime = std::chrono::high_resolution_clock::now();
+		
+		for (int i = 0; i < 6; ++i)
+			deleteWholeTrie(trieRoot[i]);
+		if (!loadAutoSave)
+		{
+			loadAutoSaveSetting();
+			loadAutoSave = true;
+		}
+
+		windowInstance.setActive(false);
+
+		if (autoSave)
+		{
+			// std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+			std::atomic<bool> finished[6]{false};
+
+			std::thread deserializeThread[6] = {
+				std::thread(deserializeBinaryThread, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0, std::ref(finished[0])),
+				std::thread(deserializeBinaryThread, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1, std::ref(finished[1])),
+				std::thread(deserializeBinaryThread, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2, std::ref(finished[2])),
+				std::thread(deserializeBinaryThread, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3, std::ref(finished[3])),
+				std::thread(deserializeBinaryThread, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4, std::ref(finished[4])),
+				std::thread(deserializeBinaryThread, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5, std::ref(finished[5]))
+			};
+
+			loadingWrapper(windowInstance, finished, 6);
+
+			for (int i = 0; i < 6; ++i)
+				deserializeThread[i].join();
+
+			// controlLoaded.store(true);
+			// loadAnimationThread.join();
+		}
+		else
+		{
+			std::atomic<bool> finished[5]{false};
+
+			std::thread readDatasetThread[5] = {
+				std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
+				std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
+				std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
+				std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
+				std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4])),
+			};
+
+			loadingWrapper(windowInstance, finished, 5);
+
+			for (int i = 0; i < 5; ++i)
+				readDatasetThread[i].join();
+		}
+
+		windowInstance.setActive(true);
+
+		readFavourite(pRootFavourite);
+		pCurrentFavourite = pRootFavourite;
+		loadedSave = true;
+
+		auto endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+		std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+	}
 	std::cout << "MAX: " << sf::Texture::getMaximumSize() << std::endl;
 	while (windowInstance.isOpen())
 	{
-		if (!loadedSave)
-		{
-			auto startTime = std::chrono::high_resolution_clock::now();
-			
-			for (int i = 0; i < 6; ++i)
-				deleteWholeTrie(trieRoot[i]);
-			if (!loadAutoSave)
-			{
-				loadAutoSaveSetting();
-				loadAutoSave = true;
-			}
-
-			std::atomic<bool> controlLoaded(false);
-			windowInstance.setActive(false);
-
-			if (autoSave)
-			{
-				std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-
-				std::thread deserializeThread[6] = {
-					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0),
-					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1),
-					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2),
-					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3),
-					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4),
-					std::thread(deserializeBinaryWrapper, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5)
-				};
-
-				for (int i = 0; i < 6; ++i)
-					deserializeThread[i].join();
-
-				controlLoaded.store(true);
-				loadAnimationThread.join();
-			}
-			else
-			{
-				std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-				
-				std::atomic<bool> controlThread[5]{false};
-
-				bool (*readCSVMultiThread)(const std::string&, TrieNode*&, std::vector<std::string>&, std::atomic<bool>&) = readDatasetCSV;
-				bool (*readTXTMultiThread)(const std::string&, TrieNode*&, std::vector<std::string>&, std::atomic<bool>&) = readDatasetTXT;
-
-				std::thread readDatasetThread[5] = {
-					std::thread(readCSVMultiThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(controlThread[0])),
-					std::thread(readTXTMultiThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(controlThread[1])),
-					std::thread(readTXTMultiThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(controlThread[2])),
-					std::thread(readCSVMultiThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(controlThread[3])),
-					std::thread(readTXTMultiThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(controlThread[4]))
-				};
-
-				while (!loadedSave) 
-				{
-					sf::Event event;
-					while (windowInstance.pollEvent(event)) 
-					{
-						if (event.type == sf::Event::Closed) 
-						{
-							windowInstance.close();
-							controlLoaded.store(true);
-						}
-					}
-
-					loadedSave = true;
-					for (int i = 0; i < 5; ++i)
-					{
-						if (controlThread[i] == false)
-						{
-							loadedSave = false;
-							break;
-						}
-					}
-				}
-
-				for (int i = 0; i < 5; ++i)
-					readDatasetThread[i].join();
-
-				controlLoaded.store(true);
-				loadAnimationThread.join();
-			}
-
-			windowInstance.setActive(true);
-
-			readFavourite(pRootFavourite);
-			pCurrentFavourite = pRootFavourite;
-			loadedSave = true;
-
-			auto endTime = std::chrono::high_resolution_clock::now();
-			auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-			std::cout << "Time taken to load: " << duration << "ms" << std::endl;
-		}
-
 		deltaTime = clock.restart().asSeconds();
 		switch (page)
 		{
@@ -898,77 +870,74 @@ void instance::operatePage2()
 				std::cout << filepath << std::endl;
 
 
-				std::atomic<bool> controlLoaded(false);
-				windowInstance.setActive(false);
-				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				// std::atomic<bool> controlLoaded(false);
+				// windowInstance.setActive(false);
+				// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
 
 
-				deleteWholeTrie(trieRoot[5]);
-				word4Def[5].clear();
-				if (CSVButton.getSelected())
-				{
-					if (readDatasetCSV(filepath, trieRoot[5], word4Def[5]))
-					{
-						std::cout << "[DEBUG] import successful\n";
-						importStatus.setFillColor(sf::Color(128, 255, 0));
-						importStatus.setString("Import Successful\n");
-						if (filepath == "UnicodeEmoji")
-						{
-							loadEmojiImage = true;
-						}
-						else
-						{
-							loadEmojiImage = false;
-						}
-					}
-					else
-					{
-						std::cout << "[DEBUG] import failed\n";
-						importStatus.setFillColor(sf::Color(255, 153, 0));
-						importStatus.setString("Import Failed\n");
-					}
-				}
-				else if (TXTButton.getSelected())
-				{
-					if (readDatasetTXT(filepath, trieRoot[5], word4Def[5]))
-					{
-						std::cout << "[DEBUG] import successful\n";
-						importStatus.setFillColor(sf::Color(128, 255, 0));
-						importStatus.setString("Import Successful\n");
-					}
-					else
-					{
-						std::cout << "[DEBUG] import failed\n";
-						importStatus.setFillColor(sf::Color(255, 153, 0));
-						importStatus.setString("Import Failed\n");
-					}
-					if (filepath == "UnicodeEmoji")
-					{
-						printf("[DEBUG] EMOJI\n");
-						loadEmojiImage = true;
-						std::cout << Search(trieRoot[6], "U+1F600")[0].second << std::endl;
-					}
-					else
-					{
-						loadEmojiImage = false;
-					}
-				}
-				else
-				{
-					importStatus.setFillColor(sf::Color(255, 153, 0));
-					importStatus.setString("Import Failed - Format not chosen\n");
-					loadEmojiImage = false;
-				}
+				// deleteWholeTrie(trieRoot[5]);
+				// word4Def[5].clear();
+				// if (CSVButton.getSelected())
+				// {
+				// 	if (readDatasetCSV(filepath, trieRoot[5], word4Def[5]))
+				// 	{
+				// 		std::cout << "[DEBUG] import successful\n";
+				// 		importStatus.setFillColor(sf::Color(128, 255, 0));
+				// 		importStatus.setString("Import Successful\n");
+				// 		if (filepath == "UnicodeEmoji")
+				// 		{
+				// 			loadEmojiImage = true;
+				// 		}
+				// 		else
+				// 		{
+				// 			loadEmojiImage = false;
+				// 		}
+				// 	}
+				// 	else
+				// 	{
+				// 		std::cout << "[DEBUG] import failed\n";
+				// 		importStatus.setFillColor(sf::Color(255, 153, 0));
+				// 		importStatus.setString("Import Failed\n");
+				// 	}
+				// }
+				// else if (TXTButton.getSelected())
+				// {
+				// 	if (readDatasetTXT(filepath, trieRoot[5], word4Def[5]))
+				// 	{
+				// 		std::cout << "[DEBUG] import successful\n";
+				// 		importStatus.setFillColor(sf::Color(128, 255, 0));
+				// 		importStatus.setString("Import Successful\n");
+				// 	}
+				// 	else
+				// 	{
+				// 		std::cout << "[DEBUG] import failed\n";
+				// 		importStatus.setFillColor(sf::Color(255, 153, 0));
+				// 		importStatus.setString("Import Failed\n");
+				// 	}
+				// 	if (filepath == "UnicodeEmoji")
+				// 	{
+				// 		printf("[DEBUG] EMOJI\n");
+				// 		loadEmojiImage = true;
+				// 		std::cout << Search(trieRoot[6], "U+1F600")[0].second << std::endl;
+				// 	}
+				// 	else
+				// 	{
+				// 		loadEmojiImage = false;
+				// 	}
+				// }
+				// else
+				// {
+				// 	importStatus.setFillColor(sf::Color(255, 153, 0));
+				// 	importStatus.setString("Import Failed - Format not chosen\n");
+				// 	loadEmojiImage = false;
+				// }
 
-				controlLoaded.store(true);
-				printf("[DEBUG] done loading!\n");
-				loadingAnimationThread.join();
-				windowInstance.setActive(true);
+				// controlLoaded.store(true);
+				// printf("[DEBUG] done loading!\n");
+				// loadingAnimationThread.join();
+				// windowInstance.setActive(true);
 
-
-
-
-				loadDefinition[5] = false;
+				// loadDefinition[5] = false;
 			}
 			break;
 		}
@@ -1013,20 +982,42 @@ void instance::drawPage2()
 }
 void instance::operatePage3()
 {
-	if (!loadDefinition[curDataset])
+	if (!loadDefinition)
 	{
+		for (int i = 0; i < 6; ++i)
+			invertedIndex[i].clear();
+			
+		std::atomic<bool> controlLoaded[6]{false};
+		windowInstance.setActive(false);
+
+		std::thread loadInvertedIndex[6] = {
+			std::thread(invertIndexTrieThread, std::ref(trieRoot[0]), std::ref(invertedIndex[0]), std::ref(controlLoaded[0])),
+			std::thread(invertIndexTrieThread, std::ref(trieRoot[1]), std::ref(invertedIndex[1]), std::ref(controlLoaded[1])),
+			std::thread(invertIndexTrieThread, std::ref(trieRoot[2]), std::ref(invertedIndex[2]), std::ref(controlLoaded[2])),
+			std::thread(invertIndexTrieThread, std::ref(trieRoot[3]), std::ref(invertedIndex[3]), std::ref(controlLoaded[3])),
+			std::thread(invertIndexTrieThread, std::ref(trieRoot[4]), std::ref(invertedIndex[4]), std::ref(controlLoaded[4])),
+			std::thread(invertIndexTrieThread, std::ref(trieRoot[5]), std::ref(invertedIndex[5]), std::ref(controlLoaded[5]))
+		};
+
+		loadingWrapper(windowInstance, controlLoaded, 6);
+
+		for (int i = 0; i < 6; ++i)
+			loadInvertedIndex[i].join();
+
+		windowInstance.setActive(true);
+		loadDefinition = true;
 
 		// DO NOT DELETE this is another approach
-		std::atomic<bool> controlLoaded(false);
-		windowInstance.setActive(false);
-		std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-		invertedIndex[curDataset].clear();
-		invertIndexTrie(trieRoot[curDataset], invertedIndex[curDataset]);
-		controlLoaded.store(true);
-		printf("[DEBUG] done loading!\n");
-		loadingAnimationThread.join();
-		windowInstance.setActive(true);
-		loadDefinition[curDataset] = true;
+		// std::atomic<bool> controlLoaded(false);
+		// windowInstance.setActive(false);
+		// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+		// invertedIndex[curDataset].clear();
+		// invertIndexTrie(trieRoot[curDataset], invertedIndex[curDataset]);
+		// controlLoaded.store(true);
+		// printf("[DEBUG] done loading!\n");
+		// loadingAnimationThread.join();
+		// windowInstance.setActive(true);
+		// loadDefinition = true;
 
 
 		// DO NOT DELETE this is another approach
@@ -1259,14 +1250,24 @@ void instance::operatePage4()
 				invertedIndex[curDataset].insertWordDef(newHeadword, newDescription);
 				if (autoSave)
 				{
-					std::atomic<bool> controlLoaded(false);
+					std::atomic<bool> controlLoaded[1]{false};
 					windowInstance.setActive(false);
-					std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-					serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-					controlLoaded.store(true);
-					printf("[DEBUG] done loading!\n");
-					loadingAnimationThread.join();
+
+					std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+					loadingWrapper(windowInstance, controlLoaded, 1);
+
+					serializeThread.join();
 					windowInstance.setActive(true);
+					printf("[DEBUG] done loading!\n");
+
+					// std::atomic<bool> controlLoaded(false);
+					// windowInstance.setActive(false);
+					// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+					// serializeBinaryWrapper(trieRoot[curDataset], curDataset);
+					// controlLoaded.store(true);
+					// printf("[DEBUG] done loading!\n");
+					// loadingAnimationThread.join();
+					// windowInstance.setActive(true);
 				}
 				mouseControl = true;
 			}
@@ -1343,15 +1344,25 @@ void instance::operatePage5()
 					removeWord(headWordString, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
 					if (autoSave)
 					{
-						std::cout << "auto-saving\n";
-						std::atomic<bool> controlLoaded(false);
+						std::cout << "[DEBUG] auto save\n";
+
+						std::atomic<bool> controlLoaded[1]{false};
 						windowInstance.setActive(false);
-						std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-						serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-						controlLoaded.store(true);
-						printf("[DEBUG] done loading!\n");
-						loadingAnimationThread.join();
+
+						std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+						loadingWrapper(windowInstance, controlLoaded, 1);
+
+						serializeThread.join();
 						windowInstance.setActive(true);
+
+					// 	std::atomic<bool> controlLoaded(false);
+					// 	windowInstance.setActive(false);
+					// 	std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+					// 	serializeBinaryWrapper(trieRoot[curDataset], curDataset);
+					// 	controlLoaded.store(true);
+					// 	printf("[DEBUG] done loading!\n");
+					// 	loadingAnimationThread.join();
+					// 	windowInstance.setActive(true);
 					}
 				}
 			}
@@ -1431,17 +1442,25 @@ void instance::operatePage6()
 					changedFailed = true;
 					changedSuccessful = false;
 				}
-				//
 				if (autoSave)
 				{
-					std::atomic<bool> controlLoaded(false);
+					std::atomic<bool> controlLoaded[1]{false};
 					windowInstance.setActive(false);
-					std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-					serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-					controlLoaded.store(true);
-					printf("[DEBUG] done loading!\n");
-					loadingAnimationThread.join();
+
+					std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+					loadingWrapper(windowInstance, controlLoaded, 1);
+
+					serializeThread.join();
 					windowInstance.setActive(true);
+
+					// std::atomic<bool> controlLoaded(false);
+					// windowInstance.setActive(false);
+					// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+					// serializeBinaryWrapper(trieRoot[curDataset], curDataset);
+					// controlLoaded.store(true);
+					// printf("[DEBUG] done loading!\n");
+					// loadingAnimationThread.join();
+					// windowInstance.setActive(true);
 				}
 			}
 		}
@@ -1491,28 +1510,52 @@ void instance::operatePage7()
 		case sf::Event::Closed:
 		{
 			windowInstance.close();
+			break;
 		}
-		break;
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
 			if (serializeButton.isClicked(windowInstance) && mouseControl)
 			{
 				mouseControl = false;
-				std::atomic<bool> controlLoaded(false);
 
-				windowInstance.setActive(false);
-				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				if (!autoSave)
+				{
+					std::atomic<bool> controlLoaded[6]{false};
+					windowInstance.setActive(false);
 
-				serializeBinaryWrapper(trieRoot[curDataset], curDataset);
-				controlLoaded.store(true);
-				printf("[DEBUG] done loading!\n");
+					std::thread serializeThread[6] = {
+						std::thread(serializeBinaryThread, std::ref(trieRoot[0]), 0, std::ref(controlLoaded[0])),
+						std::thread(serializeBinaryThread, std::ref(trieRoot[1]), 1, std::ref(controlLoaded[1])),
+						std::thread(serializeBinaryThread, std::ref(trieRoot[2]), 2, std::ref(controlLoaded[2])),
+						std::thread(serializeBinaryThread, std::ref(trieRoot[3]), 3, std::ref(controlLoaded[3])),
+						std::thread(serializeBinaryThread, std::ref(trieRoot[4]), 4, std::ref(controlLoaded[4])),
+						std::thread(serializeBinaryThread, std::ref(trieRoot[5]), 5, std::ref(controlLoaded[5]))
+					};
 
-				loadingAnimationThread.join();
-				windowInstance.setActive(true);
+					loadingWrapper(windowInstance, controlLoaded, 6);
+
+					for (int i = 0; i < 6; ++i)
+						serializeThread[i].join();
+
+					windowInstance.setActive(true);
+					printf("[DEBUG] done loading!\n");
+				}
+			
+				// std::atomic<bool> controlLoaded(false);
+
+				// windowInstance.setActive(false);
+				// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+
+				// serializeBinaryWrapper(trieRoot[curDataset], curDataset);
+				// controlLoaded.store(true);
+				// printf("[DEBUG] done loading!\n");
+
+				// loadingAnimationThread.join();
+				// windowInstance.setActive(true);
 			}
+			break;
 		}
-		break;
 		default:
 			break;
 		}
@@ -1554,22 +1597,55 @@ void instance::operatePage8()
 			if (deserializeButton.isClicked(windowInstance) && mouseControl)
 			{
 				mouseControl = false;
-				std::atomic<bool> controlLoaded(false);
 
-				windowInstance.setActive(false);
-				std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+				if (!autoSave)
+				{
+					for (int i = 0; i < 6; ++i)
+					{
+						deleteWholeTrie(trieRoot[i]);
+						word4Def[i].clear();
+					}
+					std::atomic<bool> controlLoaded[6]{false};
+					windowInstance.setActive(false);
 
-				deleteWholeTrie(trieRoot[curDataset]);
-				word4Def[curDataset].clear();
+					std::thread deserializeThread[6] = {
+						std::thread(deserializeBinaryThread, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0, std::ref(controlLoaded[0])),
+						std::thread(deserializeBinaryThread, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1, std::ref(controlLoaded[1])),
+						std::thread(deserializeBinaryThread, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2, std::ref(controlLoaded[2])),
+						std::thread(deserializeBinaryThread, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3, std::ref(controlLoaded[3])),
+						std::thread(deserializeBinaryThread, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4, std::ref(controlLoaded[4])),
+						std::thread(deserializeBinaryThread, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5, std::ref(controlLoaded[5]))
+					};
 
-				deserializeBinaryWrapper(trieRoot[curDataset], word4Def[curDataset], curDataset);
-				controlLoaded.store(true);
-				printf("[DEBUG] done loading!\n");
+					loadingWrapper(windowInstance, controlLoaded, 6);
 
-				loadingAnimationThread.join();
-				windowInstance.setActive(true);
+					for (int i = 0; i < 6; ++i)
+					{
+						deserializeThread[i].join();
+					}
 
-				loadDefinition[curDataset] = false;
+					windowInstance.setActive(true);
+
+					loadDefinition = false;
+					printf("[DEBUG] done loading!\n");
+				}
+
+				// std::atomic<bool> controlLoaded(false);
+
+				// windowInstance.setActive(false);
+				// std::thread loadingAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+
+				// deleteWholeTrie(trieRoot[curDataset]);
+				// word4Def[curDataset].clear();
+
+				// deserializeBinaryWrapper(trieRoot[curDataset], word4Def[curDataset], curDataset);
+				// controlLoaded.store(true);
+				// printf("[DEBUG] done loading!\n");
+
+				// loadingAnimationThread.join();
+				// windowInstance.setActive(true);
+
+				// loadDefinition = false;
 			}
 		}
 		break;

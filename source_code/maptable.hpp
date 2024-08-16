@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <atomic>
 #include "trie.h"
 
 struct TableBlock // Used for chaining in HashTable
@@ -105,7 +106,7 @@ std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& L
 // There are 2 overloading functions, the one with an extra boolean
 // passed by reference is used in multi-threading executions,
 // it provides a mechianism to control other parallel processes (animation)
-void invertIndexTrie(TrieNode* pRoot, HashMap& invertedIndex, bool& controlLoaded);
+void invertIndexTrieThread(TrieNode* pRoot, HashMap& invertedIndex, std::atomic<bool>& controlLoaded);
 void invertIndexTrie(TrieNode*& pRoot, HashMap& invertedIndex);
 
 

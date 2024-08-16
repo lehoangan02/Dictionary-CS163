@@ -74,10 +74,11 @@ bool readDatasetCSV(const std::string& filename, TrieNode*& pRoot, std::vector<s
         }
     }
     std::cout << "count word4Def: " << count4Def << std::endl;
+    std::cout << "File imported successfully!" << std::endl;
     return true;
 }
 
-bool readDatasetCSV(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef, std::atomic<bool>& finished)
+bool readDatasetCSVThread(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& wordFourDef, std::atomic<bool>& finished)
 {
     bool readSuccess = readDatasetCSV(filename, pRoot, wordFourDef);
     finished.store(true);
@@ -111,7 +112,7 @@ bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<s
     return true;
 }
 
-bool readDatasetTXT(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& word4Def, std::atomic<bool>& finished)
+bool readDatasetTXTThread(const std::string& filename, TrieNode*& pRoot, std::vector<std::string>& word4Def, std::atomic<bool>& finished)
 {
     bool readSuccess = readDatasetTXT(filename, pRoot, word4Def);
     finished.store(true);

@@ -129,6 +129,12 @@ void serializeBinary(TrieNode* pRoot, std::fstream& f, std::string& word)
 	return;
 }
 
+void serializeBinaryThread(TrieNode* pRoot, const int& fileNum, std::atomic<bool>& finished)
+{
+	serializeBinaryWrapper(pRoot, fileNum);
+	finished.store(true);
+}
+
 // deserialization of the saved trie (compatibility mode)
 bool deserializeBinaryWrapper(TrieNode*& pRoot, std::vector<std::string>& word4Def, const int& fileNum)
 {
@@ -195,4 +201,12 @@ void deserializeBinary(TrieNode*& pRoot, std::fstream& f, std::string& word, std
 		deserializeBinary(pRoot -> childNode[i], f, word, word4Def);
 		word.pop_back();
 	}
+}
+
+bool deserializeBinaryThread(TrieNode*& pRoot, std::vector<std::string>& word4Def, const int& fileNum, std::atomic<bool>& finished)
+{
+	bool success = deserializeBinaryWrapper(pRoot, word4Def, fileNum);
+	finished.store(true);
+
+	return success;
 }
