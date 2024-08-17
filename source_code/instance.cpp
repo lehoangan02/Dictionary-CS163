@@ -955,8 +955,10 @@ void instance::operatePage2()
 						switch (i)
 						{
 						case 0:
+						{
 							filename = "OPTED-Dictionary";
 							break;
+						}
 						case 1:
 						{
 							filename = "VieEng";
@@ -1004,8 +1006,8 @@ void instance::operatePage2()
 						importStatus.setFillColor(sf::Color(128, 255, 0));
 						importStatus.setString("Import Successful\n");
 						displayStatus = true;
+						loadDefinition = false;
 						break;
-						
 					}
 				}
 			}
@@ -1123,20 +1125,23 @@ void instance::operatePage3()
 			if (searchButton.isClicked(windowInstance))
 			{
 				std::string temp = searchBox.getString();
-				printf("%s\n", temp.c_str());
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
 				std::vector<std::string> result = searchByDef(tokens, invertedIndex[curDataset]);
-
-				sortByDefLength(result, trieRoot[curDataset]);
+				sortByDefLength(result, trieRoot[curDataset]); 
 				std::cout << "SORTED" << std::endl;
 				// for (auto word : result)
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				if (result.size() > 0)
+				result.resize(6); // to get top 6 results
+				if (result.size() > 1)
 				{
-					std::cout << result[0] << std::endl;
+					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
+					handleSearchSignal(top);
+				}
+				else if (result.size() == 1) 
+				{
 					handleSearchSignal(result[0]);
 				}
 			}
@@ -1227,13 +1232,13 @@ void instance::operatePage3()
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
 				std::vector<std::string> result = searchByDef(tokens, invertedIndex[curDataset]);
-				//sortByDefLength(result, trieRoot[curDataset]) to get top 6;
+				sortByDefLength(result, trieRoot[curDataset]); 
 				std::cout << "SORTED" << std::endl;
-				for (auto word : result)
-				{
-					std::cout << word << std::endl;
-				}
-				result.resize(6);
+				// for (auto word : result)
+				// {
+				// 	std::cout << word << std::endl;
+				// }
+				result.resize(6); // to get top 6 results
 				if (result.size() > 1)
 				{
 					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
