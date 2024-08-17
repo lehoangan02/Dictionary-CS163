@@ -170,6 +170,8 @@ private:
     sf::Texture importTexHov;
     sf::Texture importTexClick;
     Button importButton;
+    sf::Texture datasetTemplateTexture;
+    Button quickImportButton[5];
 
     // "import file path" text
     sf::Texture importPromptTexture;
@@ -180,6 +182,7 @@ private:
     sf::Font SourceSans3;
     sf::Font micross;
     sf::Font PatuaOne;
+    sf::Font Kanit;
     // search box
     sf::Texture searchBoxTexture;
     textbox searchBox;

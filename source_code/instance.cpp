@@ -73,6 +73,7 @@ instance::instance() :
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
 	micross(loadFont("assets/font/micross.ttf")),
 	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
+	Kanit(loadFont("assets/font/Kanit/Kanit-Medium.ttf")),
 
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
@@ -209,6 +210,22 @@ instance::instance() :
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 	historyButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 125));
 	favouriteButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 210));
+
+	// set up quick import button
+	datasetTemplateTexture.loadFromFile("assets/images/DatasetTemplateTexture.png");
+	quickImportButton[0].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EE", 36);
+	quickImportButton[1].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "VE", 36);
+	quickImportButton[2].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EV", 36);
+	quickImportButton[3].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EM", 36);
+	quickImportButton[4].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "SL", 36);
+	for (int i = 0; i < 3; ++i)
+	{
+		quickImportButton[i].setPosition(sf::Vector2u(160 - 20 + (20 + 65) * i, 418));
+	}
+	for (int i = 3; i < 5; ++i)
+	{
+		quickImportButton[i].setPosition(sf::Vector2u(160 - 20 + (20 + 65) * (i - 3), 418 + 85));
+	}
 
 	// set up dataset option button
 	datasetButton.setTexture(loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
@@ -927,6 +944,70 @@ void instance::operatePage2()
 				loadDefinition = false;
 				std::cout << "[DEBUG] done loading!\n";
 			}
+			else
+			{
+				for (int i = 0; i < 5; ++i)
+				{
+					if (quickImportButton[i].isClicked(windowInstance))
+					{
+						std::string filename;
+						switch (i)
+						{
+						case 0:
+							filename = "OPTED-Dictionary";
+							break;
+						case 1:
+						{
+							filename = "VieEng";
+							break;
+						}
+						case 2:
+						{
+							filename = "EngVie";
+							break;
+						}
+						case 3:
+						{
+							filename = "UnicodeEmoji";
+							break;
+						}
+						case 4:
+						{
+							filename = "slang";
+							break;
+						}
+						default:
+							break;
+						}
+						std::atomic<bool> control;
+						control.store(false);
+						if (i != 0 && i != 3)
+						{
+							std::thread workerThread(readDatasetTXTThread, std::cref(filename), std::ref(trieRoot[i]), std::ref(word4Def[i]), std::ref(control));
+							loadingWrapper(windowInstance, &control, 1);
+							workerThread.join();
+						}
+						else
+						{
+							std::thread workerThread(readDatasetCSVThread, std::cref(filename), std::ref(trieRoot[i]), std::ref(word4Def[i]), std::ref(control));
+							loadingWrapper(windowInstance, &control, 1);
+							workerThread.join();
+						}
+						if (autoSave)
+						{
+							control.store(false);
+							std::thread workerThread(serializeBinaryThread, trieRoot[i], i, std::ref(control));
+							loadingWrapper(windowInstance, &control, 1);
+							workerThread.join();
+						}
+						importStatus.setFillColor(sf::Color(128, 255, 0));
+						importStatus.setString("Import Successful\n");
+						displayStatus = true;
+						break;
+						
+					}
+				}
+			}
 			break;
 		}
 		case sf::Event::KeyPressed:
@@ -948,6 +1029,10 @@ void instance::operatePage2()
 	TXTButton.click(windowInstance);
 	CSVButton.hoverSwitchTexture(windowInstance);
 	TXTButton.hoverSwitchTexture(windowInstance);
+	for (int i = 0; i < 5; ++i)
+	{
+		quickImportButton[i].hoverSwitchTexture(windowInstance);
+	}
 	hoverSubModes();
 	importButton.hoverSwitchTexture(windowInstance);
 	importButton.click(windowInstance);
@@ -964,6 +1049,10 @@ void instance::drawPage2()
 	if (displayStatus) windowInstance.draw(importStatus);
 	CSVButton.draw(windowInstance);
 	TXTButton.draw(windowInstance);
+	for (int i = 0; i < 5; ++i)
+	{
+		quickImportButton[i].draw(windowInstance);
+	}
 	drawSubModes();
 	windowInstance.display();
 }
