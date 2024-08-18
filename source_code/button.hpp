@@ -10,7 +10,6 @@
 class Button
 {
     protected:
-    sf::Text buttonText;
     int characterSize;
     sf::Vector2u buttonPosition;
     sf::Sprite buttonSprite;
@@ -20,6 +19,7 @@ class Button
     bool hover = false;
     bool selected = false;
     public:
+    sf::Text buttonText;
     bool shadow = true;
     public:
     Button() {}

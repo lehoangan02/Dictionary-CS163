@@ -74,6 +74,7 @@ instance::instance() :
 	micross(loadFont("assets/font/micross.ttf")),
 	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	Kanit(loadFont("assets/font/Kanit/Kanit-Medium.ttf")),
+	SourceSans3SemiBold(loadFont("assets/font/static/SourceSans3-SemiBold.ttf")),
 
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
@@ -90,6 +91,10 @@ instance::instance() :
 	CSVTextureDef(loadTexture("assets/images/CSV_FormatDefault.png")),
 	CSVTextureClick(loadTexture("assets/images/CSV_FormatSelected.png")),
 	CSVButton(CSVTextureDef, CSVTextureDef, CSVTextureClick, &TXTButton),
+
+	firstTimeTextureDef(loadTexture("assets/images/FirstTime.png")),
+	firstTimeTextureHov(loadTexture("assets/images/FirstTimeHov.png")),
+	firstTimeButton(firstTimeTextureDef, firstTimeTextureHov, SourceSans3SemiBold, "First time? Click to set up.", 48),
 
 	// Sub-mode button in settings
 	importModeDef(loadTexture("assets/images/ImportPageDef.png")),
@@ -210,6 +215,10 @@ instance::instance() :
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 	historyButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 125));
 	favouriteButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 210));
+	firstTimeButton.setPosition(sf::Vector2u(192 - SHADOWHOR, 327));
+	// firstTimeButton.buttonText.setStyle(sf::Text::Bold);
+	firstTimeButton.buttonText.setOutlineColor(sf::Color::Black);
+	firstTimeButton.buttonText.setOutlineThickness(2);
 
 	// set up quick import button
 	datasetTemplateTexture.loadFromFile("assets/images/DatasetTemplateTexture.png");
@@ -511,7 +520,15 @@ void instance::operate()
 
 void instance::operatePage1()
 {
-	// std::string temp;
+	if (firstTime[0])
+	{
+		std::ifstream fin; fin.open("settings/firstTime.txt");
+		fin >> firstTime[1]; fin.close(); printf("[DEBUG] first time check: %d\n", firstTime[1]);
+		firstTime[0] = false;
+		startupLoad();
+		std::ofstream fout; fout.open("settings/firstTime.txt");
+		fout << 0; fout.close();
+	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -526,7 +543,7 @@ void instance::operatePage1()
 				// printf("[DEBUG] mouse button pressed\n");
 				mouseControl = true;
 				// int option = suggestedcontent.returnmode(windowInstance);
-				if (searchButton.isClicked(windowInstance)) // static function
+				if (searchButton.isClicked(windowInstance) && mouseControl) // static function
 				{
 					showCorrection = false;
 					suggestionPanels.display = false;
@@ -550,8 +567,9 @@ void instance::operatePage1()
 						correctUserInputString = "Did you mean: " + corrected;
 						correctUserInput.setString(correctUserInputString);
 					}
+					mouseControl = false;
 				}
-				else if (historyButton.isClicked(windowInstance))
+				else if (historyButton.isClicked(windowInstance) && mouseControl)
 				{
                     if (!loadHistory)
                     {
@@ -560,8 +578,9 @@ void instance::operatePage1()
                     }
 					displayMode = DisplayMode::HISTORY;
 					handleHistory();
+					mouseControl = false;
 				}
-				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance))
+				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance) && mouseControl)
 				{
 					showCorrection = false;
 					displayMode = DisplayMode::SEARCH;
@@ -573,8 +592,9 @@ void instance::operatePage1()
 					writeHistory(temp);
 					searchBox.setString(temp);
 					handleSearchSignal(temp);
+					mouseControl = false;
 				}
-				else if (favouriteButton.isClicked(windowInstance))
+				else if (favouriteButton.isClicked(windowInstance) && mouseControl)
 				{
 					printf("[DEBUG] trying to display favourite\n");
 					if (pCurrentFavourite) 
@@ -586,6 +606,7 @@ void instance::operatePage1()
 					{
 						displayDef = false;
 					}
+					mouseControl = false;
 				}
 				else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
 				{
@@ -614,7 +635,7 @@ void instance::operatePage1()
 							searchBox.setString(temp);
 						}
 					}
-					printf("[DEBUG] suggestion panels off la asdfasdf\n");
+					// printf("[DEBUG] suggestion panels off la asdfasdf\n");
 					suggestionPanels.display = false;
 					mouseControl = false;
 				}
@@ -734,6 +755,12 @@ void instance::operatePage1()
 						}
 					}
 				}
+				if (firstTime[1] && firstTimeButton.isClicked(windowInstance))
+				{
+					importDefaultDatasets();
+					firstTime[1] = false;
+				}
+				firstTime[1] = false;
 				break;
 			}
 			case sf::Event::EventType::KeyPressed:
@@ -821,6 +848,10 @@ void instance::operatePage1()
 	prevPageButton.click(windowInstance);
 	pageUpButton.click(windowInstance);
 	pageDownButton.click(windowInstance);
+	if (firstTime[1])
+	{
+		firstTimeButton.hoverSwitchTexture(windowInstance);
+	}
 	// std::cout << headWordString << std::endl;
 	if (existInList(pRootFavourite, headWordString))
 	{
@@ -842,6 +873,10 @@ void instance::drawPage1()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
+	if (firstTime[1])
+	{
+		firstTimeButton.draw(windowInstance);
+	}
 	datasetButton.draw(windowInstance);
 	searchButton.draw(windowInstance);
 	suggestionPanels.draw(windowInstance);
@@ -2649,4 +2684,99 @@ void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, c
 int instance::incrementalButton::getNumber()
 {
     return curDataset;
+}
+
+void instance::startupLoad()
+{
+	if (firstTime[1])
+	{
+
+	}
+	else
+	{
+		auto startTime = std::chrono::high_resolution_clock::now();
+		for (int i = 0; i < 6; ++i)
+			deleteWholeTrie(trieRoot[i]);
+		if (!loadAutoSave)
+		{
+			loadAutoSaveSetting();
+			loadAutoSave = true;
+		}
+		if (!autoSave) return;
+		windowInstance.setActive(false);
+
+		
+		// std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+		std::atomic<bool> finished[6]{false};
+
+		std::thread deserializeThread[6] = {
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0, std::ref(finished[0])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1, std::ref(finished[1])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2, std::ref(finished[2])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3, std::ref(finished[3])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4, std::ref(finished[4])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5, std::ref(finished[5]))
+		};
+
+		loadingWrapper(windowInstance, finished, 6);
+
+		for (int i = 0; i < 6; ++i)
+			deserializeThread[i].join();
+
+		// controlLoaded.store(true);
+		// loadAnimationThread.join();
+
+		windowInstance.setActive(true);
+
+		readFavourite(pRootFavourite);
+		pCurrentFavourite = pRootFavourite;
+		loadedSave = true;
+
+		auto endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+		std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+
+	}
+}
+
+void instance::importDefaultDatasets()
+{
+	if (firstTime[1])
+	{
+		auto startTime = std::chrono::high_resolution_clock::now();
+		for (int i = 0; i < 6; ++i)
+			deleteWholeTrie(trieRoot[i]);
+		if (!loadAutoSave)
+		{
+			loadAutoSaveSetting();
+			loadAutoSave = true;
+		}
+
+		windowInstance.setActive(false);
+
+		std::atomic<bool> finished[5]{false};
+
+		std::thread readDatasetThread[5] = {
+			std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
+			std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
+			std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
+			std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
+			std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4])),
+		};
+
+		loadingWrapper(windowInstance, finished, 5);
+
+		for (int i = 0; i < 5; ++i)
+			readDatasetThread[i].join();
+
+		windowInstance.setActive(true);
+
+		readFavourite(pRootFavourite);
+		pCurrentFavourite = pRootFavourite;
+		loadedSave = true;
+
+		auto endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+		std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+	}
 }

@@ -69,6 +69,7 @@ private:
     static int curDataset;
 
     // boolean to control loading
+    bool firstTime[2] = {true, false}; // first element is for checking the firstTime.txt file, second element is its result
     bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
@@ -115,7 +116,6 @@ private:
     Button gameModeButton;
     sf::Texture emojiTexture;
     sf::Sprite emojiSprite;
-    // int emojiNumber;
 
     // dataset option button
     class incrementalButton : public Button
@@ -193,6 +193,12 @@ private:
     // import box
     sf::Texture importBoxTexture;
     textbox importBox;
+
+    // first time set up button
+    sf::Font SourceSans3SemiBold;
+    sf::Texture firstTimeTextureDef;
+    sf::Texture firstTimeTextureHov;
+    Button firstTimeButton;
 
     // dataset format boxes
     sf::Texture TXTTextureDef;
@@ -444,4 +450,6 @@ private:
     void setUpErrorText();
     void handleFavourite();
     void setUpGameModeAnimation();
+    void importDefaultDatasets();
+    void startupLoad();
 };
