@@ -227,6 +227,11 @@ instance::instance() :
 	quickImportButton[2].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EV", 36);
 	quickImportButton[3].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EM", 36);
 	quickImportButton[4].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "SL", 36);
+	for (int i = 0; i < 5; ++i)
+	{
+		quickImportButton[i].buttonText.setOutlineColor(sf::Color::Black);
+		quickImportButton[i].buttonText.setOutlineThickness(-2);
+	}
 	for (int i = 0; i < 3; ++i)
 	{
 		quickImportButton[i].setPosition(sf::Vector2u(160 - 20 + (20 + 65) * i, 418));
