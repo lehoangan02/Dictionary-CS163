@@ -986,6 +986,7 @@ void instance::operatePage2()
 				{
 					if (quickImportButton[i].isClicked(windowInstance))
 					{
+						deleteWholeTrie(trieRoot[i]);
 						std::string filename;
 						switch (i)
 						{
@@ -1169,7 +1170,7 @@ void instance::operatePage3()
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				result.resize(6); // to get top 6 results
+				result.resize(10); // to get top 10 results
 				if (result.size() > 1)
 				{
 					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
@@ -1273,7 +1274,7 @@ void instance::operatePage3()
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				result.resize(6); // to get top 6 results
+				result.resize(10); // to get top 10 results
 				if (result.size() > 1)
 				{
 					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
