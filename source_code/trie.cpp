@@ -118,8 +118,6 @@ void insert(TrieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 	if (!checkexist) cur->definitions.push_back({ pos, def });
 
-	//Change2Lowercase(word);
-
 	if (shouldAddWord(word4Def, word, pRoot)) {
 		word4Def.push_back(word);
 	}
@@ -170,34 +168,6 @@ std::vector<std::pair<std::string, std::string>> Search(TrieNode* pRoot, std::st
 	}
 	return traverseToSearch(pRoot, word);
 	{
-	// std::cout << "Here are the definitions of the word: \n";
-	
-	// //first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
-	// int length = word.length();
-	// for (int i = 0; i < length; ++i) {
-	// 	if (i == 0) //Traverse to search the for VieEng
-	// 	{
-	// 		collection1 = traverseToSearch(pRoot, word);
-	// 	}
-	// 	if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
-	// 		word[i] -= 32;
-	// 	}
-	// }
-	// // Traverse the trie to find the word (the first letter in each syllable in capital form)
-	// if (collection1.empty())
-	// 	collection2 = traverseToSearch(pRoot, word);
-	
-	// // Convert all the letters to lowercase
-	// Change2Lowercase(word);
-
-	// // Traverse the trie to find the word (the first letter in lowercase)
-	// collection3 = traverseToSearch(pRoot, word);
-
-	// Merge the two collections
-	// collectionLast.reserve(collection1.size() + collection2.size() + collection3.size());  // Pre-allocate memory
-	// collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
-	// collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
-	// collectionLast.insert(collectionLast.end(), collection3.begin(), collection3.end());
 	}
 
 	return collectionLast;

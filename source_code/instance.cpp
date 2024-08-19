@@ -392,71 +392,6 @@ instance::instance() :
 
 void instance::operate()
 {
-	// if (!loadedSave)
-	// {
-	// 	auto startTime = std::chrono::high_resolution_clock::now();
-		
-	// 	for (int i = 0; i < 6; ++i)
-	// 		deleteWholeTrie(trieRoot[i]);
-	// 	if (!loadAutoSave)
-	// 	{
-	// 		loadAutoSaveSetting();
-	// 		loadAutoSave = true;
-	// 	}
-
-	// 	windowInstance.setActive(false);
-
-	// 	if (autoSave)
-	// 	{
-	// 		// std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-	// 		std::atomic<bool> finished[6]{false};
-
-	// 		std::thread deserializeThread[6] = {
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0, std::ref(finished[0])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1, std::ref(finished[1])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2, std::ref(finished[2])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3, std::ref(finished[3])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4, std::ref(finished[4])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5, std::ref(finished[5]))
-	// 		};
-
-	// 		loadingWrapper(windowInstance, finished, 6);
-
-	// 		for (int i = 0; i < 6; ++i)
-	// 			deserializeThread[i].join();
-
-	// 		// controlLoaded.store(true);
-	// 		// loadAnimationThread.join();
-	// 	}
-	// 	else
-	// 	{
-	// 		std::atomic<bool> finished[5]{false};
-
-	// 		std::thread readDatasetThread[5] = {
-	// 			std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
-	// 			std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
-	// 			std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
-	// 			std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
-	// 			std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4])),
-	// 		};
-
-	// 		loadingWrapper(windowInstance, finished, 5);
-
-	// 		for (int i = 0; i < 5; ++i)
-	// 			readDatasetThread[i].join();
-	// 	}
-
-	// 	windowInstance.setActive(true);
-
-	// 	readFavourite(pRootFavourite);
-	// 	pCurrentFavourite = pRootFavourite;
-	// 	loadedSave = true;
-
-	// 	auto endTime = std::chrono::high_resolution_clock::now();
-	// 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-	// 	std::cout << "Time taken to load: " << duration << "ms" << std::endl;
-	// }
-	
 	std::cout << "MAX: " << sf::Texture::getMaximumSize() << std::endl;
 	while (windowInstance.isOpen())
 	{
@@ -1789,7 +1724,6 @@ void instance::operatePage9()
 				gameMode = 2;
 				resetGameMode(2);
 				correctAnswerString = randomWord4Def(word4Def[curDataset]);
-				// Change2Lowercase(correctAnswerString);
 				std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 				std::cout << "word with 4 def: " << correctAnswerString << std::endl;
 				if (correctAnswerString != "")
