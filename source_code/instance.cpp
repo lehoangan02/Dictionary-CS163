@@ -496,8 +496,8 @@ void instance::operatePage1()
 					handleSearchSignal(temp, false);
 					if (searchResult.size() > 0)
 					{
-						history.push_back(temp);
-						writeHistory(temp);
+						history[curDataset].push_back(temp);
+						writeHistory(temp, curDataset);
 					}
 					// user input correction
 					std::string corrected = temp;
@@ -513,7 +513,7 @@ void instance::operatePage1()
 				{
                     if (!loadHistory)
                     {
-                        readHistory(history);
+                        readHistory(history[curDataset], curDataset);
                         loadHistory = true;
                     }
 					displayMode = DisplayMode::HISTORY;
@@ -528,8 +528,8 @@ void instance::operatePage1()
 					std::string temp = searchBox.getString();
 					correction(temp, trieRoot[curDataset]);
 					headWordString = temp;
-					history.push_back(temp);
-					writeHistory(temp);
+					history[curDataset].push_back(temp);
+					writeHistory(temp, curDataset);
 					searchBox.setString(temp);
 					handleSearchSignal(temp, false);
 					mouseControl = false;
@@ -567,8 +567,8 @@ void instance::operatePage1()
 							displayMode = DisplayMode::SEARCH;
 							historyIndex = 0;
 							std::string temp = suggestionPanels.buttonStrings[i];
-							history.push_back(temp);
-							writeHistory(temp);
+							history[curDataset].push_back(temp);
+							writeHistory(temp, curDataset);
 							handleSearchSignal(temp, false);
 							headWordString = temp;
 							searchBox.deselect();
@@ -584,24 +584,24 @@ void instance::operatePage1()
 					if (bookmarkButton.isClicked(windowInstance))
 					{
 						showCorrection = false;
-						if (existInList(pRootFavourite, headWordString))
+						if (existInList(pRootFavourite[curDataset], headWordString))
 						{
 							printf("turning off\n");
 							bookmarkButton.setMode(false);
-							if (pCurrentFavourite && pCurrentFavourite -> pNext)
+							if (pCurrentFavourite[curDataset] && pCurrentFavourite[curDataset]-> pNext)
 							{
 								printf("[DEBUG] moving to favourite down\n");
-								pCurrentFavourite = pCurrentFavourite -> pNext;
+								pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]-> pNext;
 							}
-							else if (pCurrentFavourite && pCurrentFavourite -> pPrev)
+							else if (pCurrentFavourite[curDataset] && pCurrentFavourite[curDataset]-> pPrev)
 							{
 								printf("[DEBUG] moving to favourite up\n");
-								pCurrentFavourite = pCurrentFavourite -> pPrev;
+								pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]-> pPrev;
 							}
-							deleteNode(pRootFavourite, headWordString);
-							pCurrentFavourite = pRootFavourite;
-							writeFavourite(pRootFavourite);
-							if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+							deleteNode(pRootFavourite[curDataset], headWordString);
+							pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
+							writeFavourite(pRootFavourite[curDataset], curDataset);
+							if (!pRootFavourite[curDataset] && displayMode == DisplayMode::FAVOURITE)
 							{
 								printf("[DEBUG] end displaying favourite\n");
 								displayDef = false;
@@ -614,9 +614,9 @@ void instance::operatePage1()
 						{
 							bookmarkButton.setMode(true);
 							printf("[DEBUG] new favourite\n");
-							insertLinkedList(pRootFavourite, headWordString);
-							pCurrentFavourite = pRootFavourite;
-							writeFavourite(pRootFavourite);
+							insertLinkedList(pRootFavourite[curDataset], headWordString);
+							pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
+							writeFavourite(pRootFavourite[curDataset], curDataset);
 							// handleFavourite();
 						}
 					}
@@ -660,7 +660,7 @@ void instance::operatePage1()
 							}
 							else if (pageDownButton.isClicked(windowInstance))
 							{
-								if (historyIndex < (int)history.size() - 1)
+								if (historyIndex < (int)history[curDataset].size() - 1)
 								{
 									++historyIndex;
 									handleHistory();
@@ -673,17 +673,17 @@ void instance::operatePage1()
 						{
 							if (pageUpButton.isClicked(windowInstance))
 							{
-								if (pCurrentFavourite -> pPrev)
+								if (pCurrentFavourite[curDataset]-> pPrev)
 								{
-									pCurrentFavourite = pCurrentFavourite -> pPrev;
+									pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]-> pPrev;
 									handleFavourite();
 								}
 							}
 							else if (pageDownButton.isClicked(windowInstance))
 							{
-								if (pCurrentFavourite -> pNext)
+								if (pCurrentFavourite[curDataset]-> pNext)
 								{
-									pCurrentFavourite = pCurrentFavourite -> pNext;
+									pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]-> pNext;
 									handleFavourite();
 								}
 							}
@@ -719,8 +719,8 @@ void instance::operatePage1()
 					if (searchResult.size() > 0)
 					{
 						printf("There are result(s)\n");
-						history.push_back(temp);
-						writeHistory(temp);
+						history[curDataset].push_back(temp);
+						writeHistory(temp, curDataset);
 					}
 					// user input correction
 					std::string corrected = temp;
@@ -793,7 +793,7 @@ void instance::operatePage1()
 		firstTimeButton.hoverSwitchTexture(windowInstance);
 	}
 	// std::cout << headWordString << std::endl;
-	if (existInList(pRootFavourite, headWordString))
+	if (existInList(pRootFavourite[curDataset], headWordString))
 	{
 		// printf("[DEBUG] word is favourite\n");
 		bookmarkButton.setMode(true);
@@ -1147,24 +1147,24 @@ void instance::operatePage3()
 			}
 			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
 			{
-				if (existInList(pRootFavourite, headWordString))
+				if (existInList(pRootFavourite[curDataset], headWordString))
 				{
 					printf("turning off\n");
 					bookmarkButton.setMode(false);
-					if (pCurrentFavourite && pCurrentFavourite->pNext)
+					if (pCurrentFavourite[curDataset] && pCurrentFavourite[curDataset]->pNext)
 					{
 						printf("[DEBUG] moving to favourite down\n");
-						pCurrentFavourite = pCurrentFavourite->pNext;
+						pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]->pNext;
 					}
-					else if (pCurrentFavourite && pCurrentFavourite->pPrev)
+					else if (pCurrentFavourite[curDataset] && pCurrentFavourite[curDataset]->pPrev)
 					{
 						printf("[DEBUG] moving to favourite up\n");
-						pCurrentFavourite = pCurrentFavourite->pPrev;
+						pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]->pPrev;
 					}
-					deleteNode(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+					deleteNode(pRootFavourite[curDataset], headWordString);
+					pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
+					writeFavourite(pRootFavourite[curDataset], curDataset);
+					if (!pRootFavourite[curDataset] && displayMode == DisplayMode::FAVOURITE)
 					{
 						printf("[DEBUG] end displaying favourite\n");
 						displayDef = false;
@@ -1177,9 +1177,9 @@ void instance::operatePage3()
 				{
 					bookmarkButton.setMode(true);
 					printf("[DEBUG] new favourite\n");
-					insertLinkedList(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
+					insertLinkedList(pRootFavourite[curDataset], headWordString);
+					pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
+					writeFavourite(pRootFavourite[curDataset], curDataset);
 					// handleFavourite();
 				}
 			}
@@ -1240,7 +1240,7 @@ void instance::operatePage3()
 	prevPageButton.hoverSwitchTexture(windowInstance);
 	nextPageButton.click(windowInstance);
 	prevPageButton.click(windowInstance);
-	if (existInList(pRootFavourite, headWordString))
+	if (existInList(pRootFavourite[curDataset], headWordString))
 	{
 		// printf("[DEBUG] word is favourite\n");
 		bookmarkButton.setMode(true);
@@ -1874,24 +1874,24 @@ void instance::operatePage9()
 				}
 				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
 				{
-					if (existInList(pRootFavourite, headWordString))
+					if (existInList(pRootFavourite[curDataset], headWordString))
 					{
 						printf("turning off\n");
 						bookmarkButton.setMode(false);
-						if (pCurrentFavourite && pCurrentFavourite->pNext)
+						if (pCurrentFavourite[curDataset] && pCurrentFavourite[curDataset]->pNext)
 						{
 							printf("[DEBUG] moving to favourite down\n");
-							pCurrentFavourite = pCurrentFavourite->pNext;
+							pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]->pNext;
 						}
-						else if (pCurrentFavourite && pCurrentFavourite->pPrev)
+						else if (pCurrentFavourite[curDataset] && pCurrentFavourite[curDataset]->pPrev)
 						{
 							printf("[DEBUG] moving to favourite up\n");
-							pCurrentFavourite = pCurrentFavourite->pPrev;
+							pCurrentFavourite[curDataset] = pCurrentFavourite[curDataset]->pPrev;
 						}
-						deleteNode(pRootFavourite, headWordString);
-						pCurrentFavourite = pRootFavourite;
-						writeFavourite(pRootFavourite);
-						if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+						deleteNode(pRootFavourite[curDataset], headWordString);
+						pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
+						writeFavourite(pRootFavourite[curDataset], curDataset);
+						if (!pRootFavourite[curDataset] && displayMode == DisplayMode::FAVOURITE)
 						{
 							printf("[DEBUG] end displaying favourite\n");
 							displayDef = false;
@@ -1904,9 +1904,9 @@ void instance::operatePage9()
 					{
 						bookmarkButton.setMode(true);
 						printf("[DEBUG] new favourite\n");
-						insertLinkedList(pRootFavourite, headWordString);
-						pCurrentFavourite = pRootFavourite;
-						writeFavourite(pRootFavourite);
+						insertLinkedList(pRootFavourite[curDataset], headWordString);
+						pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
+						writeFavourite(pRootFavourite[curDataset], curDataset);
 						// handleFavourite();
 					}
 				}
@@ -1952,7 +1952,7 @@ void instance::operatePage9()
 	gameMode1st.hoverSwitchTexture(windowInstance);
 	gameMode2nd.hoverSwitchTexture(windowInstance);
 	gameMode3rd.hoverSwitchTexture(windowInstance);
-	if (existInList(pRootFavourite, headWordString))
+	if (existInList(pRootFavourite[curDataset], headWordString))
 	{
 		// printf("[DEBUG] word is favourite\n");
 		bookmarkButton.setMode(true);
@@ -2178,7 +2178,7 @@ void instance::switchPage()
 		importBox.clear();
 		pageChange = false;
 		historyIndex = 0;
-		pCurrentFavourite = pRootFavourite;
+		pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
 		gameMode = 0;
 		scrollOffset = 0;
 		changedFailed = false;
@@ -2274,7 +2274,7 @@ void instance::drawDefinition()
 		{
 			pageUpButton.draw(windowInstance);
 		}
-		if (historyIndex < (int)history.size() - 1)
+		if (historyIndex < (int)history[curDataset].size() - 1)
 		{
 			pageDownButton.draw(windowInstance);
 		}
@@ -2289,11 +2289,11 @@ void instance::drawDefinition()
 
 	case (DisplayMode::FAVOURITE):
 	{
-		if (pCurrentFavourite->pPrev)
+		if (pCurrentFavourite[curDataset]->pPrev)
 		{
 			pageUpButton.draw(windowInstance);
 		}
-		if (pCurrentFavourite->pNext)
+		if (pCurrentFavourite[curDataset]->pNext)
 		{
 			pageDownButton.draw(windowInstance);
 		}
@@ -2392,9 +2392,9 @@ void instance::handleSearchSignal(std::string input, bool isGameMode2)
 void instance::handleHistory()
 {
 	resetSearchResult();
-	if (history.size() > 0)
+	if (history[curDataset].size() > 0)
 	{
-		std::string temp = history[history.size() - historyIndex - 1];
+		std::string temp = history[curDataset][history[curDataset].size() - historyIndex - 1];
 		printf("[DEBUG] current history word is: %s\n", temp.c_str());
 		handleSearchSignal(temp, false);
 		headWordString = temp;
@@ -2409,7 +2409,7 @@ void instance::handleFavourite()
 	{
 		if (pCurrentFavourite != nullptr)
 		{
-			std::string temp = pCurrentFavourite->data;
+			std::string temp = pCurrentFavourite[curDataset]->data;
 			printf("[DEBUG] current favourite word is: %s\n", temp.c_str());
 			handleSearchSignal(temp, false);
 			headWordString = temp;
@@ -2429,7 +2429,7 @@ void instance::initiateSearch()
 	// displayFavourite = false;
 	displayMode = DisplayMode::SEARCH;
 	historyIndex = 0;
-	pCurrentFavourite = pRootFavourite;
+	pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
 	std::string temp = searchBox.getString();
 	handleSearchSignal(temp, false);
 }
@@ -2572,9 +2572,12 @@ void instance::setUpGameModeAnimation()
 
 instance::~instance()
 {
-	deallocateLinkedList(pRootFavourite);
-	for (int i = 0; i < 6; ++i)
-		deleteWholeTrie(trieRoot[i]);
+	for (int j = 0; j < 6; ++j)
+	{
+		deallocateLinkedList(pRootFavourite[j]);
+		for (int i = 0; i < 6; ++i)
+			deleteWholeTrie(trieRoot[i]);
+	}
 }
 
 void instance::incrementalButton::setTexture(const sf::Texture& textureDef1, const sf::Texture& textureDef2, const sf::Texture& textureDef3,
@@ -2669,8 +2672,8 @@ void instance::startupLoad()
 
 		windowInstance.setActive(true);
 
-		readFavourite(pRootFavourite);
-		pCurrentFavourite = pRootFavourite;
+		readFavourite(pRootFavourite[curDataset], curDataset);
+		pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
 		loadedSave = true;
 
 		auto endTime = std::chrono::high_resolution_clock::now();
@@ -2712,8 +2715,8 @@ void instance::importDefaultDatasets()
 
 		windowInstance.setActive(true);
 
-		readFavourite(pRootFavourite);
-		pCurrentFavourite = pRootFavourite;
+		readFavourite(pRootFavourite[curDataset], curDataset);
+		pCurrentFavourite[curDataset] = pRootFavourite[curDataset];
 		loadedSave = true;
 
 		auto endTime = std::chrono::high_resolution_clock::now();

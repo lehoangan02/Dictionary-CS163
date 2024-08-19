@@ -30,10 +30,10 @@ void deleteNode(linkedListNode*& pRoot, std::string input);
 
 /// @brief read previous favourite words
 /// @param pRoot 
-void readFavourite(linkedListNode*& pRoot);
+void readFavourite(linkedListNode*& pRoot, const int& curDataset);
 
 /// @brief write new favourite to saves
 /// @param pRoot 
-void writeFavourite(linkedListNode* pRoot);
+void writeFavourite(linkedListNode* pRoot, const int& curDataset);
 
 void deallocateLinkedList(linkedListNode*& pRoot);  
