@@ -493,7 +493,7 @@ void instance::operatePage1()
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
 					
-					handleSearchSignal(temp);
+					handleSearchSignal(temp, false);
 					if (searchResult.size() > 0)
 					{
 						history.push_back(temp);
@@ -531,7 +531,7 @@ void instance::operatePage1()
 					history.push_back(temp);
 					writeHistory(temp);
 					searchBox.setString(temp);
-					handleSearchSignal(temp);
+					handleSearchSignal(temp, false);
 					mouseControl = false;
 				}
 				else if (favouriteButton.isClicked(windowInstance) && mouseControl)
@@ -569,7 +569,7 @@ void instance::operatePage1()
 							std::string temp = suggestionPanels.buttonStrings[i];
 							history.push_back(temp);
 							writeHistory(temp);
-							handleSearchSignal(temp);
+							handleSearchSignal(temp, false);
 							headWordString = temp;
 							searchBox.deselect();
 							searchBox.setString(temp);
@@ -715,7 +715,7 @@ void instance::operatePage1()
 					displayMode = DisplayMode::SEARCH;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					handleSearchSignal(temp);
+					handleSearchSignal(temp, false);
 					if (searchResult.size() > 0)
 					{
 						printf("There are result(s)\n");
@@ -1114,11 +1114,11 @@ void instance::operatePage3()
 				if (result.size() > 1)
 				{
 					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
-					handleSearchSignal(top);
+					handleSearchSignal(top, false);
 				}
 				else if (result.size() == 1) 
 				{
-					handleSearchSignal(result[0]);
+					handleSearchSignal(result[0], false);
 				}
 			}
 			else if (nextPageButton.isClicked(windowInstance))
@@ -1218,11 +1218,11 @@ void instance::operatePage3()
 				if (result.size() > 1)
 				{
 					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
-					handleSearchSignal(top);
+					handleSearchSignal(top, false);
 				}
 				else if (result.size() == 1) 
 				{
-					handleSearchSignal(result[0]);
+					handleSearchSignal(result[0], false);
 				}
 			}
 		}
@@ -1709,7 +1709,7 @@ void instance::operatePage9()
 						random.second = "";
 						random = pickarandomword(trieRoot[curDataset]);
 						std::cout << "The random word is: " << random.second << std::endl;
-						handleSearchSignal(random.second);
+						handleSearchSignal(random.second, false);
 						if (random.second == "")	displayDef = false;
 						else if (random.second != "")
 						{
@@ -1727,7 +1727,7 @@ void instance::operatePage9()
 				std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 				std::cout << "word with 4 def: " << correctAnswerString << std::endl;
 				if (correctAnswerString != "")
-					handleSearchSignal(correctAnswerString);
+					handleSearchSignal(correctAnswerString, true);
 			}
 			else if (gameMode3rd.isClicked(windowInstance))
 			{
@@ -1767,7 +1767,7 @@ void instance::operatePage9()
 					answerButton3rd.setText(multipleChoices[2]);
 					answerButton4th.setText(multipleChoices[3]);
 
-					handleSearchSignal(correctAnswerString);
+					handleSearchSignal(correctAnswerString, false);
 				}
 			}
 			else if (checkAnswerButton.isClicked(windowInstance) && gameMode == 2)
@@ -2351,13 +2351,14 @@ void instance::drawLoadingPage()
 	windowInstance.display();
 }
 
-void instance::handleSearchSignal(std::string input)
+void instance::handleSearchSignal(std::string input, bool isGameMode2)
 {
 	resetSearchResult();
 	std::cout << "[DEBUG] searching: " << input << std::endl;
 	searchResult = Search(trieRoot[curDataset], input);
 	numberOfResult = (int)searchResult.size();
 	std::cout << "[DEBUG] number of result is " << numberOfResult << std::endl;
+	if (isGameMode2) searchResult.resize(4);
 	if (numberOfResult > 0)
 	{
 		headWordString = input;
@@ -2395,7 +2396,7 @@ void instance::handleHistory()
 	{
 		std::string temp = history[history.size() - historyIndex - 1];
 		printf("[DEBUG] current history word is: %s\n", temp.c_str());
-		handleSearchSignal(temp);
+		handleSearchSignal(temp, false);
 		headWordString = temp;
 		std::cout << headWordString << std::endl;
 	}
@@ -2410,7 +2411,7 @@ void instance::handleFavourite()
 		{
 			std::string temp = pCurrentFavourite->data;
 			printf("[DEBUG] current favourite word is: %s\n", temp.c_str());
-			handleSearchSignal(temp);
+			handleSearchSignal(temp, false);
 			headWordString = temp;
 		}
 		else
@@ -2430,7 +2431,7 @@ void instance::initiateSearch()
 	historyIndex = 0;
 	pCurrentFavourite = pRootFavourite;
 	std::string temp = searchBox.getString();
-	handleSearchSignal(temp);
+	handleSearchSignal(temp, false);
 }
 
 void instance::setUpErrorText()

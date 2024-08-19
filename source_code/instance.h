@@ -444,7 +444,7 @@ private:
     void saveAutoSaveSetting();
     static void resetSearchResult();
     void drawLoadingPage();
-    void handleSearchSignal(std::string input);
+    void handleSearchSignal(std::string input, bool isGameMode2);
     void handleHistory();
     void initiateSearch();
     void setUpErrorText();
