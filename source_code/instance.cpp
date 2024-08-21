@@ -185,8 +185,7 @@ instance::instance() :
 
 {
 	// Try to set framerate limit but seems to be slower
-	// windowInstance.setFramerateLimit(60);
-	
+	windowInstance.setFramerateLimit(60);
 	// reserve word4Def[i] for faster insert at the beginning
 	for (int i = 0; i < 5; ++i)
 		word4Def[i].reserve(1000);
@@ -2647,7 +2646,7 @@ void instance::startupLoad()
 		windowInstance.setActive(false);
 
 		
-		// std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
+		
 		std::atomic<bool> finished[6]{false};
 
 		std::thread deserializeThread[6] = {
