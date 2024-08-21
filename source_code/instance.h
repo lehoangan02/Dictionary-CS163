@@ -42,6 +42,8 @@ private:
     bool autoSave = true;
     static int definitionNum;
     static std::vector<std::pair<std::string, std::string>> searchResult;
+    static int defSearchIndex;
+    static std::vector<std::string> defSearchResult;
     
     // for use later
     /* import mode error code
@@ -142,7 +144,8 @@ private:
     {
         SEARCH,
         HISTORY,
-        FAVOURITE
+        FAVOURITE,
+        DEF_SEARCH
     };
 
     static DisplayMode displayMode;

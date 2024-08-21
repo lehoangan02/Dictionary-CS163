@@ -22,6 +22,8 @@ std::string instance::descriptionString;
 SuggestionPanels instance::suggestionPanels;
 bool instance::displayDef = false;
 bool instance::showCorrection = false;
+int instance::defSearchIndex = 0;
+std::vector<std::string> instance::defSearchResult;
 
 instance::instance() :
 	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
@@ -1086,6 +1088,9 @@ void instance::operatePage3()
 		// }
 		// loadDefinition = true;
 	}
+
+	displayMode = DisplayMode::DEF_SEARCH;
+
 	while (windowInstance.pollEvent(event))
 	{		
 		switch (event.type)
@@ -1102,84 +1107,105 @@ void instance::operatePage3()
 				std::string temp = searchBox.getString();
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
-				std::vector<std::string> result = searchByDef(tokens, invertedIndex[curDataset]);
-				sortByDefLength(result, trieRoot[curDataset]); 
+				defSearchResult = searchByDef(tokens, invertedIndex[curDataset]);
+				sortByDefLength(defSearchResult, trieRoot[curDataset]);
+				defSearchIndex = 0;
 				std::cout << "SORTED" << std::endl;
 				// for (auto word : result)
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				result.resize(10); // to get top 10 results
-				if (result.size() > 1)
-				{
-					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
-					handleSearchSignal(top, false);
-				}
-				else if (result.size() == 1) 
-				{
-					handleSearchSignal(result[0], false);
-				}
-			}
-			else if (nextPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum < (int)searchResult.size() - 1)
-				{
-					++definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-					description.setString(descriptionString);
-					wrappedDescription = false;
-					scrollOffset = 0;
-				}
-			}
-			else if (prevPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum > 0)
-				{
-					--definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-					description.setString(descriptionString);
-					wrappedDescription = false;
-					scrollOffset = 0;
-				}
-			}
-			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
-			{
-				if (existInList(pRootFavourite, headWordString))
-				{
-					printf("turning off\n");
-					bookmarkButton.setMode(false);
-					if (pCurrentFavourite && pCurrentFavourite->pNext)
-					{
-						printf("[DEBUG] moving to favourite down\n");
-						pCurrentFavourite = pCurrentFavourite->pNext;
-					}
-					else if (pCurrentFavourite && pCurrentFavourite->pPrev)
-					{
-						printf("[DEBUG] moving to favourite up\n");
-						pCurrentFavourite = pCurrentFavourite->pPrev;
-					}
-					deleteNode(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
-					{
-						printf("[DEBUG] end displaying favourite\n");
-						displayDef = false;
-						// displayFavourite = false;
-					}
-					if (displayMode == DisplayMode::FAVOURITE)	
-						handleFavourite();
-				}
+				if (defSearchResult.size() == 0)
+					displayDef = false;
 				else
 				{
-					bookmarkButton.setMode(true);
-					printf("[DEBUG] new favourite\n");
-					insertLinkedList(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					// handleFavourite();
+					if (defSearchResult.size() > 10)
+					{
+						defSearchResult.resize(10); // to get top 10 results
+					}
+					sortBySumPosition(trieRoot[curDataset], defSearchResult, tokens);
+					handleSearchSignal(defSearchResult[defSearchIndex], false);
+				}
+			}
+			else if (displayDef)
+			{
+				if (nextPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum < (int)searchResult.size() - 1)
+					{
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
+						scrollOffset = 0;
+					}
+				}
+				else if (prevPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum > 0)
+					{
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
+						scrollOffset = 0;
+					}
+				}
+				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
+				{
+					if (existInList(pRootFavourite, headWordString))
+					{
+						printf("turning off\n");
+						bookmarkButton.setMode(false);
+						if (pCurrentFavourite && pCurrentFavourite->pNext)
+						{
+							printf("[DEBUG] moving to favourite down\n");
+							pCurrentFavourite = pCurrentFavourite->pNext;
+						}
+						else if (pCurrentFavourite && pCurrentFavourite->pPrev)
+						{
+							printf("[DEBUG] moving to favourite up\n");
+							pCurrentFavourite = pCurrentFavourite->pPrev;
+						}
+						deleteNode(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+						{
+							printf("[DEBUG] end displaying favourite\n");
+							displayDef = false;
+							// displayFavourite = false;
+						}
+						if (displayMode == DisplayMode::FAVOURITE)	
+							handleFavourite();
+					}
+					else
+					{
+						bookmarkButton.setMode(true);
+						printf("[DEBUG] new favourite\n");
+						insertLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						// handleFavourite();
+					}
+				}
+				else if (pageUpButton.isClicked(windowInstance))
+				{
+					if (defSearchIndex > 0)
+					{
+						--defSearchIndex;
+						handleSearchSignal(defSearchResult[defSearchIndex], false);
+					}
+				}
+				else if (pageDownButton.isClicked(windowInstance))
+				{
+					if (defSearchIndex < (int)defSearchResult.size() - 1)
+					{
+						++defSearchIndex;
+						handleSearchSignal(defSearchResult[defSearchIndex], false);
+					}
 				}
 			}
 		}
@@ -1206,22 +1232,24 @@ void instance::operatePage3()
 				std::string temp = searchBox.getString();
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
-				std::vector<std::string> result = searchByDef(tokens, invertedIndex[curDataset]);
-				sortByDefLength(result, trieRoot[curDataset]); 
+				defSearchResult = searchByDef(tokens, invertedIndex[curDataset]);
+				sortByDefLength(defSearchResult, trieRoot[curDataset]);
+				defSearchIndex = 0;
 				std::cout << "SORTED" << std::endl;
 				// for (auto word : result)
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				result.resize(10); // to get top 10 results
-				if (result.size() > 1)
+				if (defSearchResult.size() == 0)
+					displayDef = false;
+				else
 				{
-					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
-					handleSearchSignal(top, false);
-				}
-				else if (result.size() == 1) 
-				{
-					handleSearchSignal(result[0], false);
+					if (defSearchResult.size() > 10)
+					{
+						defSearchResult.resize(10); // to get top 10 results
+					}
+					sortBySumPosition(trieRoot[curDataset], defSearchResult, tokens);
+					handleSearchSignal(defSearchResult[defSearchIndex], false);
 				}
 			}
 		}
@@ -1239,6 +1267,10 @@ void instance::operatePage3()
 	prevPageButton.hoverSwitchTexture(windowInstance);
 	nextPageButton.click(windowInstance);
 	prevPageButton.click(windowInstance);
+	pageUpButton.hoverSwitchTexture(windowInstance);
+	pageDownButton.hoverSwitchTexture(windowInstance);
+	pageUpButton.click(windowInstance);
+	pageDownButton.click(windowInstance);
 	if (existInList(pRootFavourite, headWordString))
 	{
 		// printf("[DEBUG] word is favourite\n");
@@ -2067,6 +2099,8 @@ void instance::switchPage()
 				printf("[DEBUG] moving to page 3\n");
 				page = 3;
 				modeButtonActive = false;
+				defSearchIndex = 0;
+				defSearchResult.clear();
 				pageChange = true;
 			}
 		}
@@ -2285,7 +2319,6 @@ void instance::drawDefinition()
 		}
 		break;
 	}
-
 	case (DisplayMode::FAVOURITE):
 	{
 		if (pCurrentFavourite->pPrev)
@@ -2303,7 +2336,24 @@ void instance::drawDefinition()
 		}
 		break;
 	}
+	case (DisplayMode::DEF_SEARCH):
+	{
+		if (defSearchIndex > 0)
+		{
+			pageUpButton.draw(windowInstance);
+		}
+		if (defSearchIndex < (int)defSearchResult.size() - 1)
+		{
+			pageDownButton.draw(windowInstance);
+		}
+		if (numberOfResult == 0)
+		{
+			// printf("[DEBUG] drawing error message\n");
 
+			windowInstance.draw(wordNotInThisDataSet);
+		}
+		break;
+	}
 	default:
 		break;
 	}
@@ -2613,7 +2663,12 @@ void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, c
             curDataset = 0;
 
         resetSearchResult();
-		displayMode = SEARCH;
+
+		if (displayMode == DisplayMode::HISTORY || displayMode == DisplayMode::FAVOURITE)
+			displayMode = SEARCH;
+
+		defSearchIndex = 0;
+		defSearchResult.clear();
 		displayDef = false;
 		switchedDataset = true;
     }
