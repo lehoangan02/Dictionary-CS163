@@ -1940,7 +1940,7 @@ void instance::operatePage9()
 			break;
 		}
 		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
-		gameSearchBox.handleInputLogic(event, windowInstance);
+		if (gameMode == 2) gameSearchBox.handleInputLogic(event, windowInstance);
 	}
 
 	moveKnight();
