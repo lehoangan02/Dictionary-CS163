@@ -78,34 +78,11 @@ void deleteNode(linkedListNode*& pRoot, std::string input)
 
 /// @brief read previous favourite words
 /// @param pRoot 
-void readFavourite(linkedListNode*& pRoot, const int& curDataset)
+void readFavourite(linkedListNode*& pRoot)
 {
     std::string temp;
     std::ifstream fin;
-    std::string mode = "";
-    switch (curDataset) {
-    case 0: {
-        mode = "EE"; break;
-    }
-    case 1: {
-        mode = "VE"; break;
-    }
-    case 2: {
-        mode = "EV"; break;
-    }
-    case 3: {
-        mode = "Emoji"; break;
-    }
-    case 4: {
-        mode = "Slang"; break;
-    }
-    case 5: {
-        mode = "Other"; break;
-    }
-    default:
-        break;
-    }
-    fin.open("settings/favourite/favourite" + mode + ".txt");
+    fin.open("settings/favourite.txt");
     while (getline(fin, temp))
     {
         // Change2Uppercase(temp);
@@ -120,33 +97,10 @@ void readFavourite(linkedListNode*& pRoot, const int& curDataset)
 
 /// @brief write new favourite to saves
 /// @param pRoot 
-void writeFavourite(linkedListNode* pRoot, const int& curDataset)
+void writeFavourite(linkedListNode* pRoot)
 {
     std::ofstream fout;
-    std::string mode = "";
-    switch (curDataset) {
-    case 0: {
-        mode = "EE"; break;
-    }
-    case 1: {
-        mode = "VE"; break;
-    }
-    case 2: {
-        mode = "EV"; break;
-    }
-    case 3: {
-        mode = "Emoji"; break;
-    }
-    case 4: {
-        mode = "Slang"; break;
-    }
-    case 5: {
-        mode = "Other"; break;
-    }
-    default:
-        break;
-    }
-    fout.open("settings/favourite/favourite" + mode + ".txt", std::ios::app);
+    fout.open("settings/favourite.txt", std::ios::trunc);
     while (pRoot)
     {
         printf("[DEBUG] writing %s\n", (pRoot -> data).c_str());

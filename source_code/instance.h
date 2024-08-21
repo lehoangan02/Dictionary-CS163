@@ -51,19 +51,19 @@ private:
     4 is other (format not selected)
     */
     // int errorMode = 0;
-    std::vector<std::string> history[6];
-    //Separating Linked list for each dataset.
-    linkedListNode* pRootFavourite[6]{ nullptr };
-    linkedListNode* pCurrentFavourite[6]{ nullptr };
+    std::vector<std::string> history;
+    linkedListNode* pRootFavourite = nullptr;
+    linkedListNode* pCurrentFavourite = nullptr;
+
 
     enum Dataset
     {
-        ENG_ENG, //0
-        VIE_ENG,//1
-        ENG_VIE,//2
-        UNICODE_EMOJI,//3
-        SLANG,//4
-        OTHER//5
+        ENG_ENG,
+        VIE_ENG,
+        ENG_VIE,
+        UNICODE_EMOJI,
+        SLANG,
+        OTHER
     };
 
     static int curDataset;
