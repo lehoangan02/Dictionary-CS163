@@ -77,7 +77,7 @@ private:
     long historyIndex = 0;
     // bool displayHistory = false;
     // bool displayFavourite = false;
-    bool loadEmojiImage = false;
+    // bool loadEmojiImage = false;
     bool getWordToDelete[6]{false};
     bool getWordToEdit[6]{false};
 

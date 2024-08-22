@@ -879,7 +879,7 @@ void instance::operatePage2()
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
 							importStatus.setString("Import Successful\n");
-							loadEmojiImage = (filepath == "UnicodeEmoji");
+							// loadEmojiImage = (filepath == "UnicodeEmoji");
 
 							if (autoSave)
 								serializeBinaryWrapper(trieRoot[5], 5);
@@ -898,7 +898,7 @@ void instance::operatePage2()
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
 							importStatus.setString("Import Successful\n");
-							loadEmojiImage = (filepath == "UnicodeEmoji");
+							// loadEmojiImage = (filepath == "UnicodeEmoji");
 
 							if (autoSave)
 								serializeBinaryWrapper(trieRoot[5], 5);
@@ -914,7 +914,7 @@ void instance::operatePage2()
 					{
 						importStatus.setFillColor(sf::Color(255, 153, 0));
 						importStatus.setString("Import Failed - Format not chosen\n");
-						loadEmojiImage = false;
+						// loadEmojiImage = false;
 					}
 
 					loadFinished[0].store(true);
@@ -2360,7 +2360,7 @@ void instance::drawDefinition()
 	windowInstance.setView(definitionView);
 	windowInstance.draw(description);
 	windowInstance.setView(windowInstance.getDefaultView());
-	if (loadEmojiImage && POSString.substr(0, 14) == "emoji number: ")
+	if (/*loadEmojiImage &&*/ POSString.substr(0, 14) == "emoji number: ")
 	{
 		windowInstance.draw(emojiSprite);
 	}
@@ -2496,9 +2496,9 @@ void instance::handleSearchSignal(std::string input, bool isGameMode2)
 		wrappedDescription = false;
 	}
 	else	displayDef = false;
-	std::cout << "[DEBUG] emoji state is " << loadEmojiImage << std::endl;
-	if (loadEmojiImage)
-	{
+	// std::cout << "[DEBUG] emoji state is " << loadEmojiImage << std::endl;
+	// if (loadEmojiImage)
+	// {
 		if (POSString.substr(0, 14) != "emoji number: ");
 		else
 		{
@@ -2506,7 +2506,7 @@ void instance::handleSearchSignal(std::string input, bool isGameMode2)
 			emojiTexture.setSmooth(true);
 			emojiSprite.setTexture(emojiTexture, true);
 		}
-	}
+	// }
 }
 
 void instance::handleHistory()
