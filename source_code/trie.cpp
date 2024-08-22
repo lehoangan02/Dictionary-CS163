@@ -63,7 +63,7 @@ void insert(TrieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 		cur = cur->childNode[int(c) - 32];
 	}
 
-	if (cur->wordExisted) ChangeCountChild(pRoot, word);
+	if (cur->wordExisted) revertCountChildren(pRoot, word);
 	else cur->wordExisted = true;
 
 	for (auto mean : definitions)
@@ -105,7 +105,7 @@ void insert(TrieNode*& pRoot, std::string& word, const std::string& pos, const s
 		cur = cur->childNode[int(c) - 32];
 	}
 
-	if (cur->wordExisted) ChangeCountChild(pRoot, word);
+	if (cur->wordExisted) revertCountChildren(pRoot, word);
 	else cur->wordExisted = true;
 
 	bool checkexist = false;
@@ -118,16 +118,16 @@ void insert(TrieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 	if (!checkexist) cur->definitions.push_back({ pos, def });
 
-	if (shouldAddWord(word4Def, word, pRoot)) {
+	if (shouldAddToWord4Def(word4Def, word, pRoot)) {
 		word4Def.push_back(word);
 	}
 }
 
-bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, TrieNode* pRoot) {
+bool shouldAddToWord4Def(const std::vector<std::string>& word4Def, const std::string& word, TrieNode* pRoot) {
 	return traverseToSearch(pRoot, word).size() >= 4 && (word4Def.empty() || word4Def.back() != word);
 }
 
-void ChangeCountChild(TrieNode*& pRoot, std::string word)
+void revertCountChildren(TrieNode*& pRoot, std::string word)
 {
 	TrieNode* cur = pRoot;
 	for (auto c : word) {
