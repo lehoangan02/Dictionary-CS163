@@ -1194,7 +1194,7 @@ void instance::operatePage3()
 					{
 						defSearchResult.resize(6); // to get top 6 results
 					}
-					defSearchIndex = sortBySumPosition(trieRoot[curDataset], defSearchResult, tokens);
+					sortBySumPosition(trieRoot[curDataset], defSearchResult, tokens);
 					handleSearchSignal(defSearchResult[defSearchIndex], false);
 				}
 			}

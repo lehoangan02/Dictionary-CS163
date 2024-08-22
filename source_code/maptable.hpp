@@ -104,7 +104,7 @@ std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& i
 // Sort by sum of positions
 
 int getSumPosition(TrieNode* pRoot, const std::string& keyWord, const std::vector<std::string>& InputTokens);
-int sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
+void sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
 
 // Invert Index the Trie
 // There are 2 overloading functions, the one with an extra boolean
