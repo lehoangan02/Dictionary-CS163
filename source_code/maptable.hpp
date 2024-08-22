@@ -100,7 +100,11 @@ void addWord(std::string& word, std::string& pos, std::string& definition, TrieN
 // Search by definition
 
 std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& invertedIndex);
-std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
+
+// Sort by sum of positions
+
+int getSumPosition(TrieNode* pRoot, const std::string& keyWord, const std::vector<std::string>& InputTokens);
+void sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
 
 // Invert Index the Trie
 // There are 2 overloading functions, the one with an extra boolean

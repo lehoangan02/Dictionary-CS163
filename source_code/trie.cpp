@@ -374,12 +374,12 @@ void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot)
 	if (keyWords.size() > 0)
 	{
 		size_t size = keyWords.size();
-		std::vector<int> compareVal(size);
+		std::vector<int> defLength(size);
 
 		for (size_t i = 0; i < size; ++i)
-			compareVal[i] = getDefLength(keyWords[i], pRoot);
+			defLength[i] = getDefLength(keyWords[i], pRoot);
 
-		mergeSort(keyWords, 0, size - 1, compareVal);
+		mergeSort(keyWords, 0, size - 1, defLength);
 	}
 }
 

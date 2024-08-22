@@ -498,54 +498,54 @@ std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& i
     return getVector(res);
 }
 
-std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens) {
-    int size = LengthSort.size();
-    std::string top = LengthSort[0];
-    int min = std::numeric_limits<int>::max(); // Use maximum int value for clarity
+int getSumPosition(TrieNode* pRoot, const std::string& keyWord, const std::vector<std::string>& InputTokens)
+{
+    std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, keyWord);
+    int minCount = std::numeric_limits<int>::max(); // Use maximum int value for clarity
 
-    for (int i = 0; i < size; ++i) { //for every element in vector after operating lengthsort
-        std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, LengthSort[i]);
-        int minCount = std::numeric_limits<int>::max(); // Use maximum int value for clarity
-        bool allTokensPresent = false;
+    for (const auto& pair : temp) { //for every definition in defvec of words
+        std::vector<std::string> tempVec = tokenize(pair.second);
+        int countdist = 0;
 
-        for (const auto& pair : temp) { //for every definition in defvec of words
-            std::vector<std::string> tempVec = tokenize(pair.second);
-            int countdist = 0;
-            int num = 0;
-
-            // Check if all tokens are present
-            for (auto token : InputTokens) { //for every token in InputTokens
-                bool found = false; //used for checking existance of each token in temp[i].second
-                for (int j = 0; j < tempVec.size(); ++j) {
-                    std::string temptoken = token;
-                    if (temptoken[0] > 'a' && temptoken[0] < 'z') temptoken[0] -= 32;
-                    if (tempVec[j] == token || tempVec[j] == temptoken) {
-                        countdist += j;
-                        found = true;
-                        break; // Stop searching for this token once found
-                    }
-                }
-                if (!found) {
-                    countdist = std::numeric_limits<int>::max(); // Invalidate this option
-                    break;
+        // Check if all tokens are present
+        for (auto token : InputTokens) { //for every token in InputTokens
+            bool found = false; //used for checking existance of each token in temp[i].second
+            for (int j = 0; j < tempVec.size(); ++j) {
+                std::string temptoken = token;
+                if (temptoken[0] > 'a' && temptoken[0] < 'z') temptoken[0] -= 32;
+                if (tempVec[j] == token || tempVec[j] == temptoken) {
+                    countdist += j;
+                    found = true;
+                    break; // Stop searching for this token once found
                 }
             }
-
-            // If all tokens are found, consider this candidate
-            if (countdist < minCount) {
-                minCount = countdist;
-                allTokensPresent = true;
+            if (!found) {
+                countdist = std::numeric_limits<int>::max(); // Invalidate this option
+                break;
             }
         }
 
-        // Update top if this is the best valid candidate
-        if (allTokensPresent && minCount < min) {
-            min = minCount;
-            top = LengthSort[i];
+        // If all tokens are found, consider this candidate
+        if (countdist < minCount) {
+            minCount = countdist;
         }
     }
 
-    return top;
+    return minCount;
+}
+
+void sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& keyWords, const std::vector<std::string>& InputTokens) 
+{
+    if (keyWords.size() > 0)
+    {
+        size_t size = keyWords.size();
+        std::vector<int> sumPosition(size);
+
+        for (size_t i = 0; i < size; ++i)
+            sumPosition[i] = getSumPosition(pRoot, keyWords[i], InputTokens);
+
+        mergeSort(keyWords, 0, size - 1, sumPosition);
+    }
 }
 
 void invertIndexTrieThread(TrieNode* pRoot, HashMap& invertedIndex, std::atomic<bool>& controlLoaded)
