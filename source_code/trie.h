@@ -74,10 +74,10 @@ std::vector <std::string> SuggestingWords(std::string word, TrieNode* pRoot);
 
 void SuggestHelper(std::string prefix, TrieNode* pRoot, int& count, std::vector<std::string>& collection);
 
-double getDefLength(std::string& word, TrieNode*& pRoot);
+int getDefLength(std::string& word, TrieNode*& pRoot);
 void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot);
-void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<double>& defLength);
-void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<double>& defLength);
+void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<int>& compareVal);
+void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<int>& compareVal);
 
 std::string randomWord4Def(std::vector<std::string>& word4Def);
 bool CheckWords(const std::string& word1, const std::string& word2);

@@ -354,7 +354,7 @@ void SuggestHelper(std::string prefix, TrieNode* pRoot, int& count, std::vector<
 	}
 }
 
-double getDefLength(std::string& word, TrieNode*& pRoot)
+int getDefLength(std::string& word, TrieNode*& pRoot)
 {
 	std::vector<std::pair<std::string, std::string>> defVec = traverseToSearch(pRoot, word);
 	
@@ -366,7 +366,7 @@ double getDefLength(std::string& word, TrieNode*& pRoot)
 	for (size_t i = 0; i < defVec.size(); ++i)
 		sumLength += defVec[i].second.length();
 
-	return static_cast<double>(sumLength) / defVec.size();
+	return sumLength / defVec.size();
 }
 
 void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot)
@@ -374,29 +374,29 @@ void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot)
 	if (keyWords.size() > 0)
 	{
 		size_t size = keyWords.size();
-		std::vector<double> defLength(size);
+		std::vector<int> compareVal(size);
 
 		for (size_t i = 0; i < size; ++i)
-			defLength[i] = getDefLength(keyWords[i], pRoot);
+			compareVal[i] = getDefLength(keyWords[i], pRoot);
 
-		mergeSort(keyWords, 0, size - 1, defLength);
+		mergeSort(keyWords, 0, size - 1, compareVal);
 	}
 }
 
-void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<double>& defLength) 
+void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<int>& compareVal) 
 {
     if (left < right) 
 	{
         size_t mid = (left + right) / 2;
 		
-        mergeSort(words, left, mid, defLength);
-        mergeSort(words, mid + 1, right, defLength);
+        mergeSort(words, left, mid, compareVal);
+        mergeSort(words, mid + 1, right, compareVal);
 
-        merge(words, left, mid, right, defLength);
+        merge(words, left, mid, right, compareVal);
     }
 }
 
-void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<double>& defLength) 
+void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<int>& compareVal) 
 {
 	size_t sizeLeft = mid - left + 1;
 	size_t sizeRight = right - mid;
@@ -404,18 +404,18 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	std::vector<std::string> leftVec(sizeLeft);
 	std::vector<std::string> rightVec(sizeRight);
 
-	std::vector<double> defLengthLeft(sizeLeft);
-	std::vector<double> defLengthRight(sizeRight);
+	std::vector<int> compareValLeft(sizeLeft);
+	std::vector<int> compareValRight(sizeRight);
 
 	for (size_t i = 0; i < sizeLeft; ++i)
 	{
 		leftVec[i] = words[left + i];
-		defLengthLeft[i] = defLength[left + i];
+		compareValLeft[i] = compareVal[left + i];
 	}
 	for (size_t i = 0; i < sizeRight; ++i)
 	{
 		rightVec[i] = words[mid + 1 + i];
-		defLengthRight[i] = defLength[mid + 1 + i];
+		compareValRight[i] = compareVal[mid + 1 + i];
 	}
 
 	size_t curPosLeft = 0, curPosRight = 0;
@@ -423,16 +423,16 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 
 	while (curPosLeft < sizeLeft && curPosRight < sizeRight) 
 	{
-		if (defLengthLeft[curPosLeft] < defLengthRight[curPosRight])
+		if (compareValLeft[curPosLeft] < compareValRight[curPosRight])
 		{
 			words[curPos] = leftVec[curPosLeft];
-			defLength[curPos] = defLengthLeft[curPosLeft];
+			compareVal[curPos] = compareValLeft[curPosLeft];
 			++curPosLeft;
 		} 
 		else 
 		{
 			words[curPos] = rightVec[curPosRight];
-			defLength[curPos] = defLengthRight[curPosRight];
+			compareVal[curPos] = compareValRight[curPosRight];
 			++curPosRight;
 		}
 		++curPos;
@@ -441,7 +441,7 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	while (curPosLeft < sizeLeft) 
 	{
 		words[curPos] = leftVec[curPosLeft];
-		defLength[curPos] = defLengthLeft[curPosLeft];
+		compareVal[curPos] = compareValLeft[curPosLeft];
 		++curPosLeft;
 		++curPos;
 	}
@@ -449,7 +449,7 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	while (curPosRight < sizeRight) 
 	{
 		words[curPos] = rightVec[curPosRight];
-		defLength[curPos] = defLengthRight[curPosRight];
+		compareVal[curPos] = compareValRight[curPosRight];
 		++curPosRight;
 		++curPos;
 	}
