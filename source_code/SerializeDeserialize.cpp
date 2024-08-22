@@ -132,6 +132,7 @@ void serializeBinary(TrieNode* pRoot, std::fstream& f, std::string& word)
 void serializeBinaryThread(TrieNode* pRoot, const int& fileNum, std::atomic<bool>& finished)
 {
 	serializeBinaryWrapper(pRoot, fileNum);
+	printf("[DEBUG] done serializing number %d\n", fileNum);
 	finished.store(true);
 }
 

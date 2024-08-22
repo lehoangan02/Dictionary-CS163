@@ -175,6 +175,9 @@ private:
     Button importButton;
     sf::Texture datasetTemplateTexture;
     Button quickImportButton[5];
+    sf::Texture resetTextureDef;
+    sf::Texture resetTextureHov;
+    Button resetButton;
 
     // "import file path" text
     sf::Texture importPromptTexture;

@@ -70,6 +70,11 @@ instance::instance() :
 	importTexClick(loadTexture("assets/images/ImportTexClick.png")),
 	importButton(importTexDef, importTexHov, importTexClick),
 
+	// reset button
+	resetTextureDef(loadTexture("assets/images/ResetDef.png")),
+	resetTextureHov(loadTexture("assets/images/ResetHov.png")),
+	resetButton(resetTextureDef, resetTextureHov),
+
 	// fonts
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
@@ -241,6 +246,8 @@ instance::instance() :
 	{
 		quickImportButton[i].setPosition(sf::Vector2u(160 - 20 + (20 + 65) * (i - 3), 418 + 85));
 	}
+	// set up reset button
+	resetButton.setPosition(sf::Vector2u(310 , 418 + 85));
 
 	// set up dataset option button
 	datasetButton.setTexture(loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
@@ -921,6 +928,68 @@ void instance::operatePage2()
 				loadDefinition = false;
 				std::cout << "[DEBUG] done loading!\n";
 			}
+			else if (resetButton.isClicked(windowInstance) && mouseControl)
+			{
+				auto startTime = std::chrono::high_resolution_clock::now();
+				for (int i = 0; i < 6; ++i)
+					deleteWholeTrie(trieRoot[i]);
+				
+				autoSave = true;
+				saveAutoSaveSetting();
+				history.clear();
+				std::ofstream fout; fout.open("settings/history.txt", std::ios::trunc);
+				fout.close();
+				deallocateLinkedList(pRootFavourite);
+				writeFavourite(pRootFavourite);
+				for (int i = 0; i < 6; ++i)
+				{
+					deleteWholeTrie(trieRoot[i]);
+					word4Def[i].clear();
+				}
+
+				windowInstance.setActive(false);
+
+				std::atomic<bool> finished[5]{false};
+
+				std::thread readDatasetThread[5] = {
+					std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
+					std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
+					std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
+					std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
+					std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4]))
+				};
+
+				loadingWrapper(windowInstance, finished, 5);
+
+				for (int i = 0; i < 5; ++i)
+				{
+					readDatasetThread[i].join();
+					finished[i].store(false);
+				}
+				std::thread serializeThread[5] = {
+					std::thread(serializeBinaryThread, trieRoot[0], 0, std::ref(finished[0])),
+					std::thread(serializeBinaryThread, trieRoot[1], 1, std::ref(finished[1])),
+					std::thread(serializeBinaryThread, trieRoot[2], 2, std::ref(finished[2])),
+					std::thread(serializeBinaryThread, trieRoot[3], 3, std::ref(finished[3])),
+					std::thread(serializeBinaryThread, trieRoot[4], 4, std::ref(finished[4]))
+				};
+
+				loadingWrapper(windowInstance, finished, 5);
+
+				for (int i = 0; i < 5; ++i)
+					serializeThread[i].join();
+
+				windowInstance.setActive(true);
+
+				readFavourite(pRootFavourite);
+				pCurrentFavourite = pRootFavourite;
+				loadedSave = true;
+
+				auto endTime = std::chrono::high_resolution_clock::now();
+				auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+				std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+				mouseControl = false;
+			}
 			else
 			{
 				for (int i = 0; i < 5; ++i)
@@ -1014,6 +1083,7 @@ void instance::operatePage2()
 		quickImportButton[i].hoverSwitchTexture(windowInstance);
 	}
 	hoverSubModes();
+	resetButton.hoverSwitchTexture(windowInstance);
 	importButton.hoverSwitchTexture(windowInstance);
 	importButton.click(windowInstance);
 }
@@ -1033,6 +1103,7 @@ void instance::drawPage2()
 	{
 		quickImportButton[i].draw(windowInstance);
 	}
+	resetButton.draw(windowInstance);
 	drawSubModes();
 	windowInstance.display();
 }
