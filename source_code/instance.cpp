@@ -1951,7 +1951,7 @@ void instance::operatePage9()
 					printf("[DEBUG] chose\n");
 				}
 			}
-			else if (nextPageButton.isClicked(windowInstance))
+			if (nextPageButton.isClicked(windowInstance))
 			{
 				if (definitionNum < (int)searchResult.size() - 1)
 				{
