@@ -1950,70 +1950,70 @@ void instance::operatePage9()
 					}
 					printf("[DEBUG] chose\n");
 				}
-				else if (nextPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum < (int)searchResult.size() - 1)
-					{
-						++definitionNum;
-						POSString = searchResult[definitionNum].first;
-						descriptionString = searchResult[definitionNum].second;
-						description.setString(descriptionString);
-						wrappedDescription = false;
-						scrollOffset = 0;
-					}
-				}
-				else if (prevPageButton.isClicked(windowInstance))
-				{
-					if (definitionNum > 0)
-					{
-						--definitionNum;
-						POSString = searchResult[definitionNum].first;
-						descriptionString = searchResult[definitionNum].second;
-						description.setString(descriptionString);
-						wrappedDescription = false;
-						scrollOffset = 0;
-					}
-				}
-				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
-				{
-					if (existInList(pRootFavourite, headWordString))
-					{
-						printf("turning off\n");
-						bookmarkButton.setMode(false);
-						if (pCurrentFavourite && pCurrentFavourite->pNext)
-						{
-							printf("[DEBUG] moving to favourite down\n");
-							pCurrentFavourite = pCurrentFavourite->pNext;
-						}
-						else if (pCurrentFavourite && pCurrentFavourite->pPrev)
-						{
-							printf("[DEBUG] moving to favourite up\n");
-							pCurrentFavourite = pCurrentFavourite->pPrev;
-						}
-						deleteNode(pRootFavourite, headWordString);
-						pCurrentFavourite = pRootFavourite;
-						writeFavourite(pRootFavourite);
-						if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
-						{
-							printf("[DEBUG] end displaying favourite\n");
-							displayDef = false;
-							// displayFavourite = false;
-						}
-						if (displayMode == DisplayMode::FAVOURITE)
-							handleFavourite();
-					}
-					else
-					{
-						bookmarkButton.setMode(true);
-						printf("[DEBUG] new favourite\n");
-						insertLinkedList(pRootFavourite, headWordString);
-						pCurrentFavourite = pRootFavourite;
-						writeFavourite(pRootFavourite);
-						// handleFavourite();
-					}
-				}
-				break;
 			}
+			else if (nextPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum < (int)searchResult.size() - 1)
+				{
+					++definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
+					description.setString(descriptionString);
+					wrappedDescription = false;
+					scrollOffset = 0;
+				}
+			}
+			else if (prevPageButton.isClicked(windowInstance))
+			{
+				if (definitionNum > 0)
+				{
+					--definitionNum;
+					POSString = searchResult[definitionNum].first;
+					descriptionString = searchResult[definitionNum].second;
+					description.setString(descriptionString);
+					wrappedDescription = false;
+					scrollOffset = 0;
+				}
+			}
+			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
+			{
+				if (existInList(pRootFavourite, headWordString))
+				{
+					printf("turning off\n");
+					bookmarkButton.setMode(false);
+					if (pCurrentFavourite && pCurrentFavourite->pNext)
+					{
+						printf("[DEBUG] moving to favourite down\n");
+						pCurrentFavourite = pCurrentFavourite->pNext;
+					}
+					else if (pCurrentFavourite && pCurrentFavourite->pPrev)
+					{
+						printf("[DEBUG] moving to favourite up\n");
+						pCurrentFavourite = pCurrentFavourite->pPrev;
+					}
+					deleteNode(pRootFavourite, headWordString);
+					pCurrentFavourite = pRootFavourite;
+					writeFavourite(pRootFavourite);
+					if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+					{
+						printf("[DEBUG] end displaying favourite\n");
+						displayDef = false;
+						// displayFavourite = false;
+					}
+					if (displayMode == DisplayMode::FAVOURITE)
+						handleFavourite();
+				}
+				else
+				{
+					bookmarkButton.setMode(true);
+					printf("[DEBUG] new favourite\n");
+					insertLinkedList(pRootFavourite, headWordString);
+					pCurrentFavourite = pRootFavourite;
+					writeFavourite(pRootFavourite);
+					// handleFavourite();
+				}
+			}
+			break;
 		}
 		case sf::Event::MouseWheelScrolled:
 		{
