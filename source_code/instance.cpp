@@ -981,8 +981,8 @@ void instance::operatePage2()
 
 				windowInstance.setActive(true);
 
+				readHistory(history);
 				readFavourite(pRootFavourite);
-				pCurrentFavourite = pRootFavourite;
 				loadedSave = true;
 
 				auto endTime = std::chrono::high_resolution_clock::now();
@@ -2827,18 +2827,33 @@ void instance::importDefaultDatasets()
 			std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
 			std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
 			std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
-			std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4])),
+			std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4]))
 		};
 
 		loadingWrapper(windowInstance, finished, 5);
 
 		for (int i = 0; i < 5; ++i)
+		{
 			readDatasetThread[i].join();
+			finished[i].store(false);
+		}
+		std::thread serializeThread[5] = {
+			std::thread(serializeBinaryThread, trieRoot[0], 0, std::ref(finished[0])),
+			std::thread(serializeBinaryThread, trieRoot[1], 1, std::ref(finished[1])),
+			std::thread(serializeBinaryThread, trieRoot[2], 2, std::ref(finished[2])),
+			std::thread(serializeBinaryThread, trieRoot[3], 3, std::ref(finished[3])),
+			std::thread(serializeBinaryThread, trieRoot[4], 4, std::ref(finished[4]))
+		};
+
+		loadingWrapper(windowInstance, finished, 5);
+
+		for (int i = 0; i < 5; ++i)
+			serializeThread[i].join();
 
 		windowInstance.setActive(true);
 
+		readHistory(history);
 		readFavourite(pRootFavourite);
-		pCurrentFavourite = pRootFavourite;
 		loadedSave = true;
 
 		auto endTime = std::chrono::high_resolution_clock::now();
