@@ -534,24 +534,18 @@ int getSumPosition(TrieNode* pRoot, const std::string& keyWord, const std::vecto
     return minCount;
 }
 
-int sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& keyWords, const std::vector<std::string>& InputTokens) 
+void sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& keyWords, const std::vector<std::string>& InputTokens) 
 {
-    int minIndex = 0;
     if (keyWords.size() > 0)
     {
         size_t size = keyWords.size();
         std::vector<int> sumPosition(size);
-        int minSum = INT_MAX;
+
         for (size_t i = 0; i < size; ++i)
-        {
             sumPosition[i] = getSumPosition(pRoot, keyWords[i], InputTokens);
-            if (sumPosition[i] < minSum) {
-                minSum = sumPosition[i];
-                minIndex = i;
-            }
-        }
+
+        mergeSort(keyWords, 0, size - 1, sumPosition);
     }
-    return minIndex;
 }
 
 void invertIndexTrieThread(TrieNode* pRoot, HashMap& invertedIndex, std::atomic<bool>& controlLoaded)
