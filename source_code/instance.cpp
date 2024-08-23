@@ -26,7 +26,7 @@ int instance::defSearchIndex = 0;
 std::vector<std::string> instance::defSearchResult;
 
 instance::instance() :
-	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
+	windowInstance(sf::VideoMode(960, 720), "Swift Def", sf::Style::Close),
 
 	// "mode" buttons
 	modeTexDef(loadTexture("assets/images/ModeTexDef.png")),
