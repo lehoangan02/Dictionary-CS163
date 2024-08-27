@@ -600,20 +600,22 @@ bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
     return true;
 }
 
-void removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+bool removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
-	removeWordRecursive(word, 0, pRoot, invertedIndex, word4Def);
+    return removeWordRecursive(word, 0, pRoot, invertedIndex, word4Def);
 }
 
-void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+bool removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
-	//base case
-	if (!pRoot)
-		return;
-	if (curIndex == word.size())  
-	{
-		if (pRoot->wordExisted) 
-		{
+    // Base case: if the current node is null, the word does not exist
+    if (!pRoot)
+        return false;
+
+    // If we've reached the end of the word
+    if (curIndex == word.size())
+    {
+        if (pRoot->wordExisted)
+        {
             // If word has >= 4 definitions, remove it from word4Def
             if (pRoot->definitions.size() >= 4)
             {
@@ -627,32 +629,44 @@ void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, H
                 }
             }
 
-			// Remove word from Inverted Index
-			for (auto& def : pRoot->definitions)
+            // Remove word from Inverted Index
+            for (auto& def : pRoot->definitions)
                 invertedIndex.removeWordDef(word, def.second);
 
-			// Remove word from Trie
-			pRoot->wordExisted = false;
-			pRoot->definitions.clear();
+            // Remove word from Trie
+            pRoot->wordExisted = false;
+            pRoot->definitions.clear();
 
-			//check whether it is the last node (delete) or prefix for other words.
-			if (isLeaf(pRoot)) 
-			{
-				delete pRoot;
-				pRoot = nullptr;
-			}
-		}
-		return;
-	}
+            // If the node is a leaf and not a prefix for other words, delete it
+            if (isLeaf(pRoot))
+            {
+                delete pRoot;
+                pRoot = nullptr;
+            }
 
-	int indexNext = int(word[curIndex]) - 32;
-	removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex, word4Def);
-	pRoot->countchildren--;
-	if (isLeaf(pRoot) && !pRoot->wordExisted)
-	{
-		delete pRoot;
-		pRoot = nullptr;
-	}
+            return true; // Word was found and removed
+        }
+        return false; // Word was not found
+    }
+
+    // Recursively remove the next character in the word
+    int indexNext = int(word[curIndex]) - 32;
+    bool childRemoved = removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex, word4Def);
+
+    // If the child was removed, decrement the count of children
+    if (childRemoved)
+    {
+        pRoot->countchildren--;
+
+        // If this node is now a leaf and does not represent a word, delete it
+        if (isLeaf(pRoot) && !pRoot->wordExisted)
+        {
+            delete pRoot;
+            pRoot = nullptr;
+        }
+    }
+
+    return childRemoved;
 }
 
 /// @brief this is unused, maybe it can be useful later

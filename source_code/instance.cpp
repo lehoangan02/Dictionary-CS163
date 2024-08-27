@@ -1542,24 +1542,27 @@ void instance::operatePage5()
 				deleteButtonClicked = true;
 				if (deleteWord != "")
 				{
-					removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
-					currentWordText.setString(deleteWord + " : has been deleted !");
-					definitionNum = 0;
-					getWordToDelete[curDataset] = false;
-					deleteWord = "";
-					if (autoSave)
+					if (removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]))
 					{
-						std::cout << "[DEBUG] auto save\n";
+						currentWordText.setString(" Deleted successfully !");
+						definitionNum = 0;
+						getWordToDelete[curDataset] = false;
+						deleteWord = "";
+						if (autoSave)
+						{
+							std::cout << "[DEBUG] auto save\n";
 
-						std::atomic<bool> controlLoaded[1]{ false };
-						windowInstance.setActive(false);
+							std::atomic<bool> controlLoaded[1]{ false };
+							windowInstance.setActive(false);
 
-						std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
-						loadingWrapper(windowInstance, controlLoaded, 1);
+							std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+							loadingWrapper(windowInstance, controlLoaded, 1);
 
-						serializeThread.join();
-						windowInstance.setActive(true);
+							serializeThread.join();
+							windowInstance.setActive(true);
+						}
 					}
+					else currentWordText.setString("  Word doesn't exist !");
 				}
 			}
 
@@ -1585,7 +1588,7 @@ void instance::operatePage5()
 					if (deleteWord != "")
 					{
 						removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
-						currentWordText.setString(deleteWord + " : has been deleted !");
+						currentWordText.setString("Deleted successfully !");
 						definitionNum = 0;
 						getWordToDelete[curDataset] = false;
 						deleteWord = "";
@@ -1658,6 +1661,8 @@ void instance::drawPage5()
 		windowInstance.draw(correctUserInput);
 	}
 
+
+
 	// Set the initial position for the button
 	deleteThisWordButton.setPosition(sf::Vector2u(290, 200));
 
@@ -1671,7 +1676,7 @@ void instance::drawPage5()
 	if (deleteButtonClicked)
 	{
 		sf::Vector2u currentWordTestPos = deleteThisWordButton.getPosition();
-		currentWordText.setPosition(currentWordTestPos.x, currentWordTestPos.y + 120);
+		currentWordText.setPosition(currentWordTestPos.x + 20, currentWordTestPos.y + 80);
 		windowInstance.draw(currentWordText);
 	}
 
