@@ -30,6 +30,7 @@ class Button
     Button(const sf::Texture& textureDefault, const sf::Texture& textureHover, const sf::Font& font,
     std::string textString, int characterSize);
     virtual void setPosition(sf::Vector2u position);
+    sf::Vector2u getPosition() const; // New method to get the position
     void draw(sf::RenderWindow& window);
     bool isClicked(const sf::RenderWindow& window);
     bool isHovering(const sf::RenderWindow& window);

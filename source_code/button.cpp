@@ -67,6 +67,11 @@ void Button::setPosition(sf::Vector2u position)
     buttonSprite.setPosition((float)position.x, (float)position.y);
     centerText();
 }
+// Implementing the new getPosition method
+sf::Vector2u Button::getPosition() const
+{
+    return buttonPosition;
+}
 void Button::draw(sf::RenderWindow& window)
 {
     window.draw(buttonSprite);

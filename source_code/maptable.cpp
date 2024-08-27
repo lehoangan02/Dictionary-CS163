@@ -636,7 +636,7 @@ void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, H
 			pRoot->definitions.clear();
 
 			//check whether it is the last node (delete) or prefix for other words.
-			if (!isLeaf(pRoot)) 
+			if (isLeaf(pRoot)) 
 			{
 				delete pRoot;
 				pRoot = nullptr;

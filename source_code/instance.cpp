@@ -16,6 +16,8 @@ instance::DisplayMode instance::displayMode = DisplayMode::SEARCH;
 int instance::definitionNum = 0;
 int instance::numberOfResult = 0;
 std::vector<std::pair<std::string, std::string>> instance::searchResult;
+std::string deleteWord;
+bool deleteButtonClicked = false;
 std::string instance::headWordString;
 std::string instance::POSString;
 std::string instance::descriptionString;
@@ -1454,6 +1456,7 @@ void instance::drawPage4()
 	drawSubModes();
 	windowInstance.display();
 }
+
 void instance::operatePage5()
 {
 	if (!loadAutoSave)
@@ -1462,18 +1465,6 @@ void instance::operatePage5()
 		loadAutoSave = true;
 	}
 
-	if (!getWordToDelete[curDataset])
-	{
-		if (headWordString != "")
-		{
-			currentWordText.setString("Current word: " + headWordString);
-		}
-		else
-		{
-			currentWordText.setString("No current word!");
-		}
-		getWordToDelete[curDataset] = true;
-	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -1486,23 +1477,81 @@ void instance::operatePage5()
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
-			if (deleteThisWordButton.isClicked(windowInstance) && mouseControl)
+			if (searchButton.isClicked(windowInstance) && mouseControl)
 			{
-				mouseControl = false;
-				if (headWordString != "")
+				showCorrection = false;
+				suggestionPanels.display = false;
+				printf("[DEBUG] suggestion panels off 111111111\n");
+				std::string temp = searchBox.getString();
+				deleteWord = temp;
+
+				//deletebuttonisclicked
+
+				std::string corrected = temp;
+				if (correction(corrected, trieRoot[curDataset]) && numberOfResult == 0)
 				{
-					// removeAllCase(headWordString, trieRoot[curDataset], word4Def[curDataset], invertedIndex[curDataset]);
-					removeWord(headWordString, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
-					headWordString = "";
+					showCorrection = true;
+					correctUserInputString = "Did you mean: " + corrected;
+					correctUserInput.setString(correctUserInputString);
+				}
+				//mouseControl = false;
+			}
+			else if (showCorrection && selectCorrectionButton.isClicked(windowInstance) && mouseControl)
+			{
+				showCorrection = false;
+				std::string temp = searchBox.getString();
+				if (correction(temp, trieRoot[curDataset]))
+				{
+					deleteWord = temp;
+					searchBox.setString(temp);
+					//deletebuttonisclicked
+				}
+				//mouseControl = false;
+			}
+			else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
+			{
+				printf("[DEBUG] suggestion panels on 2222222222222222\n");
+				suggestionPanels.display = true;
+				showCorrection = false;
+				//mouseControl = false;
+			}
+			else if (mouseControl)
+			{
+				for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
+				{
+					if (suggestionPanels.ButtonArray[i].isClicked(windowInstance) && suggestionPanels.display == true)
+					{
+						showCorrection = false;
+						suggestionPanels.display = false;
+						printf("[DEBUG] suggestion panels off\n");
+						std::string temp = suggestionPanels.buttonStrings[i];
+						deleteWord = temp;
+						searchBox.deselect();
+						searchBox.setString(temp);
+						//deletebuttonisclicked
+
+					}
+				}
+				// printf("[DEBUG] suggestion panels off la asdfasdf\n");
+				suggestionPanels.display = false;
+				//mouseControl = false;
+			}
+			
+			if (deleteThisWordButton.isClicked(windowInstance))
+			{
+				deleteButtonClicked = true;
+				if (deleteWord != "")
+				{
+					removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
+					currentWordText.setString(deleteWord + " : has been deleted !");
 					definitionNum = 0;
-					currentWordText.setString("No current word!");
 					getWordToDelete[curDataset] = false;
-					
+					deleteWord = "";
 					if (autoSave)
 					{
 						std::cout << "[DEBUG] auto save\n";
 
-						std::atomic<bool> controlLoaded[1]{false};
+						std::atomic<bool> controlLoaded[1]{ false };
 						windowInstance.setActive(false);
 
 						std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
@@ -1513,26 +1562,124 @@ void instance::operatePage5()
 					}
 				}
 			}
+
 			break;
 		}
+		case sf::Event::EventType::KeyPressed:
+		{
+			if (event.key.code == sf::Keyboard::Return)
+			{
+				printf("[DEBUG] enter pressed 3333333333333\n");
+				showCorrection = false;
+				suggestionPanels.display = false;
+				printf("[DEBUG] suggestion panels off 4444444444444\n");
+				std::string temp = searchBox.getString();
+
+				deleteWord = temp;
+				numberOfResult = traverseToSearch(trieRoot[curDataset], deleteWord).size();
+
+				//deletebuttonisclicked
+				if (deleteThisWordButton.isClicked(windowInstance))
+				{
+					deleteButtonClicked = true;
+					if (deleteWord != "")
+					{
+						removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
+						currentWordText.setString(deleteWord + " : has been deleted !");
+						definitionNum = 0;
+						getWordToDelete[curDataset] = false;
+						deleteWord = "";
+						if (autoSave)
+						{
+							std::cout << "[DEBUG] auto save\n";
+
+							std::atomic<bool> controlLoaded[1]{ false };
+							windowInstance.setActive(false);
+
+							std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+							loadingWrapper(windowInstance, controlLoaded, 1);
+
+							serializeThread.join();
+							windowInstance.setActive(true);
+						}
+					}
+				}
+
+				// user input correction
+				std::string corrected = temp;
+				if (correction(corrected, trieRoot[curDataset]) && numberOfResult == 0)
+				{
+					showCorrection = true;
+					correctUserInputString = "Did you mean: " + corrected;
+					correctUserInput.setString(correctUserInputString);
+				}
+			}
+			else if (searchBox.isSelected())
+			{
+				printf("[DEBUG] key pressed and suggestion panels on 5555555555\n");
+				suggestionPanels.display = true;
+				showCorrection = false;
+			}
+			break;
+		}
+		break;
 		default:
 			break;
 		}
+		datasetButton.handleIncrementLogic(event, windowInstance, switchedDataset);
+		searchBox.handleInputLogic(event, windowInstance);
+		suggestionPanels.update(event, searchBox.getString(false), trieRoot[curDataset], windowInstance, switchedDataset);
 	}
-	hoverSubModes();
+	searchButton.hoverSwitchTexture(windowInstance);
+	searchButton.click(windowInstance);
+	suggestionPanels.hoverswitchTexture(windowInstance);
+	if (showCorrection)
+	{
+		selectCorrectionButton.hoverSwitchTexture(windowInstance);
+	}
 	deleteThisWordButton.hoverSwitchTexture(windowInstance);
+	deleteThisWordButton.click(windowInstance);
+	hoverSubModes();
 	handleSwitchModeLogic();
+	switchPage();
 }
+
 void instance::drawPage5()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
+	searchBox.draw(windowInstance);
+	suggestionPanels.draw(windowInstance);
+	searchButton.draw(windowInstance);
+	datasetButton.draw(windowInstance);
+	if (showCorrection)
+	{
+		selectCorrectionButton.draw(windowInstance);
+		windowInstance.draw(correctUserInput);
+	}
+
+	// Set the initial position for the button
+	deleteThisWordButton.setPosition(sf::Vector2u(290, 200));
+
+	// Adjust the position specifically for deleteThisWordButton
+	sf::Vector2u DelButtonPos = deleteThisWordButton.getPosition();
+
+	// Move the button down by 50 pixels to avoid overlapping with the suggestion panel
+	deleteThisWordButton.setPosition(sf::Vector2u(DelButtonPos.x, DelButtonPos.y + 150));
+	deleteThisWordButton.draw(windowInstance);
+
+	if (deleteButtonClicked)
+	{
+		sf::Vector2u currentWordTestPos = deleteThisWordButton.getPosition();
+		currentWordText.setPosition(currentWordTestPos.x, currentWordTestPos.y + 120);
+		windowInstance.draw(currentWordText);
+	}
+
 	drawSwitchMode();
 	drawSubModes();
-	windowInstance.draw(currentWordText);
-	deleteThisWordButton.draw(windowInstance);
 	windowInstance.display();
 }
+
 void instance::operatePage6()
 {
 	if (!loadAutoSave)
@@ -1545,6 +1692,7 @@ void instance::operatePage6()
 	{
 		std::cout << "[DEBUG] Current word is: " << headWordString << std::endl;
 		std::cout << "Current definition num: " << definitionNum << std::endl;
+		currentWordText.setPosition(205, 73);
 		if (headWordString != "")
 		{
 			currentWordText.setString("Current word: " + headWordString);
@@ -1555,6 +1703,7 @@ void instance::operatePage6()
 		}
 		getWordToEdit[curDataset] = true;
 	}
+
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -1636,6 +1785,7 @@ void instance::drawPage6()
 	drawSubModes();
 	windowInstance.display();
 }
+
 void instance::operatePage7()
 {
 	if (!loadAutoSave)
@@ -2222,9 +2372,11 @@ void instance::switchPage()
 		{
 			if (page == 2 || (page >= 4 && page <= 8 && page != 5))
 			{
-				currentWordText.setPosition(280, 255 - 20);
+				//currentWordText.setPosition(280, 255 - 20);
 				printf("[DEBUG] changing to page 5\n");
 				page = 5;
+				currentWordText.setString(""); // Clear the text or set to a default value
+				deleteButtonClicked = false;   // Reset the delete button clicked flag
 				getWordToDelete[curDataset] = false;
 				pageChange = true;
 			}
@@ -2248,7 +2400,7 @@ void instance::switchPage()
 		{
 			if (page == 2 || (page >= 4 && page <= 8 && page != 6))
 			{
-				currentWordText.setPosition(205, 73);
+				//currentWordText.setPosition(205, 73);
 				POSBox.clear();
 				descriptionBox.clear();
 				printf("[DEBUG] changing to page 6\n");
