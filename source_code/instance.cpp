@@ -2037,8 +2037,14 @@ void instance::operatePage9()
 					congratulationsAnimation.resetAnimation();
 					std::cout << "CORRECT ANSWER\n";
 				}
-				else
+				else if (correction(temp, trieRoot[curDataset]))
 				{
+					correctAnswer = true;
+					wrongAnswer = false;
+					congratulationsAnimation.resetAnimation();
+					std::cout << "CORRECT ANSWER\n";
+				}
+				else {
 					wrongAnswer = true;
 					correctAnswer = false;
 				}
@@ -2744,6 +2750,7 @@ void instance::resetGameMode(int mode)
 	{
 	case 2:
 	{
+		gameSearchBox.clear();
 		correctAnswerString = "";
 		congratulationsAnimation.setPosition(sf::Vector2u(325, 287));
 		wrongAnswerSprite.setPosition(430, 260);
