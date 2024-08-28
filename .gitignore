@@ -151,3 +151,4 @@ serialized.bin
 Makefile
 .vscode/.easycpp
 /.vscode
+*.bin
