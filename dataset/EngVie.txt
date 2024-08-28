@@ -538,9 +538,12 @@ additional|tinh tu|them vao, phu vao, tang them (an additional charge + phan tie
 additive|danh tu|de cong vao, de them vao; vat de cong vao, vat de them vao; (ky thuat) chat cho them vao (vao dau may...).
 addle|tinh tu|lan, quan, roi tri (head addles + dau oc quan len); thoi, hong, ung (trung); lam lan, lam quan, lam roi oc (to addle one's brain (head) + lam roi oc, lam quan tri); lam thoi, lam hong, lam ung (hot weather addles eggs + troi nong lam trung bi hong); lan, quan, roi (tri oc); thoi, hong, ung (trung).
 addle-brained|tinh tu|dau oc lan quan, quan tri, roi tri.
-addle-head|danh tu|pate) ; nguoi dau oc lan quan.
-addle-pate|danh tu|pate) ; nguoi dau oc lan quan.
-address|ngoai dong tu|dia chi; bai noi chuyen, dien van; cach noi nang; tac phong luc noi chuyen; su kheo leo, su khon ngoan; (so nhieu) su ngo y, su to tinh, su tan tinh (to pay one's addresses to a lady + tan tinh mot ba, to tinh voi mot ba); (thuong nghiep) su gui di mot chuyen tau hang; de dia chi (to a letter + de dia chi tren mot buc thu); gui (to address a letter to somebody + gui mot buc thu cho ai); xung ho, goi (how to address an ambassador + xung ho nhu the nao voi mot dai su); noi voi, noi chuyen voi, dien thuyet truoc; viet cho (to oneself to someone + noi voi ai; viet (thu) cho ai) (to address an audience + noi voi thinh gia, dien thuyet truoc thinh gia); to address oneself to cham chu, toan tam toan y (to address oneself to a task + toan tam toan y voi nhiem vu); (the duc,the thao) nham (to address the ball + nham qua bong (truoc khi danh gon)).
+addle-head|danh tu|pate ; nguoi dau oc lan quan.
+addle-pate|danh tu|pate ; nguoi dau oc lan quan.
+address|danh tu|dia chi.
+address|danh tu|bai dien van.
+address|danh tu|cach noi nang; tac phong luc noi chuyen; su kheo leo, su khon ngoan. 
+address|ngoai dong tu|(so nhieu) su ngo y, su to tinh, su tan tinh (to pay one's addresses to a lady + tan tinh mot ba, to tinh voi mot ba); (thuong nghiep) su gui di mot chuyen tau hang; de dia chi (to a letter + de dia chi tren mot buc thu); gui (to address a letter to somebody + gui mot buc thu cho ai); xung ho, goi (how to address an ambassador + xung ho nhu the nao voi mot dai su); noi voi, noi chuyen voi, dien thuyet truoc; viet cho (to oneself to someone + noi voi ai; viet (thu) cho ai) (to address an audience + noi voi thinh gia, dien thuyet truoc thinh gia); to address oneself to cham chu, toan tam toan y (to address oneself to a task + toan tam toan y voi nhiem vu); (the duc,the thao) nham (to address the ball + nham qua bong (truoc khi danh gon)).
 addressee|danh tu|nguoi nhan (thu...).
 adduce|ngoai dong tu|vien, vien dan (ly le, thi du, bang chung...).
 adduceable|tinh tu|co the vien dan (ly le, thi du, bang chung...).
@@ -2892,7 +2895,10 @@ arrogance|danh tu|tinh kieu ngao, tinh kieu cang; ve ngao man.
 arrogant|tinh tu|kieu ngao, kieu cang; ngao man.
 arrogate|ngoai dong tu|yeu sach lao, doi bay (to arrogate something to oneself + yeu sach lao cho minh cai gi); nhan bay, chiem bay (cai gi...).
 arrogation|danh tu|su yeu sach lao, su doi bay; su nhan bay, su chiem bay.
-arrow|danh tu|ten, mui ten; vat hinh ten; con mot mui ten trong ong ten; (nghia bong) con phuong tien du tru.
+arrow|danh tu|ten; vat hinh ten; con mot mui ten trong ong ten. 
+arrow|danh tu|mot cay gay dai, mong, nhon o mot dau, co the ban tu cung.
+arrow|danh tu|mot dau hieu chi theo mot huong cu the.
+arrow|danh tu|(nghia bong) con phuong tien du tru.
 arrow-head|danh tu|dau mui ten.
 arrow-headed|tinh tu|hinh mui ten (arrow-headed characters + chu hinh mui ten).
 arrowroot|danh tu|(thuc vat hoc) cay hoang tinh, cay dong; bot hoang tinh, bot dong.
@@ -3880,7 +3886,10 @@ banality|danh tu|tinh chat tam thuong; tinh chat sao, tinh chat vo vi; dieu tam 
 banana|danh tu|(thuc vat hoc) cay chuoi; qua chuoi (a hand of banana + mot nai chuoi) (a bunch of banana + mot buong chuoi).
 banana oil|danh tu|dau chuoi.
 banana republic|danh tu|(co khi khinh) nuoc cong hoa nho be (o Chau my La-tinh).
-band|ngoai dong tu|dai, bang, dai, nep; dai dong gay sach; (so nhieu) dai co ao (thay tu, quan toa, vien si han lam...); (vat ly) dai bang (frequency band + dai tan so) (short-waved band + radio bang song ngan); buoc dai, buoc bang, dong dai; lam nep; ke, vach, gach; doan, toan, lu, bon, bay; dan nhac, ban nhac (string band + dan nhac dan day); khi ma tinh hinh tro nen nghiem trong; tu hop thanh doan, tu hop thanh toan, tu hop thanh bay.
+band|danh tu|dai, bang, dai, nep.
+band|danh tu|dai dong gay sach.
+band|danh tu|(so nhieu) dai co ao (thay tu, quan toa, vien si han lam...); (vat ly) dai bang (frequency band + dai tan so) (short-waved band + radio bang song ngan); buoc dai, buoc bang, dong dai; lam nep; ke, vach, gach; doan, toan, lu, bon, bay; dan nhac, ban nhac (string band + dan nhac dan day).
+band|ngoai dong tu|khi ma tinh hinh tro nen nghiem trong; tu hop thanh doan, tu hop thanh toan, tu hop thanh bay.
 band-wagon|danh tu|xe cho dan nhac di dieu hanh; (tu My,nghia My) phe co hy vong thang (trong cuoc tuyen cu) (to be in (to climb on, to get into) the band-wagon + cay cuc dung ve phe co hy vong thang (trong cuoc tuyen cu)).
 bandage|ngoai dong tu|bang (de bang vet thuong, bit mat...); bang bo.
 bandana|danh tu|khan ran, khan tay lon in hoa sac so.

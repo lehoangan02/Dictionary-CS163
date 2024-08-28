@@ -1993,14 +1993,14 @@ void instance::operatePage9()
 				if (trieRoot[curDataset])
 				{
 					int numWord = 0;
-					for (int i = 0; i < 500; ++i)
+					for (int i = 0; i < 1000; ++i)
 					{
 						std::pair<TrieNode*, std::string> random;
 						random.second = "";
 						random = pickarandomword(trieRoot[curDataset]);
 						std::cout << "The random word is: " << random.second << std::endl;
 						if (random.second == "")	displayDef = false;
-						else if (random.second != "")
+						else if (random.second != "" && random.second.size() <= 20) //for restricting the size of words to fit the displayed box
 						{
 							multipleChoices[numWord] = random.second;
 							++numWord;

@@ -1,5 +1,5 @@
- hk|sla.|hong kong; hostile kids
- mcr|sla.|my chemical romance (band)
+hk|sla.|hong kong; hostile kids
+mcr|sla.|my chemical romance (band)
 .44|sla.|.44 magnum
 .biz|sla.|top level domain for business
 .co|sla.|alternative to .com
