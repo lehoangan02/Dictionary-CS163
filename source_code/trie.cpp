@@ -63,7 +63,7 @@ void insert(TrieNode*& pRoot, std::string word, std::vector<std::pair<std::strin
 		cur = cur->childNode[int(c) - 32];
 	}
 
-	if (cur->wordExisted) ChangeCountChild(pRoot, word);
+	if (cur->wordExisted) revertCountChildren(pRoot, word);
 	else cur->wordExisted = true;
 
 	for (auto mean : definitions)
@@ -105,7 +105,7 @@ void insert(TrieNode*& pRoot, std::string& word, const std::string& pos, const s
 		cur = cur->childNode[int(c) - 32];
 	}
 
-	if (cur->wordExisted) ChangeCountChild(pRoot, word);
+	if (cur->wordExisted) revertCountChildren(pRoot, word);
 	else cur->wordExisted = true;
 
 	bool checkexist = false;
@@ -118,18 +118,16 @@ void insert(TrieNode*& pRoot, std::string& word, const std::string& pos, const s
 
 	if (!checkexist) cur->definitions.push_back({ pos, def });
 
-	//Change2Lowercase(word);
-
-	if (shouldAddWord(word4Def, word, pRoot)) {
+	if (shouldAddToWord4Def(word4Def, word, pRoot)) {
 		word4Def.push_back(word);
 	}
 }
 
-bool shouldAddWord(const std::vector<std::string>& word4Def, const std::string& word, TrieNode* pRoot) {
+bool shouldAddToWord4Def(const std::vector<std::string>& word4Def, const std::string& word, TrieNode* pRoot) {
 	return traverseToSearch(pRoot, word).size() >= 4 && (word4Def.empty() || word4Def.back() != word);
 }
 
-void ChangeCountChild(TrieNode*& pRoot, std::string word)
+void revertCountChildren(TrieNode*& pRoot, std::string word)
 {
 	TrieNode* cur = pRoot;
 	for (auto c : word) {
@@ -170,34 +168,6 @@ std::vector<std::pair<std::string, std::string>> Search(TrieNode* pRoot, std::st
 	}
 	return traverseToSearch(pRoot, word);
 	{
-	// std::cout << "Here are the definitions of the word: \n";
-	
-	// //first, updating the word to have characters (lowercase) which locate after blankspace and at first to uppercase 
-	// int length = word.length();
-	// for (int i = 0; i < length; ++i) {
-	// 	if (i == 0) //Traverse to search the for VieEng
-	// 	{
-	// 		collection1 = traverseToSearch(pRoot, word);
-	// 	}
-	// 	if ((i == 0 || (i - 1 >= 0 && word[i - 1] == ' ')) && std::islower(word[i])) {
-	// 		word[i] -= 32;
-	// 	}
-	// }
-	// // Traverse the trie to find the word (the first letter in each syllable in capital form)
-	// if (collection1.empty())
-	// 	collection2 = traverseToSearch(pRoot, word);
-	
-	// // Convert all the letters to lowercase
-	// Change2Lowercase(word);
-
-	// // Traverse the trie to find the word (the first letter in lowercase)
-	// collection3 = traverseToSearch(pRoot, word);
-
-	// Merge the two collections
-	// collectionLast.reserve(collection1.size() + collection2.size() + collection3.size());  // Pre-allocate memory
-	// collectionLast.insert(collectionLast.end(), collection1.begin(), collection1.end());
-	// collectionLast.insert(collectionLast.end(), collection2.begin(), collection2.end());
-	// collectionLast.insert(collectionLast.end(), collection3.begin(), collection3.end());
 	}
 
 	return collectionLast;
@@ -384,7 +354,7 @@ void SuggestHelper(std::string prefix, TrieNode* pRoot, int& count, std::vector<
 	}
 }
 
-double getDefLength(std::string& word, TrieNode*& pRoot)
+int getDefLength(std::string& word, TrieNode*& pRoot)
 {
 	std::vector<std::pair<std::string, std::string>> defVec = traverseToSearch(pRoot, word);
 	
@@ -396,7 +366,7 @@ double getDefLength(std::string& word, TrieNode*& pRoot)
 	for (size_t i = 0; i < defVec.size(); ++i)
 		sumLength += defVec[i].second.length();
 
-	return static_cast<double>(sumLength) / defVec.size();
+	return sumLength / defVec.size();
 }
 
 void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot)
@@ -404,7 +374,7 @@ void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot)
 	if (keyWords.size() > 0)
 	{
 		size_t size = keyWords.size();
-		std::vector<double> defLength(size);
+		std::vector<int> defLength(size);
 
 		for (size_t i = 0; i < size; ++i)
 			defLength[i] = getDefLength(keyWords[i], pRoot);
@@ -413,20 +383,20 @@ void sortByDefLength(std::vector<std::string>& keyWords, TrieNode*& pRoot)
 	}
 }
 
-void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<double>& defLength) 
+void mergeSort(std::vector<std::string>& words, size_t left, size_t right, std::vector<int>& compareVal) 
 {
     if (left < right) 
 	{
         size_t mid = (left + right) / 2;
 		
-        mergeSort(words, left, mid, defLength);
-        mergeSort(words, mid + 1, right, defLength);
+        mergeSort(words, left, mid, compareVal);
+        mergeSort(words, mid + 1, right, compareVal);
 
-        merge(words, left, mid, right, defLength);
+        merge(words, left, mid, right, compareVal);
     }
 }
 
-void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<double>& defLength) 
+void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t right, std::vector<int>& compareVal) 
 {
 	size_t sizeLeft = mid - left + 1;
 	size_t sizeRight = right - mid;
@@ -434,18 +404,18 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	std::vector<std::string> leftVec(sizeLeft);
 	std::vector<std::string> rightVec(sizeRight);
 
-	std::vector<double> defLengthLeft(sizeLeft);
-	std::vector<double> defLengthRight(sizeRight);
+	std::vector<int> compareValLeft(sizeLeft);
+	std::vector<int> compareValRight(sizeRight);
 
 	for (size_t i = 0; i < sizeLeft; ++i)
 	{
 		leftVec[i] = words[left + i];
-		defLengthLeft[i] = defLength[left + i];
+		compareValLeft[i] = compareVal[left + i];
 	}
 	for (size_t i = 0; i < sizeRight; ++i)
 	{
 		rightVec[i] = words[mid + 1 + i];
-		defLengthRight[i] = defLength[mid + 1 + i];
+		compareValRight[i] = compareVal[mid + 1 + i];
 	}
 
 	size_t curPosLeft = 0, curPosRight = 0;
@@ -453,16 +423,16 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 
 	while (curPosLeft < sizeLeft && curPosRight < sizeRight) 
 	{
-		if (defLengthLeft[curPosLeft] < defLengthRight[curPosRight])
+		if (compareValLeft[curPosLeft] < compareValRight[curPosRight])
 		{
 			words[curPos] = leftVec[curPosLeft];
-			defLength[curPos] = defLengthLeft[curPosLeft];
+			compareVal[curPos] = compareValLeft[curPosLeft];
 			++curPosLeft;
 		} 
 		else 
 		{
 			words[curPos] = rightVec[curPosRight];
-			defLength[curPos] = defLengthRight[curPosRight];
+			compareVal[curPos] = compareValRight[curPosRight];
 			++curPosRight;
 		}
 		++curPos;
@@ -471,7 +441,7 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	while (curPosLeft < sizeLeft) 
 	{
 		words[curPos] = leftVec[curPosLeft];
-		defLength[curPos] = defLengthLeft[curPosLeft];
+		compareVal[curPos] = compareValLeft[curPosLeft];
 		++curPosLeft;
 		++curPos;
 	}
@@ -479,7 +449,7 @@ void merge(std::vector<std::string>& words, size_t left, size_t mid, size_t righ
 	while (curPosRight < sizeRight) 
 	{
 		words[curPos] = rightVec[curPosRight];
-		defLength[curPos] = defLengthRight[curPosRight];
+		compareVal[curPos] = compareValRight[curPosRight];
 		++curPosRight;
 		++curPos;
 	}

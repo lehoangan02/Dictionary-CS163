@@ -152,3 +152,10 @@ Makefile
 .vscode/.easycpp
 /.vscode
 *.bin
+serialized0.bin
+serialized1.bin
+serialized2.bin
+serialized3.bin
+serialized4.bin
+serialized5.bin
+serialized5.bin

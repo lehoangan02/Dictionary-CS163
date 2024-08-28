@@ -16,15 +16,19 @@ instance::DisplayMode instance::displayMode = DisplayMode::SEARCH;
 int instance::definitionNum = 0;
 int instance::numberOfResult = 0;
 std::vector<std::pair<std::string, std::string>> instance::searchResult;
+std::string deleteWord;
+bool deleteButtonClicked = false;
 std::string instance::headWordString;
 std::string instance::POSString;
 std::string instance::descriptionString;
 SuggestionPanels instance::suggestionPanels;
 bool instance::displayDef = false;
 bool instance::showCorrection = false;
+int instance::defSearchIndex = 0;
+std::vector<std::string> instance::defSearchResult;
 
 instance::instance() :
-	windowInstance(sf::VideoMode(960, 720), "Dictionary, in a nutshell", sf::Style::Close),
+	windowInstance(sf::VideoMode(960, 720), "Swift Def", sf::Style::Close),
 
 	// "mode" buttons
 	modeTexDef(loadTexture("assets/images/ModeTexDef.png")),
@@ -68,12 +72,18 @@ instance::instance() :
 	importTexClick(loadTexture("assets/images/ImportTexClick.png")),
 	importButton(importTexDef, importTexHov, importTexClick),
 
+	// reset button
+	resetTextureDef(loadTexture("assets/images/ResetDef.png")),
+	resetTextureHov(loadTexture("assets/images/ResetHov.png")),
+	resetButton(resetTextureDef, resetTextureHov),
+
 	// fonts
 	PlayfairDisplay(loadFont("assets/font/PlayfairDisplay-VariableFont_wght.ttf")),
 	SourceSans3(loadFont("assets/font/SourceSans3-VariableFont_wght.ttf")),
 	micross(loadFont("assets/font/micross.ttf")),
 	PatuaOne(loadFont("assets/font/PatuaOne-Regular.ttf")),
 	Kanit(loadFont("assets/font/Kanit/Kanit-Medium.ttf")),
+	SourceSans3SemiBold(loadFont("assets/font/static/SourceSans3-SemiBold.ttf")),
 
 	// searchbox
 	searchBoxTexture(loadTexture("assets/images/SearchBox.png")),
@@ -90,6 +100,10 @@ instance::instance() :
 	CSVTextureDef(loadTexture("assets/images/CSV_FormatDefault.png")),
 	CSVTextureClick(loadTexture("assets/images/CSV_FormatSelected.png")),
 	CSVButton(CSVTextureDef, CSVTextureDef, CSVTextureClick, &TXTButton),
+
+	firstTimeTextureDef(loadTexture("assets/images/FirstTime.png")),
+	firstTimeTextureHov(loadTexture("assets/images/FirstTimeHov.png")),
+	firstTimeButton(firstTimeTextureDef, firstTimeTextureHov, SourceSans3SemiBold, "First time? Click to set up.", 48),
 
 	// Sub-mode button in settings
 	importModeDef(loadTexture("assets/images/ImportPageDef.png")),
@@ -180,8 +194,7 @@ instance::instance() :
 
 {
 	// Try to set framerate limit but seems to be slower
-	// windowInstance.setFramerateLimit(60);
-	
+	windowInstance.setFramerateLimit(60);
 	// reserve word4Def[i] for faster insert at the beginning
 	for (int i = 0; i < 5; ++i)
 		word4Def[i].reserve(1000);
@@ -210,6 +223,10 @@ instance::instance() :
 	importButton.setPosition(sf::Vector2u(715 - SHADOWHOR, 125));
 	historyButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 125));
 	favouriteButton.setPosition(sf::Vector2u(855 - SHADOWHOR, 210));
+	firstTimeButton.setPosition(sf::Vector2u(192 - SHADOWHOR, 327));
+	// firstTimeButton.buttonText.setStyle(sf::Text::Bold);
+	firstTimeButton.buttonText.setOutlineColor(sf::Color::Black);
+	firstTimeButton.buttonText.setOutlineThickness(2);
 
 	// set up quick import button
 	datasetTemplateTexture.loadFromFile("assets/images/DatasetTemplateTexture.png");
@@ -218,6 +235,11 @@ instance::instance() :
 	quickImportButton[2].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EV", 36);
 	quickImportButton[3].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "EM", 36);
 	quickImportButton[4].setUpHoverText(datasetTemplateTexture, datasetTemplateTexture, Kanit, "SL", 36);
+	for (int i = 0; i < 5; ++i)
+	{
+		quickImportButton[i].buttonText.setOutlineColor(sf::Color::Black);
+		quickImportButton[i].buttonText.setOutlineThickness(-2);
+	}
 	for (int i = 0; i < 3; ++i)
 	{
 		quickImportButton[i].setPosition(sf::Vector2u(160 - 20 + (20 + 65) * i, 418));
@@ -226,6 +248,8 @@ instance::instance() :
 	{
 		quickImportButton[i].setPosition(sf::Vector2u(160 - 20 + (20 + 65) * (i - 3), 418 + 85));
 	}
+	// set up reset button
+	resetButton.setPosition(sf::Vector2u(310 , 418 + 85));
 
 	// set up dataset option button
 	datasetButton.setTexture(loadTexture("assets/images/EEDefault.png"), loadTexture("assets/images/VEDefault.png"),
@@ -378,71 +402,6 @@ instance::instance() :
 
 void instance::operate()
 {
-	// if (!loadedSave)
-	// {
-	// 	auto startTime = std::chrono::high_resolution_clock::now();
-		
-	// 	for (int i = 0; i < 6; ++i)
-	// 		deleteWholeTrie(trieRoot[i]);
-	// 	if (!loadAutoSave)
-	// 	{
-	// 		loadAutoSaveSetting();
-	// 		loadAutoSave = true;
-	// 	}
-
-	// 	windowInstance.setActive(false);
-
-	// 	if (autoSave)
-	// 	{
-	// 		// std::thread loadAnimationThread(loadingWrapper, std::ref(windowInstance), std::ref(controlLoaded));
-	// 		std::atomic<bool> finished[6]{false};
-
-	// 		std::thread deserializeThread[6] = {
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0, std::ref(finished[0])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1, std::ref(finished[1])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2, std::ref(finished[2])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3, std::ref(finished[3])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4, std::ref(finished[4])),
-	// 			std::thread(deserializeBinaryThread, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5, std::ref(finished[5]))
-	// 		};
-
-	// 		loadingWrapper(windowInstance, finished, 6);
-
-	// 		for (int i = 0; i < 6; ++i)
-	// 			deserializeThread[i].join();
-
-	// 		// controlLoaded.store(true);
-	// 		// loadAnimationThread.join();
-	// 	}
-	// 	else
-	// 	{
-	// 		std::atomic<bool> finished[5]{false};
-
-	// 		std::thread readDatasetThread[5] = {
-	// 			std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
-	// 			std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
-	// 			std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
-	// 			std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
-	// 			std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4])),
-	// 		};
-
-	// 		loadingWrapper(windowInstance, finished, 5);
-
-	// 		for (int i = 0; i < 5; ++i)
-	// 			readDatasetThread[i].join();
-	// 	}
-
-	// 	windowInstance.setActive(true);
-
-	// 	readFavourite(pRootFavourite);
-	// 	pCurrentFavourite = pRootFavourite;
-	// 	loadedSave = true;
-
-	// 	auto endTime = std::chrono::high_resolution_clock::now();
-	// 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-	// 	std::cout << "Time taken to load: " << duration << "ms" << std::endl;
-	// }
-	
 	std::cout << "MAX: " << sf::Texture::getMaximumSize() << std::endl;
 	while (windowInstance.isOpen())
 	{
@@ -511,7 +470,15 @@ void instance::operate()
 
 void instance::operatePage1()
 {
-	// std::string temp;
+	if (firstTime[0])
+	{
+		std::ifstream fin; fin.open("settings/firstTime.txt");
+		fin >> firstTime[1]; fin.close(); printf("[DEBUG] first time check: %d\n", firstTime[1]);
+		firstTime[0] = false;
+		startupLoad();
+		std::ofstream fout; fout.open("settings/firstTime.txt");
+		fout << 0; fout.close();
+	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -526,7 +493,7 @@ void instance::operatePage1()
 				// printf("[DEBUG] mouse button pressed\n");
 				mouseControl = true;
 				// int option = suggestedcontent.returnmode(windowInstance);
-				if (searchButton.isClicked(windowInstance)) // static function
+				if (searchButton.isClicked(windowInstance) && mouseControl) // static function
 				{
 					showCorrection = false;
 					suggestionPanels.display = false;
@@ -536,7 +503,7 @@ void instance::operatePage1()
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
 					
-					handleSearchSignal(temp);
+					handleSearchSignal(temp, false);
 					if (searchResult.size() > 0)
 					{
 						history.push_back(temp);
@@ -550,8 +517,9 @@ void instance::operatePage1()
 						correctUserInputString = "Did you mean: " + corrected;
 						correctUserInput.setString(correctUserInputString);
 					}
+					mouseControl = false;
 				}
-				else if (historyButton.isClicked(windowInstance))
+				else if (historyButton.isClicked(windowInstance) && mouseControl)
 				{
                     if (!loadHistory)
                     {
@@ -560,8 +528,9 @@ void instance::operatePage1()
                     }
 					displayMode = DisplayMode::HISTORY;
 					handleHistory();
+					mouseControl = false;
 				}
-				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance))
+				else if (showCorrection && selectCorrectionButton.isClicked(windowInstance) && mouseControl)
 				{
 					showCorrection = false;
 					displayMode = DisplayMode::SEARCH;
@@ -572,9 +541,10 @@ void instance::operatePage1()
 					history.push_back(temp);
 					writeHistory(temp);
 					searchBox.setString(temp);
-					handleSearchSignal(temp);
+					handleSearchSignal(temp, false);
+					mouseControl = false;
 				}
-				else if (favouriteButton.isClicked(windowInstance))
+				else if (favouriteButton.isClicked(windowInstance) && mouseControl)
 				{
 					printf("[DEBUG] trying to display favourite\n");
 					if (pCurrentFavourite) 
@@ -586,6 +556,7 @@ void instance::operatePage1()
 					{
 						displayDef = false;
 					}
+					mouseControl = false;
 				}
 				else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
 				{
@@ -608,13 +579,13 @@ void instance::operatePage1()
 							std::string temp = suggestionPanels.buttonStrings[i];
 							history.push_back(temp);
 							writeHistory(temp);
-							handleSearchSignal(temp);
+							handleSearchSignal(temp, false);
 							headWordString = temp;
 							searchBox.deselect();
 							searchBox.setString(temp);
 						}
 					}
-					printf("[DEBUG] suggestion panels off la asdfasdf\n");
+					// printf("[DEBUG] suggestion panels off la asdfasdf\n");
 					suggestionPanels.display = false;
 					mouseControl = false;
 				}
@@ -734,6 +705,12 @@ void instance::operatePage1()
 						}
 					}
 				}
+				if (firstTime[1] && firstTimeButton.isClicked(windowInstance))
+				{
+					importDefaultDatasets();
+					firstTime[1] = false;
+				}
+				firstTime[1] = false;
 				break;
 			}
 			case sf::Event::EventType::KeyPressed:
@@ -748,7 +725,7 @@ void instance::operatePage1()
 					displayMode = DisplayMode::SEARCH;
 					historyIndex = 0;
 					std::string temp = searchBox.getString();
-					handleSearchSignal(temp);
+					handleSearchSignal(temp, false);
 					if (searchResult.size() > 0)
 					{
 						printf("There are result(s)\n");
@@ -821,6 +798,10 @@ void instance::operatePage1()
 	prevPageButton.click(windowInstance);
 	pageUpButton.click(windowInstance);
 	pageDownButton.click(windowInstance);
+	if (firstTime[1])
+	{
+		firstTimeButton.hoverSwitchTexture(windowInstance);
+	}
 	// std::cout << headWordString << std::endl;
 	if (existInList(pRootFavourite, headWordString))
 	{
@@ -842,6 +823,10 @@ void instance::drawPage1()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
+	if (firstTime[1])
+	{
+		firstTimeButton.draw(windowInstance);
+	}
 	datasetButton.draw(windowInstance);
 	searchButton.draw(windowInstance);
 	suggestionPanels.draw(windowInstance);
@@ -896,7 +881,7 @@ void instance::operatePage2()
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
 							importStatus.setString("Import Successful\n");
-							loadEmojiImage = (filepath == "UnicodeEmoji");
+							// loadEmojiImage = (filepath == "UnicodeEmoji");
 
 							if (autoSave)
 								serializeBinaryWrapper(trieRoot[5], 5);
@@ -915,7 +900,7 @@ void instance::operatePage2()
 							std::cout << "[DEBUG] import successful\n";
 							importStatus.setFillColor(sf::Color(128, 255, 0));
 							importStatus.setString("Import Successful\n");
-							loadEmojiImage = (filepath == "UnicodeEmoji");
+							// loadEmojiImage = (filepath == "UnicodeEmoji");
 
 							if (autoSave)
 								serializeBinaryWrapper(trieRoot[5], 5);
@@ -931,7 +916,7 @@ void instance::operatePage2()
 					{
 						importStatus.setFillColor(sf::Color(255, 153, 0));
 						importStatus.setString("Import Failed - Format not chosen\n");
-						loadEmojiImage = false;
+						// loadEmojiImage = false;
 					}
 
 					loadFinished[0].store(true);
@@ -945,12 +930,75 @@ void instance::operatePage2()
 				loadDefinition = false;
 				std::cout << "[DEBUG] done loading!\n";
 			}
+			else if (resetButton.isClicked(windowInstance) && mouseControl)
+			{
+				auto startTime = std::chrono::high_resolution_clock::now();
+				for (int i = 0; i < 6; ++i)
+					deleteWholeTrie(trieRoot[i]);
+				
+				autoSave = true;
+				saveAutoSaveSetting();
+				history.clear();
+				std::ofstream fout; fout.open("settings/history.txt", std::ios::trunc);
+				fout.close();
+				deallocateLinkedList(pRootFavourite);
+				writeFavourite(pRootFavourite);
+				for (int i = 0; i < 6; ++i)
+				{
+					deleteWholeTrie(trieRoot[i]);
+					word4Def[i].clear();
+				}
+
+				windowInstance.setActive(false);
+
+				std::atomic<bool> finished[5]{false};
+
+				std::thread readDatasetThread[5] = {
+					std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
+					std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
+					std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
+					std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
+					std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4]))
+				};
+
+				loadingWrapper(windowInstance, finished, 5);
+
+				for (int i = 0; i < 5; ++i)
+				{
+					readDatasetThread[i].join();
+					finished[i].store(false);
+				}
+				std::thread serializeThread[5] = {
+					std::thread(serializeBinaryThread, trieRoot[0], 0, std::ref(finished[0])),
+					std::thread(serializeBinaryThread, trieRoot[1], 1, std::ref(finished[1])),
+					std::thread(serializeBinaryThread, trieRoot[2], 2, std::ref(finished[2])),
+					std::thread(serializeBinaryThread, trieRoot[3], 3, std::ref(finished[3])),
+					std::thread(serializeBinaryThread, trieRoot[4], 4, std::ref(finished[4]))
+				};
+
+				loadingWrapper(windowInstance, finished, 5);
+
+				for (int i = 0; i < 5; ++i)
+					serializeThread[i].join();
+
+				windowInstance.setActive(true);
+
+				readHistory(history);
+				readFavourite(pRootFavourite);
+				loadedSave = true;
+
+				auto endTime = std::chrono::high_resolution_clock::now();
+				auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+				std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+				mouseControl = false;
+			}
 			else
 			{
 				for (int i = 0; i < 5; ++i)
 				{
 					if (quickImportButton[i].isClicked(windowInstance))
 					{
+						deleteWholeTrie(trieRoot[i]);
 						std::string filename;
 						switch (i)
 						{
@@ -1037,6 +1085,7 @@ void instance::operatePage2()
 		quickImportButton[i].hoverSwitchTexture(windowInstance);
 	}
 	hoverSubModes();
+	resetButton.hoverSwitchTexture(windowInstance);
 	importButton.hoverSwitchTexture(windowInstance);
 	importButton.click(windowInstance);
 }
@@ -1056,6 +1105,7 @@ void instance::drawPage2()
 	{
 		quickImportButton[i].draw(windowInstance);
 	}
+	resetButton.draw(windowInstance);
 	drawSubModes();
 	windowInstance.display();
 }
@@ -1111,6 +1161,9 @@ void instance::operatePage3()
 		// }
 		// loadDefinition = true;
 	}
+
+	displayMode = DisplayMode::DEF_SEARCH;
+
 	while (windowInstance.pollEvent(event))
 	{		
 		switch (event.type)
@@ -1127,84 +1180,105 @@ void instance::operatePage3()
 				std::string temp = searchBox.getString();
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
-				std::vector<std::string> result = searchByDef(tokens, invertedIndex[curDataset]);
-				sortByDefLength(result, trieRoot[curDataset]); 
+				defSearchResult = searchByDef(tokens, invertedIndex[curDataset]);
+				sortByDefLength(defSearchResult, trieRoot[curDataset]);
+				defSearchIndex = 0;
 				std::cout << "SORTED" << std::endl;
 				// for (auto word : result)
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				result.resize(6); // to get top 6 results
-				if (result.size() > 1)
-				{
-					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
-					handleSearchSignal(top);
-				}
-				else if (result.size() == 1) 
-				{
-					handleSearchSignal(result[0]);
-				}
-			}
-			else if (nextPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum < (int)searchResult.size() - 1)
-				{
-					++definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-					description.setString(descriptionString);
-					wrappedDescription = false;
-					scrollOffset = 0;
-				}
-			}
-			else if (prevPageButton.isClicked(windowInstance))
-			{
-				if (definitionNum > 0)
-				{
-					--definitionNum;
-					POSString = searchResult[definitionNum].first;
-					descriptionString = searchResult[definitionNum].second;
-					description.setString(descriptionString);
-					wrappedDescription = false;
-					scrollOffset = 0;
-				}
-			}
-			else if (bookmarkButton.isClicked(windowInstance) && displayDef)
-			{
-				if (existInList(pRootFavourite, headWordString))
-				{
-					printf("turning off\n");
-					bookmarkButton.setMode(false);
-					if (pCurrentFavourite && pCurrentFavourite->pNext)
-					{
-						printf("[DEBUG] moving to favourite down\n");
-						pCurrentFavourite = pCurrentFavourite->pNext;
-					}
-					else if (pCurrentFavourite && pCurrentFavourite->pPrev)
-					{
-						printf("[DEBUG] moving to favourite up\n");
-						pCurrentFavourite = pCurrentFavourite->pPrev;
-					}
-					deleteNode(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
-					{
-						printf("[DEBUG] end displaying favourite\n");
-						displayDef = false;
-						// displayFavourite = false;
-					}
-					if (displayMode == DisplayMode::FAVOURITE)	
-						handleFavourite();
-				}
+				if (defSearchResult.size() == 0)
+					displayDef = false;
 				else
 				{
-					bookmarkButton.setMode(true);
-					printf("[DEBUG] new favourite\n");
-					insertLinkedList(pRootFavourite, headWordString);
-					pCurrentFavourite = pRootFavourite;
-					writeFavourite(pRootFavourite);
-					// handleFavourite();
+					if (defSearchResult.size() > 6)
+					{
+						defSearchResult.resize(6); // to get top 6 results
+					}
+					sortBySumPosition(trieRoot[curDataset], defSearchResult, tokens);
+					handleSearchSignal(defSearchResult[defSearchIndex], false);
+				}
+			}
+			else if (displayDef)
+			{
+				if (nextPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum < (int)searchResult.size() - 1)
+					{
+						++definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
+						scrollOffset = 0;
+					}
+				}
+				else if (prevPageButton.isClicked(windowInstance))
+				{
+					if (definitionNum > 0)
+					{
+						--definitionNum;
+						POSString = searchResult[definitionNum].first;
+						descriptionString = searchResult[definitionNum].second;
+						description.setString(descriptionString);
+						wrappedDescription = false;
+						scrollOffset = 0;
+					}
+				}
+				else if (bookmarkButton.isClicked(windowInstance) && displayDef)
+				{
+					if (existInList(pRootFavourite, headWordString))
+					{
+						printf("turning off\n");
+						bookmarkButton.setMode(false);
+						if (pCurrentFavourite && pCurrentFavourite->pNext)
+						{
+							printf("[DEBUG] moving to favourite down\n");
+							pCurrentFavourite = pCurrentFavourite->pNext;
+						}
+						else if (pCurrentFavourite && pCurrentFavourite->pPrev)
+						{
+							printf("[DEBUG] moving to favourite up\n");
+							pCurrentFavourite = pCurrentFavourite->pPrev;
+						}
+						deleteNode(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						if (!pRootFavourite && displayMode == DisplayMode::FAVOURITE)
+						{
+							printf("[DEBUG] end displaying favourite\n");
+							displayDef = false;
+							// displayFavourite = false;
+						}
+						if (displayMode == DisplayMode::FAVOURITE)	
+							handleFavourite();
+					}
+					else
+					{
+						bookmarkButton.setMode(true);
+						printf("[DEBUG] new favourite\n");
+						insertLinkedList(pRootFavourite, headWordString);
+						pCurrentFavourite = pRootFavourite;
+						writeFavourite(pRootFavourite);
+						// handleFavourite();
+					}
+				}
+				else if (pageUpButton.isClicked(windowInstance))
+				{
+					if (defSearchIndex > 0)
+					{
+						--defSearchIndex;
+						handleSearchSignal(defSearchResult[defSearchIndex], false);
+					}
+				}
+				else if (pageDownButton.isClicked(windowInstance))
+				{
+					if (defSearchIndex < (int)defSearchResult.size() - 1)
+					{
+						++defSearchIndex;
+						handleSearchSignal(defSearchResult[defSearchIndex], false);
+					}
 				}
 			}
 		}
@@ -1231,22 +1305,24 @@ void instance::operatePage3()
 				std::string temp = searchBox.getString();
 				// Tokenize user's input
 				std::vector<std::string> tokens = tokenize(temp);
-				std::vector<std::string> result = searchByDef(tokens, invertedIndex[curDataset]);
-				sortByDefLength(result, trieRoot[curDataset]); 
+				defSearchResult = searchByDef(tokens, invertedIndex[curDataset]);
+				sortByDefLength(defSearchResult, trieRoot[curDataset]);
+				defSearchIndex = 0;
 				std::cout << "SORTED" << std::endl;
 				// for (auto word : result)
 				// {
 				// 	std::cout << word << std::endl;
 				// }
-				result.resize(6); // to get top 6 results
-				if (result.size() > 1)
+				if (defSearchResult.size() == 0)
+					displayDef = false;
+				else
 				{
-					std::string top = sortBySumPosition(trieRoot[curDataset], result, tokens);
-					handleSearchSignal(top);
-				}
-				else if (result.size() == 1) 
-				{
-					handleSearchSignal(result[0]);
+					if (defSearchResult.size() > 6)
+					{
+						defSearchResult.resize(6); // to get top 6 results
+					}
+					sortBySumPosition(trieRoot[curDataset], defSearchResult, tokens);
+					handleSearchSignal(defSearchResult[defSearchIndex], false);
 				}
 			}
 		}
@@ -1264,6 +1340,10 @@ void instance::operatePage3()
 	prevPageButton.hoverSwitchTexture(windowInstance);
 	nextPageButton.click(windowInstance);
 	prevPageButton.click(windowInstance);
+	pageUpButton.hoverSwitchTexture(windowInstance);
+	pageDownButton.hoverSwitchTexture(windowInstance);
+	pageUpButton.click(windowInstance);
+	pageDownButton.click(windowInstance);
 	if (existInList(pRootFavourite, headWordString))
 	{
 		// printf("[DEBUG] word is favourite\n");
@@ -1376,6 +1456,7 @@ void instance::drawPage4()
 	drawSubModes();
 	windowInstance.display();
 }
+
 void instance::operatePage5()
 {
 	if (!loadAutoSave)
@@ -1384,18 +1465,6 @@ void instance::operatePage5()
 		loadAutoSave = true;
 	}
 
-	if (!getWordToDelete[curDataset])
-	{
-		if (headWordString != "")
-		{
-			currentWordText.setString("Current word: " + headWordString);
-		}
-		else
-		{
-			currentWordText.setString("No current word!");
-		}
-		getWordToDelete[curDataset] = true;
-	}
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -1408,53 +1477,214 @@ void instance::operatePage5()
 		case sf::Event::MouseButtonPressed:
 		{
 			mouseControl = true;
-			if (deleteThisWordButton.isClicked(windowInstance) && mouseControl)
+			if (searchButton.isClicked(windowInstance) && mouseControl)
 			{
-				mouseControl = false;
-				if (headWordString != "")
+				showCorrection = false;
+				suggestionPanels.display = false;
+				printf("[DEBUG] suggestion panels off 111111111\n");
+				std::string temp = searchBox.getString();
+				deleteWord = temp;
+
+				//deletebuttonisclicked
+
+				std::string corrected = temp;
+				if (correction(corrected, trieRoot[curDataset]) && numberOfResult == 0)
 				{
-					// removeAllCase(headWordString, trieRoot[curDataset], word4Def[curDataset], invertedIndex[curDataset]);
-					removeWord(headWordString, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
-					headWordString = "";
-					definitionNum = 0;
-					currentWordText.setString("No current word!");
-					getWordToDelete[curDataset] = false;
-					
-					if (autoSave)
+					showCorrection = true;
+					correctUserInputString = "Did you mean: " + corrected;
+					correctUserInput.setString(correctUserInputString);
+				}
+				//mouseControl = false;
+			}
+			else if (showCorrection && selectCorrectionButton.isClicked(windowInstance) && mouseControl)
+			{
+				showCorrection = false;
+				std::string temp = searchBox.getString();
+				if (correction(temp, trieRoot[curDataset]))
+				{
+					deleteWord = temp;
+					searchBox.setString(temp);
+					//deletebuttonisclicked
+				}
+				//mouseControl = false;
+			}
+			else if (searchBox.isClicked(windowInstance) && searchBox.getString().size() > 0 && mouseControl)
+			{
+				printf("[DEBUG] suggestion panels on 2222222222222222\n");
+				suggestionPanels.display = true;
+				showCorrection = false;
+				//mouseControl = false;
+			}
+			else if (mouseControl)
+			{
+				for (int i = 0; i < suggestionPanels.numberOfButtons; ++i)
+				{
+					if (suggestionPanels.ButtonArray[i].isClicked(windowInstance) && suggestionPanels.display == true)
 					{
-						std::cout << "[DEBUG] auto save\n";
+						showCorrection = false;
+						suggestionPanels.display = false;
+						printf("[DEBUG] suggestion panels off\n");
+						std::string temp = suggestionPanels.buttonStrings[i];
+						deleteWord = temp;
+						searchBox.deselect();
+						searchBox.setString(temp);
+						//deletebuttonisclicked
 
-						std::atomic<bool> controlLoaded[1]{false};
-						windowInstance.setActive(false);
-
-						std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
-						loadingWrapper(windowInstance, controlLoaded, 1);
-
-						serializeThread.join();
-						windowInstance.setActive(true);
 					}
 				}
+				// printf("[DEBUG] suggestion panels off la asdfasdf\n");
+				suggestionPanels.display = false;
+				//mouseControl = false;
+			}
+			
+			if (deleteThisWordButton.isClicked(windowInstance))
+			{
+				deleteButtonClicked = true;
+				if (deleteWord != "")
+				{
+					if (removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]))
+					{
+						currentWordText.setString(" Deleted successfully !");
+						definitionNum = 0;
+						getWordToDelete[curDataset] = false;
+						deleteWord = "";
+						if (autoSave)
+						{
+							std::cout << "[DEBUG] auto save\n";
+
+							std::atomic<bool> controlLoaded[1]{ false };
+							windowInstance.setActive(false);
+
+							std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+							loadingWrapper(windowInstance, controlLoaded, 1);
+
+							serializeThread.join();
+							windowInstance.setActive(true);
+						}
+					}
+					else currentWordText.setString("  Word doesn't exist !");
+				}
+			}
+
+			break;
+		}
+		case sf::Event::EventType::KeyPressed:
+		{
+			if (event.key.code == sf::Keyboard::Return)
+			{
+				printf("[DEBUG] enter pressed 3333333333333\n");
+				showCorrection = false;
+				suggestionPanels.display = false;
+				printf("[DEBUG] suggestion panels off 4444444444444\n");
+				std::string temp = searchBox.getString();
+
+				deleteWord = temp;
+				numberOfResult = traverseToSearch(trieRoot[curDataset], deleteWord).size();
+
+				//deletebuttonisclicked
+				if (deleteThisWordButton.isClicked(windowInstance))
+				{
+					deleteButtonClicked = true;
+					if (deleteWord != "")
+					{
+						removeWord(deleteWord, trieRoot[curDataset], invertedIndex[curDataset], word4Def[curDataset]);
+						currentWordText.setString("Deleted successfully !");
+						definitionNum = 0;
+						getWordToDelete[curDataset] = false;
+						deleteWord = "";
+						if (autoSave)
+						{
+							std::cout << "[DEBUG] auto save\n";
+
+							std::atomic<bool> controlLoaded[1]{ false };
+							windowInstance.setActive(false);
+
+							std::thread serializeThread(serializeBinaryThread, std::ref(trieRoot[curDataset]), curDataset, std::ref(controlLoaded[0]));
+							loadingWrapper(windowInstance, controlLoaded, 1);
+
+							serializeThread.join();
+							windowInstance.setActive(true);
+						}
+					}
+				}
+
+				// user input correction
+				std::string corrected = temp;
+				if (correction(corrected, trieRoot[curDataset]) && numberOfResult == 0)
+				{
+					showCorrection = true;
+					correctUserInputString = "Did you mean: " + corrected;
+					correctUserInput.setString(correctUserInputString);
+				}
+			}
+			else if (searchBox.isSelected())
+			{
+				printf("[DEBUG] key pressed and suggestion panels on 5555555555\n");
+				suggestionPanels.display = true;
+				showCorrection = false;
 			}
 			break;
 		}
+		break;
 		default:
 			break;
 		}
+		datasetButton.handleIncrementLogic(event, windowInstance, switchedDataset);
+		searchBox.handleInputLogic(event, windowInstance);
+		suggestionPanels.update(event, searchBox.getString(false), trieRoot[curDataset], windowInstance, switchedDataset);
 	}
-	hoverSubModes();
+	searchButton.hoverSwitchTexture(windowInstance);
+	searchButton.click(windowInstance);
+	suggestionPanels.hoverswitchTexture(windowInstance);
+	if (showCorrection)
+	{
+		selectCorrectionButton.hoverSwitchTexture(windowInstance);
+	}
 	deleteThisWordButton.hoverSwitchTexture(windowInstance);
+	deleteThisWordButton.click(windowInstance);
+	hoverSubModes();
 	handleSwitchModeLogic();
+	switchPage();
 }
+
 void instance::drawPage5()
 {
 	windowInstance.clear();
 	windowInstance.draw(baseLayerSprite);
+	searchBox.draw(windowInstance);
+	suggestionPanels.draw(windowInstance);
+	searchButton.draw(windowInstance);
+	datasetButton.draw(windowInstance);
+	if (showCorrection)
+	{
+		selectCorrectionButton.draw(windowInstance);
+		windowInstance.draw(correctUserInput);
+	}
+
+
+
+	// Set the initial position for the button
+	deleteThisWordButton.setPosition(sf::Vector2u(290, 200));
+
+	// Adjust the position specifically for deleteThisWordButton
+	sf::Vector2u DelButtonPos = deleteThisWordButton.getPosition();
+
+	// Move the button down by 50 pixels to avoid overlapping with the suggestion panel
+	deleteThisWordButton.setPosition(sf::Vector2u(DelButtonPos.x, DelButtonPos.y + 150));
+	deleteThisWordButton.draw(windowInstance);
+
+	if (deleteButtonClicked)
+	{
+		sf::Vector2u currentWordTestPos = deleteThisWordButton.getPosition();
+		currentWordText.setPosition(currentWordTestPos.x + 20, currentWordTestPos.y + 80);
+		windowInstance.draw(currentWordText);
+	}
+
 	drawSwitchMode();
 	drawSubModes();
-	windowInstance.draw(currentWordText);
-	deleteThisWordButton.draw(windowInstance);
 	windowInstance.display();
 }
+
 void instance::operatePage6()
 {
 	if (!loadAutoSave)
@@ -1467,6 +1697,7 @@ void instance::operatePage6()
 	{
 		std::cout << "[DEBUG] Current word is: " << headWordString << std::endl;
 		std::cout << "Current definition num: " << definitionNum << std::endl;
+		currentWordText.setPosition(205, 73);
 		if (headWordString != "")
 		{
 			currentWordText.setString("Current word: " + headWordString);
@@ -1477,6 +1708,7 @@ void instance::operatePage6()
 		}
 		getWordToEdit[curDataset] = true;
 	}
+
 	while (windowInstance.pollEvent(event))
 	{
 		switch (event.type)
@@ -1558,6 +1790,7 @@ void instance::drawPage6()
 	drawSubModes();
 	windowInstance.display();
 }
+
 void instance::operatePage7()
 {
 	if (!loadAutoSave)
@@ -1733,7 +1966,7 @@ void instance::operatePage9()
 						random.second = "";
 						random = pickarandomword(trieRoot[curDataset]);
 						std::cout << "The random word is: " << random.second << std::endl;
-						handleSearchSignal(random.second);
+						handleSearchSignal(random.second, false);
 						if (random.second == "")	displayDef = false;
 						else if (random.second != "")
 						{
@@ -1748,11 +1981,10 @@ void instance::operatePage9()
 				gameMode = 2;
 				resetGameMode(2);
 				correctAnswerString = randomWord4Def(word4Def[curDataset]);
-				// Change2Lowercase(correctAnswerString);
 				std::cout << "[DEBUG] the correct answer is: " << correctAnswerString << std::endl;
 				std::cout << "word with 4 def: " << correctAnswerString << std::endl;
 				if (correctAnswerString != "")
-					handleSearchSignal(correctAnswerString);
+					handleSearchSignal(correctAnswerString, true);
 			}
 			else if (gameMode3rd.isClicked(windowInstance))
 			{
@@ -1792,7 +2024,7 @@ void instance::operatePage9()
 					answerButton3rd.setText(multipleChoices[2]);
 					answerButton4th.setText(multipleChoices[3]);
 
-					handleSearchSignal(correctAnswerString);
+					handleSearchSignal(correctAnswerString, false);
 				}
 			}
 			else if (checkAnswerButton.isClicked(windowInstance) && gameMode == 2)
@@ -1874,7 +2106,7 @@ void instance::operatePage9()
 					printf("[DEBUG] chose\n");
 				}
 			}
-			else if (nextPageButton.isClicked(windowInstance))
+			if (nextPageButton.isClicked(windowInstance))
 			{
 				if (definitionNum < (int)searchResult.size() - 1)
 				{
@@ -1965,7 +2197,7 @@ void instance::operatePage9()
 			break;
 		}
 		definitionView.setCenter(DEFINITION_WIDTH / 2 + description.getGlobalBounds().left, DEFINITION_HEIGHT / 2 + scrollOffset + description.getGlobalBounds().top);
-		gameSearchBox.handleInputLogic(event, windowInstance);
+		if (gameMode == 2) gameSearchBox.handleInputLogic(event, windowInstance);
 	}
 
 	moveKnight();
@@ -2093,6 +2325,8 @@ void instance::switchPage()
 				printf("[DEBUG] moving to page 3\n");
 				page = 3;
 				modeButtonActive = false;
+				defSearchIndex = 0;
+				defSearchResult.clear();
 				pageChange = true;
 			}
 		}
@@ -2143,9 +2377,11 @@ void instance::switchPage()
 		{
 			if (page == 2 || (page >= 4 && page <= 8 && page != 5))
 			{
-				currentWordText.setPosition(280, 255 - 20);
+				//currentWordText.setPosition(280, 255 - 20);
 				printf("[DEBUG] changing to page 5\n");
 				page = 5;
+				currentWordText.setString(""); // Clear the text or set to a default value
+				deleteButtonClicked = false;   // Reset the delete button clicked flag
 				getWordToDelete[curDataset] = false;
 				pageChange = true;
 			}
@@ -2169,7 +2405,7 @@ void instance::switchPage()
 		{
 			if (page == 2 || (page >= 4 && page <= 8 && page != 6))
 			{
-				currentWordText.setPosition(205, 73);
+				//currentWordText.setPosition(205, 73);
 				POSBox.clear();
 				descriptionBox.clear();
 				printf("[DEBUG] changing to page 6\n");
@@ -2281,7 +2517,7 @@ void instance::drawDefinition()
 	windowInstance.setView(definitionView);
 	windowInstance.draw(description);
 	windowInstance.setView(windowInstance.getDefaultView());
-	if (loadEmojiImage && POSString.substr(0, 14) == "emoji number: ")
+	if (/*loadEmojiImage &&*/ POSString.substr(0, 14) == "emoji number: ")
 	{
 		windowInstance.draw(emojiSprite);
 	}
@@ -2311,7 +2547,6 @@ void instance::drawDefinition()
 		}
 		break;
 	}
-
 	case (DisplayMode::FAVOURITE):
 	{
 		if (pCurrentFavourite->pPrev)
@@ -2329,7 +2564,24 @@ void instance::drawDefinition()
 		}
 		break;
 	}
+	case (DisplayMode::DEF_SEARCH):
+	{
+		if (defSearchIndex > 0)
+		{
+			pageUpButton.draw(windowInstance);
+		}
+		if (defSearchIndex < (int)defSearchResult.size() - 1)
+		{
+			pageDownButton.draw(windowInstance);
+		}
+		if (numberOfResult == 0)
+		{
+			// printf("[DEBUG] drawing error message\n");
 
+			windowInstance.draw(wordNotInThisDataSet);
+		}
+		break;
+	}
 	default:
 		break;
 	}
@@ -2376,13 +2628,14 @@ void instance::drawLoadingPage()
 	windowInstance.display();
 }
 
-void instance::handleSearchSignal(std::string input)
+void instance::handleSearchSignal(std::string input, bool isGameMode2)
 {
 	resetSearchResult();
 	std::cout << "[DEBUG] searching: " << input << std::endl;
 	searchResult = Search(trieRoot[curDataset], input);
 	numberOfResult = (int)searchResult.size();
 	std::cout << "[DEBUG] number of result is " << numberOfResult << std::endl;
+	if (isGameMode2) searchResult.resize(4);
 	if (numberOfResult > 0)
 	{
 		headWordString = input;
@@ -2400,9 +2653,9 @@ void instance::handleSearchSignal(std::string input)
 		wrappedDescription = false;
 	}
 	else	displayDef = false;
-	std::cout << "[DEBUG] emoji state is " << loadEmojiImage << std::endl;
-	if (loadEmojiImage)
-	{
+	// std::cout << "[DEBUG] emoji state is " << loadEmojiImage << std::endl;
+	// if (loadEmojiImage)
+	// {
 		if (POSString.substr(0, 14) != "emoji number: ");
 		else
 		{
@@ -2410,7 +2663,7 @@ void instance::handleSearchSignal(std::string input)
 			emojiTexture.setSmooth(true);
 			emojiSprite.setTexture(emojiTexture, true);
 		}
-	}
+	// }
 }
 
 void instance::handleHistory()
@@ -2420,7 +2673,7 @@ void instance::handleHistory()
 	{
 		std::string temp = history[history.size() - historyIndex - 1];
 		printf("[DEBUG] current history word is: %s\n", temp.c_str());
-		handleSearchSignal(temp);
+		handleSearchSignal(temp, false);
 		headWordString = temp;
 		std::cout << headWordString << std::endl;
 	}
@@ -2435,7 +2688,7 @@ void instance::handleFavourite()
 		{
 			std::string temp = pCurrentFavourite->data;
 			printf("[DEBUG] current favourite word is: %s\n", temp.c_str());
-			handleSearchSignal(temp);
+			handleSearchSignal(temp, false);
 			headWordString = temp;
 		}
 		else
@@ -2455,7 +2708,7 @@ void instance::initiateSearch()
 	historyIndex = 0;
 	pCurrentFavourite = pRootFavourite;
 	std::string temp = searchBox.getString();
-	handleSearchSignal(temp);
+	handleSearchSignal(temp, false);
 }
 
 void instance::setUpErrorText()
@@ -2638,7 +2891,12 @@ void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, c
             curDataset = 0;
 
         resetSearchResult();
-		displayMode = SEARCH;
+
+		if (displayMode == DisplayMode::HISTORY || displayMode == DisplayMode::FAVOURITE)
+			displayMode = SEARCH;
+
+		defSearchIndex = 0;
+		defSearchResult.clear();
 		displayDef = false;
 		switchedDataset = true;
     }
@@ -2649,4 +2907,114 @@ void instance::incrementalButton::handleIncrementLogic(const sf::Event& event, c
 int instance::incrementalButton::getNumber()
 {
     return curDataset;
+}
+
+void instance::startupLoad()
+{
+	if (firstTime[1])
+	{
+
+	}
+	else
+	{
+		auto startTime = std::chrono::high_resolution_clock::now();
+		for (int i = 0; i < 6; ++i)
+			deleteWholeTrie(trieRoot[i]);
+		if (!loadAutoSave)
+		{
+			loadAutoSaveSetting();
+			loadAutoSave = true;
+		}
+		if (!autoSave) return;
+		windowInstance.setActive(false);
+
+		
+		
+		std::atomic<bool> finished[6]{false};
+
+		std::thread deserializeThread[6] = {
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[0]), std::ref(word4Def[0]), 0, std::ref(finished[0])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[1]), std::ref(word4Def[1]), 1, std::ref(finished[1])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[2]), std::ref(word4Def[2]), 2, std::ref(finished[2])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[3]), std::ref(word4Def[3]), 3, std::ref(finished[3])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[4]), std::ref(word4Def[4]), 4, std::ref(finished[4])),
+			std::thread(deserializeBinaryThread, std::ref(trieRoot[5]), std::ref(word4Def[5]), 5, std::ref(finished[5]))
+		};
+
+		loadingWrapper(windowInstance, finished, 6);
+
+		for (int i = 0; i < 6; ++i)
+			deserializeThread[i].join();
+
+		// controlLoaded.store(true);
+		// loadAnimationThread.join();
+
+		windowInstance.setActive(true);
+
+		readFavourite(pRootFavourite);
+		pCurrentFavourite = pRootFavourite;
+		loadedSave = true;
+
+		auto endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+		std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+
+	}
+}
+
+void instance::importDefaultDatasets()
+{
+	if (firstTime[1])
+	{
+		auto startTime = std::chrono::high_resolution_clock::now();
+		for (int i = 0; i < 6; ++i)
+			deleteWholeTrie(trieRoot[i]);
+		if (!loadAutoSave)
+		{
+			loadAutoSaveSetting();
+			loadAutoSave = true;
+		}
+
+		windowInstance.setActive(false);
+
+		std::atomic<bool> finished[5]{false};
+
+		std::thread readDatasetThread[5] = {
+			std::thread(readDatasetCSVThread, std::string("OPTED-Dictionary"), std::ref(trieRoot[0]), std::ref(word4Def[0]), std::ref(finished[0])),
+			std::thread(readDatasetTXTThread, std::string("VieEng"), std::ref(trieRoot[1]), std::ref(word4Def[1]), std::ref(finished[1])),
+			std::thread(readDatasetTXTThread, std::string("EngVie"), std::ref(trieRoot[2]), std::ref(word4Def[2]), std::ref(finished[2])),
+			std::thread(readDatasetCSVThread, std::string("UnicodeEmoji"), std::ref(trieRoot[3]), std::ref(word4Def[3]), std::ref(finished[3])),
+			std::thread(readDatasetTXTThread, std::string("slang"), std::ref(trieRoot[4]), std::ref(word4Def[4]), std::ref(finished[4]))
+		};
+
+		loadingWrapper(windowInstance, finished, 5);
+
+		for (int i = 0; i < 5; ++i)
+		{
+			readDatasetThread[i].join();
+			finished[i].store(false);
+		}
+		std::thread serializeThread[5] = {
+			std::thread(serializeBinaryThread, trieRoot[0], 0, std::ref(finished[0])),
+			std::thread(serializeBinaryThread, trieRoot[1], 1, std::ref(finished[1])),
+			std::thread(serializeBinaryThread, trieRoot[2], 2, std::ref(finished[2])),
+			std::thread(serializeBinaryThread, trieRoot[3], 3, std::ref(finished[3])),
+			std::thread(serializeBinaryThread, trieRoot[4], 4, std::ref(finished[4]))
+		};
+
+		loadingWrapper(windowInstance, finished, 5);
+
+		for (int i = 0; i < 5; ++i)
+			serializeThread[i].join();
+
+		windowInstance.setActive(true);
+
+		readHistory(history);
+		readFavourite(pRootFavourite);
+		loadedSave = true;
+
+		auto endTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+		std::cout << "Time taken to load: " << duration << "ms" << std::endl;
+	}
 }

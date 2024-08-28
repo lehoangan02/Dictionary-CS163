@@ -42,6 +42,8 @@ private:
     bool autoSave = true;
     static int definitionNum;
     static std::vector<std::pair<std::string, std::string>> searchResult;
+    static int defSearchIndex;
+    static std::vector<std::string> defSearchResult;
     
     // for use later
     /* import mode error code
@@ -69,12 +71,13 @@ private:
     static int curDataset;
 
     // boolean to control loading
+    bool firstTime[2] = {true, false}; // first element is for checking the firstTime.txt file, second element is its result
     bool loadDefinition = false;
     bool loadHistory = false;
     long historyIndex = 0;
     // bool displayHistory = false;
     // bool displayFavourite = false;
-    bool loadEmojiImage = false;
+    // bool loadEmojiImage = false;
     bool getWordToDelete[6]{false};
     bool getWordToEdit[6]{false};
 
@@ -115,7 +118,6 @@ private:
     Button gameModeButton;
     sf::Texture emojiTexture;
     sf::Sprite emojiSprite;
-    // int emojiNumber;
 
     // dataset option button
     class incrementalButton : public Button
@@ -142,7 +144,8 @@ private:
     {
         SEARCH,
         HISTORY,
-        FAVOURITE
+        FAVOURITE,
+        DEF_SEARCH
     };
 
     static DisplayMode displayMode;
@@ -172,6 +175,9 @@ private:
     Button importButton;
     sf::Texture datasetTemplateTexture;
     Button quickImportButton[5];
+    sf::Texture resetTextureDef;
+    sf::Texture resetTextureHov;
+    Button resetButton;
 
     // "import file path" text
     sf::Texture importPromptTexture;
@@ -193,6 +199,12 @@ private:
     // import box
     sf::Texture importBoxTexture;
     textbox importBox;
+
+    // first time set up button
+    sf::Font SourceSans3SemiBold;
+    sf::Texture firstTimeTextureDef;
+    sf::Texture firstTimeTextureHov;
+    Button firstTimeButton;
 
     // dataset format boxes
     sf::Texture TXTTextureDef;
@@ -438,10 +450,12 @@ private:
     void saveAutoSaveSetting();
     static void resetSearchResult();
     void drawLoadingPage();
-    void handleSearchSignal(std::string input);
+    void handleSearchSignal(std::string input, bool isGameMode2);
     void handleHistory();
     void initiateSearch();
     void setUpErrorText();
     void handleFavourite();
     void setUpGameModeAnimation();
+    void importDefaultDatasets();
+    void startupLoad();
 };

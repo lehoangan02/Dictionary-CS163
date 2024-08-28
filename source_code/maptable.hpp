@@ -94,13 +94,17 @@ std::vector<std::string> tokenize(const std::string& input);
 HashTable getIntersection(HashTable& t1, HashTable& t2);
 std::vector<std::string> getVector(HashTable& table);
 bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::string, std::string>& newDef, TrieNode* pRoot, HashMap& invertedIndex);
-void removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
+bool removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 void addWord(std::string& word, std::string& pos, std::string& definition, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 
 // Search by definition
 
 std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& invertedIndex);
-std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
+
+// Sort by sum of positions
+
+int getSumPosition(TrieNode* pRoot, const std::string& keyWord, const std::vector<std::string>& InputTokens);
+void sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens);
 
 // Invert Index the Trie
 // There are 2 overloading functions, the one with an extra boolean
@@ -113,7 +117,7 @@ void invertIndexTrie(TrieNode*& pRoot, HashMap& invertedIndex);
 // Helper(s)
 
 void invertIndexTrieRecursive(TrieNode*& pRoot, HashMap& invertedIndex, std::string& curWord);
-void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
+bool removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def);
 
 
 

@@ -498,54 +498,54 @@ std::vector<std::string> searchByDef(std::vector<std::string> tokens, HashMap& i
     return getVector(res);
 }
 
-std::string sortBySumPosition(TrieNode* pRoot, const std::vector<std::string>& LengthSort, const std::vector<std::string>& InputTokens) {
-    int size = LengthSort.size();
-    std::string top = LengthSort[0];
-    int min = std::numeric_limits<int>::max(); // Use maximum int value for clarity
+int getSumPosition(TrieNode* pRoot, const std::string& keyWord, const std::vector<std::string>& InputTokens)
+{
+    std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, keyWord);
+    int minCount = std::numeric_limits<int>::max(); // Use maximum int value for clarity
 
-    for (int i = 0; i < size; ++i) { //for every element in vector after operating lengthsort
-        std::vector<std::pair<std::string, std::string>> temp = traverseToSearch(pRoot, LengthSort[i]);
-        int minCount = std::numeric_limits<int>::max(); // Use maximum int value for clarity
-        bool allTokensPresent = false;
+    for (const auto& pair : temp) { //for every definition in defvec of words
+        std::vector<std::string> tempVec = tokenize(pair.second);
+        int countdist = 0;
 
-        for (const auto& pair : temp) { //for every definition in defvec of words
-            std::vector<std::string> tempVec = tokenize(pair.second);
-            int countdist = 0;
-            int num = 0;
-
-            // Check if all tokens are present
-            for (auto token : InputTokens) { //for every token in InputTokens
-                bool found = false; //used for checking existance of each token in temp[i].second
-                for (int j = 0; j < tempVec.size(); ++j) {
-                    std::string temptoken = token;
-                    if (temptoken[0] > 'a' && temptoken[0] < 'z') temptoken[0] -= 32;
-                    if (tempVec[j] == token || tempVec[j] == temptoken) {
-                        countdist += j;
-                        found = true;
-                        break; // Stop searching for this token once found
-                    }
-                }
-                if (!found) {
-                    countdist = std::numeric_limits<int>::max(); // Invalidate this option
-                    break;
+        // Check if all tokens are present
+        for (auto token : InputTokens) { //for every token in InputTokens
+            bool found = false; //used for checking existance of each token in temp[i].second
+            for (int j = 0; j < tempVec.size(); ++j) {
+                std::string temptoken = token;
+                if (temptoken[0] > 'a' && temptoken[0] < 'z') temptoken[0] -= 32;
+                if (tempVec[j] == token || tempVec[j] == temptoken) {
+                    countdist += j;
+                    found = true;
+                    break; // Stop searching for this token once found
                 }
             }
-
-            // If all tokens are found, consider this candidate
-            if (countdist < minCount) {
-                minCount = countdist;
-                allTokensPresent = true;
+            if (!found) {
+                countdist = std::numeric_limits<int>::max(); // Invalidate this option
+                break;
             }
         }
 
-        // Update top if this is the best valid candidate
-        if (allTokensPresent && minCount < min) {
-            min = minCount;
-            top = LengthSort[i];
+        // If all tokens are found, consider this candidate
+        if (countdist < minCount) {
+            minCount = countdist;
         }
     }
 
-    return top;
+    return minCount;
+}
+
+void sortBySumPosition(TrieNode* pRoot, std::vector<std::string>& keyWords, const std::vector<std::string>& InputTokens) 
+{
+    if (keyWords.size() > 0)
+    {
+        size_t size = keyWords.size();
+        std::vector<int> sumPosition(size);
+
+        for (size_t i = 0; i < size; ++i)
+            sumPosition[i] = getSumPosition(pRoot, keyWords[i], InputTokens);
+
+        mergeSort(keyWords, 0, size - 1, sumPosition);
+    }
 }
 
 void invertIndexTrieThread(TrieNode* pRoot, HashMap& invertedIndex, std::atomic<bool>& controlLoaded)
@@ -600,20 +600,22 @@ bool editDefinition(std::string& word, size_t definitionNum, std::pair<std::stri
     return true;
 }
 
-void removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+bool removeWord(std::string& word, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
-	removeWordRecursive(word, 0, pRoot, invertedIndex, word4Def);
+    return removeWordRecursive(word, 0, pRoot, invertedIndex, word4Def);
 }
 
-void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
+bool removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, HashMap& invertedIndex, std::vector<std::string>& word4Def)
 {
-	//base case
-	if (!pRoot)
-		return;
-	if (curIndex == word.size())  
-	{
-		if (pRoot->wordExisted) 
-		{
+    // Base case: if the current node is null, the word does not exist
+    if (!pRoot)
+        return false;
+
+    // If we've reached the end of the word
+    if (curIndex == word.size())
+    {
+        if (pRoot->wordExisted)
+        {
             // If word has >= 4 definitions, remove it from word4Def
             if (pRoot->definitions.size() >= 4)
             {
@@ -627,32 +629,44 @@ void removeWordRecursive(std::string& word, size_t curIndex, TrieNode*& pRoot, H
                 }
             }
 
-			// Remove word from Inverted Index
-			for (auto& def : pRoot->definitions)
+            // Remove word from Inverted Index
+            for (auto& def : pRoot->definitions)
                 invertedIndex.removeWordDef(word, def.second);
 
-			// Remove word from Trie
-			pRoot->wordExisted = false;
-			pRoot->definitions.clear();
+            // Remove word from Trie
+            pRoot->wordExisted = false;
+            pRoot->definitions.clear();
 
-			//check whether it is the last node (delete) or prefix for other words.
-			if (!isLeaf(pRoot)) 
-			{
-				delete pRoot;
-				pRoot = nullptr;
-			}
-		}
-		return;
-	}
+            // If the node is a leaf and not a prefix for other words, delete it
+            if (isLeaf(pRoot))
+            {
+                delete pRoot;
+                pRoot = nullptr;
+            }
 
-	int indexNext = int(word[curIndex]) - 32;
-	removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex, word4Def);
-	pRoot->countchildren--;
-	if (isLeaf(pRoot) && !pRoot->wordExisted)
-	{
-		delete pRoot;
-		pRoot = nullptr;
-	}
+            return true; // Word was found and removed
+        }
+        return false; // Word was not found
+    }
+
+    // Recursively remove the next character in the word
+    int indexNext = int(word[curIndex]) - 32;
+    bool childRemoved = removeWordRecursive(word, curIndex + 1, pRoot->childNode[indexNext], invertedIndex, word4Def);
+
+    // If the child was removed, decrement the count of children
+    if (childRemoved)
+    {
+        pRoot->countchildren--;
+
+        // If this node is now a leaf and does not represent a word, delete it
+        if (isLeaf(pRoot) && !pRoot->wordExisted)
+        {
+            delete pRoot;
+            pRoot = nullptr;
+        }
+    }
+
+    return childRemoved;
 }
 
 /// @brief this is unused, maybe it can be useful later
